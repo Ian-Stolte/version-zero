@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465788, g: 0.49641287, b: 0.5748173, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4099,6 +4099,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextArea: Skyline Central
+  final: 0
 --- !u!65 &1297555924
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7249,6 +7250,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: fe28424ab410fba43b238741fb0b1e34, type: 2}
+    - target: {fileID: 1737050845160886129, guid: ed366113f1ef7954bba91e37b4256f57, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -5715649543781040474, guid: cea03bb5a6a5aa6439a2dea3515c313e, type: 3}
+    - target: {fileID: 1737050845160886129, guid: ed366113f1ef7954bba91e37b4256f57, type: 3}
+      propertyPath: m_Quality
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3045372034943755482, guid: ed366113f1ef7954bba91e37b4256f57, type: 3}
       propertyPath: hpBar
       value: 

@@ -147,12 +147,17 @@ public class PlayerMovement : MonoBehaviour
             float rotSpd = rotationSpeed;
             rb.MovePosition(rb.position + moveDir * spd * Time.deltaTime);
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDir), rotSpd * Time.deltaTime);
+            anim.SetBool("Moving", true);
+        }
+        else
+        {
+            anim.SetBool("Moving", false);
         }
 
 
         //COMPUTER FOLLOW
-        //get average direction of movement
-        Vector3 total = Vector3.zero;
+            //get average direction of movement
+            Vector3 total = Vector3.zero;
         foreach (Vector3 pos in lastPos)
             total += pos;
         diff = transform.position - total/lastPos.Count;
