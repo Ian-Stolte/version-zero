@@ -96,6 +96,7 @@ public class AggroEnemy : Enemy
     private IEnumerator Attack()
     {
         attacking = true;
+        GetComponent<Animator>().Play("Aggro_Attack");
         Vector3 target = player.transform.position + player.GetComponent<PlayerMovement>().moveDir*2 + (player.transform.position - transform.position).normalized * 2f;
         RaycastHit hit;
         Vector3 dir = (target - transform.position).normalized;

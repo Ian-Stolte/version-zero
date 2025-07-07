@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     [Header("Bools")]
     public bool scifiNames;
     public bool skipDialogue;
+    public bool noSpawn;
     [HideInInspector] public bool pauseGame;
     [HideInInspector] public bool playerPaused;
     [HideInInspector] public bool loadingLevel;
@@ -181,7 +182,7 @@ public class GameManager : MonoBehaviour
         if (scene.name != "End Screen")
         {
             int sceneNum = int.Parse(SceneManager.GetActiveScene().name.Substring(6));
-            if ((sceneNum > 3 && sceneNum != 6) || (sceneNum == 3 && runNum > 1) || scene.name.Contains("Final"))
+            if (((sceneNum > 3 && sceneNum != 6) || (sceneNum == 3 && runNum > 1) || scene.name.Contains("Final")) && !noSpawn)
             {
                 enemyTimer.gameObject.SetActive(true);
                 player.GetComponent<PlayerMovement>().hpBar.gameObject.SetActive(true);
