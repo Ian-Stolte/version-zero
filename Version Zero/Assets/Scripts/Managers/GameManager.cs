@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
     public KeyCode terminalBind;
     [SerializeField] private Transform terminalIcons;
     [SerializeField] private GameObject terminalIcon;
+    [SerializeField] private Material terminalGreen;
 
     [Header("Barrier")]
     [SerializeField] private Color unlockTextColor;
@@ -59,11 +60,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Material barrierUnlockBlue;
 
     [Header("Misc")]
-    private Transform player;
     public GameObject bossUI;
     [SerializeField] private GameObject loadingText;
     [SerializeField] private GameObject gameOver;
     private GameObject canvas;
+    private Transform player;
 
 
     void OnEnable()
@@ -192,6 +193,8 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                foreach (Transform child in enemyParent)
+                    Destroy(child.gameObject);
                 spawningEnemies = false;
                 enemyTimer.gameObject.SetActive(false);
             }
@@ -322,18 +325,26 @@ public class GameManager : MonoBehaviour
         playerPaused = false;
         AudioManager.Instance.Play("Terminal Activate");
         AudioManager.Instance.Stop("Terminal Charge");
-        if (currentTerminal.order == 0)
+        if (currentTerminal.screen != null)
         {
-            if (currentTerminal.dialogue.Length > 0)
-            {
-                DialogueManager.Instance.StopCoroutines();
-                DialogueManager.Instance.PlayMultiple(currentTerminal.dialogue);
-                //DialogueManager.Instance.playMultipleCor = DialogueManager.Instance.PlayMultipleDialogues();
-                //StartCoroutine(DialogueManager.Instance.playMultipleCor);
-            }
+            var mats = currentTerminal.screen.materials;
+            mats[1] = terminalGreen;
+            currentTerminal.screen.materials = mats;
+            foreach (MeshRenderer m in currentTerminal.bars)
+                m.material = terminalGreen;
         }
-        else
-            DialogueManager.Instance.PlayOrderedTerminal();
+        if (currentTerminal.order == 0)
+            {
+                if (currentTerminal.dialogue.Length > 0)
+                {
+                    DialogueManager.Instance.StopCoroutines();
+                    DialogueManager.Instance.PlayMultiple(currentTerminal.dialogue);
+                    //DialogueManager.Instance.playMultipleCor = DialogueManager.Instance.PlayMultipleDialogues();
+                    //StartCoroutine(DialogueManager.Instance.playMultipleCor);
+                }
+            }
+            else
+                DialogueManager.Instance.PlayOrderedTerminal();
 
         FinishTerminalIcon();
         numTerminals--;

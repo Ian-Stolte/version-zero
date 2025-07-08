@@ -6,6 +6,8 @@ public class Terminal : MonoBehaviour
 {
     [SerializeField] private float activateDist;
     [SerializeField] private GameObject activateTxt;
+    public MeshRenderer screen;
+    public MeshRenderer[] bars;
     [HideInInspector] public bool complete;
     
     public Transform barrier;
