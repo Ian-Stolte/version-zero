@@ -193,10 +193,13 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                foreach (Transform child in enemyParent)
-                    Destroy(child.gameObject);
                 spawningEnemies = false;
                 enemyTimer.gameObject.SetActive(false);
+                if (scene.name != "Level 6")
+                {
+                    foreach (Transform child in enemyParent)
+                       Destroy(child.gameObject);
+                }
             }
         }
     }
