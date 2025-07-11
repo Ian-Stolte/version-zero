@@ -212,7 +212,7 @@ public class DialogueManager : MonoBehaviour
                     float fadeTime = (skip) ? 6 : 10;
                     Fader.Instance.FadeOut(fadeTime);
                     AudioManager.Instance.Play("Area 1");
-                    StartCoroutine(AudioManager.Instance.StartFade("Area 1", 0.5f, 0.2f));
+                    StartCoroutine(AudioManager.Instance.StartFade("Area 1", 0.5f, 0.25f));
                 }
                 else if (i == dialogueToPlay.Length - 1)
                 {
