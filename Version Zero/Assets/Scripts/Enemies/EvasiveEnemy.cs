@@ -119,7 +119,7 @@ public class EvasiveEnemy : Enemy
                 angle = Mathf.Lerp(-30f, 30f, (float)i / (numProjectiles - 1));
             Vector3 rotatedDir = Quaternion.Euler(0, angle, 0) * dir;
 
-            GameObject proj = Instantiate(projPrefab, transform.position + rotatedDir * 0.5f, Quaternion.LookRotation(rotatedDir));
+            GameObject proj = Instantiate(projPrefab, transform.position + rotatedDir * 0.5f + new Vector3(0, 0.5f, 0), Quaternion.LookRotation(rotatedDir));
             var projectile = proj.GetComponent<Projectile>();
             projectile.dmg = dmg;
             projectile.dir = rotatedDir;
