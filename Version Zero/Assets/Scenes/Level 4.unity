@@ -244,6 +244,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activateDist: 4
   activateTxt: {fileID: 1485506045}
+  screen: {fileID: 0}
+  bars: []
   complete: 0
   barrier: {fileID: 564916156}
   hiddenRoom: []
@@ -1483,6 +1485,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activateDist: 4
   activateTxt: {fileID: 1286547836}
+  screen: {fileID: 0}
+  bars: []
   complete: 0
   barrier: {fileID: 1588410855}
   hiddenRoom: []
@@ -2519,6 +2523,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activateDist: 4
   activateTxt: {fileID: 465437357}
+  screen: {fileID: 0}
+  bars: []
   complete: 0
   barrier: {fileID: 1588410855}
   hiddenRoom: []
@@ -4393,7 +4399,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d7e50d13d0324334aaabba7491ec5872, type: 2}
+  - {fileID: 2100000, guid: ec7cdf578cd821c499a6bdf2aa0ed1e0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6048,7 +6054,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d7e50d13d0324334aaabba7491ec5872, type: 2}
+  - {fileID: 2100000, guid: ecb6263bf24cbb44d98285666428bd21, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
