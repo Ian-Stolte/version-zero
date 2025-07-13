@@ -16,20 +16,27 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public float stunTimer;
     [HideInInspector] public float slowTimer;
 
+    [Header("Pathfinding")]
+    [SerializeField] private Pathfinding pathGrid;
+    public bool pathReady;
+    private Vector3 moveTarget;
+    private Vector3[] path;
+    private int waypointIndex;
+
     [Header("Canvas")]
     public Image healthBar;
     [SerializeField] private TextMeshProUGUI statusTxt;
     [SerializeField] private GameObject damageNumber;
 
-    [Header("References")]
-    public Animator anim;
-    [HideInInspector] public Rigidbody rb;
-    [HideInInspector] public GameObject player;
-
     [Header("Mark")]
     [SerializeField] private GameObject mark;
     private int markDmg;
     private float markTimer;
+
+    [Header("References")]
+    public Animator anim;
+    [HideInInspector] public Rigidbody rb;
+    [HideInInspector] public GameObject player;
 
     [Header("Materials")]
     [SerializeField] private Material damageMat;
@@ -46,6 +53,7 @@ public class Enemy : MonoBehaviour
         health = maxHealth;
         rb = GetComponent<Rigidbody>();
         player = GameObject.Find("Player");
+        pathGrid = GameObject.Find("Pathfinding Grid").GetComponent<Pathfinding>(); //TODO: make this better
 
         //cache material refs
         foreach (Transform child in GetComponentsInChildren<Transform>(true))
@@ -66,7 +74,7 @@ public class Enemy : MonoBehaviour
         if (!GameManager.Instance.pauseGame)
         {
             stunTimer -= Time.deltaTime;
-            slowTimer -= Time.deltaTime;   
+            slowTimer -= Time.deltaTime;
             anim.SetBool("Stunned", stunTimer > 0);
             if (stunTimer > 0)
                 statusTxt.text = "stunned_";
@@ -87,6 +95,10 @@ public class Enemy : MonoBehaviour
     }
 
 
+
+    //
+    //TAKING DAMAGE
+    //
 
     public IEnumerator ApplyBurn(int burn, int ticks)
     {
@@ -128,7 +140,7 @@ public class Enemy : MonoBehaviour
             Enemy script = e.GetComponent<Enemy>();
             Vector3 dir = e.transform.position - transform.position;
             float dist = Vector3.Distance(e.transform.position, transform.position);
-            if (dist < script.aggroRange/2 && !Physics.Raycast(transform.position, dir, dist, LayerMask.GetMask("Ground")))
+            if (dist < script.aggroRange / 2 && !Physics.Raycast(transform.position, dir, dist, LayerMask.GetMask("Ground")))
             {
                 script.TakeDamage(0);
             }
@@ -150,7 +162,7 @@ public class Enemy : MonoBehaviour
             }
         }
         aggro = true;
-        healthBar.fillAmount = health/(maxHealth*1.0f);
+        healthBar.fillAmount = health / (maxHealth * 1.0f);
         if (health <= 0)
         {
             //play death anim
@@ -158,7 +170,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public IEnumerator TakeDamageFlash(bool clear=false)
+    public IEnumerator TakeDamageFlash(bool clear = false)
     {
         if (!clear)
         {
@@ -175,7 +187,7 @@ public class Enemy : MonoBehaviour
         }
         else
             yield return null;
-            
+
         // Restore original materials
         for (int i = 0; i < meshRenderers.Count; i++)
         {
@@ -184,7 +196,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-
     private IEnumerator FadeText(GameObject txt, float duration, Vector2 dir)
     {
         Vector2 origScale = txt.transform.localScale;
@@ -192,7 +203,7 @@ public class Enemy : MonoBehaviour
         while (elapsed < 0.3f)
         {
             txt.GetComponent<RectTransform>().anchoredPosition += Time.deltaTime * dir;
-            txt.GetComponent<CanvasGroup>().alpha = elapsed/0.3f;
+            txt.GetComponent<CanvasGroup>().alpha = elapsed / 0.3f;
             elapsed += Time.deltaTime;
             yield return null;
         }
@@ -200,11 +211,62 @@ public class Enemy : MonoBehaviour
         while (elapsed < duration)
         {
             txt.GetComponent<RectTransform>().anchoredPosition += Time.deltaTime * dir;
-            txt.GetComponent<CanvasGroup>().alpha = Mathf.Lerp(1, 0.5f, elapsed/duration);
-            txt.transform.localScale = origScale * Mathf.Lerp(1, 0.75f, elapsed/duration);
+            txt.GetComponent<CanvasGroup>().alpha = Mathf.Lerp(1, 0.5f, elapsed / duration);
+            txt.transform.localScale = origScale * Mathf.Lerp(1, 0.75f, elapsed / duration);
             elapsed += Time.deltaTime;
             yield return null;
         }
         Destroy(txt);
+    }
+
+
+
+    //
+    //PATHFINDING
+    //
+
+    public void OnPathFound(Vector3[] newPath, bool successful)
+    {
+        if (successful)
+        {
+            path = newPath;
+            pathReady = true;
+            waypointIndex = 0;
+        }
+    }
+
+    public void MoveTo(Vector3 pos, float speed)
+    {
+        if (Vector3.Distance(pos, moveTarget) > 0.5f)
+        {
+            moveTarget = pos;
+            StartCoroutine(pathGrid.FindPath(transform.position, pos, false, OnPathFound, false));
+            //RequestManager.RequestPath(transform.position, player.position, false, OnPathFound);
+        }
+
+        if (pathReady)
+            FollowPath(speed);
+    }
+
+    private void FollowPath(float speed)
+    {
+        if (path.Length > 0)
+        {
+            if (Vector2.Distance(transform.position, path[waypointIndex]) < 0.5f)
+            {
+                waypointIndex++;
+            }
+            if (waypointIndex >= path.Length)
+            {
+                Debug.Log("Reached player!!");
+                pathReady = false;
+            }
+            else
+            {
+                Vector3 dir = Vector3.Scale(player.transform.position - transform.position, new Vector3(1, 0, 1)).normalized;
+                transform.rotation = Quaternion.LookRotation(dir);
+                rb.MovePosition(rb.position + (path[waypointIndex]-transform.position).normalized * speed * Time.deltaTime);
+            }
+        }
     }
 }

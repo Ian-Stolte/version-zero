@@ -301,7 +301,6 @@ public class StartupManager : MonoBehaviour
         for (int i = 0; i < failtext.Length; i++)
         {
             yield return SpawnText(failtext[i] + failcodes[i]);
-            int charsTyped = 0;
             untranslated = "";
             translated = "";
             for (int j = 0; j < failtext[i].Length; j++)

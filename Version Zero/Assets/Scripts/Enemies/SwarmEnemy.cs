@@ -36,13 +36,14 @@ public class SwarmEnemy : Enemy
 
             //look at player
             Vector3 dir = Vector3.Scale(player.transform.position - transform.position, new Vector3(1, 0, 1)).normalized;
-            transform.rotation = Quaternion.LookRotation(dir);
+            //transform.rotation = Quaternion.LookRotation(dir);
 
             //move
             float speed = (slowTimer > 0) ? defSpeed*0.3f : defSpeed;
             if (dist > meleeRange)
             {
-                rb.MovePosition(rb.position + transform.forward * speed * Time.deltaTime);
+                //rb.MovePosition(rb.position + transform.forward * speed * Time.deltaTime);
+                MoveTo(player.transform.position, speed);
             }
 
             //attack

@@ -75,7 +75,7 @@ MonoBehaviour:
   terminalGreen: {fileID: 2100000, guid: f43d1de38a89ca34a925acc124bc174d, type: 2}
   unlockTextColor: {r: 0.5764706, g: 0.8862745, b: 0.5568628, a: 1}
   barrierGreen: {fileID: 2100000, guid: 622466f49ac0a20428cc97d91c13cbb1, type: 2}
-  barrierUnlockBlue: {fileID: 2100000, guid: a0159386ac335d24294f90bb1a6bc51b, type: 2}
+  barrierUnlockBlue: {fileID: 2100000, guid: 622466f49ac0a20428cc97d91c13cbb1, type: 2}
   bossUI: {fileID: 0}
   loadingText: {fileID: 0}
   gameOver: {fileID: 0}

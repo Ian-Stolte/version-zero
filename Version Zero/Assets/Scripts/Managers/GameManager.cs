@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool loadingLevel;
     
     [Header("Rooms")]
-    private int levelNum = 1;
     [SerializeField] private TextMeshProUGUI areaText;
     [SerializeField] private LayerMask terrainLayer;
     
@@ -57,7 +56,7 @@ public class GameManager : MonoBehaviour
     [Header("Barrier")]
     [SerializeField] private Color unlockTextColor;
     [SerializeField] private Material barrierGreen;
-    [SerializeField] private Material barrierUnlockBlue;
+    [SerializeField] private Material barrierUnlockGreen;
 
     [Header("Misc")]
     public GameObject bossUI;
@@ -370,16 +369,17 @@ public class GameManager : MonoBehaviour
     public void UnlockBarrier(Transform barrier)
     {
         int numLocks = 0;
-        foreach (Transform child in barrier.GetChild(0))
+        Transform locks = barrier.GetChild(0);
+        foreach (Transform child in locks)
         {
-            if (child.GetComponent<MeshRenderer>().material.name.Contains("Red"))
+            if (child.GetComponent<MeshRenderer>().material.name.Contains("Blue"))
                 numLocks++;
         }
-        barrier.GetChild(0).GetChild(barrier.GetChild(0).childCount - numLocks).GetComponent<MeshRenderer>().material = barrierUnlockBlue;
+        locks.GetChild(locks.childCount - numLocks).GetComponent<MeshRenderer>().material = barrierUnlockGreen;
 
         if (numLocks <= 1)
         {
-            barrier.GetChild(0).gameObject.SetActive(false);
+            locks.gameObject.SetActive(false);
             barrier.GetChild(1).gameObject.SetActive(false);
             barrier.GetChild(2).GetComponent<MeshRenderer>().material = barrierGreen;
             barrier.GetChild(3).GetComponent<MeshRenderer>().material = barrierGreen;

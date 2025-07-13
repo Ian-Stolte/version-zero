@@ -25,7 +25,6 @@ public class AggroEnemy : Enemy
     [SerializeField] private float dashDelay;
     [SerializeField] private LayerMask terrainLayer;
     private float dashCD;
-    private bool dashing;
 
     [Header("Bools")]
     private bool attacking;
@@ -164,7 +163,6 @@ public class AggroEnemy : Enemy
     
     private IEnumerator Dash(float angle, int sign = 1, float slowFactor = 1f, int numTimes = 1)
     {
-        dashing = true;
         dashCD = dashDelay;
      
         float distMod = 0;
@@ -240,7 +238,6 @@ public class AggroEnemy : Enemy
         }
         
         transform.GetChild(1).GetComponent<TrailRenderer>().emitting = false;
-        dashing = false;
     }
 
 

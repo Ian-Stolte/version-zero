@@ -32,7 +32,7 @@ public class Glitch : MonoBehaviour
             SCShader = Shader.Find("Custom/Glitch");
         }
 
-        if (!SystemInfo.supportsImageEffects || SCShader == null)
+        if (SCShader == null)
         {
             enabled = false;
             return;
