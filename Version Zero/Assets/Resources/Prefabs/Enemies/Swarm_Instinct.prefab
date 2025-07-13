@@ -590,7 +590,7 @@ PrefabInstance:
     - target: {fileID: -1461304994638716399, guid: f47604388f64a4658abb5cf2592d5fb9, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: dd01958999635ba4cb252bf6fdbb4aa5, type: 2}
+      objectReference: {fileID: 2100000, guid: 28c35ef95ebb3a8458c5a79a7163f0a9, type: 2}
     - target: {fileID: 919132149155446097, guid: f47604388f64a4658abb5cf2592d5fb9, type: 3}
       propertyPath: m_Name
       value: Swarm_Instinct
@@ -614,7 +614,7 @@ PrefabInstance:
     - target: {fileID: 8567717000986892130, guid: f47604388f64a4658abb5cf2592d5fb9, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: dd01958999635ba4cb252bf6fdbb4aa5, type: 2}
+      objectReference: {fileID: 2100000, guid: 28c35ef95ebb3a8458c5a79a7163f0a9, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

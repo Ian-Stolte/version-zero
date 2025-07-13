@@ -19,10 +19,6 @@ public class EvasiveEnemy : Enemy
     [SerializeField] private float projSpeed;
     private bool attacking;
 
-    [Header("Materials")]
-    [SerializeField] private Material attackMat;
-    private Material normalMat;
-
     [Header("Dash")]
     [SerializeField] private float dashDist;
     [SerializeField] private float dashSpeed;
@@ -37,7 +33,6 @@ public class EvasiveEnemy : Enemy
     {
         atkTimer = atkDelay;
         base.Start();
-        normalMat = GetComponent<MeshRenderer>().material;
     }
 
     void Update()
@@ -100,7 +95,6 @@ public class EvasiveEnemy : Enemy
             yield return null;
             if (stunTimer > 0)
             {
-                GetComponent<MeshRenderer>().material = normalMat;
                 attacking = false;
                 yield break;
             }
@@ -127,10 +121,8 @@ public class EvasiveEnemy : Enemy
             projectile.despawnDist = atkRange + 2f;
         }
         
-        //anim horizontal -> upright
         yield return new WaitForSeconds(0.5f);
         attacking = false;
-        //GetComponent<MeshRenderer>().material = normalMat;
     }
 
 

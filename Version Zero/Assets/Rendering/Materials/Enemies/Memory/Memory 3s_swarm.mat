@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Memory 3s
+  m_Name: Memory 3s_swarm
   m_Shader: {fileID: -6465566751694194690, guid: 2d32c1d9daaa1a240862f7281f50e7a6, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -56,8 +56,8 @@ Material:
     - _Strength: 0.7
     m_Colors:
     - _BaseColor: {r: 0.24313726, g: 0.30980393, b: 0.5176471, a: 1}
-    - _Dir: {r: 0.05, g: 0, b: 0, a: 0}
-    - _ScaleOffset: {r: 0.8, g: 0.8, b: 0, a: 0}
+    - _Dir: {r: 0.3, g: -0.1, b: 0, a: 0}
+    - _ScaleOffset: {r: 2, g: 2, b: 0, a: 0}
     - _SecondaryColor: {r: 0.4968552, g: 0.9937106, b: 0.8261499, a: 0}
     - _TertiaryColor: {r: 0.9182389, g: 0.3147421, b: 0.3147421, a: 1}
   m_BuildTextureStacks: []

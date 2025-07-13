@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Memory 3s
+  m_Name: Instinct 3s
   m_Shader: {fileID: -6465566751694194690, guid: 2d32c1d9daaa1a240862f7281f50e7a6, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -55,7 +55,7 @@ Material:
     - _QueueOffset: 0
     - _Strength: 0.7
     m_Colors:
-    - _BaseColor: {r: 0.24313726, g: 0.30980393, b: 0.5176471, a: 1}
+    - _BaseColor: {r: 0.85490197, g: 0.27058825, b: 0.5137255, a: 1}
     - _Dir: {r: 0.05, g: 0, b: 0, a: 0}
     - _ScaleOffset: {r: 0.8, g: 0.8, b: 0, a: 0}
     - _SecondaryColor: {r: 0.4968552, g: 0.9937106, b: 0.8261499, a: 0}
