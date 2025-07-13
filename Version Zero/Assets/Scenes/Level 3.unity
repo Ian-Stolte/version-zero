@@ -2238,6 +2238,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Railing_Short (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1de57387323379349a923e12fbd68b7e, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 8616184511030011274, guid: 1de57387323379349a923e12fbd68b7e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -3070,6 +3074,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Building 3_3
       objectReference: {fileID: 0}
+    - target: {fileID: 4135173017904487757, guid: 2ebdb16107966cd4a8b0b04bf1aefd2f, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -3133,6 +3141,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1de57387323379349a923e12fbd68b7e, type: 3}
       propertyPath: m_Name
       value: Railing_Short (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1de57387323379349a923e12fbd68b7e, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8616184511030011274, guid: 1de57387323379349a923e12fbd68b7e, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -3581,6 +3593,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 71b6bbd3c4cc0ef4e8adead863f04892, type: 3}
       propertyPath: m_Name
       value: Railing_Corner (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 71b6bbd3c4cc0ef4e8adead863f04892, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1738776581880846596, guid: 71b6bbd3c4cc0ef4e8adead863f04892, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -4394,6 +4410,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Railing_InnerCorner (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fde22dde2894eb64cb4bb88e630d8528, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4622,6 +4642,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Railing_Short (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1de57387323379349a923e12fbd68b7e, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 8616184511030011274, guid: 1de57387323379349a923e12fbd68b7e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -4691,6 +4715,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Railing_InnerCorner (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fde22dde2894eb64cb4bb88e630d8528, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4751,6 +4779,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 71b6bbd3c4cc0ef4e8adead863f04892, type: 3}
       propertyPath: m_Name
       value: Railing_Corner (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 71b6bbd3c4cc0ef4e8adead863f04892, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1738776581880846596, guid: 71b6bbd3c4cc0ef4e8adead863f04892, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -5648,6 +5680,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Railing_Corner (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 71b6bbd3c4cc0ef4e8adead863f04892, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 1738776581880846596, guid: 71b6bbd3c4cc0ef4e8adead863f04892, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -6415,6 +6451,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Railing_Corner (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 71b6bbd3c4cc0ef4e8adead863f04892, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 1738776581880846596, guid: 71b6bbd3c4cc0ef4e8adead863f04892, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -6526,6 +6566,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 71b6bbd3c4cc0ef4e8adead863f04892, type: 3}
       propertyPath: m_Name
       value: Railing_Corner (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 71b6bbd3c4cc0ef4e8adead863f04892, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1738776581880846596, guid: 71b6bbd3c4cc0ef4e8adead863f04892, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -7805,6 +7849,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: fde22dde2894eb64cb4bb88e630d8528, type: 3}
       propertyPath: m_Name
       value: Railing_InnerCorner (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fde22dde2894eb64cb4bb88e630d8528, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9530,7 +9578,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2108515342915093774, guid: bad2e8d97ba813e4a9e897d85db6de93, type: 3}
       propertyPath: m_Name
-      value: Railing_Test
+      value: Railing
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11057,6 +11105,10 @@ PrefabInstance:
     - target: {fileID: 4135173017904487757, guid: 2ebdb16107966cd4a8b0b04bf1aefd2f, type: 3}
       propertyPath: m_Name
       value: Building 3_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135173017904487757, guid: 2ebdb16107966cd4a8b0b04bf1aefd2f, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
