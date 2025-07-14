@@ -243,7 +243,6 @@ public class Enemy : MonoBehaviour
         bool lineOfSight = !Physics.Raycast(transform.position, (pos - transform.position).normalized, Vector3.Distance(transform.position, pos), blocksLOS);
         if (Physics.OverlapSphere(transform.position, collisionRadius, blocksLOS).Length > 0)
             lineOfSight = false;
-        Debug.Log(lineOfSight);
         if (lineOfSight) //direct movement w/ line of sight
         {
             Vector3 dir = Vector3.Scale(pos - transform.position, new Vector3(1, 0, 1)).normalized;
@@ -274,7 +273,6 @@ public class Enemy : MonoBehaviour
             }
             if (waypointIndex >= path.Length)
             {
-                Debug.Log("Reached player!!");
                 pathReady = false;
             }
             else

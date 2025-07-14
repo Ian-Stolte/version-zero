@@ -62,7 +62,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: e63099d8a1b75e744807a768ddb7d102, type: 2}
     - target: {fileID: 919132149155446097, guid: fde22dde2894eb64cb4bb88e630d8528, type: 3}
       propertyPath: m_Name
-      value: fRailing_InnerCorner
+      value: Railing_Inner_final
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fde22dde2894eb64cb4bb88e630d8528, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

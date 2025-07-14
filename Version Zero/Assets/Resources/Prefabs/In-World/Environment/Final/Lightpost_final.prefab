@@ -168,7 +168,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 72b1fd8cda5dbd04cba6d5c620085ab3, type: 3}
       propertyPath: m_Name
-      value: Lightpost 1
+      value: Lightpost_final
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 72b1fd8cda5dbd04cba6d5c620085ab3, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2603365498447848557, guid: 72b1fd8cda5dbd04cba6d5c620085ab3, type: 3}
       propertyPath: m_Materials.Array.data[0]

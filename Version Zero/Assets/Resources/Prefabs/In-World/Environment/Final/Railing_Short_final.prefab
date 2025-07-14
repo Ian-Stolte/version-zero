@@ -58,7 +58,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: e63099d8a1b75e744807a768ddb7d102, type: 2}
     - target: {fileID: 919132149155446097, guid: 1de57387323379349a923e12fbd68b7e, type: 3}
       propertyPath: m_Name
-      value: fRailing_Short
+      value: Railing_Short_final
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1de57387323379349a923e12fbd68b7e, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8616184511030011274, guid: 1de57387323379349a923e12fbd68b7e, type: 3}
       propertyPath: m_Materials.Array.data[0]

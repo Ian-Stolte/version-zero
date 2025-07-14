@@ -127,7 +127,7 @@ public class EvasiveEnemy : Enemy
 
 
 
-    private IEnumerator Dash(float angle, int sign = 1, float slowFactor = 1f, int numTimes = 1)
+    private IEnumerator Dash(float angle, int sign = 1, float slowFactor = 1f, int failedAttempts = 0, int numTimes = 1)
     {
         dashing = true;
         dashCD = dashDelay;
@@ -150,15 +150,18 @@ public class EvasiveEnemy : Enemy
             //regenerate if would hit a wall immediately
             if (Vector3.Distance(targetPoint, transform.position) < 2f)
             {
+                if (failedAttempts >= 5)
+                    yield break;
+
                 if (Mathf.Abs(angle) >= 70) //if side dash invert direction
                 {
-                    StartCoroutine(Dash(-angle, sign));
+                    StartCoroutine(Dash(-angle, sign, slowFactor, failedAttempts+1));
                     yield break;
                 }
                 else //if dash away or toward, try small side dash
                 {
                     int newSign = (Random.Range(0f, 1f) > 0.5f) ? 1 : -1;
-                    StartCoroutine(Dash(Random.Range(70, 110) * newSign, 1, 0.5f));
+                    StartCoroutine(Dash(Random.Range(70, 110) * newSign, 1, 0.5f, failedAttempts+1));
                     yield break;
                 }
             }
@@ -190,16 +193,16 @@ public class EvasiveEnemy : Enemy
             yield return new WaitForSeconds(0.1f);
             if (attacking && dist < atkRange)
             {
-                StartCoroutine(Dash(Random.Range(-30f, 30f), -1, 0.5f, numTimes + 1));
+                StartCoroutine(Dash(Random.Range(-30f, 30f), -1, 0.5f, failedAttempts, numTimes + 1));
             }
             else if (attacking && dist > atkRange)
             {
-                StartCoroutine(Dash(Random.Range(-30f, 30f), 1, 0.5f, numTimes + 1));
+                StartCoroutine(Dash(Random.Range(-30f, 30f), 1, 0.5f, failedAttempts, numTimes + 1));
             }
             else
             {
                 int newSign = (Random.Range(0f, 1f) > 0.5f) ? 1 : -1;
-                StartCoroutine(Dash(Random.Range(70, 110) * newSign, 1, 0.5f, numTimes + 1));
+                StartCoroutine(Dash(Random.Range(70, 110) * newSign, 1, 0.5f, failedAttempts, numTimes + 1));
             }
             yield break;
         }

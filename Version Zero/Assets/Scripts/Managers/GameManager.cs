@@ -372,7 +372,7 @@ public class GameManager : MonoBehaviour
         Transform locks = barrier.GetChild(0);
         foreach (Transform child in locks)
         {
-            if (child.GetComponent<MeshRenderer>().material.name.Contains("Blue"))
+            if (child.GetComponent<MeshRenderer>().material.name.Contains("Blue") || child.GetComponent<MeshRenderer>().material.name.Contains("Red"))
                 numLocks++;
         }
         locks.GetChild(locks.childCount - numLocks).GetComponent<MeshRenderer>().material = barrierUnlockGreen;
