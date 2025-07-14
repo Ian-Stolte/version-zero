@@ -39,15 +39,11 @@ public class TankEnemy : Enemy
             atkTimer = Mathf.Max(0, atkTimer - Time.deltaTime);
             if (atkDelay == 0 && dist > atkRange)
                 atkTimer = Mathf.Max(0.5f, atkTimer);
-
-            //look at player
-            Vector3 dir = Vector3.Scale(player.transform.position - transform.position, new Vector3(1, 0, 1)).normalized;
-            transform.rotation = Quaternion.LookRotation(dir);
             
             float speed = (slowTimer > 0) ? defSpeed*0.3f : defSpeed;
             if (dist > atkRange/2f && !stomping)
             {
-                rb.MovePosition(rb.position + transform.forward * speed * Time.deltaTime);
+                MoveTo(player.transform.position, speed);
             }
             if (atkTimer <= 0 && dist < atkRange*0.75f && atkDelay > 0)
             {
@@ -91,6 +87,7 @@ public class TankEnemy : Enemy
         if (Vector3.Distance(player.transform.position, transform.position) < atkRange)
         {
             player.GetComponent<PlayerMovement>().TakeDamage(dmg);
+        
             Vector3 dir = (player.transform.position - transform.position).normalized + new Vector3(0, 0.5f, 0);
             player.GetComponent<Rigidbody>().AddForce(dir * stompForce, ForceMode.Impulse);
         }

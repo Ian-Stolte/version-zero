@@ -17,9 +17,11 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public float slowTimer;
 
     [Header("Pathfinding")]
-    [SerializeField] private Pathfinding pathGrid;
     [SerializeField] private LayerMask blocksLOS;
-    public bool pathReady;
+    [SerializeField] private int gridIndex;
+    [SerializeField] private float collisionRadius;
+    private Pathfinding pathfinding;
+    [HideInInspector] public bool pathReady;
     private Vector3 moveTarget;
     private Vector3[] path;
     private int waypointIndex;
@@ -54,7 +56,7 @@ public class Enemy : MonoBehaviour
         health = maxHealth;
         rb = GetComponent<Rigidbody>();
         player = GameObject.Find("Player");
-        pathGrid = GameObject.Find("Pathfinding Grid").GetComponent<Pathfinding>(); //TODO: make this better
+        pathfinding = GameObject.Find("Pathfinding").GetComponent<Pathfinding>();
 
         //cache material refs
         foreach (Transform child in GetComponentsInChildren<Transform>(true))
@@ -239,7 +241,7 @@ public class Enemy : MonoBehaviour
     public void MoveTo(Vector3 pos, float speed)
     {
         bool lineOfSight = !Physics.Raycast(transform.position, (pos - transform.position).normalized, Vector3.Distance(transform.position, pos), blocksLOS);
-        if (Physics.OverlapSphere(transform.position, 1f, blocksLOS).Length > 0)
+        if (Physics.OverlapSphere(transform.position, collisionRadius, blocksLOS).Length > 0)
             lineOfSight = false;
         Debug.Log(lineOfSight);
         if (lineOfSight) //direct movement w/ line of sight
@@ -253,7 +255,7 @@ public class Enemy : MonoBehaviour
             if (Vector3.Distance(pos, moveTarget) > 0.5f)
             {
                 moveTarget = pos;
-                StartCoroutine(pathGrid.FindPath(transform.position, pos, OnPathFound, false));
+                StartCoroutine(pathfinding.FindPath(transform.position, pos, gridIndex, OnPathFound, false));
                 //RequestManager.RequestPath(transform.position, player.position, false, OnPathFound);
             }
 

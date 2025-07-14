@@ -848,10 +848,11 @@ MonoBehaviour:
   aggro: 0
   stunTimer: -3.1341145
   slowTimer: -3.1341145
-  pathGrid: {fileID: 0}
   blocksLOS:
     serializedVersion: 2
     m_Bits: 10240
+  gridIndex: 0
+  collisionRadius: 1
   pathReady: 0
   healthBar: {fileID: 1153496628393943395}
   statusTxt: {fileID: 8044487817934671963}

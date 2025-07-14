@@ -7,9 +7,9 @@ public class Pathfinding : MonoBehaviour
 {
     [HideInInspector] public PathGrid grid;
 
-    public IEnumerator FindPath(Vector3 startPos, Vector3 endPos, Action<Vector3[], bool> callback, bool waitAFrame)
+    public IEnumerator FindPath(Vector3 startPos, Vector3 endPos, int gridIndex, Action<Vector3[], bool> callback, bool waitAFrame)
     {
-        grid = GetComponent<PathGrid>();
+        grid = transform.GetChild(gridIndex).GetComponent<PathGrid>();
 
         Vector3[] waypoints = new Vector3[0];
         bool success = false;

@@ -34,15 +34,10 @@ public class SwarmEnemy : Enemy
         {
             atkTimer = Mathf.Max(0, atkTimer - Time.deltaTime);
 
-            //look at player
-            Vector3 dir = Vector3.Scale(player.transform.position - transform.position, new Vector3(1, 0, 1)).normalized;
-            //transform.rotation = Quaternion.LookRotation(dir);
-
             //move
             float speed = (slowTimer > 0) ? defSpeed*0.3f : defSpeed;
             if (dist > meleeRange)
             {
-                //rb.MovePosition(rb.position + transform.forward * speed * Time.deltaTime);
                 MoveTo(player.transform.position, speed);
             }
 
@@ -51,6 +46,7 @@ public class SwarmEnemy : Enemy
             {
                 player.GetComponent<PlayerMovement>().TakeDamage(dmg);
                 anim.Play("Swarm_Attack");
+                Vector3 dir = Vector3.Scale(player.transform.position - transform.position, new Vector3(1, 0, 1)).normalized;
                 rb.AddForce(dir * -400, ForceMode.Impulse);
                 atkTimer = atkDelay;
             }
