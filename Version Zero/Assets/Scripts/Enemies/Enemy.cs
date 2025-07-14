@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Pathfinding")]
     [SerializeField] private Pathfinding pathGrid;
+    [SerializeField] private LayerMask blocksLOS;
     public bool pathReady;
     private Vector3 moveTarget;
     private Vector3[] path;
@@ -237,22 +238,35 @@ public class Enemy : MonoBehaviour
 
     public void MoveTo(Vector3 pos, float speed)
     {
-        if (Vector3.Distance(pos, moveTarget) > 0.5f)
+        bool lineOfSight = !Physics.Raycast(transform.position, (pos - transform.position).normalized, Vector3.Distance(transform.position, pos), blocksLOS);
+        if (Physics.OverlapSphere(transform.position, 1f, blocksLOS).Length > 0)
+            lineOfSight = false;
+        Debug.Log(lineOfSight);
+        if (lineOfSight) //direct movement w/ line of sight
         {
-            moveTarget = pos;
-            StartCoroutine(pathGrid.FindPath(transform.position, pos, false, OnPathFound, false));
-            //RequestManager.RequestPath(transform.position, player.position, false, OnPathFound);
+            Vector3 dir = Vector3.Scale(pos - transform.position, new Vector3(1, 0, 1)).normalized;
+            transform.rotation = Quaternion.LookRotation(dir);
+            rb.MovePosition(rb.position + (pos - transform.position).normalized * speed * Time.deltaTime);
         }
+        else //pathfinding if blocked
+        {
+            if (Vector3.Distance(pos, moveTarget) > 0.5f)
+            {
+                moveTarget = pos;
+                StartCoroutine(pathGrid.FindPath(transform.position, pos, OnPathFound, false));
+                //RequestManager.RequestPath(transform.position, player.position, false, OnPathFound);
+            }
 
-        if (pathReady)
-            FollowPath(speed);
+            if (pathReady)
+                FollowPath(speed);
+        }
     }
 
     private void FollowPath(float speed)
     {
         if (path.Length > 0)
         {
-            if (Vector2.Distance(transform.position, path[waypointIndex]) < 0.5f)
+            if (Vector3.Distance(transform.position, path[waypointIndex]) < 0.5f)
             {
                 waypointIndex++;
             }
@@ -263,8 +277,9 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                Vector3 dir = Vector3.Scale(player.transform.position - transform.position, new Vector3(1, 0, 1)).normalized;
-                transform.rotation = Quaternion.LookRotation(dir);
+                Vector3 dir = Vector3.Scale(path[waypointIndex] - transform.position, new Vector3(1, 0, 1)).normalized;
+                Quaternion targetRotation = Quaternion.LookRotation(dir);
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
                 rb.MovePosition(rb.position + (path[waypointIndex]-transform.position).normalized * speed * Time.deltaTime);
             }
         }

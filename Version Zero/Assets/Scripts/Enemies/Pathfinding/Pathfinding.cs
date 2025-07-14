@@ -7,12 +7,9 @@ public class Pathfinding : MonoBehaviour
 {
     [HideInInspector] public PathGrid grid;
 
-    public IEnumerator FindPath(Vector3 startPos, Vector3 endPos, bool bigGrid, Action<Vector3[], bool> callback, bool waitAFrame)
+    public IEnumerator FindPath(Vector3 startPos, Vector3 endPos, Action<Vector3[], bool> callback, bool waitAFrame)
     {
-        if (bigGrid)
-            grid = transform.GetChild(0).GetComponent<PathGrid>();
-        else
-            grid = GetComponent<PathGrid>();
+        grid = GetComponent<PathGrid>();
 
         Vector3[] waypoints = new Vector3[0];
         bool success = false;
@@ -63,10 +60,10 @@ public class Pathfinding : MonoBehaviour
                 }
             }
         }
+
         if (success)
-        {
             waypoints = RetracePath(start, end);
-        }
+
         if (waitAFrame)
         {
             yield return null;
@@ -87,7 +84,7 @@ public class Pathfinding : MonoBehaviour
         Node currentClosest = grid.grid[0, 0];
         foreach (Node n in grid.grid)
         {
-            if (n.walkable && Vector2.Distance(node.position, n.position) < Vector2.Distance(node.position, currentClosest.position))
+            if (n.walkable && Vector3.Distance(node.position, n.position) < Vector3.Distance(node.position, currentClosest.position))
             {
                 currentClosest = n;
             }
@@ -96,7 +93,7 @@ public class Pathfinding : MonoBehaviour
 
         //draw a line from end --> start
         /*Vector3 endToStartPos = end.position;
-        while (!end.walkable && Vector2.Distance(endToStartPos, start.position) > 0.1f)
+        while (!end.walkable && Vector3.Distance(endToStartPos, start.position) > 0.1f)
         {
             Node nodeToTry = GetComponent<Grid>().NodeFromWorldPoint(endToStartPos);
             if (nodeToTry.walkable)
@@ -124,11 +121,11 @@ public class Pathfinding : MonoBehaviour
     private Vector3[] SimplifyPath(List<Node> path)
     {
         List<Vector3> waypoints = new List<Vector3>();
-        Vector2 oldDir = Vector2.zero;
+        Vector3 oldDir = Vector3.zero;
 
         for (int i = 1; i < path.Count; i++)
         {
-            Vector2 newDir = new Vector2(path[i-1].gridX - path[i].gridX, path[i-1].gridZ - path[i].gridZ);
+            Vector3 newDir = new Vector3(path[i-1].gridX - path[i].gridX, 0, path[i-1].gridZ - path[i].gridZ);
             if (newDir != oldDir)
             {
                 waypoints.Add(path[i-1].position);

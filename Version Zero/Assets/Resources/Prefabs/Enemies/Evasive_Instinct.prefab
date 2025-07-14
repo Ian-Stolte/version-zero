@@ -835,13 +835,18 @@ MonoBehaviour:
   aggro: 0
   stunTimer: 0
   slowTimer: 0
+  pathGrid: {fileID: 0}
+  blocksLOS:
+    serializedVersion: 2
+    m_Bits: 10240
+  pathReady: 0
   healthBar: {fileID: 6556307969795743139}
   statusTxt: {fileID: 2056904832958051038}
   damageNumber: {fileID: 2345899596540281866, guid: 753d7799ea08308459e89e0baabf8ac3, type: 3}
+  mark: {fileID: 7085434389808877003}
   anim: {fileID: 4855157015730352852}
   rb: {fileID: 0}
   player: {fileID: 0}
-  mark: {fileID: 7085434389808877003}
   damageMat: {fileID: 2100000, guid: a1e9fa7d2ec9eb340a650ce47e58854b, type: 2}
   shielded: 0
   defSpeed: 2
@@ -851,7 +856,6 @@ MonoBehaviour:
   numProjectiles: 1
   projPrefab: {fileID: 3512434751255828300, guid: 770fd79ab065a420e9640d64f5ea1c7f, type: 3}
   projSpeed: 10
-  attackMat: {fileID: 2100000, guid: a1e9fa7d2ec9eb340a650ce47e58854b, type: 2}
   dashDist: 3
   dashSpeed: 30
   dashDelay: 0.8

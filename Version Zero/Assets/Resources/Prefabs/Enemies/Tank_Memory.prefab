@@ -1736,13 +1736,18 @@ MonoBehaviour:
   aggro: 0
   stunTimer: 0
   slowTimer: 0
+  pathGrid: {fileID: 0}
+  blocksLOS:
+    serializedVersion: 2
+    m_Bits: 10240
+  pathReady: 0
   healthBar: {fileID: 4490610669534583457}
   statusTxt: {fileID: 535822933449956435}
   damageNumber: {fileID: 2345899596540281866, guid: 753d7799ea08308459e89e0baabf8ac3, type: 3}
+  mark: {fileID: 4849704946099991884}
   anim: {fileID: 4393332365797348563}
   rb: {fileID: 0}
   player: {fileID: 0}
-  mark: {fileID: 4849704946099991884}
   damageMat: {fileID: 2100000, guid: a1e9fa7d2ec9eb340a650ce47e58854b, type: 2}
   shielded: 0
   defSpeed: 2.5

@@ -44,13 +44,13 @@ public class PathGrid : MonoBehaviour
 
         for (int x = -1; x <= 1; x++)
         {
-            for (int y = -1; y <= 1; y++)
+            for (int z = -1; z <= 1; z++)
             {
-                if (x == 0 && y == 0)
+                if (x == 0 && z == 0)
                     continue;
 
                 int checkX = node.gridX + x;
-                int checkZ = node.gridZ + y;
+                int checkZ = node.gridZ + z;
                 
                 if (checkX >= 0 && checkX < gridSizeX && checkZ >= 0 && checkZ < gridSizeZ)
                     neighbors.Add(grid[checkX, checkZ]);
@@ -61,6 +61,7 @@ public class PathGrid : MonoBehaviour
 
     public Node NodeFromWorldPoint(Vector3 pos)
     {
+        pos -= transform.position;
         float percentX = (pos.x + rawGridSize.x/2) / rawGridSize.x;
         float percentZ = (pos.z + rawGridSize.y/2) / rawGridSize.y;
         percentX = Mathf.Clamp01(percentX);
@@ -84,7 +85,6 @@ public class PathGrid : MonoBehaviour
         }
     }
 }
-
 
 
 public class Node
