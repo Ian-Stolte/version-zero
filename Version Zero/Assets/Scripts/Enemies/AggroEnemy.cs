@@ -132,11 +132,11 @@ public class AggroEnemy : Enemy
             canHitPlayer = true;
             hitboxOn = true;
         }
+        dir = Vector3.Scale(target - transform.position, new Vector3(1, 0, 1)).normalized;
         while (Vector2.Distance(new Vector2(target.x, atkWarning.position.z), new Vector2(target.x, transform.position.z)) > 0.5f && attacking)
         {
-            Vector3 direction = (target - transform.position);
-            direction.y = 0;
-            rb.velocity = direction.normalized * spd;
+            //TODO: fix something else setting rb.velocity & causing aggro to occasionally get stuck
+            rb.velocity = dir * spd;
             yield return null;
         }
         rb.velocity = Vector3.zero;
