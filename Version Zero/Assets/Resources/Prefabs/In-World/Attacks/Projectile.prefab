@@ -170,7 +170,10 @@ VisualEffect:
     m_Vector3f:
       m_Array: []
     m_Vector4f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 1.7232705, y: 0.36089435, z: 0.4966264, w: 0.59607846}
+        m_Name: Base Color
+        m_Overridden: 1
     m_Uint:
       m_Array: []
     m_Int:

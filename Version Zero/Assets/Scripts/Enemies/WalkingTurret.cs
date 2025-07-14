@@ -13,7 +13,6 @@ public class WalkingTurret : Enemy
     [SerializeField] private float targetMax;
     private Vector3 target;
     [SerializeField] private bool lineOfSight;
-    [SerializeField] private LayerMask terrainLayer;
 
     [Header("Attack")]
     [SerializeField] private float atkDelay;

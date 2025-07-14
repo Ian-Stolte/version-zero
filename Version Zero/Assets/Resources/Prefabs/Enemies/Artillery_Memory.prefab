@@ -852,8 +852,8 @@ MonoBehaviour:
   blocksLOS:
     serializedVersion: 2
     m_Bits: 10240
-  gridIndex: 0
-  collisionRadius: 1
+  gridIndex: 1
+  collisionRadius: 1.5
   pathReady: 0
   healthBar: {fileID: 6146639606805072064}
   statusTxt: {fileID: 3842984472745216834}
@@ -872,7 +872,7 @@ MonoBehaviour:
   spread: 8
   projPrefab: {fileID: 3512434751255828300, guid: 3964fdbb2368ece4ab9b0ca91fedabcc, type: 3}
   retreatRange: 10
-  retreatThreshold: 0.3
+  retreatThreshold: 1
   shield: {fileID: 0}
 --- !u!54 &4569877423977505365
 Rigidbody:

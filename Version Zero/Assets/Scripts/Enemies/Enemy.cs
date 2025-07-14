@@ -17,11 +17,11 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public float slowTimer;
 
     [Header("Pathfinding")]
-    [SerializeField] private LayerMask blocksLOS;
     [SerializeField] private int gridIndex;
-    [SerializeField] private float collisionRadius;
-    private Pathfinding pathfinding;
+    public float collisionRadius;
+    [HideInInspector] public LayerMask terrainLayer;
     [HideInInspector] public bool pathReady;
+    private Pathfinding pathfinding;
     private Vector3 moveTarget;
     private Vector3[] path;
     private int waypointIndex;
@@ -57,6 +57,7 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         player = GameObject.Find("Player");
         pathfinding = GameObject.Find("Pathfinding").GetComponent<Pathfinding>();
+        terrainLayer = LayerMask.GetMask("Obstacle", "Terminal");
 
         //cache material refs
         foreach (Transform child in GetComponentsInChildren<Transform>(true))
@@ -240,9 +241,10 @@ public class Enemy : MonoBehaviour
 
     public void MoveTo(Vector3 pos, float speed)
     {
-        bool lineOfSight = !Physics.Raycast(transform.position, (pos - transform.position).normalized, Vector3.Distance(transform.position, pos), blocksLOS);
-        if (Physics.OverlapSphere(transform.position, collisionRadius, blocksLOS).Length > 0)
+        bool lineOfSight = !Physics.Raycast(transform.position, (pos - transform.position).normalized, Vector3.Distance(transform.position, pos), terrainLayer);
+        if (Physics.OverlapSphere(transform.position, collisionRadius, terrainLayer).Length > 0)
             lineOfSight = false;
+
         if (lineOfSight) //direct movement w/ line of sight
         {
             Vector3 dir = Vector3.Scale(pos - transform.position, new Vector3(1, 0, 1)).normalized;

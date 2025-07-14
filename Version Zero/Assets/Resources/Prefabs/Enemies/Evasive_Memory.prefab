@@ -840,11 +840,11 @@ MonoBehaviour:
   aggro: 0
   stunTimer: 0
   slowTimer: 0
-  blocksLOS:
+  gridIndex: 1
+  collisionRadius: 2
+  terrainLayer:
     serializedVersion: 2
     m_Bits: 10240
-  gridIndex: 0
-  collisionRadius: 1
   pathReady: 0
   healthBar: {fileID: 6556307969795743139}
   statusTxt: {fileID: 2056904832958051038}
@@ -865,9 +865,6 @@ MonoBehaviour:
   dashDist: 3.5
   dashSpeed: 25
   dashDelay: 1.5
-  terrainLayer:
-    serializedVersion: 2
-    m_Bits: 10240
   tooClose: 6
 --- !u!65 &7672692571295813414
 BoxCollider:

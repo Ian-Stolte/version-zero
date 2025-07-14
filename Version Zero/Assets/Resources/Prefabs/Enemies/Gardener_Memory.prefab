@@ -4504,7 +4504,7 @@ MonoBehaviour:
   blocksLOS:
     serializedVersion: 2
     m_Bits: 10240
-  gridIndex: 1
+  gridIndex: 2
   collisionRadius: 3
   pathReady: 0
   healthBar: {fileID: 0}

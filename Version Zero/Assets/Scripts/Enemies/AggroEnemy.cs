@@ -23,7 +23,6 @@ public class AggroEnemy : Enemy
     [SerializeField] private float dashDist;
     [SerializeField] private float dashSpeed;
     [SerializeField] private float dashDelay;
-    [SerializeField] private LayerMask terrainLayer;
     private float dashCD;
 
     [Header("Bools")]
@@ -49,21 +48,21 @@ public class AggroEnemy : Enemy
         if (!GameManager.Instance.pauseGame && aggro && stunTimer <= 0)
         {
             if (!attacking)
-            {
                 atkTimer = Mathf.Max(0, atkTimer - Time.deltaTime);
-                Vector3 dir = Vector3.Scale(player.transform.position - transform.position, new Vector3(1, 0, 1)).normalized;
-                transform.rotation = Quaternion.LookRotation(dir);
+
+            //move if too far or no LOS
+            bool lineOfSight = !Physics.Raycast(transform.position, (player.transform.position - transform.position).normalized, Vector3.Distance(transform.position, player.transform.position), terrainLayer);
+            if (Physics.OverlapSphere(transform.position, collisionRadius, terrainLayer).Length > 0 && Vector3.Distance(transform.position, player.transform.position) > 3)
+                lineOfSight = false;
+            float speed = (slowTimer > 0) ? defSpeed*0.3f : defSpeed;
+            if ((dist > atkRange || !lineOfSight) && !attacking)
+            {
+                MoveTo(player.transform.position, speed);
             }
 
-            float speed = (slowTimer > 0) ? defSpeed*0.3f : defSpeed;
-            
-            if (dist > atkRange && !attacking)
+            //attack
+            if (atkTimer <= 0 && dist < atkRange && lineOfSight && !player.GetComponent<PlayerPrograms>().dashing)
             {
-                rb.MovePosition(rb.position + transform.forward * speed * Time.deltaTime);
-            }
-            if (atkTimer <= 0 && dist < atkRange && !player.GetComponent<PlayerPrograms>().dashing)
-            {
-                anim.Play("Attack");
                 atkTimer = atkDelay;
                 atkCor = Attack();
                 StartCoroutine(atkCor);
@@ -96,9 +95,13 @@ public class AggroEnemy : Enemy
     {
         attacking = true;
         GetComponent<Animator>().Play("Aggro_Attack");
+
         Vector3 target = player.transform.position + player.GetComponent<PlayerMovement>().moveDir*2 + (player.transform.position - transform.position).normalized * 2f;
+        Vector3 dir = Vector3.Scale(target - transform.position, new Vector3(1, 0, 1)).normalized;
+        transform.rotation = Quaternion.LookRotation(dir);
+
+        //shorten target if would hit a wall
         RaycastHit hit;
-        Vector3 dir = (target - transform.position).normalized;
         float dist = Vector3.Distance(target, transform.position);
         if (Physics.Raycast(transform.position, dir, out hit, dist, terrainLayer))
         {
@@ -112,7 +115,7 @@ public class AggroEnemy : Enemy
         StartCoroutine(AttackIndicator(atkWarning, duration));
 
         bool preDash = Random.Range(0f, 1f) > 0.5f;
-        if (preDash)
+        if (preDash && Vector3.Distance(target, transform.position) > 7)
         {
             yield return new WaitForSeconds(duration - dist / spd - 0.3f);
             int newSign = (Random.Range(0f, 1f) > 0.5f) ? 1 : -1;
@@ -129,7 +132,7 @@ public class AggroEnemy : Enemy
             canHitPlayer = true;
             hitboxOn = true;
         }
-        while (Vector2.Distance(new Vector2(atkWarning.position.x, atkWarning.position.z), new Vector2(transform.position.x, transform.position.z)) > 0.5f && attacking)
+        while (Vector2.Distance(new Vector2(target.x, atkWarning.position.z), new Vector2(target.x, transform.position.z)) > 0.5f && attacking)
         {
             Vector3 direction = (target - transform.position);
             direction.y = 0;

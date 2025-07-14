@@ -58,7 +58,7 @@ public class ArtilleryEnemy : Enemy
             }
             else if (dist > atkRange) //move closer to attack
             {
-                rb.MovePosition(rb.position + transform.forward * speed * Time.deltaTime);
+                MoveTo(player.transform.position, speed);
             }
             //ranged attack
             if (atkTimer <= 0 && dist < atkRange)

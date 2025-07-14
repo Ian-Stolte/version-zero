@@ -848,11 +848,11 @@ MonoBehaviour:
   aggro: 0
   stunTimer: -3.1341145
   slowTimer: -3.1341145
-  blocksLOS:
+  gridIndex: 1
+  collisionRadius: 1.5
+  terrainLayer:
     serializedVersion: 2
     m_Bits: 10240
-  gridIndex: 0
-  collisionRadius: 1
   pathReady: 0
   healthBar: {fileID: 1153496628393943395}
   statusTxt: {fileID: 8044487817934671963}
@@ -872,9 +872,6 @@ MonoBehaviour:
   dashDist: 3
   dashSpeed: 25
   dashDelay: 1.5
-  terrainLayer:
-    serializedVersion: 2
-    m_Bits: 10240
 --- !u!54 &8337380404511252835
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -921,5 +918,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.015892, y: 4.1991706, z: 2.3611546}
-  m_Center: {x: -0.03230357, y: 2.394955, z: 0.6805773}
+  m_Size: {x: 2.1553009, y: 4.199169, z: 2.1142013}
+  m_Center: {x: -0.013594554, y: 2.3949547, z: 0.5571021}

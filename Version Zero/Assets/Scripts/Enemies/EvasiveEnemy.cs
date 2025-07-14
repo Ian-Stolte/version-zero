@@ -23,7 +23,6 @@ public class EvasiveEnemy : Enemy
     [SerializeField] private float dashDist;
     [SerializeField] private float dashSpeed;
     [SerializeField] private float dashDelay;
-    [SerializeField] private LayerMask terrainLayer;
     private float dashCD;
     private bool dashing;
     [SerializeField] private float tooClose;
@@ -45,26 +44,33 @@ public class EvasiveEnemy : Enemy
 
         if (!GameManager.Instance.pauseGame && aggro && stunTimer <= 0)
         {
+            bool lineOfSight = !Physics.Raycast(transform.position, (player.transform.position - transform.position).normalized, Vector3.Distance(transform.position, player.transform.position), terrainLayer);
+            if (Physics.OverlapSphere(transform.position, collisionRadius, terrainLayer).Length > 0 && Vector3.Distance(transform.position, player.transform.position) > 3)
+                lineOfSight = false;
+
             //look at player
-            Vector3 dir = Vector3.Scale(player.transform.position - transform.position, new Vector3(1, 0, 1)).normalized;
-            transform.rotation = Quaternion.LookRotation(dir);
+            if (lineOfSight)
+            {
+                Vector3 dir = Vector3.Scale(player.transform.position - transform.position, new Vector3(1, 0, 1)).normalized;
+                transform.rotation = Quaternion.LookRotation(dir);
+            }
 
             //move closer if far away
             float speed = (slowTimer > 0) ? defSpeed * 0.3f : defSpeed;
-            if (dist > atkRange && !dashing && !attacking)
-                rb.MovePosition(rb.position + transform.forward * speed * Time.deltaTime);
+            if ((dist > atkRange || !lineOfSight) && !dashing && !attacking)
+                MoveTo(player.transform.position, speed);
+            //TODO: fix getting stuck --- seems to happen when player stands still, slowly unsticks when we move around (maybe adding dash w/o LOS will fix incidentally)
 
             //attack
             atkTimer = Mathf.Max(0, atkTimer - Time.deltaTime);
-            if (atkTimer <= 0 && dist < atkRange)
+            if (atkTimer <= 0 && dist < atkRange && lineOfSight)
             {
                 StartCoroutine(Attack());
                 atkTimer = atkDelay;
             }
 
-
             //dash
-            if (!attacking)
+            if (!attacking && lineOfSight) //TODO: dash w/o line of sight by targeting next waypoint in path
             {
                 dashCD = Mathf.Max(0, dashCD - Time.deltaTime);
                 if (dist < tooClose && dashCD <= 0)
@@ -85,9 +91,10 @@ public class EvasiveEnemy : Enemy
 
     private IEnumerator Attack()
     {
-        //GetComponent<MeshRenderer>().material = attackMat;
         attacking = true;
         anim.Play("Evasive_Attack");
+
+        //wait 1 sec to charge
         float elapsed = 0f;
         while (elapsed < 1)
         {
