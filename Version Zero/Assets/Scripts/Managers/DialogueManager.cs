@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.IO;
+using Newtonsoft.Json;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -25,6 +27,8 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Terminals")]
     private int terminalNum;
+    private int lvlNum;
+    private List<Dictionary<string, Dictionary<string, string>>> terminalDialogue = new List<Dictionary<string, Dictionary<string, string>>>();
 
     [Header("First Access Pt")]
     [TextArea(3, 5)] [SerializeField] private string[] firstAccessPt;
@@ -48,6 +52,7 @@ public class DialogueManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         terminalNum = 0;
+        lvlNum = int.Parse(scene.name.Substring(6));
     }
 
 
@@ -150,18 +155,79 @@ public class DialogueManager : MonoBehaviour
     /////////// TERMINALS ////////////
     //////////////////////////////////
 
+
     public void PlayTerminal(string ID)
     {
+        string heading = ID;
         if (ID == "ordered")
         {
-            Debug.Log("Play ordered dialogue for terminal #" + terminalNum+1);
+            heading = "" + (terminalNum + 1);
             terminalNum++;
+        }
+
+        string runNum = "Run " + SequenceManager.Instance.runNum;
+        if (terminalDialogue.Count > lvlNum-1 && terminalDialogue[lvlNum-1].ContainsKey(runNum))
+        {
+            List<string> lines = new List<string>();
+            bool correctPart = false;
+            foreach (var kvp in terminalDialogue[lvlNum-1][runNum])
+            {
+                if (kvp.Value == "" && correctPart)
+                        break;
+
+                if (correctPart)
+                    lines.Add(kvp.Value);
+
+                if (kvp.Value == heading)
+                    correctPart = true;
+            }
+            PlayMultiple(lines.ToArray());
         }
         else
         {
-            Debug.Log("Play dialogue for terminal " + ID);
+            Debug.LogWarning($"No dialogue found for level {lvlNum} and run {runNum}");
         }
     }
+
+    private void Start()
+    {
+        LoadFromJson();
+    }
+
+    private void LoadFromJson()
+    {
+        string path = "Assets/Resources/Dialogue";
+        if (Directory.Exists(path))
+        {
+            string[] files = Directory.GetFiles(path);
+            foreach (string file in files)
+            {
+                if (!file.Contains(".meta"))
+                {
+                    string relativePath = Path.GetRelativePath(Application.dataPath, file).Substring("Resources".Length+1);
+                    relativePath = Path.ChangeExtension(relativePath, null);
+                    var res = Resources.Load<TextAsset>(relativePath).text;
+                    var dict = ParseJsonToDictionary(res);
+                    terminalDialogue.Add(dict);
+                }
+            }
+        }
+    }
+
+    private Dictionary<string, Dictionary<string, string>> ParseJsonToDictionary(string jsonString)
+    {
+        try
+        {
+            var parsedData = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(jsonString);
+            return parsedData;
+        }
+        catch (JsonException ex)
+        {
+            Debug.LogError("Error parsing JSON: " + ex.Message);
+            return null;
+        }
+    }
+
 
 
     //////////////////////////////////

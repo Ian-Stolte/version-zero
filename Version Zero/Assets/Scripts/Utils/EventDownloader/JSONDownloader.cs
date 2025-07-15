@@ -5,13 +5,13 @@ using System.IO;
 using Newtonsoft.Json.Linq;
 
 #if UNITY_EDITOR
-public class EventDownloader : EditorWindow
+public class JSONDownloader : EditorWindow
 {
     private JSONConfig config;
-    [MenuItem("Tools/Download Script")]
+    [MenuItem("Tools/Download Dialogue")]
     public static void ShowWindow()
     {
-        GetWindow<EventDownloader>("JSON Downloader");
+        GetWindow<JSONDownloader>("JSON Downloader");
     }
 
     private void OnEnable()
@@ -53,7 +53,7 @@ public class EventDownloader : EditorWindow
 
             if (!string.IsNullOrEmpty(jsonContent))
             {
-                string folderPath = "Assets/Resources/Script";
+                string folderPath = "Assets/Resources/Dialogue";
                 if (Directory.Exists(folderPath))
                     Directory.Delete(folderPath, true);
                 
