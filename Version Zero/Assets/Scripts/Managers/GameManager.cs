@@ -335,19 +335,7 @@ public class GameManager : MonoBehaviour
             foreach (MeshRenderer m in currentTerminal.bars)
                 m.material = terminalGreen;
         }
-        if (currentTerminal.order == 0)
-            {
-                if (currentTerminal.dialogue.Length > 0)
-                {
-                    DialogueManager.Instance.StopCoroutines();
-                    DialogueManager.Instance.PlayMultiple(currentTerminal.dialogue);
-                    //DialogueManager.Instance.playMultipleCor = DialogueManager.Instance.PlayMultipleDialogues();
-                    //StartCoroutine(DialogueManager.Instance.playMultipleCor);
-                }
-            }
-            else
-                DialogueManager.Instance.PlayOrderedTerminal();
-
+        DialogueManager.Instance.PlayTerminal(currentTerminal.ID);
         FinishTerminalIcon();
         numTerminals--;
         

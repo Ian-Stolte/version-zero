@@ -250,7 +250,7 @@ MonoBehaviour:
   barrier: {fileID: 564916156}
   hiddenRoom: []
   dialogue: []
-  order: 0
+  ID: A
 --- !u!1 &114478815
 GameObject:
   m_ObjectHideFlags: 0
@@ -1438,7 +1438,7 @@ MonoBehaviour:
   - ~while I would love to stop and examine it we do not appear to have that luxury
     right now
   - Right...
-  order: 0
+  ID: B
 --- !u!65 &389457724
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2270,7 +2270,7 @@ MonoBehaviour:
     system
   - ~it would be rather inconvenient if my systems were corrupted right now****
   - ~*****inconvenient for me*** because I suspect you would win that fight
-  order: 0
+  ID: C
 --- !u!4 &548208172 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6763605797382398792, guid: efbfce48a5ce846259968a2e7b48147b, type: 3}

@@ -22,11 +22,9 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject dialogue;
     [SerializeField] private GameObject[] portraits;
     [SerializeField] private float typeSpeed;
-    //[SerializeField] private Sprite[] reyaExpressions;
 
     [Header("Terminals")]
     private int terminalNum;
-    [HideInInspector] public string[][] terminalDialogue = new string[5][];
 
     [Header("First Access Pt")]
     [TextArea(3, 5)] [SerializeField] private string[] firstAccessPt;
@@ -50,7 +48,6 @@ public class DialogueManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         terminalNum = 0;
-        terminalDialogue = new string[5][];
     }
 
 
@@ -62,12 +59,6 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    
-    public void PlayOrderedTerminal()
-    {
-        terminalNum++;
-        PlayMultiple(terminalDialogue[terminalNum]);
-    }
 
     public void PlayMultiple(string[] lines)
     {
@@ -134,24 +125,11 @@ public class DialogueManager : MonoBehaviour
 
     private string ShowPortraits(string line)
     {
-        portraits[0].SetActive(line[0] != '~' && line[0] != '!');
-        portraits[1].SetActive(line[0] == '~');
-        portraits[2].SetActive(line[0] == '!');
+        portraits[0].SetActive(line[0] != '~' && line[0] != '!'); //reya
+        portraits[1].SetActive(line[0] == '~'); //computer
+        portraits[2].SetActive(line[0] == '!'); //gardener
         if (line[0] == '~' || line[0] == '!')
             line = line.Substring(1);
-        /*if (line[0] == '[')
-        {
-            string portrait = line.Split("]")[0].Substring(1);
-            line = line.Split("]")[1].Trim();
-            Sprite newPortrait = reyaExpressions.FirstOrDefault(s => s.name == portrait);
-            if (newPortrait != null)
-                portraits[0].transform.GetChild(0).GetComponent<Image>().sprite = newPortrait;
-            else
-            {
-                Debug.LogWarning("No portrait found for: " + portrait);
-                portraits[0].transform.GetChild(0).GetComponent<Image>().sprite = reyaExpressions[0];
-            }
-        }*/
         return line;
     }
 
@@ -166,6 +144,24 @@ public class DialogueManager : MonoBehaviour
         dialogue.SetActive(false);
     }
 
+    
+    
+    //////////////////////////////////
+    /////////// TERMINALS ////////////
+    //////////////////////////////////
+
+    public void PlayTerminal(string ID)
+    {
+        if (ID == "ordered")
+        {
+            Debug.Log("Play ordered dialogue for terminal #" + terminalNum+1);
+            terminalNum++;
+        }
+        else
+        {
+            Debug.Log("Play dialogue for terminal " + ID);
+        }
+    }
 
 
     //////////////////////////////////
