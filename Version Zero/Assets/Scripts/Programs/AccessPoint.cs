@@ -10,7 +10,7 @@ public class AccessPoint : MonoBehaviour
     private bool used;
 
     public Transform barrier;
-    [TextArea(3, 5)][SerializeField] private string[] dialogue;
+    public string ID;
 
     private Transform player;
     private Transform cam;
@@ -34,11 +34,11 @@ public class AccessPoint : MonoBehaviour
             {
                 used = true;
                 if (SceneManager.GetActiveScene().name == "Level 2")
-                    StartCoroutine(DialogueManager.Instance.FirstAccessPt(dialogue));
+                    StartCoroutine(DialogueManager.Instance.FirstAccessPt());
                 else
                 {
                     RewardManager.Instance.Reward(3);
-                    if (dialogue.Length > 0)
+                    if (ID != "")
                         StartCoroutine(DelayedDialogue());
                 }
             }
@@ -51,8 +51,9 @@ public class AccessPoint : MonoBehaviour
 
     private IEnumerator DelayedDialogue()
     {
+        Debug.Log("Delayed dialogue!");
         DialogueManager.Instance.StopCoroutines();
         yield return new WaitForSeconds(1);
-        DialogueManager.Instance.PlayMultiple(dialogue);
+        DialogueManager.Instance.PlayByID(ID);
     }
 }

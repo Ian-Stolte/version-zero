@@ -12,8 +12,6 @@ public class Terminal : MonoBehaviour
     
     public Transform barrier;
     public GameObject[] hiddenRoom;
-
-    [TextArea(3, 5)] public string[] dialogue;
     public string ID;
 
     private Transform player;

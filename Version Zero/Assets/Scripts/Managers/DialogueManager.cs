@@ -16,24 +16,20 @@ public class DialogueManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+        LoadFromJson();
     }
 
     [Header("Dialogue")]
-    [TextArea(3, 5)] [SerializeField] private string[] introDialogue;
-    [TextArea(3, 5)] [SerializeField] private string[] introDialogue2;
-    [SerializeField] private GameObject dialogue;
+    public GameObject dialogue;
     [SerializeField] private GameObject[] portraits;
     [SerializeField] private float typeSpeed;
 
-    [Header("Terminals")]
     private int terminalNum;
     private int lvlNum;
-    private List<Dictionary<string, Dictionary<string, string>>> terminalDialogue = new List<Dictionary<string, Dictionary<string, string>>>();
-    private List<Dictionary<string, int>> terminalCounts = new List<Dictionary<string, int>>();
+    private List<Dictionary<string, Dictionary<string, string>>> dialogueBank = new List<Dictionary<string, Dictionary<string, string>>>();
+    private List<Dictionary<string, int>> timesPlayed = new List<Dictionary<string, int>>();
 
     [Header("First Access Pt")]
-    [TextArea(3, 5)] [SerializeField] private string[] firstAccessPt;
-    [SerializeField] private string[] firstEnemy;
     [SerializeField] private Transform buildSelect;
     [SerializeField] private Image progressBar;
     [SerializeField] private TextMeshProUGUI completeTxt;
@@ -45,7 +41,6 @@ public class DialogueManager : MonoBehaviour
     [Header("Misc")]
     private bool skip;
     [SerializeField] private TextMeshProUGUI areaIntroText;
-    [TextArea(3, 5)] [SerializeField] private string[] gardenerDialogue;
 
     
     void OnEnable() { SceneManager.sceneLoaded += OnSceneLoaded; }
@@ -56,7 +51,6 @@ public class DialogueManager : MonoBehaviour
         lvlNum = int.Parse(scene.name.Substring(6));
     }
 
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -65,6 +59,10 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+
+    //////////////////////////////////
+    ///////// PLAY DIALOGUE //////////
+    //////////////////////////////////
 
     public void PlayMultiple(string[] lines)
     {
@@ -139,7 +137,6 @@ public class DialogueManager : MonoBehaviour
         return line;
     }
 
-     
     public void StopCoroutines()
     {
         if (playCor != null)
@@ -153,11 +150,10 @@ public class DialogueManager : MonoBehaviour
 
 
     //////////////////////////////////
-    /////////// TERMINALS ////////////
+    ///////// LOAD FROM BANK /////////
     //////////////////////////////////
 
-
-    public void PlayTerminal(string ID)
+    public string[] PlayByID(string ID, bool play=true)
     {   
         string runNum = "";
         if (ID == "ordered")
@@ -165,18 +161,18 @@ public class DialogueManager : MonoBehaviour
             terminalNum++;
             ID = "Pt " + terminalNum;
             if (ID == "Pt 1")
-                terminalCounts[lvlNum - 1][ID]++;
-            runNum = "" + terminalCounts[lvlNum - 1]["Pt 1"];
+                timesPlayed[lvlNum - 1][ID]++;
+            runNum = "" + timesPlayed[lvlNum - 1]["Pt 1"];
         }
         else
         {
-            runNum = "" + (++terminalCounts[lvlNum - 1][ID]);
+            runNum = "" + (++timesPlayed[lvlNum - 1][ID]);
         }
 
-        if (terminalDialogue.Count > lvlNum - 1 && terminalDialogue[lvlNum - 1].ContainsKey(ID))
+        if (dialogueBank.Count > lvlNum - 1 && dialogueBank[lvlNum - 1].ContainsKey(ID))
         {
             int greatestInt = -1;
-            foreach (var value in terminalDialogue[lvlNum - 1][ID].Values)
+            foreach (var value in dialogueBank[lvlNum - 1][ID].Values)
             {
                 if (int.TryParse(value, out int parsedInt))
                 {
@@ -190,7 +186,7 @@ public class DialogueManager : MonoBehaviour
 
             List<string> lines = new List<string>();
             bool correctPart = false;
-            foreach (var kvp in terminalDialogue[lvlNum - 1][ID])
+            foreach (var kvp in dialogueBank[lvlNum - 1][ID])
             {
                 if (kvp.Value == "" && correctPart)
                     break;
@@ -198,20 +194,18 @@ public class DialogueManager : MonoBehaviour
                 if (correctPart)
                     lines.Add(kvp.Value);
 
-                if (kvp.Value == ""+greatestInt)
+                if (kvp.Value == "" + greatestInt)
                     correctPart = true;
             }
-            PlayMultiple(lines.ToArray());
+            if (play)
+                PlayMultiple(lines.ToArray());
+            return lines.ToArray();
         }
         else
         {
             Debug.LogWarning($"No dialogue found for level {lvlNum} and run {runNum}");
+            return null;
         }
-    }
-
-    private void Start()
-    {
-        LoadFromJson();
     }
 
     private void LoadFromJson()
@@ -228,13 +222,13 @@ public class DialogueManager : MonoBehaviour
                     relativePath = Path.ChangeExtension(relativePath, null);
                     var res = Resources.Load<TextAsset>(relativePath).text;
                     var dict = ParseJsonToDictionary(res);
-                    terminalDialogue.Add(dict);
+                    dialogueBank.Add(dict);
                     var counts = new Dictionary<string, int>();
                     foreach (var key in dict.Keys)
                     {
                         counts[key] = 0;
                     }
-                    terminalCounts.Add(counts);
+                    timesPlayed.Add(counts);
                 }
             }
         }
@@ -265,7 +259,7 @@ public class DialogueManager : MonoBehaviour
         GameManager.Instance.pauseGame = true;
         dialogue.SetActive(true);
         TextMeshProUGUI txt = dialogue.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-        string[] dialogueToPlay = (SequenceManager.Instance.runNum == 1) ? introDialogue : introDialogue2;
+        string[] dialogueToPlay = PlayByID("Intro", false);
         if (!GameManager.Instance.skipDialogue)
         {
             for (int i = 0; i < dialogueToPlay.Length; i++)
@@ -352,7 +346,7 @@ public class DialogueManager : MonoBehaviour
     }
 
 
-    public IEnumerator FirstAccessPt(string[] dialogue)
+    public IEnumerator FirstAccessPt()
     {
         GameManager.Instance.playerPaused = true;
         if (SequenceManager.Instance.runNum == 1)
@@ -361,9 +355,10 @@ public class DialogueManager : MonoBehaviour
             ProgramManager.Instance.programUI.gameObject.SetActive(true);
             StopCoroutines();
             yield return new WaitForSeconds(1.5f);
-            for (int i = 0; i < dialogue.Length; i++)
+            string[] firstAccessPt = PlayByID("M_Intro", false);
+            for (int i = 0; i < firstAccessPt.Length; i++)
             {
-                yield return PlayDialogue(dialogue[i], 1f);
+                yield return PlayDialogue(firstAccessPt[i], 1f);
                 if (i == 1)
                 {
                     buildSelect.GetChild(2).gameObject.SetActive(false);
@@ -375,7 +370,7 @@ public class DialogueManager : MonoBehaviour
                     yield return new WaitForSeconds(1);
             }
             yield return new WaitForSeconds(3);
-            PlayMultiple(firstAccessPt);
+            PlayByID("M_A");
         }
         else
         {
@@ -393,7 +388,7 @@ public class DialogueManager : MonoBehaviour
         StartCoroutine(GameManager.Instance.WaveEnemies(1, new Vector3(40, 0, -5)));
 
         yield return new WaitForSeconds(1.2f);
-        StartCoroutine(PlayMultipleDialogues(firstEnemy));
+        PlayByID("First_Enemy");
         GameObject.Find("Player").GetComponent<PlayerMovement>().hpBar.gameObject.SetActive(true);
     }
 
@@ -420,21 +415,5 @@ public class DialogueManager : MonoBehaviour
             buildSelect.GetChild(1).GetComponent<CanvasGroup>().alpha = i/2f;
         }
         buildSelect.GetChild(1).gameObject.SetActive(false);
-    }
-
-
-    public IEnumerator GardenerDialogue()
-    {
-        StopCoroutines();
-        GameManager.Instance.pauseGame = true;
-        dialogue.SetActive(true);
-        for (int i = 0; i < gardenerDialogue.Length-1; i++)
-        {
-            yield return PlayDialogue(gardenerDialogue[i], 2f);
-        }
-        StartCoroutine(PlayDialogue(gardenerDialogue[gardenerDialogue.Length-1], 2f));
-        yield return new WaitForSeconds(3);
-        dialogue.SetActive(false);
-        GameManager.Instance.pauseGame = false;
     }
 }

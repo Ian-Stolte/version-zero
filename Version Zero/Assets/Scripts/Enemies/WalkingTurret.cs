@@ -95,7 +95,7 @@ public class WalkingTurret : Enemy
 
             //move randomly
             float speed = (slowTimer > 0) ? defSpeed*0.3f : defSpeed;
-            rb.MovePosition(rb.position + (target-rb.position).normalized * speed * Time.deltaTime);
+            MoveTo(target, speed);
             if (Vector3.Distance(rb.position, target) < 1f)
                 ChooseTarget();
             
@@ -144,8 +144,13 @@ public class WalkingTurret : Enemy
         a.Play("Boss 1");
         StartCoroutine(a.StartFade("Boss 1", 1, 0.2f));
 
-        yield return DialogueManager.Instance.GardenerDialogue();
+        //play intro dialogue
+        GameManager.Instance.pauseGame = true;
+        DialogueManager.Instance.PlayByID("Boss_Intro");
+        yield return new WaitUntil(() => !DialogueManager.Instance.dialogue.activeSelf);
+        GameManager.Instance.pauseGame = false;
 
+        //setup health bar
         GameManager.Instance.bossUI.SetActive(true);
         healthBar = GameObject.Find("Boss Fill").GetComponent<Image>();
         for (float i = spawnInterval; i < 1; i+=spawnInterval)
@@ -163,8 +168,8 @@ public class WalkingTurret : Enemy
         do
         {
             target = transform.position + Quaternion.Euler(0, Random.Range(0, 360), 0) * new Vector3(1, 0, 1) * Random.Range(targetMin, targetMax);
-            lineOfSight = !Physics.Raycast(transform.position, target-transform.position, Vector3.Distance(target, transform.position), terrainLayer);
-        } while (Physics.OverlapSphere(target, 1, terrainLayer).Length > 0 || !lineOfSight);
+            //lineOfSight = !Physics.Raycast(transform.position, target-transform.position, Vector3.Distance(target, transform.position), terrainLayer);
+        } while (Physics.OverlapSphere(target, 1, terrainLayer).Length > 0);
     }
 
 

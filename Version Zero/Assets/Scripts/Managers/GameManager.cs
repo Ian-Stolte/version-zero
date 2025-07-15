@@ -164,7 +164,7 @@ public class GameManager : MonoBehaviour
         }
         else if (scene.name == "Level 2")
         {
-            Terminal terminal = GameObject.Find("Terminal").GetComponent<Terminal>();
+            Terminal terminal = GameObject.Find("Terminal A").GetComponent<Terminal>();
             if (runNum == 1)
             {
                 foreach (GameObject g in terminal.hiddenRoom)
@@ -175,6 +175,8 @@ public class GameManager : MonoBehaviour
                 terminal.complete = true;
                 Destroy(terminalIcons.GetChild(1).gameObject);
                 numTerminals--;
+                foreach (MeshRenderer m in terminal.bars)
+                    m.material = terminalGreen;
             }
         }
         
@@ -343,7 +345,8 @@ public class GameManager : MonoBehaviour
             foreach (MeshRenderer m in currentTerminal.bars)
                 m.material = terminalGreen;
         }
-        DialogueManager.Instance.PlayTerminal(currentTerminal.ID);
+        if (currentTerminal.ID != "")
+            DialogueManager.Instance.PlayByID(currentTerminal.ID);
         FinishTerminalIcon();
         numTerminals--;
         

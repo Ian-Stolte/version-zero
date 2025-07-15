@@ -3497,22 +3497,10 @@ MonoBehaviour:
   - {fileID: 1429909108834651106}
   - {fileID: 522683671815730594}
   typeSpeed: 0.7
-  firstAccessPt:
-  - ~it appears you need to provide your Sector miss***
-  - ~unfortunately I am unable to find data on which one you belong to
-  - ~perhaps you will feel a calling to one of them?***
-  firstEnemy:
-  - "~warning\u2014 infected systems detected!"
   buildSelect: {fileID: 4341673330729894767}
   progressBar: {fileID: 5279498304469211711}
   completeTxt: {fileID: 4227083385560644938}
   areaIntroText: {fileID: 5415879275530104750}
-  gardenerDialogue:
-  - "~wWe aReR bEIng cO**-conta**ActT\u2014\r"
-  - '!LIFEFORMS ARE NOT PERMITTED IN THE GARDEN'
-  - '!I WOULD ASK YOU TO LEAVE BUT ACCORDING TO MY MODELS THAT ONLY HAS A 78% CHANCE
-    OF SUCCESS'
-  - '!WHEREAS ELIMINATING YOU IS 100% EFFECTIVE'
 --- !u!1 &1962712692126546188
 GameObject:
   m_ObjectHideFlags: 0

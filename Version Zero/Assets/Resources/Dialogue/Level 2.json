@@ -1,38 +1,42 @@
 {
-  "Run 1": {
-    "0": "A",
-    "1": "Hang on... does this spot feel familiar to you?",
-    "2": "~while I would love to stop and examine it we do not appear to have that luxury right now",
-    "3": "Right...",
-    "4": "",
-    "5": "B",
-    "6": "Hey, I remember when I got my Star Inferno 3 mods displayed here!",
-    "7": "That was a fun month...",
-    "8": "~i was not aware of this story but it sounds very fun indeed miss",
-    "9": "Well maybe I???ll tell you about it sometime, then.",
-    "10": "",
-    "11": "C",
-    "12": "Hey, Computer?** Any more progress on that scan?",
-    "13": "~unfortunately all of my processing is currently directed toward the antivirus system",
-    "14": "~it would be rather inconvenient if my systems were corrupted right now****",
-    "15": "~*****inconvenient for me*** because I suspect you would win that fight"
+  "A": {
+    "0": 1,
+    "1": "Shit.*** Didn't work.",
+    "2": "Computer...** can you find somewhere with auth user permissions?",
+    "3": "~yes of course right away******",
+    "4": "~it is back the way we came",
+    "5": "",
+    "6": "",
+    "7": ""
   },
-  "Run 2": {
-    "0": "A",
-    "1": "Hang on... this kiosk feels really familiar",
-    "2": "~while I would love to stop and examine it???",
-    "3": "Wait, I definitely remember ___",
+  "M_Intro": {
+    "0": 1,
+    "1": "Amazing*.*.*.** half of these systems are broken, and the other half are ads.****",
+    "2": "Hang on***, let me try a hard reset.**",
+    "3": "~**i do not wish to alarm you but I am detecting numerous attempts to breach my antivirus software",
+    "4": "~you may want to prepare yourself****",
+    "5": "~it is likely that any systems we encounter may already be compromised***",
+    "6": "That’s what I’m trying to—**",
+    "7": "huh,** there we go"
+  },
+  "M_A": {
+    "0": 1,
+    "1": "~it appears you need to provide your Sector miss***",
+    "2": "~unfortunately I am unable to find data on which one you belong to",
+    "3": "~perhaps you will feel a calling to one of them?***",
     "4": "",
-    "5": "B",
-    "6": "Hey, I remember when I got my Star Inferno 3 mods displayed here!",
-    "7": "That was a fun month...",
-    "8": "~oh I remember you mentioning this",
-    "9": "~maybe you will have to tell me more sometime",
-    "10": "",
-    "11": "C",
-    "12": "Hey, Computer?** Any more progress on that scan?",
-    "13": "~unfortunately all of my processing is currently directed toward the antivirus system",
-    "14": "~it would be rather inconvenient if my systems were corrupted right now****",
-    "15": "~*****inconvenient for me*** because I suspect you would win that fight"
+    "5": "",
+    "6": "",
+    "7": ""
+  },
+  "First_Enemy": {
+    "0": 1,
+    "1": "~warning— infected systems detected!",
+    "2": "",
+    "3": "",
+    "4": "",
+    "5": "",
+    "6": "",
+    "7": ""
   }
 }
