@@ -29,6 +29,7 @@ public class DialogueManager : MonoBehaviour
     private int terminalNum;
     private int lvlNum;
     private List<Dictionary<string, Dictionary<string, string>>> terminalDialogue = new List<Dictionary<string, Dictionary<string, string>>>();
+    private List<Dictionary<string, int>> terminalCounts = new List<Dictionary<string, int>>();
 
     [Header("First Access Pt")]
     [TextArea(3, 5)] [SerializeField] private string[] firstAccessPt;
@@ -149,36 +150,55 @@ public class DialogueManager : MonoBehaviour
         dialogue.SetActive(false);
     }
 
-    
-    
+
+
     //////////////////////////////////
     /////////// TERMINALS ////////////
     //////////////////////////////////
 
 
     public void PlayTerminal(string ID)
-    {
-        string heading = ID;
+    {   
+        string runNum = "";
         if (ID == "ordered")
         {
-            heading = "" + (terminalNum + 1);
             terminalNum++;
+            ID = "Pt " + terminalNum;
+            if (ID == "Pt 1")
+                terminalCounts[lvlNum - 1][ID]++;
+            runNum = "" + terminalCounts[lvlNum - 1]["Pt 1"];
+        }
+        else
+        {
+            runNum = "" + (++terminalCounts[lvlNum - 1][ID]);
         }
 
-        string runNum = "Run " + SequenceManager.Instance.runNum;
-        if (terminalDialogue.Count > lvlNum-1 && terminalDialogue[lvlNum-1].ContainsKey(runNum))
+        if (terminalDialogue.Count > lvlNum - 1 && terminalDialogue[lvlNum - 1].ContainsKey(ID))
         {
+            int greatestInt = -1;
+            foreach (var value in terminalDialogue[lvlNum - 1][ID].Values)
+            {
+                if (int.TryParse(value, out int parsedInt))
+                {
+                    int runInt = int.Parse(runNum);
+                    if (parsedInt <= runInt && parsedInt > greatestInt)
+                    {
+                        greatestInt = parsedInt;
+                    }
+                }
+            }
+
             List<string> lines = new List<string>();
             bool correctPart = false;
-            foreach (var kvp in terminalDialogue[lvlNum-1][runNum])
+            foreach (var kvp in terminalDialogue[lvlNum - 1][ID])
             {
                 if (kvp.Value == "" && correctPart)
-                        break;
+                    break;
 
                 if (correctPart)
                     lines.Add(kvp.Value);
 
-                if (kvp.Value == heading)
+                if (kvp.Value == ""+greatestInt)
                     correctPart = true;
             }
             PlayMultiple(lines.ToArray());
@@ -209,6 +229,12 @@ public class DialogueManager : MonoBehaviour
                     var res = Resources.Load<TextAsset>(relativePath).text;
                     var dict = ParseJsonToDictionary(res);
                     terminalDialogue.Add(dict);
+                    var counts = new Dictionary<string, int>();
+                    foreach (var key in dict.Keys)
+                    {
+                        counts[key] = 0;
+                    }
+                    terminalCounts.Add(counts);
                 }
             }
         }

@@ -44,8 +44,6 @@ public class JSONDownloader : EditorWindow
     private void DownloadJSONFiles()
     {
         string urlTemplate = "https://script.google.com/macros/s/{0}/exec";
-        Debug.Log("Downloading JSON Files!");
-
         foreach (var configEntry in config.dialogueConfigs)
         {
             string url = string.Format(urlTemplate, configEntry.sheetID, name);
@@ -70,8 +68,6 @@ public class JSONDownloader : EditorWindow
 
     private void SaveSheetJSON(string JSON, string folderPath)
     {
-        Debug.Log(JSON);
-        Debug.Log("Path: " + folderPath);
         try
         {
             JObject allSheets = JObject.Parse(JSON);

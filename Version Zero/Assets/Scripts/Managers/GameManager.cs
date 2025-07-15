@@ -208,8 +208,16 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.N))
         {
-            StartCoroutine(LoadNextLevel(GameObject.Find("End Elevator").GetComponent<Elevator>().nextArea));
+            StartCoroutine(LoadNextLevel(GameObject.Find("Elevator_End").GetComponent<Elevator>().nextArea, true));
         }
+        for (int i = 1; i <= 6; i++)
+        {
+            if (Input.GetKeyDown(i.ToString()))
+            {
+                SceneManager.LoadScene("Level " + i);
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.K))
         {
             int killed = enemyParent.childCount;
@@ -378,31 +386,37 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public IEnumerator LoadNextLevel(string nextArea)
+    public IEnumerator LoadNextLevel(string nextArea, bool skip=false)
     {
         loadingLevel = true;
-        AudioManager.Instance.Play("Elevator Down");
-        foreach (Transform child in enemyParent)
-            Destroy(child.gameObject);
-        yield return new WaitForSeconds(0.5f);
-        Fader.Instance.FadeIn(1.2f, true);
-        yield return new WaitForSeconds(1.2f);
-        yield return new WaitForSeconds(1.5f);
-        loadingText.GetComponent<TextMeshProUGUI>().text = "Now approaching: \n" + nextArea;
-        loadingText.SetActive(true);
-        Color c = loadingText.GetComponent<TextMeshProUGUI>().color;
-        loadingText.GetComponent<TextMeshProUGUI>().color = new Color(c.r, c.g, c.b, 1);
-        yield return new WaitForSeconds(2f);
-
-        float elapsed = 1;
-        StartCoroutine(ElevatorSounds());
-        while (elapsed > 0)
+        if (!skip)
         {
-            elapsed -= Time.deltaTime;
-            yield return null;
-            loadingText.GetComponent<TextMeshProUGUI>().color = new Color(c.r, c.g, c.b, elapsed);
+            AudioManager.Instance.Play("Elevator Down");
+            foreach (Transform child in enemyParent)
+                Destroy(child.gameObject);
+            yield return new WaitForSeconds(0.5f);
+            Fader.Instance.FadeIn(1.2f, true);
+            yield return new WaitForSeconds(1.2f);
+            yield return new WaitForSeconds(1.5f);
+            loadingText.GetComponent<TextMeshProUGUI>().text = "Now approaching: \n" + nextArea;
+            loadingText.SetActive(true);
+            Color c = loadingText.GetComponent<TextMeshProUGUI>().color;
+            loadingText.GetComponent<TextMeshProUGUI>().color = new Color(c.r, c.g, c.b, 1);
+            yield return new WaitForSeconds(2f);
+
+            float elapsed = 1;
+            StartCoroutine(ElevatorSounds());
+            while (elapsed > 0)
+            {
+                elapsed -= Time.deltaTime;
+                yield return null;
+                loadingText.GetComponent<TextMeshProUGUI>().color = new Color(c.r, c.g, c.b, elapsed);
+            }
+            loadingText.SetActive(false);
         }
-        loadingText.SetActive(false);
+        else
+            yield return null;
+            
         int levelNum = int.Parse(SceneManager.GetActiveScene().name.Substring(6))+1;
         areaText.text = nextArea;
         if (levelNum < 7)
