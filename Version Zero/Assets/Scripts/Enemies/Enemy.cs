@@ -239,7 +239,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void MoveTo(Vector3 pos, float speed)
+    public void MoveTo(Vector3 pos, float speed, float pathRecheck=0.5f)
     {
         bool lineOfSight = !Physics.Raycast(transform.position, (pos - transform.position).normalized, Vector3.Distance(transform.position, pos), terrainLayer);
         if (Physics.OverlapSphere(transform.position, collisionRadius, terrainLayer).Length > 0)
@@ -253,7 +253,7 @@ public class Enemy : MonoBehaviour
         }
         else //pathfinding if blocked
         {
-            if (Vector3.Distance(pos, moveTarget) > 0.5f)
+            if (Vector3.Distance(pos, moveTarget) > pathRecheck)
             {
                 moveTarget = pos;
                 pathfinding.FindPath(transform.position, pos, gridIndex, OnPathFound);
