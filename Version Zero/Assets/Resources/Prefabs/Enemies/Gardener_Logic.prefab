@@ -4501,12 +4501,13 @@ MonoBehaviour:
   aggro: 0
   stunTimer: 0
   slowTimer: 0
-  blocksLOS:
-    serializedVersion: 2
-    m_Bits: 10240
   gridIndex: 1
   collisionRadius: 3
+  terrainLayer:
+    serializedVersion: 2
+    m_Bits: 18432
   pathReady: 0
+  pathfinding: {fileID: 0}
   healthBar: {fileID: 0}
   statusTxt: {fileID: 6942373197561517911}
   damageNumber: {fileID: 2345899596540281866, guid: 753d7799ea08308459e89e0baabf8ac3, type: 3}
@@ -4520,9 +4521,7 @@ MonoBehaviour:
   targetMin: 5
   targetMax: 10
   lineOfSight: 0
-  terrainLayer:
-    serializedVersion: 2
-    m_Bits: 2048
+  stuckTimer: 0
   atkDelay: 5
   dmg: 2
   numProj: 50

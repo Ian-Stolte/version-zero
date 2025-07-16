@@ -770,12 +770,13 @@ MonoBehaviour:
   aggro: 0
   stunTimer: 0
   slowTimer: 0
-  blocksLOS:
-    serializedVersion: 2
-    m_Bits: 10240
   gridIndex: 0
   collisionRadius: 1
+  terrainLayer:
+    serializedVersion: 2
+    m_Bits: 10240
   pathReady: 0
+  pathfinding: {fileID: 0}
   healthBar: {fileID: 5263845765688459622}
   statusTxt: {fileID: 2107153480294180739}
   damageNumber: {fileID: 2345899596540281866, guid: 753d7799ea08308459e89e0baabf8ac3, type: 3}

@@ -30,5 +30,37 @@
     "11": "~I also identified more infected systems moving toward our location",
     "12": "~you may want to consider moving quickly",
     "13": ""
+  },
+  "Memory_Slow": {
+    "0": 1,
+    "1": "I remember...",
+    "2": "There were stars above me.... I remember finding that so strange.",
+    "3": "Why were there stars here, in a digital world?",
+    "4": "I walked out of the door, into the darkness...",
+    "5": "And I realized I had absolutely nowhere I neeeded to be.",
+    "6": "It was the first time in what felt like forever that I could finally slow down...",
+    "7": "",
+    "8": "",
+    "9": "",
+    "10": "",
+    "11": "",
+    "12": "",
+    "13": ""
+  },
+  "Memory_None": {
+    "0": 1,
+    "1": "",
+    "2": "",
+    "3": "",
+    "4": "",
+    "5": "",
+    "6": "",
+    "7": "",
+    "8": "",
+    "9": "",
+    "10": "",
+    "11": "",
+    "12": "",
+    "13": ""
   }
 }

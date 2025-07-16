@@ -53,7 +53,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         {
             skip = true;
         }
@@ -82,10 +82,10 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public IEnumerator PlayDialogue(string line, float waitTime, bool canSkip=false)
+    public IEnumerator PlayDialogue(string line, float waitTime)
     {
-        //set up portraits
         line = ShowPortraits(line);
+        skip = false;
 
         //type out dialogue
         TextMeshProUGUI txt = dialogue.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
@@ -95,34 +95,46 @@ public class DialogueManager : MonoBehaviour
         string html = "";
         foreach (char c in line)
         {
-            if (c=='<')
+            if (c == '<')
             {
                 addingHTML = true;
                 html = "<";
             }
-            else if (c=='>')
+            else if (c == '>')
             {
                 addingHTML = false;
-                txt.text += html+">";
+                txt.text += html + ">";
             }
             else if (addingHTML)
                 html += c;
-            else if (c=='*')
-                yield return new WaitForSeconds(0.15f * typeSpeed);
+            else if (c == '*')
+            {
+                if (!skip || !GameManager.Instance.pauseGame)
+                    yield return new WaitForSeconds(0.15f * typeSpeed);
+            }
             else if (c != '~')
             {
                 txt.text += c;
-                if (c=='.' || c==',')
-                    yield return new WaitForSeconds(0.15f * typeSpeed);
-                else if (c==' ')
-                    yield return new WaitForSeconds(0.08f * typeSpeed);
-                else
-                    yield return new WaitForSeconds(0.04f * typeSpeed);
+                if (!skip || !GameManager.Instance.pauseGame)
+                {
+                    if (c == '.' || c == ',')
+                        yield return new WaitForSeconds(0.15f * typeSpeed);
+                    else if (c == ' ')
+                        yield return new WaitForSeconds(0.08f * typeSpeed);
+                    else
+                        yield return new WaitForSeconds(0.04f * typeSpeed);
+                }
             }
         }
         if (line[line.Length-1] == '—')
             waitTime *= 0.5f;
-        yield return new WaitForSeconds(waitTime);
+            
+        skip = false;
+        while (!skip && waitTime > 0)
+        {
+            waitTime -= Time.deltaTime;
+            yield return null;
+        }
         dialogue.SetActive(false);
         txt.text = "";
     }
