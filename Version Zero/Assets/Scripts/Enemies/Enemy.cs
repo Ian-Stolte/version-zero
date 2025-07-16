@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
     [Header("Pathfinding")]
     public int gridIndex;
     public float collisionRadius;
-    [HideInInspector] public LayerMask terrainLayer;
+    public LayerMask terrainLayer;
     [HideInInspector] public bool pathReady;
     [HideInInspector] public Pathfinding pathfinding;
     private Vector3 moveTarget;
@@ -57,7 +57,7 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         player = GameObject.Find("Player");
         pathfinding = GameObject.Find("Pathfinding").GetComponent<Pathfinding>();
-        terrainLayer = LayerMask.GetMask("Obstacle", "Terminal");
+        //terrainLayer = LayerMask.GetMask("Obstacle", "Terminal");
 
         //cache material refs
         foreach (Transform child in GetComponentsInChildren<Transform>(true))

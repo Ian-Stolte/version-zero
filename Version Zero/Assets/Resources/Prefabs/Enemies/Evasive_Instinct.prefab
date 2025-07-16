@@ -839,8 +839,9 @@ MonoBehaviour:
   collisionRadius: 2
   terrainLayer:
     serializedVersion: 2
-    m_Bits: 10240
+    m_Bits: 26624
   pathReady: 0
+  pathfinding: {fileID: 0}
   healthBar: {fileID: 6556307969795743139}
   statusTxt: {fileID: 2056904832958051038}
   damageNumber: {fileID: 2345899596540281866, guid: 753d7799ea08308459e89e0baabf8ac3, type: 3}
