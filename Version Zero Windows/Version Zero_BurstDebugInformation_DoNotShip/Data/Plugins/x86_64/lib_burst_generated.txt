@@ -32,6 +32,7 @@ Library: C:\Users\ianst\GitHub\version-zero\Version Zero\Temp\BurstOutput\Data\P
 --assembly-defines=FbxBuildTestAssets;
 --assembly-defines=Unity.VisualScripting.Antlr3.Runtime;
 --assembly-defines=Unity.Burst.Unsafe;
+--assembly-defines=Newtonsoft.Json;
 --assembly-defines=System.Runtime;
 --assembly-defines=netstandard;
 --assembly-defines=Mono.Security;
@@ -98,6 +99,7 @@ Library: C:\Users\ianst\GitHub\version-zero\Version Zero\Temp\BurstOutput\Data\P
 --assembly-defines=FbxBuildTestAssets;
 --assembly-defines=Unity.VisualScripting.Antlr3.Runtime;
 --assembly-defines=Unity.Burst.Unsafe;
+--assembly-defines=Newtonsoft.Json;
 --assembly-defines=System.Runtime;
 --assembly-defines=netstandard;
 --assembly-defines=Mono.Security;
@@ -162,6 +164,7 @@ Library: C:\Users\ianst\GitHub\version-zero\Version Zero\Temp\BurstOutput\Data\P
 --assembly-defines=FbxBuildTestAssets;
 --assembly-defines=Unity.VisualScripting.Antlr3.Runtime;
 --assembly-defines=Unity.Burst.Unsafe;
+--assembly-defines=Newtonsoft.Json;
 --assembly-defines=System.Runtime;
 --assembly-defines=netstandard;
 --assembly-defines=Mono.Security;
@@ -230,6 +233,7 @@ Library: C:\Users\ianst\GitHub\version-zero\Version Zero\Temp\BurstOutput\Data\P
 --assembly-defines=FbxBuildTestAssets;
 --assembly-defines=Unity.VisualScripting.Antlr3.Runtime;
 --assembly-defines=Unity.Burst.Unsafe;
+--assembly-defines=Newtonsoft.Json;
 --assembly-defines=System.Runtime;
 --assembly-defines=netstandard;
 --assembly-defines=Mono.Security;

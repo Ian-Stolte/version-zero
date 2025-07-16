@@ -482,7 +482,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5839098470242269186
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3471,26 +3471,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 793e283c6c2704620b51f4fa6856c6e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  introDialogue:
-  - ow*.*.*.**** my head
-  - ~do not take this the wrong way but i am seeing an unexpectedly large gap in
-    your neural data
-  - ~did you do something dangerous again miss
-  - I... hah... I hope not.
-  - '*.*.*.**'
-  - "...that said***.*.*.* I uh\u2014** I'm seeing more than a couple errors here.*******
-    Let me try turning it off and back\u2014"
-  - Shit.*** I'm getting blocked by an 'upload in progress' override every time I
-    try to log off.
-  - ~ohhh that is indeed a slight issue
-  - ~perhaps it is related to the strange signals I am picking up from this world
-  - ~if we get closer I will be able to perform a more thorough scan
-  introDialogue2:
-  - ~welcome back miss!
-  - ~I am glad your reset appears to have worked better this time
-  - ~unfortunately I am still seeing a minor software error with your memory upload
-    process
-  - ~I hope you do not mind a bit more walking
   dialogue: {fileID: 275432461431091454}
   portraits:
   - {fileID: 1544588236475558191}
@@ -16074,7 +16054,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.5, y: -109.3}
+  m_AnchoredPosition: {x: 10, y: -116.4}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6478345569262248063
@@ -16417,8 +16397,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8.1355, y: -8.2679}
-  m_SizeDelta: {x: 103.46, y: 108.0661}
+  m_AnchoredPosition: {x: 6.556705, y: -12.621193}
+  m_SizeDelta: {x: 114.6032, y: 113.6101}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8305146258853711547
 CanvasRenderer:
@@ -16448,7 +16428,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 722b46523827c6b4fa41ef56980a5a63, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 612091b174e0b4647b3a9b543a4aecb2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
