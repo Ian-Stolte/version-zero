@@ -13,6 +13,7 @@ public class WalkingTurret : Enemy
     [SerializeField] private float targetMax;
     private Vector3 target;
     [SerializeField] private bool lineOfSight;
+    [SerializeField] private float stuckTimer;
 
     [Header("Attack")]
     [SerializeField] private float atkDelay;
@@ -29,6 +30,7 @@ public class WalkingTurret : Enemy
     [SerializeField] private float stompDelay;
     private float stompTimer;
     [SerializeField] private GameObject stompIndicator;
+    private bool stomping;
 
     [Header("Enemy Spawn")]
     [SerializeField] private float spawnInterval;
@@ -94,11 +96,16 @@ public class WalkingTurret : Enemy
             }
 
             //move randomly
-            float speed = (slowTimer > 0) ? defSpeed*0.3f : defSpeed;
-            MoveTo(target, speed);
-            if (Vector3.Distance(rb.position, target) < 1f)
-                ChooseTarget();
-            
+            if (!stomping)
+            {
+                float speed = (slowTimer > 0) ? defSpeed * 0.3f : defSpeed;
+                MoveTo(target, speed);
+                if (Vector3.Distance(rb.position, target) < 3f)
+                    stuckTimer += Time.deltaTime;
+                if (Vector3.Distance(rb.position, target) < 1f || stuckTimer > 2f)
+                    ChooseTarget();
+            }
+
             if (atkTimer <= 0 && (dist > meleeRange) && !finalForm) //ranged attack
             {
                 Vector3 dir = Vector3.Scale(player.transform.position - transform.position, new Vector3(1, 0, 1)).normalized;
@@ -149,7 +156,7 @@ public class WalkingTurret : Enemy
         DialogueManager.Instance.PlayByID("Boss_Intro");
         yield return new WaitUntil(() => !DialogueManager.Instance.dialogue.activeSelf);
         GameManager.Instance.pauseGame = false;
-
+        
         //setup health bar
         GameManager.Instance.bossUI.SetActive(true);
         healthBar = GameObject.Find("Boss Fill").GetComponent<Image>();
@@ -165,11 +172,13 @@ public class WalkingTurret : Enemy
 
     private void ChooseTarget()
     {
+        stuckTimer = 0f;
         do
         {
             target = transform.position + Quaternion.Euler(0, Random.Range(0, 360), 0) * new Vector3(1, 0, 1) * Random.Range(targetMin, targetMax);
+            target.x = Mathf.Clamp(target.x, 15f, 43f);
             //lineOfSight = !Physics.Raycast(transform.position, target-transform.position, Vector3.Distance(target, transform.position), terrainLayer);
-        } while (Physics.OverlapSphere(target, 1, terrainLayer).Length > 0);
+        } while (!pathfinding.IsWalkable(target, gridIndex));
     }
 
 
@@ -195,6 +204,7 @@ public class WalkingTurret : Enemy
 
     private IEnumerator Stomp()
     {
+        stomping = true;
         yield return new WaitUntil(() => !GameManager.Instance.pauseGame);
         anim.Play("Gardener_Stomp");
         stompIndicator.SetActive(true);
@@ -226,6 +236,7 @@ public class WalkingTurret : Enemy
             Vector3 dir = Vector3.Scale(player.transform.position - transform.position, new Vector3(1, 0, 1)).normalized;
             StartCoroutine(FireProjectiles(dir));
         }
+        stomping = false;
     }
 
     private IEnumerator LookAtPlayer()
@@ -290,7 +301,7 @@ public class WalkingTurret : Enemy
     private void OnDestroy()
     {
         healthBar.transform.parent.parent.gameObject.SetActive(false);
-        foreach (Transform child in GameObject.Find("Enemies").transform)
+        foreach (Transform child in transform.parent)
             Destroy(child.gameObject);
 
         endBarrier.SetActive(false);

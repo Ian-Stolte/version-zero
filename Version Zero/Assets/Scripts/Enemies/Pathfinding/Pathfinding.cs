@@ -7,7 +7,13 @@ public class Pathfinding : MonoBehaviour
 {
     [HideInInspector] public PathGrid grid;
 
-    public IEnumerator FindPath(Vector3 startPos, Vector3 endPos, int gridIndex, Action<Vector3[], bool> callback, bool waitAFrame)
+    public bool IsWalkable(Vector3 pos, int gridIndex)
+    {
+        grid = transform.GetChild(gridIndex).GetComponent<PathGrid>();
+        return grid.NodeFromWorldPoint(pos).walkable;
+    }
+
+    public void FindPath(Vector3 startPos, Vector3 endPos, int gridIndex, Action<Vector3[], bool> callback)
     {
         grid = transform.GetChild(gridIndex).GetComponent<PathGrid>();
 
@@ -60,20 +66,10 @@ public class Pathfinding : MonoBehaviour
                 }
             }
         }
-
         if (success)
             waypoints = RetracePath(start, end);
 
-        if (waitAFrame)
-        {
-            yield return null;
-            callback(waypoints, success);
-        }
-        else
-        {
-            callback(waypoints, success);
-            yield return null;
-        }
+        callback(waypoints, success);
     }
 
     private Node FindNearestWalkable(Node node)

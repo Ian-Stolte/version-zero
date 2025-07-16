@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465788, g: 0.49641287, b: 0.5748173, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -305,9 +305,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1588410854}
     - target: {fileID: 2372218506650212160, guid: 1671aca5b291bc04ba40fd574cdc49f1, type: 3}
+      propertyPath: moveTarget
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2372218506650212160, guid: 1671aca5b291bc04ba40fd574cdc49f1, type: 3}
       propertyPath: startBarrier
       value: 
       objectReference: {fileID: 621921260}
+    - target: {fileID: 2372218506650212160, guid: 1671aca5b291bc04ba40fd574cdc49f1, type: 3}
+      propertyPath: moveTargetObj
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2402871052299734732, guid: 1671aca5b291bc04ba40fd574cdc49f1, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -2860,10 +2868,6 @@ MonoBehaviour:
   interactKey: 102
   interactDist: 4
   barrier: {fileID: 0}
-  dialogue:
-  - "~mIsS wE aaare\u2014 gEtTtinG vEarY cLosSosE oSe oSEee"
-  - "Hang on, little guy.****\r"
-  - ...I better not mess this up now.
   ID: M_A
 --- !u!65 &820593260
 BoxCollider:
@@ -3058,57 +3062,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 873890816}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &880369938
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 880369939}
-  - component: {fileID: 880369940}
-  m_Layer: 0
-  m_Name: Medium Grid
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &880369939
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 880369938}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 995371018}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &880369940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 880369938}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af448837dfbbabd45935825540ff9c53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unwalkable:
-    serializedVersion: 2
-    m_Bits: 10240
-  rawGridSize: {x: 35, y: 30}
-  nodeRadius: 0.3
-  walkableCheckRadius: 1
-  drawGizmos: 0
 --- !u!4 &922559049 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1127374683970954410, guid: e4afdaad880f02a4380d9507c708d5a9, type: 3}
@@ -3276,7 +3229,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 425086135}
-  - {fileID: 880369939}
   - {fileID: 1957525377}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6426,7 +6378,7 @@ GameObject:
   - component: {fileID: 1957525377}
   - component: {fileID: 1957525378}
   m_Layer: 0
-  m_Name: Big Grid
+  m_Name: Huge Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6462,9 +6414,9 @@ MonoBehaviour:
   unwalkable:
     serializedVersion: 2
     m_Bits: 10240
-  rawGridSize: {x: 70, y: 110}
+  rawGridSize: {x: 35, y: 30}
   nodeRadius: 0.3
-  walkableCheckRadius: 1.7
+  walkableCheckRadius: 2
   drawGizmos: 0
 --- !u!1 &1962239157
 GameObject:
@@ -6826,7 +6778,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 33c1a4d23239cc9488c20bfb5d4bb528, type: 2}
     - target: {fileID: 1217673460690319370, guid: ed366113f1ef7954bba91e37b4256f57, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.4
+      value: -1.94
       objectReference: {fileID: 0}
     - target: {fileID: 1217673460690319370, guid: ed366113f1ef7954bba91e37b4256f57, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6834,7 +6786,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1217673460690319370, guid: ed366113f1ef7954bba91e37b4256f57, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.1
+      value: -3.28
       objectReference: {fileID: 0}
     - target: {fileID: 1217673460690319370, guid: ed366113f1ef7954bba91e37b4256f57, type: 3}
       propertyPath: m_LocalRotation.w

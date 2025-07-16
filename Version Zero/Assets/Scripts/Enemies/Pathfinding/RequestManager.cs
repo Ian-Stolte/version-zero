@@ -29,7 +29,8 @@ public class RequestManager : MonoBehaviour
         {
             currentRequest = requestQueue.Dequeue();
             isProcessing = true;
-            StartCoroutine(GetComponent<Pathfinding>().FindPath(currentRequest.pathStart, currentRequest.pathEnd, currentRequest.gridIndex, FinishedProcessing, true));
+            GetComponent<Pathfinding>().FindPath(currentRequest.pathStart, currentRequest.pathEnd, currentRequest.gridIndex, FinishedProcessing);
+            //if we use this, add back waitAFrame so that each request yield returns null before calling back
         }
     }
 

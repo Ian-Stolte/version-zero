@@ -17,11 +17,11 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public float slowTimer;
 
     [Header("Pathfinding")]
-    [SerializeField] private int gridIndex;
+    public int gridIndex;
     public float collisionRadius;
     [HideInInspector] public LayerMask terrainLayer;
     [HideInInspector] public bool pathReady;
-    private Pathfinding pathfinding;
+    [HideInInspector] public Pathfinding pathfinding;
     private Vector3 moveTarget;
     private Vector3[] path;
     private int waypointIndex;
@@ -256,7 +256,7 @@ public class Enemy : MonoBehaviour
             if (Vector3.Distance(pos, moveTarget) > 0.5f)
             {
                 moveTarget = pos;
-                StartCoroutine(pathfinding.FindPath(transform.position, pos, gridIndex, OnPathFound, false));
+                pathfinding.FindPath(transform.position, pos, gridIndex, OnPathFound);
                 //RequestManager.RequestPath(transform.position, player.position, false, OnPathFound);
             }
 
