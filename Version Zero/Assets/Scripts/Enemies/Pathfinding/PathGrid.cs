@@ -22,7 +22,7 @@ public class PathGrid : MonoBehaviour
         CreateGrid();
     }
 
-    void CreateGrid()
+    public void CreateGrid()
     {
         grid = new Node[gridSizeX, gridSizeZ];
         Vector3 bottomLeft = transform.position - new Vector3(rawGridSize.x/2, 0, rawGridSize.y/2);

@@ -76,7 +76,7 @@ public class Pathfinding : MonoBehaviour
     {
         if (node.walkable)
             return node;
-        
+
         Node currentClosest = grid.grid[0, 0];
         foreach (Node n in grid.grid)
         {
@@ -102,9 +102,9 @@ public class Pathfinding : MonoBehaviour
     private Vector3[] RetracePath(Node startNode, Node endNode)
     {
         List<Node> path = new List<Node>();
-        
+
         Node currentNode = endNode;
-        while(currentNode != startNode)
+        while (currentNode != startNode)
         {
             path.Add(currentNode);
             currentNode = currentNode.parent;
@@ -121,10 +121,10 @@ public class Pathfinding : MonoBehaviour
 
         for (int i = 1; i < path.Count; i++)
         {
-            Vector3 newDir = new Vector3(path[i-1].gridX - path[i].gridX, 0, path[i-1].gridZ - path[i].gridZ);
+            Vector3 newDir = new Vector3(path[i - 1].gridX - path[i].gridX, 0, path[i - 1].gridZ - path[i].gridZ);
             if (newDir != oldDir)
             {
-                waypoints.Add(path[i-1].position);
+                waypoints.Add(path[i - 1].position);
             }
             oldDir = newDir;
         }
@@ -142,8 +142,17 @@ public class Pathfinding : MonoBehaviour
         int yDist = Mathf.Abs(a.gridZ - b.gridZ);
 
         if (xDist < yDist)
-            return 14*xDist + 10*(yDist-xDist);
+            return 14 * xDist + 10 * (yDist - xDist);
         else
-            return 14*yDist + 10*(xDist-yDist);
+            return 14 * yDist + 10 * (xDist - yDist);
+    }
+
+
+    public void UpdateGrids()
+    {
+        foreach (Transform child in transform)
+        {
+            child.GetComponent<PathGrid>().CreateGrid();
+        }
     }
 }

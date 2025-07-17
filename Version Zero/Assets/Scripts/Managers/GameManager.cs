@@ -386,6 +386,7 @@ public class GameManager : MonoBehaviour
             txt.text = "Welcome, AUTH_USER!";
             txt.color = unlockTextColor;
         }
+        GameObject.Find("Pathfinding").GetComponent<Pathfinding>().UpdateGrids();
     }
 
 

@@ -7,7 +7,8 @@
     "4": "",
     "5": "",
     "6": "",
-    "7": ""
+    "7": "",
+    "8": ""
   },
   "Boss_Intro": {
     "0": 1,
@@ -17,7 +18,8 @@
     "4": "!WHEREAS ELIMINATING YOU IS 100% EFFECTIVE",
     "5": "",
     "6": "",
-    "7": ""
+    "7": "",
+    "8": ""
   },
   "Boss_Kill": {
     "0": 1,
@@ -27,6 +29,7 @@
     "4": "~i would conclude that it is, in fact, *your* memory",
     "5": "No shit.",
     "6": "This is simultaneously cool ```and also extremely creepy.```",
-    "7": "~if you wanted```` i suspect it would be compatible with a memory upload"
+    "7": "~i suspect it would even be compatible with a memory bank",
+    "8": "~perhaps not everything in this world is trying to kill us"
   }
 }
