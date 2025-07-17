@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'New function discovered:'
+  m_text: 'New memory discovered:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 907e69c930739344ca35e0e2f15f4e14, type: 2}
   m_sharedMaterial: {fileID: -1105177077908659007, guid: 907e69c930739344ca35e0e2f15f4e14, type: 2}

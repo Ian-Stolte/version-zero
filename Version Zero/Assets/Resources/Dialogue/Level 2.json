@@ -1,9 +1,9 @@
 {
   "A": {
     "0": 1,
-    "1": "Shit.*** Didn't work.",
-    "2": "Computer...** can you find somewhere with auth user permissions?",
-    "3": "~yes of course right away******",
+    "1": "Shit.``` Didn't work.",
+    "2": "Computer...`` can you find somewhere with auth user permissions?",
+    "3": "~yes of course right away``````",
     "4": "~it is back the way we came",
     "5": "",
     "6": "",
@@ -11,19 +11,19 @@
   },
   "M_Intro": {
     "0": 1,
-    "1": "Amazing*.*.*.** half of these systems are broken, and the other half are ads.****",
-    "2": "Hang on***, let me try a hard reset.**",
-    "3": "~**i do not wish to alarm you but I am detecting numerous attempts to breach my antivirus software",
-    "4": "~you may want to prepare yourself****",
-    "5": "~it is likely that any systems we encounter may already be compromised***",
-    "6": "That’s what I’m trying to—**",
-    "7": "huh,** there we go"
+    "1": "Amazing`.`.`.`` half of these systems are broken, and the other half are ads.````",
+    "2": "Hang on```, let me try a hard reset.``",
+    "3": "~``i do not wish to alarm you but I am detecting numerous attempts to breach my antivirus software",
+    "4": "~you may want to prepare yourself````",
+    "5": "~it is likely that any systems we encounter may already be compromised```",
+    "6": "That???s what I???m trying to???``",
+    "7": "huh,`` there we go"
   },
   "M_A": {
     "0": 1,
-    "1": "~it appears you need to provide your Sector miss***",
+    "1": "~it appears you need to provide your Sector miss```",
     "2": "~unfortunately I am unable to find data on which one you belong to",
-    "3": "~perhaps you will feel a calling to one of them?***",
+    "3": "~perhaps you will feel a calling to one of them?```",
     "4": "",
     "5": "",
     "6": "",
@@ -31,7 +31,7 @@
   },
   "First_Enemy": {
     "0": 1,
-    "1": "~warning— infected systems detected!",
+    "1": "~warning??? infected systems detected!",
     "2": "",
     "3": "",
     "4": "",

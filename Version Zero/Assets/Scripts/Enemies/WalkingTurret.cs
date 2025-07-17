@@ -6,7 +6,6 @@ using TMPro;
 
 public class WalkingTurret : Enemy
 {   
-    
     [Header("Movement")]
     [SerializeField] private float defSpeed;
     [SerializeField] private float targetMin;
@@ -48,6 +47,8 @@ public class WalkingTurret : Enemy
     [SerializeField] private GameObject startBarrier;
     [SerializeField] private GameObject endBarrier;
 
+    [Header("Misc")]
+    [SerializeField] private GameObject memoryReward;
     public bool finalForm;
 
 
@@ -300,6 +301,8 @@ public class WalkingTurret : Enemy
 
     private void OnDestroy()
     {
+        GameObject reward = Instantiate(memoryReward, transform.position + new Vector3(0, 0, 0), Quaternion.identity);
+        //set reward program randomly
         healthBar.transform.parent.parent.gameObject.SetActive(false);
         foreach (Transform child in transform.parent)
             Destroy(child.gameObject);

@@ -8,21 +8,21 @@
     "5": "",
     "6": 2,
     "7": "Hang on... this kiosk feels really familiar",
-    "8": "~while I would love to stop and examine it—",
+    "8": "~while I would love to stop and examine it???",
     "9": "Wait, I definitely remember ___",
     "10": ""
   },
   "B": {
     "0": 1,
-    "1": "Hey, Computer?** Any more progress on that scan?",
+    "1": "Hey, Computer?`` Any more progress on that scan?",
     "2": "~unfortunately all of my processing is currently directed toward the antivirus system",
-    "3": "~it would be rather inconvenient if my systems were corrupted right now****",
-    "4": "~*****inconvenient for me*** because I suspect you would win that fight",
+    "3": "~it would be rather inconvenient if my systems were corrupted right now````",
+    "4": "~`````inconvenient for me``` because I suspect you would win that fight",
     "5": "",
     "6": 2,
-    "7": "Hey, Computer?** Any more progress on that scan?",
+    "7": "Hey, Computer?`` Any more progress on that scan?",
     "8": "~unfortunately all of my processing is currently directed toward the antivirus system",
-    "9": "~it would be rather inconvenient if my systems were corrupted right now****",
-    "10": "~*****inconvenient for me*** because I suspect you would win that fight"
+    "9": "~it would be rather inconvenient if my systems were corrupted right now````",
+    "10": "~`````inconvenient for me``` because I suspect you would win that fight"
   }
 }

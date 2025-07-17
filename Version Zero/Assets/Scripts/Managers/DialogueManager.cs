@@ -107,7 +107,7 @@ public class DialogueManager : MonoBehaviour
             }
             else if (addingHTML)
                 html += c;
-            else if (c == '*')
+            else if (c == '`')
             {
                 if (!skip || !GameManager.Instance.pauseGame)
                     yield return new WaitForSeconds(0.15f * typeSpeed);
@@ -282,7 +282,7 @@ public class DialogueManager : MonoBehaviour
                 txt.text = "";
                 foreach (char c in dialogueToPlay[i])
                 {
-                    if (c == '*')
+                    if (c == '`')
                     {
                         if (!skip)
                             yield return new WaitForSeconds(0.15f);

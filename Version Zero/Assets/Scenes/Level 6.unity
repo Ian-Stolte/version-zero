@@ -309,6 +309,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2372218506650212160, guid: 1671aca5b291bc04ba40fd574cdc49f1, type: 3}
+      propertyPath: memoryReward
+      value: 
+      objectReference: {fileID: 4808948003568065144, guid: 0a07373fe14604549af5b445f4d52641, type: 3}
+    - target: {fileID: 2372218506650212160, guid: 1671aca5b291bc04ba40fd574cdc49f1, type: 3}
       propertyPath: startBarrier
       value: 
       objectReference: {fileID: 621921260}

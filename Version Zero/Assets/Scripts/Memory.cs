@@ -6,7 +6,7 @@ public class Memory : MonoBehaviour
 {
     [SerializeField] private GameObject newProgramUI;
     [SerializeField] private GameObject program;
-    [SerializeField] private string programName;
+    [SerializeField] private string dialogueName;
     private bool active;
 
 
@@ -24,8 +24,8 @@ public class Memory : MonoBehaviour
         GameManager.Instance.pauseGame = true;
         GetComponent<Animator>().Play("MemoryRise");
         yield return new WaitForSeconds(1f);
-        if (programName != "None")
-            DialogueManager.Instance.PlayByID("Memory_" + programName);
+        if (dialogueName != "")
+            DialogueManager.Instance.PlayByID(dialogueName);
         yield return new WaitUntil(() => !DialogueManager.Instance.dialogue.activeSelf);
 
         //show new program
