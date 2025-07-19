@@ -75,9 +75,6 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
             nameTxt.text = scifiName;
         //else
         //    nameTxt.text = name.Substring(0, name.Length-7);
-
-        typeTxt.GetComponent<TextMeshProUGUI>().text = type;
-        typeTxt.GetComponent<TextMeshProUGUI>().color = ProgramManager.Instance.ColorFromType(type);
         infoTxt.text = description;
     }
 
@@ -284,7 +281,6 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
         symbol.ResetPos();
         highlight.SetActive(false); // highlight
         nameTxt.GetComponent<CanvasGroup>().alpha = 1;
-        typeTxt.GetComponent<CanvasGroup>().alpha = 1;
         cdTxt.SetActive(true);
 
         if (toRight && right != null)
