@@ -179,7 +179,7 @@ public class ProgramManager : MonoBehaviour
             {
                 if (!blockNames.Contains(b.name))
                     blockNames.Add(b.name);
-                else if (!upgradeShown && b.levelTxt.text != "Max")
+                else if (!upgradeShown) //TODO: also check that block is not at max lvl (i.e can actually be upgraded)
                 {
                     upgradeShown = true;
                     upgradeTutorial.SetActive(true);
@@ -190,11 +190,8 @@ public class ProgramManager : MonoBehaviour
                 b.symbol.GetComponent<Image>().enabled = false;
                 b.highlight.gameObject.SetActive(false);
                 b.nameTxt.GetComponent<CanvasGroup>().alpha = 1;
-                b.levelTxt.GetComponent<CanvasGroup>().alpha = 1;
-                b.typeTxt.GetComponent<CanvasGroup>().alpha = 1;
                 b.cdTxt.GetComponent<CanvasGroup>().alpha = 1;
                 b.cdTxt.gameObject.SetActive(true);
-                b.typeTxt.gameObject.SetActive(true);
             }
         }
     }
@@ -242,9 +239,7 @@ public class ProgramManager : MonoBehaviour
                 Color c = child.GetComponent<Image>().color;
                 child.GetComponent<Image>().color = new Color(c.r, c.g, c.b, 0.1f);
                 b.nameTxt.GetComponent<CanvasGroup>().alpha = 0.5f;
-                b.typeTxt.GetComponent<CanvasGroup>().alpha = 0.1f;
                 b.cdTxt.GetComponent<CanvasGroup>().alpha = 0.1f;
-                b.levelTxt.GetComponent<CanvasGroup>().alpha = 0.1f;
             }
         }
 
@@ -264,7 +259,6 @@ public class ProgramManager : MonoBehaviour
         {
             foreach (Block b in p.blocks)
             {
-                b.typeTxt.SetActive(false);
                 b.transform.GetChild(0).GetComponent<Image>().enabled = true;
                 Symbol sym = b.symbol;
                 sym.min = new Vector2(-80 * p.blocks.IndexOf(b) - 40, sym.min.y);
@@ -285,8 +279,6 @@ public class ProgramManager : MonoBehaviour
             //show symbol UI
             Color c = b.GetComponent<Image>().color;
             b.GetComponent<Image>().color = new Color(c.r, c.g, c.b, 0.3f);
-            b.typeTxt.GetComponent<CanvasGroup>().alpha = 0.5f;
-            b.levelTxt.GetComponent<CanvasGroup>().alpha = 0.5f;
             b.cdTxt.SetActive(false);
 
             b = b.right;
@@ -305,8 +297,6 @@ public class ProgramManager : MonoBehaviour
                 Color c = child.GetComponent<Image>().color;
                 child.GetComponent<Image>().color = new Color(c.r, c.g, c.b, 1);
                 b.nameTxt.GetComponent<CanvasGroup>().alpha = 1;
-                b.typeTxt.GetComponent<CanvasGroup>().alpha = 1;
-                b.levelTxt.GetComponent<CanvasGroup>().alpha = 1;
                 b.cdTxt.GetComponent<CanvasGroup>().alpha = 1;
                 b.cdTxt.SetActive(true);
 

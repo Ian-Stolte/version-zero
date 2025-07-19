@@ -22,18 +22,18 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
 
     private GameObject targetSpace;
     private Block upgrade;
-    [HideInInspector] public Symbol symbol;
+    public Symbol symbol;
     public Block left;
     public Block right;
     public KeybindSlot keybind;
 
-    [Header("Info Children")]
+    [Header("Children")]
     public GameObject cdTxt;
-    public GameObject typeTxt;
+    public GameObject typeTriangle;
     public TextMeshProUGUI nameTxt;
-    public TextMeshProUGUI levelTxt;
     public TextMeshProUGUI infoTxt;
     public GameObject highlight;
+    public GameObject hoverGlow;
     public GameObject levelUp;
 
     [Header("Spell Effects")]
@@ -57,7 +57,8 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
     {
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
-        symbol = transform.GetChild(0).GetComponent<Symbol>();
+        if (symbol == null)
+            symbol = transform.GetChild(0).GetComponent<Symbol>();
         symbol.GetComponent<Image>().enabled = false;
         
         string[] modTags = new string[]{"passive"};
@@ -171,6 +172,9 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
                 out lastPos
             );
         }
+        
+        if (hoverGlow != null)
+            hoverGlow.SetActive(true);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -232,9 +236,8 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
                     if (upgrade.cd > upgrade.minCd)
                         upgrade.lvls++;
                 }
-                string lvlTxt = (upgrade.cd == upgrade.minCd) ? "Max" : "Lv. " + (int.Parse(upgrade.levelTxt.text.Substring(4))+1);
-                upgrade.levelTxt.text = lvlTxt;
-                string cdTxt = ((upgrade.cd+"").Length == 1) ? upgrade.cd + ".0s" : upgrade.cd + "s";
+                //TODO: fill in upgrade circles
+                string cdTxt = ((upgrade.cd + "").Length == 1) ? upgrade.cd + ".0s" : upgrade.cd + "s";
                 upgrade.cdTxt.GetComponent<TextMeshProUGUI>().text = cdTxt;
                 Destroy(gameObject);
                 AudioManager.Instance.Play("Upgrade");
@@ -244,7 +247,7 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
             else if (targetSpace != null)
             {
                 AudioManager.Instance.Play("Snap Block");
-                Vector3 offset = new Vector3(2 + (rectTransform.sizeDelta.x - 100)/2, 0, 0);
+                Vector3 offset = new Vector3(2 + (rectTransform.sizeDelta.x - 100) / 2, 0, 0);
                 if (targetSpace.name == "Left Space") //if we're an auto/aura block
                 {
                     rectTransform.position = targetSpace.GetComponent<RectTransform>().position - offset;
@@ -270,6 +273,9 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
                 targetSpace.SetActive(false);
                 attached = true;
             }
+
+            if (hoverGlow != null)
+                hoverGlow.SetActive(false);
         }
     }
 

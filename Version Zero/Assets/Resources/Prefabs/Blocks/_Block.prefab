@@ -1657,18 +1657,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rectTransform: {fileID: 0}
   attached: 0
+  noKeybind: 0
   leftSpace: {fileID: 6401188009687979346}
   rightSpace: {fileID: 3916380275024509172}
-  symbol: {fileID: 0}
+  symbol: {fileID: 1705379174401370371}
   left: {fileID: 0}
   right: {fileID: 0}
   keybind: {fileID: 0}
   cdTxt: {fileID: 3411540374391501063}
-  typeTxt: {fileID: 3291358261657501350}
+  typeTriangle: {fileID: 0}
   nameTxt: {fileID: 7452607151405539719}
-  levelTxt: {fileID: 4478421989492824053}
   infoTxt: {fileID: 2091507608933974105}
   highlight: {fileID: 2149826067751171597}
+  hoverGlow: {fileID: 0}
   levelUp: {fileID: 4424365513112757067}
   scifiName: 
   lvls: 1
@@ -1677,7 +1678,6 @@ MonoBehaviour:
   blockedTags: []
   minCd: 0.5
   cd: 1
-  rarity: 0
   description: 
 --- !u!61 &2551666508399576154
 BoxCollider2D:
