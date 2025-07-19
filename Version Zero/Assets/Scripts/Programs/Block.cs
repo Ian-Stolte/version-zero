@@ -32,6 +32,7 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
     public GameObject typeTriangle;
     public TextMeshProUGUI nameTxt;
     public TextMeshProUGUI infoTxt;
+    public GameObject upgradeCircles;
     public GameObject highlight;
     public GameObject hoverGlow;
     public GameObject levelUp;
@@ -172,9 +173,11 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
                 out lastPos
             );
         }
-        
+
         if (hoverGlow != null)
             hoverGlow.SetActive(true);
+        if (upgradeCircles != null)
+            upgradeCircles.SetActive(false);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -276,6 +279,8 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
 
             if (hoverGlow != null)
                 hoverGlow.SetActive(false);
+            if (upgradeCircles != null)
+                upgradeCircles.SetActive(true);
         }
     }
 
