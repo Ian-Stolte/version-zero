@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FunctionSlot : MonoBehaviour
 {
-    public BlockNew target;
+    public Block target;
 
     public bool shape;
     [SerializeField] private GameObject slotPrefab;
@@ -14,7 +14,7 @@ public class FunctionSlot : MonoBehaviour
         target = null;
     }
 
-    public void Attach(BlockNew block)
+    public void Attach(Block block)
     {
         target = block;
         Transform parent = (shape) ? transform : transform.parent;

@@ -47,7 +47,7 @@ public class ProgramManager : MonoBehaviour
     [Header("Colors")]
     [SerializeField] private Color fullSymbolColor;
     [SerializeField] private Color invalidColor;
-    [SerializeField] private Color[] typeColors;
+    [SerializeField] private Color[] sectorColors;
 
     [Header("Misc")]
     [SerializeField] private PlayerPrograms player;
@@ -188,7 +188,6 @@ public class ProgramManager : MonoBehaviour
                 Color c = child.GetComponent<Image>().color;
                 child.GetComponent<Image>().color = new Color(c.r, c.g, c.b, 1);
                 b.symbol.GetComponent<Image>().enabled = false;
-                b.highlight.gameObject.SetActive(false);
                 b.nameTxt.GetComponent<CanvasGroup>().alpha = 1;
                 b.cdTxt.GetComponent<CanvasGroup>().alpha = 1;
                 b.cdTxt.gameObject.SetActive(true);
@@ -204,7 +203,8 @@ public class ProgramManager : MonoBehaviour
         programs.Clear();
         if (moreInfo)
             Info();
-        foreach (Transform child in keybindSlots)
+        //TODO: find programs
+        /*foreach (Transform child in keybindSlots)
         {
             KeybindSlot script = child.GetComponent<KeybindSlot>();
             if (script.right != null)
@@ -227,7 +227,7 @@ public class ProgramManager : MonoBehaviour
             {
                 GetBlockList(aura.GetComponent<Block>());
             }
-        }
+        }*/
 
         //hide all other blocks
         foreach (Transform child in blockParent)
@@ -269,7 +269,7 @@ public class ProgramManager : MonoBehaviour
     }
 
     //find all blocks attached to a keybind slot
-    private void GetBlockList(Block b, KeyCode keybind = KeyCode.None)
+    /*private void GetBlockList(Block b, KeyCode keybind = KeyCode.None)
     {
         List<Block> blockList = new List<Block>();
         while (b != null)
@@ -284,7 +284,7 @@ public class ProgramManager : MonoBehaviour
             b = b.right;
         }
         programs.Add(new Program(blockList, keybind));
-    }
+    }*/
 
 
     public void UndoSpells()
@@ -299,10 +299,7 @@ public class ProgramManager : MonoBehaviour
                 b.nameTxt.GetComponent<CanvasGroup>().alpha = 1;
                 b.cdTxt.GetComponent<CanvasGroup>().alpha = 1;
                 b.cdTxt.SetActive(true);
-
-                child.GetChild(0).GetComponent<Image>().enabled = false;
-                b.highlight.gameObject.SetActive(false);
-                b.cdTxt.gameObject.SetActive(true);
+                b.symbol.GetComponent<Image>().enabled = false;
             }
         }
 
@@ -325,7 +322,8 @@ public class ProgramManager : MonoBehaviour
         if (!spellsLocked) //check valid blocks
         {
             int valid = 0;
-            foreach (Transform child in keybindSlots)
+            //TODO: check valid programs
+            /*foreach (Transform child in keybindSlots)
             {
                 KeybindSlot script = child.GetComponent<KeybindSlot>();
                 valid = CheckValidBlocks(valid, script.right, child.GetComponent<Image>(), (script.keybind == KeyCode.None));
@@ -335,7 +333,7 @@ public class ProgramManager : MonoBehaviour
                 valid = CheckValidBlocks(valid, aura.GetComponent<Block>().right, aura.GetComponent<Image>(), false, true);
             GameObject auto = GameObject.Find("Auto");
             if (auto != null)
-                valid = CheckValidBlocks(valid, auto.GetComponent<Block>().right, auto.GetComponent<Image>(), false);
+                valid = CheckValidBlocks(valid, auto.GetComponent<Block>().right, auto.GetComponent<Image>(), false);*/
             compileButton.GetComponent<Button>().interactable = (valid > 0);
         }
 
@@ -350,19 +348,13 @@ public class ProgramManager : MonoBehaviour
                 bool readyToConfirm = true;
                 foreach (Program p in programs)
                 {
-                    bool finished = true;
                     foreach (Block b in p.blocks)
                     {
                         if (b.symbol.adjSymbols < p.blocks.Count)
                         {
-                            finished = false;
                             readyToConfirm = false;
                             break;
                         }
-                    }
-                    foreach (Block b in p.blocks)
-                    {
-                        b.highlight.gameObject.SetActive(finished);
                     }
                 }
                 confirmButton.GetComponent<Button>().interactable = readyToConfirm;
@@ -374,7 +366,7 @@ public class ProgramManager : MonoBehaviour
             upgradeTutorial.SetActive(false);
     }
 
-    private int CheckValidBlocks(int valid, Block b, Image img, bool noKeybind, bool noShape = false)
+    /*private int CheckValidBlocks(int valid, Block b, Image img, bool noKeybind, bool noShape = false)
     {
         if (b == null)
         {
@@ -402,7 +394,7 @@ public class ProgramManager : MonoBehaviour
             img.color = invalidColor;
             return -99;
         }
-    }
+    }*/
 
 
 
@@ -552,7 +544,7 @@ public class ProgramManager : MonoBehaviour
 
 
 
-    public List<Block> ChooseRandom(int n, string[] forbidden = null, string type = "none", string[] category = null)
+    public List<Block> ChooseRandom(int n, string[] forbidden = null, string sector = "none", string[] category = null)
     {
         //TODO: add diff percents? --- keep in 3 separate lists, but decrement pct of given list when chosen (e.g 40-40-20, then choose effect -> 50-25-25)
         if (forbidden == null)
@@ -571,7 +563,7 @@ public class ProgramManager : MonoBehaviour
         List<Block> chosen = new List<Block>();
         foreach (GameObject g in blocks)
         {
-            if (!((skipAura && g.name == "Aura") || (skipAuto && g.name == "Auto")) && (type == "none" || type == g.GetComponent<Block>().type) && (category == null || category.Contains(g.GetComponent<Block>().tag)) && !forbidden.Contains(g.name))
+            if (!((skipAura && g.name == "Aura") || (skipAuto && g.name == "Auto")) && (sector == "none" || sector == g.GetComponent<Block>().sector) && (category == null || category.Contains(g.GetComponent<Block>().tag)) && !forbidden.Contains(g.name))
                 starting.Add(g.GetComponent<Block>());
         }
 
@@ -595,16 +587,16 @@ public class ProgramManager : MonoBehaviour
 
 
 
-    public Color ColorFromType(string type)
+    public Color ColorFromSector(string sector)
     {
-        if (type == "logic")
-            return typeColors[0];
-        else if (type == "memory")
-            return typeColors[1];
-        else if (type == "instinct")
-            return typeColors[2];
-        else if (type == "perception")
-            return typeColors[3];
+        if (sector == "logic")
+            return sectorColors[0];
+        else if (sector == "memory")
+            return sectorColors[1];
+        else if (sector == "instinct")
+            return sectorColors[2];
+        else if (sector == "perception")
+            return sectorColors[3];
         else
             return new Color(1, 1, 1, 1);
     }

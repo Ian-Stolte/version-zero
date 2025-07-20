@@ -204,10 +204,7 @@ public class RewardManager : MonoBehaviour
                 reward = Instantiate(blockPrefab, Vector2.zero, Quaternion.identity, rewardParent);
             
             //Name
-            if (GameManager.Instance.scifiNames)
-                reward.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = row[i].scifiName;
-            else
-                reward.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = row[i].nameTxt.text;
+            reward.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = row[i].nameTxt.text;
             while (reward.transform.GetChild(1).GetComponent<TextMeshProUGUI>().preferredWidth > reward.GetComponent<RectTransform>().sizeDelta.x+15)
             {
                 reward.transform.GetChild(1).GetComponent<TextMeshProUGUI>().fontSize -= 1;
@@ -222,14 +219,7 @@ public class RewardManager : MonoBehaviour
                 reward.GetComponent<Image>().color = shapeColor;
             else if (row[i].tag == "effect")
                 reward.GetComponent<Image>().color = effectColor;
-            TextMeshProUGUI txt = reward.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
-            txt.text = row[i].type;
-            if (txt.text == "instinct")
-                txt.color = typeColors[0];
-            else if (txt.text == "logic")
-                txt.color = typeColors[1];
-            else if (txt.text == "memory")
-                txt.color = typeColors[2];
+            //TODO: set type color
             reward.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = row[i].description;
             
             //Set position & references

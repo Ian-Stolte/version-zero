@@ -244,12 +244,24 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4145732063751185695, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}
+      propertyPath: sector
+      value: logic
+      objectReference: {fileID: 0}
+    - target: {fileID: 4145732063751185695, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}
+      propertyPath: symbol
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4145732063751185695, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}
       propertyPath: scifiName
       value: Pause
       objectReference: {fileID: 0}
     - target: {fileID: 4145732063751185695, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}
       propertyPath: description
       value: Stuns enemies, making them unable to act
+      objectReference: {fileID: 0}
+    - target: {fileID: 4840829026381511493, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7452607151405539719, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}
       propertyPath: m_text
