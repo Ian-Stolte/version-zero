@@ -12,7 +12,6 @@ public class BlockNew : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
     [HideInInspector] public RectTransform rectTransform;
     private Canvas canvas;
     private bool dragging;
-    [HideInInspector] public bool attached;
 
     [Header("Movement")]
     private List<Block> blocks = new List<Block>();
@@ -69,6 +68,11 @@ public class BlockNew : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             foreach (Transform child in GameObject.Find("Function Slots").transform)
             {
                 child.GetChild(0).gameObject.SetActive(false);
+                foreach (Transform innerChild in child)
+                {
+                    if (innerChild.childCount > 0)
+                        innerChild.GetChild(0).gameObject.SetActive(false);
+                }
             }
 
             //check for slots to snap to
@@ -78,15 +82,17 @@ public class BlockNew : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             {
                 if (hit.transform.childCount > 0)
                 {
-                    targetSpace = hit.transform.GetChild(0).gameObject;
-                    targetSpace.SetActive(true);
+                    if (hit.GetComponent<FunctionSlot>().target == null)
+                    {
+                        targetSpace = hit.transform.GetChild(0).gameObject;
+                        targetSpace.SetActive(true);
+                    }
                 }
             }
 
             //check for same-type blocks to upgrade
             bool upgradeFound = false;
             Collider2D[] tightHits = Physics2D.OverlapCircleAll(b.center, b.extents.x * 0.5f, LayerMask.GetMask("Block"));
-            //Collider2D[] tightHits = Physics2D.OverlapBoxAll(b.center, b.extents * 1.5f, 0, LayerMask.GetMask("Block"));
             foreach (Collider2D c in tightHits)
             {
                 if (c.name == name && c.gameObject != gameObject)
@@ -154,9 +160,13 @@ public class BlockNew : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
             float newY = Mathf.Clamp(rectTransform.anchoredPosition.y, -415, 415);
             rectTransform.anchoredPosition = new Vector2(newX, newY);
 
-            //targetSpace.target = null --- or something like this
+            if (targetSpace != null)
+            {
+                FunctionSlot slot = targetSpace.transform.parent.GetComponent<FunctionSlot>();
+                if (slot != null && slot.target == this)
+                    slot.Detach();
+            }
             targetSpace = null;
-            attached = false;
         }
     }
 
@@ -189,8 +199,7 @@ public class BlockNew : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoint
                 AudioManager.Instance.Play("Snap Block");
                 rectTransform.position = targetSpace.GetComponent<RectTransform>().position;
                 targetSpace.SetActive(false);
-                //set slot target to this
-                attached = true;
+                targetSpace.transform.parent.GetComponent<FunctionSlot>().Attach(this);
             }
 
             if (hoverGlow != null)
