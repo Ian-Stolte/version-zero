@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class KeybindSlot : MonoBehaviour
 {
-    public GameObject rightSpace;
-    public Block right;
+    public FunctionSlot shapeBase;
 
     public KeyCode keybind;
 }

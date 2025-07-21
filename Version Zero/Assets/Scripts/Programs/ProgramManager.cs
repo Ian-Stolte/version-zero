@@ -18,7 +18,6 @@ public class ProgramManager : MonoBehaviour
 
     [Header("Bools")]
     public bool SKIP_CRAFTING;
-    [SerializeField] private bool showTutorial;
     [HideInInspector] public bool spellsLocked;
     private bool musicOn;
     private bool moreInfo;
@@ -51,7 +50,6 @@ public class ProgramManager : MonoBehaviour
 
     [Header("Misc")]
     [SerializeField] private PlayerPrograms player;
-    [SerializeField] private GameObject[] tutorials;
     public GameObject buildSelect;
 
     [Header("Upgrade")]
@@ -70,7 +68,8 @@ public class ProgramManager : MonoBehaviour
     public List<GameObject> shapeBlocks;
     public List<GameObject> effectBlocks;
     public List<GameObject> modBlocks;
-    private List<GameObject> blocks = new List<GameObject>();
+    private List<GameObject> allBlocks = new List<GameObject>();
+    public List<Block> blocks = new List<Block>();
     public List<Program> programs = new List<Program>();
 
 
@@ -88,11 +87,11 @@ public class ProgramManager : MonoBehaviour
     {
         buildpath = "logic";
         foreach (GameObject g in shapeBlocks)
-            blocks.Add(g);
+            allBlocks.Add(g);
         foreach (GameObject g in effectBlocks)
-            blocks.Add(g);
+            allBlocks.Add(g);
         foreach (GameObject g in modBlocks)
-            blocks.Add(g);
+            allBlocks.Add(g);
         player = GameObject.Find("Player").GetComponent<PlayerPrograms>();
         if (SKIP_CRAFTING)
         {
@@ -101,7 +100,7 @@ public class ProgramManager : MonoBehaviour
             string[] startingBlocks = new string[] { "Line", "Damage", "Circle", "Displace", "Pulse", "Pause", "Damage" };
             foreach (string s in startingBlocks)
             {
-                GameObject prefab = blocks.Find(b => b.name == s);
+                GameObject prefab = allBlocks.Find(b => b.name == s);
                 if (prefab == null)
                     Debug.LogError("Starting block prefab not found!");
                 else
@@ -126,14 +125,12 @@ public class ProgramManager : MonoBehaviour
             ConfirmSpells();
             EnterGame();
         }
-        tutorials[0].SetActive(true);
-        tutorials[0].transform.GetChild(0).gameObject.SetActive(showTutorial);
     }
 
 
     public void CreateBlock(string blockName)
     {
-        CreateBlock(blocks.Find(b => b.name == blockName));
+        CreateBlock(allBlocks.Find(b => b.name == blockName));
     }
 
     public void CreateBlock(GameObject prefab)
@@ -142,11 +139,11 @@ public class ProgramManager : MonoBehaviour
         RectTransform r = block.GetComponent<RectTransform>();
         for (int j = 0; j < 20; j++)
         {
-            r.anchoredPosition = new Vector2(Random.Range(-(540 - r.sizeDelta.x), 820 - r.sizeDelta.x), Random.Range(-360, 330));
+            r.anchoredPosition = new Vector2(Random.Range(-(100 - r.sizeDelta.x), 820 - r.sizeDelta.x), Random.Range(-360, 330));
             bool noOverlap = true;
-            foreach (Transform child in blockParent)
+            foreach (Block b in blocks)
             {
-                if (child.gameObject != block && child.gameObject.activeSelf && Vector2.Distance(block.GetComponent<RectTransform>().anchoredPosition, child.GetComponent<RectTransform>().anchoredPosition) < 150)
+                if (b.gameObject != block && b.gameObject.activeSelf && Vector2.Distance(block.GetComponent<RectTransform>().anchoredPosition, b.GetComponent<RectTransform>().anchoredPosition) < 180)
                 {
                     noOverlap = false;
                 }
@@ -155,6 +152,7 @@ public class ProgramManager : MonoBehaviour
                 break;
         }
         block.name = block.name.Substring(0, block.name.Length - 7);
+        blocks.Add(block.GetComponent<Block>());
     }
 
 
@@ -172,10 +170,9 @@ public class ProgramManager : MonoBehaviour
         spellsLocked = false;
 
         HashSet<string> blockNames = new HashSet<string>();
-        foreach (Transform child in blockParent)
+        foreach (Block b in blocks)
         {
-            Block b = child.GetComponent<Block>();
-            if (child.gameObject.activeSelf)
+            if (b.gameObject.activeSelf)
             {
                 if (!blockNames.Contains(b.name))
                     blockNames.Add(b.name);
@@ -185,12 +182,12 @@ public class ProgramManager : MonoBehaviour
                     upgradeTutorial.SetActive(true);
                 }
 
-                Color c = child.GetComponent<Image>().color;
-                child.GetComponent<Image>().color = new Color(c.r, c.g, c.b, 1);
                 b.symbol.GetComponent<Image>().enabled = false;
                 b.nameTxt.GetComponent<CanvasGroup>().alpha = 1;
                 b.cdTxt.GetComponent<CanvasGroup>().alpha = 1;
                 b.cdTxt.gameObject.SetActive(true);
+                b.GetComponent<CanvasGroup>().alpha = 1;
+                b.upgradeCircles.SetActive(true);
             }
         }
     }
@@ -203,51 +200,29 @@ public class ProgramManager : MonoBehaviour
         programs.Clear();
         if (moreInfo)
             Info();
-        //TODO: find programs
-        /*foreach (Transform child in keybindSlots)
+        foreach (Transform child in keybindSlots)
         {
             KeybindSlot script = child.GetComponent<KeybindSlot>();
-            if (script.right != null)
+            if (script.shapeBase.target != null)
             {
-                GetBlockList(script.right, script.keybind);
+                GetBlockList(script.shapeBase, script.keybind);
             }
         }
-        GameObject auto = GameObject.Find("Auto");
-        GameObject aura = GameObject.Find("Aura");
-        if (auto != null)
-        {
-            if (auto.GetComponent<Block>().right != null)
-            {
-                GetBlockList(auto.GetComponent<Block>());
-            }
-        }
-        if (aura != null)
-        {
-            if (aura.GetComponent<Block>().right != null)
-            {
-                GetBlockList(aura.GetComponent<Block>());
-            }
-        }*/
+        //TODO: check auto and aura
 
         //hide all other blocks
-        foreach (Transform child in blockParent)
+        foreach (Block b in blocks)
         {
-            Block b = child.GetComponent<Block>();
             if (!b.attached)
             {
                 b.symbol.canMove = false;
-                Color c = child.GetComponent<Image>().color;
-                child.GetComponent<Image>().color = new Color(c.r, c.g, c.b, 0.1f);
                 b.nameTxt.GetComponent<CanvasGroup>().alpha = 0.5f;
-                b.cdTxt.GetComponent<CanvasGroup>().alpha = 0.1f;
+                b.cdTxt.GetComponent<CanvasGroup>().alpha = 0.5f;
+                b.GetComponent<CanvasGroup>().alpha = 0.3f;
+                b.upgradeCircles.SetActive(false);
             }
         }
 
-        if (showTutorial)
-        {
-            tutorials[0].SetActive(false);
-            tutorials[1].SetActive(true);
-        }
         infoButton.transform.parent.gameObject.SetActive(false);
         compileButton.SetActive(false);
         confirmButton.SetActive(true);
@@ -269,45 +244,40 @@ public class ProgramManager : MonoBehaviour
     }
 
     //find all blocks attached to a keybind slot
-    /*private void GetBlockList(Block b, KeyCode keybind = KeyCode.None)
+    private void GetBlockList(FunctionSlot b, KeyCode keybind = KeyCode.None)
     {
         List<Block> blockList = new List<Block>();
-        while (b != null)
+        blockList.Add(b.target);
+        foreach (Transform child in b.transform)
         {
-            blockList.Add(b);
-
-            //show symbol UI
-            Color c = b.GetComponent<Image>().color;
-            b.GetComponent<Image>().color = new Color(c.r, c.g, c.b, 0.3f);
-            b.cdTxt.SetActive(false);
-
-            b = b.right;
+            FunctionSlot slot = child.GetComponent<FunctionSlot>();
+            if (slot != null)
+            {
+                if (slot.target == null)
+                    break;
+                else
+                    blockList.Add(slot.target);
+            }
         }
         programs.Add(new Program(blockList, keybind));
-    }*/
+    }
 
 
     public void UndoSpells()
     {
-        foreach (Transform child in blockParent)
+        foreach (Block b in blocks)
         {
-            if (child.gameObject.activeSelf)
+            if (b.gameObject.activeSelf)
             {
-                Block b = child.GetComponent<Block>();
-                Color c = child.GetComponent<Image>().color;
-                child.GetComponent<Image>().color = new Color(c.r, c.g, c.b, 1);
                 b.nameTxt.GetComponent<CanvasGroup>().alpha = 1;
                 b.cdTxt.GetComponent<CanvasGroup>().alpha = 1;
                 b.cdTxt.SetActive(true);
+                b.GetComponent<CanvasGroup>().alpha = 1;
                 b.symbol.GetComponent<Image>().enabled = false;
+                b.upgradeCircles.SetActive(true);
             }
         }
 
-        if (showTutorial)
-        {
-            tutorials[0].SetActive(true);
-            tutorials[1].SetActive(false);
-        }
         compileButton.SetActive(true);
         confirmButton.SetActive(false);
         randomButton.SetActive(false);
@@ -322,13 +292,12 @@ public class ProgramManager : MonoBehaviour
         if (!spellsLocked) //check valid blocks
         {
             int valid = 0;
-            //TODO: check valid programs
-            /*foreach (Transform child in keybindSlots)
+            foreach (Transform child in keybindSlots)
             {
                 KeybindSlot script = child.GetComponent<KeybindSlot>();
-                valid = CheckValidBlocks(valid, script.right, child.GetComponent<Image>(), (script.keybind == KeyCode.None));
+                valid = CheckValidBlocks(valid, script.shapeBase, child.GetComponent<Image>(), (script.keybind == KeyCode.None));
             }
-            GameObject aura = GameObject.Find("Aura");
+            /*GameObject aura = GameObject.Find("Aura");
             if (aura != null)
                 valid = CheckValidBlocks(valid, aura.GetComponent<Block>().right, aura.GetComponent<Image>(), false, true);
             GameObject auto = GameObject.Find("Auto");
@@ -366,43 +335,28 @@ public class ProgramManager : MonoBehaviour
             upgradeTutorial.SetActive(false);
     }
 
-    /*private int CheckValidBlocks(int valid, Block b, Image img, bool noKeybind, bool noShape = false)
+    private int CheckValidBlocks(int valid, FunctionSlot slot, Image img, bool noKeybind, bool noShape = false)
     {
-        if (b == null)
-        {
-            img.color = new Color(1, 1, 1, 1);
+        if (slot.target == null) //unused slot
             return valid;
-        }
 
-        bool shape = noShape;
-        bool effect = false;
-        while (b != null)
+        FunctionSlot firstChild = slot.transform.GetChild(1).GetComponent<FunctionSlot>();
+        if (firstChild != null && firstChild.target != null) //at least 1 effect
         {
-            if (b.tag == "shape")
-                shape = true;
-            else if (b.tag == "effect")
-                effect = true;
-            b = b.right;
-        }
-        if (shape && effect && !noKeybind)
-        {
-            img.color = new Color(1, 1, 1, 1);
             return valid + 1;
         }
-        else
+        else //invalid: shape w/ no effects
         {
-            img.color = invalidColor;
             return -99;
         }
-    }*/
+    }
 
 
 
     public void RandomSymbols()
     {
-        foreach (Transform child in blockParent)
+        foreach (Block b in blocks)
         {
-            Block b = child.GetComponent<Block>();
             Vector2 offset = new Vector2(Random.Range(-20f, 20f), Random.Range(-10f, 10f));
             b.symbol.GetComponent<RectTransform>().anchoredPosition = new Vector2((b.symbol.min.x + b.symbol.max.x) / 2f * 1.35f, (b.symbol.min.y + b.symbol.max.y) / 2f) + offset;
 
@@ -412,9 +366,6 @@ public class ProgramManager : MonoBehaviour
 
     public void ConfirmSpells()
     {
-        showTutorial = false;
-        foreach (GameObject g in tutorials)
-            g.SetActive(false);
         confirmButton.SetActive(false);
         randomButton.SetActive(false);
         backButton.SetActive(false);
@@ -552,16 +503,16 @@ public class ProgramManager : MonoBehaviour
 
         bool skipAura = false;
         bool skipAuto = false;
-        foreach (Transform child in blockParent)
+        foreach (Block b in blocks)
         {
-            if (child.name == "Aura")
+            if (b.name == "Aura")
                 skipAura = true;
-            else if (child.name == "Auto")
+            else if (b.name == "Auto")
                 skipAuto = true;
         }
         List<Block> starting = new List<Block>();
         List<Block> chosen = new List<Block>();
-        foreach (GameObject g in blocks)
+        foreach (GameObject g in allBlocks)
         {
             if (!((skipAura && g.name == "Aura") || (skipAuto && g.name == "Auto")) && (sector == "none" || sector == g.GetComponent<Block>().sector) && (category == null || category.Contains(g.GetComponent<Block>().tag)) && !forbidden.Contains(g.name))
                 starting.Add(g.GetComponent<Block>());
@@ -614,10 +565,9 @@ public class ProgramManager : MonoBehaviour
     public void Info()
     {
         moreInfo = !moreInfo;
-        foreach (Transform child in blockParent)
+        foreach (Block b in blocks)
         {
-            child.GetComponent<Block>().infoTxt.gameObject.SetActive(moreInfo);
-            child.GetComponent<Block>().cdTxt.gameObject.SetActive(!moreInfo);
+            b.infoTxt.gameObject.SetActive(moreInfo);
         }
         string buttonTxt = (moreInfo) ? "Less Info" : "Explain";
         infoButton.text = buttonTxt;

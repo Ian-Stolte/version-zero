@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 425502318008282773}
   - component: {fileID: 3746526209358427866}
   m_Layer: 15
-  m_Name: Function Slot
+  m_Name: Function Slot_light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09019608, g: 0.1254902, b: 0.121568635, a: 1}
+  m_Color: {r: 0.13260946, g: 0.18867922, b: 0.18517485, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   shape: 0
-  slotPrefab: {fileID: 3051587838492318400}
+  slotPrefab: {fileID: 3051587838492318400, guid: 543322feab7054fb6b87dc208a56585e, type: 3}
 --- !u!1 &5522427943795924266
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,8 +164,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -71.261246, y: 0}
-  m_SizeDelta: {x: 57.293, y: 100}
+  m_AnchoredPosition: {x: -69.11995, y: 0}
+  m_SizeDelta: {x: 54.9329, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5571728106527218044
 CanvasRenderer:
@@ -239,8 +239,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -71.261246, y: 0}
-  m_SizeDelta: {x: 57.293, y: 100}
+  m_AnchoredPosition: {x: -69.11999, y: 0}
+  m_SizeDelta: {x: 54.9329, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8632162681070677514
 CanvasRenderer:
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09019608, g: 0.1254902, b: 0.11764707, a: 1}
+  m_Color: {r: 0.12941177, g: 0.18431373, b: 0.18039216, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

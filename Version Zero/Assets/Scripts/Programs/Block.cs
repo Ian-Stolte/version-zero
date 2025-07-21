@@ -130,7 +130,7 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
             );
         }
 
-        if (hoverGlow != null)
+        if (hoverGlow != null && GetComponent<CanvasGroup>().alpha == 1)
             hoverGlow.SetActive(true);
         if (upgradeCircles != null)
             upgradeCircles.SetActive(false);
@@ -191,6 +191,7 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
                 //TODO: fill in upgrade circles
                 string cdTxt = ((upgrade.cd + "").Length == 1) ? upgrade.cd + ".0s" : upgrade.cd + "s";
                 upgrade.cdTxt.GetComponent<TextMeshProUGUI>().text = cdTxt;
+                ProgramManager.Instance.blocks.Remove(this);
                 Destroy(gameObject);
                 AudioManager.Instance.Play("Upgrade");
             }
