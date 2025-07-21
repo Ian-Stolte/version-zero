@@ -21,7 +21,7 @@ public class Symbol : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointer
     private void Start()
     {
         rectTransform = GetComponent<RectTransform>();
-        parentRect = transform.parent as RectTransform;
+        parentRect = transform.parent.parent as RectTransform;
         startingPos = rectTransform.anchoredPosition;
         canvas = GetComponentInParent<Canvas>();
     }

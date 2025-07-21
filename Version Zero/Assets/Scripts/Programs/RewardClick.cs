@@ -23,8 +23,8 @@ public class RewardClick : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
         else
         {
-            GameObject.Find("Fader").GetComponent<Fader>().FadeInOut(1, 1);
-            yield return new WaitForSeconds(1);
+            GameObject.Find("Fader").GetComponent<Fader>().FadeInOut(0.5f, 0.5f);
+            yield return new WaitForSeconds(0.5f);
             ProgramManager.Instance.Reforge();
         }
         GameObject.Find("Rewards").SetActive(false);

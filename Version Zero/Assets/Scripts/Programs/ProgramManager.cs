@@ -25,10 +25,7 @@ public class ProgramManager : MonoBehaviour
     [Header("Parents")]
     public Transform programUI;
     [SerializeField] private Transform blockParent;
-    [SerializeField] private Transform keybindUI;
-    [SerializeField] private Transform keybindIcons;
     [SerializeField] private Transform keybindSlots;
-    [SerializeField] private Transform programList;
     [SerializeField] private Transform cdParent;
 
     [Header("Buttons")]
@@ -45,8 +42,8 @@ public class ProgramManager : MonoBehaviour
 
     [Header("Colors")]
     [SerializeField] private Color fullSymbolColor;
-    [SerializeField] private Color invalidColor;
     [SerializeField] private Color[] sectorColors;
+    [SerializeField] private Color[] symbolIndicatorColors;
 
     [Header("Misc")]
     [SerializeField] private PlayerPrograms player;
@@ -173,6 +170,7 @@ public class ProgramManager : MonoBehaviour
         {
             if (b.gameObject.activeSelf)
             {
+                //check if should show upgrade tutorial
                 if (!blockNames.Contains(b.name))
                     blockNames.Add(b.name);
                 else if (!upgradeShown) //TODO: also check that block is not at max lvl (i.e can actually be upgraded)
@@ -181,14 +179,20 @@ public class ProgramManager : MonoBehaviour
                     upgradeTutorial.SetActive(true);
                 }
 
-                b.symbol.GetComponent<Image>().enabled = false;
-                b.symbolBG.SetActive(false);
                 b.nameTxt.GetComponent<CanvasGroup>().alpha = 1;
                 b.cdTxt.GetComponent<CanvasGroup>().alpha = 1;
                 b.cdTxt.gameObject.SetActive(true);
                 b.GetComponent<CanvasGroup>().alpha = 1;
                 b.upgradeCircles.SetActive(true);
+
+                b.symbol.GetComponent<Image>().enabled = false;
+                b.symbolBG.SetActive(false);
+                b.symbol.transform.SetParent(b.transform);
             }
+        }
+        foreach (Transform child in keybindSlots)
+        {
+            child.GetChild(4).gameObject.SetActive(false);
         }
     }
 
@@ -205,7 +209,8 @@ public class ProgramManager : MonoBehaviour
             KeybindSlot script = child.GetComponent<KeybindSlot>();
             if (script.shapeBase.target != null)
             {
-                GetBlockList(script.shapeBase, script.keybind);
+                GetBlockList(script, script.keybind);
+                child.GetChild(4).gameObject.SetActive(true);
             }
         }
         //TODO: check auto and aura
@@ -240,10 +245,8 @@ public class ProgramManager : MonoBehaviour
             {
                 b.symbol.GetComponent<Image>().enabled = true;
                 Symbol s = b.symbol;
-                //TODO: update min & max x depending on chosen symbol implementation
-                //TODO: compute based on raw position (relative to blockParent instead of specific function block)
-                s.min = new Vector2(-150 * p.blocks.IndexOf(b) - 75, -10);
-                s.max = new Vector2(150 * (p.blocks.Count - p.blocks.IndexOf(b)) - 75, 140);
+                s.min = new Vector2(-500, b.GetComponent<RectTransform>().anchoredPosition.y-100);
+                s.max = new Vector2(-500 + 210*(p.blocks.Count), b.GetComponent<RectTransform>().anchoredPosition.y+100);
                 s.canMove = true;
                 b.symbolBG.SetActive(true);
             }
@@ -251,11 +254,12 @@ public class ProgramManager : MonoBehaviour
     }
 
     //find all blocks attached to a keybind slot
-    private void GetBlockList(FunctionSlot b, KeyCode keybind = KeyCode.None)
+    private void GetBlockList(KeybindSlot k, KeyCode keybind = KeyCode.None)
     {
+        FunctionSlot shape = k.shapeBase;
         List<Block> blockList = new List<Block>();
-        blockList.Add(b.target);
-        foreach (Transform child in b.transform)
+        blockList.Add(shape.target);
+        foreach (Transform child in shape.transform)
         {
             FunctionSlot slot = child.GetComponent<FunctionSlot>();
             if (slot != null)
@@ -266,7 +270,7 @@ public class ProgramManager : MonoBehaviour
                     blockList.Add(slot.target);
             }
         }
-        programs.Add(new Program(blockList, keybind));
+        programs.Add(new Program(blockList, keybind, k.transform.GetChild(4).gameObject));
     }
 
 
@@ -280,10 +284,16 @@ public class ProgramManager : MonoBehaviour
                 b.cdTxt.GetComponent<CanvasGroup>().alpha = 1;
                 b.cdTxt.SetActive(true);
                 b.GetComponent<CanvasGroup>().alpha = 1;
+                b.upgradeCircles.SetActive(true);
+
                 b.symbol.GetComponent<Image>().enabled = false;
                 b.symbolBG.SetActive(false);
-                b.upgradeCircles.SetActive(true);
+                b.symbol.transform.SetParent(b.transform);
             }
+        }
+        foreach (Transform child in keybindSlots)
+        {
+            child.GetChild(4).gameObject.SetActive(false);
         }
 
         compileButton.SetActive(true);
@@ -325,14 +335,18 @@ public class ProgramManager : MonoBehaviour
                 bool readyToConfirm = true;
                 foreach (Program p in programs)
                 {
+                    bool valid = true;
                     foreach (Block b in p.blocks)
                     {
                         if (b.symbol.adjSymbols < p.blocks.Count)
                         {
                             readyToConfirm = false;
+                            valid = false;
                             break;
                         }
                     }
+                    //p.symbolIndicator.GetComponent<Image>().color = (valid) ? symbolIndicatorColors[0] : symbolIndicatorColors[1];
+                    p.symbolIndicator.SetActive(valid);
                 }
                 confirmButton.GetComponent<Button>().interactable = readyToConfirm;
             }
@@ -366,8 +380,7 @@ public class ProgramManager : MonoBehaviour
         foreach (Block b in blocks)
         {
             Vector2 offset = new Vector2(Random.Range(-20f, 20f), Random.Range(-10f, 10f));
-            b.symbol.GetComponent<RectTransform>().anchoredPosition = new Vector2((b.symbol.min.x + b.symbol.max.x) / 2f * 1.35f, (b.symbol.min.y + b.symbol.max.y) / 2f) + offset;
-            //TODO: compute based on raw position (relative to blockParent instead of specific function block)
+            b.symbol.GetComponent<RectTransform>().anchoredPosition = new Vector2(-450, b.GetComponent<RectTransform>().anchoredPosition.y+10) + offset;
         }
         ConfirmSpells();
     }
@@ -404,39 +417,6 @@ public class ProgramManager : MonoBehaviour
                 player.autoTick = cd / 2f;
         }
 
-        //TODO: do this better? (don't need results UI any more)
-        foreach (Program p in programs)
-        {
-            //store program's symbol & name
-            p.symbol = Instantiate(emptyImage, Vector2.zero, Quaternion.identity, programList);
-            p.symbol.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
-            Vector2 totalPos = Vector2.zero;
-            string programName = "";
-            float cd = 0;
-            foreach (Block b in p.blocks)
-            {
-                programName += b.nameTxt.text + " + ";
-                cd += b.cd;
-                Vector3 scale = new Vector3(b.symbol.transform.localScale.x * b.transform.localScale.x, b.symbol.transform.localScale.y * b.transform.localScale.y, 1);
-                GameObject sym = Instantiate(b.symbol.gameObject, b.symbol.transform.position, Quaternion.identity, p.symbol.transform);
-                sym.transform.localScale = scale;
-                sym.GetComponent<Image>().color = fullSymbolColor;
-                totalPos += sym.GetComponent<RectTransform>().anchoredPosition;
-            }
-            foreach (Transform child in p.symbol.transform)
-            {
-                RectTransform r = child.GetComponent<RectTransform>();
-                r.anchoredPosition -= totalPos / p.symbol.transform.childCount;
-                r.anchoredPosition = new Vector2(r.anchoredPosition.x, r.anchoredPosition.y * 1.4f);
-                //TODO: fix symbol offset
-                Destroy(child.GetComponent<Symbol>());
-                Destroy(child.GetComponent<BoxCollider2D>());
-            }
-
-            //set program values
-            p.name = programName.Substring(0, programName.Length - 3);
-            p.cdMax = cd;
-        }
         if (player.auraProgram.name != "")
             programs.Remove(player.auraProgram);
         if (player.autoProgram.name != "")
@@ -494,11 +474,32 @@ public class ProgramManager : MonoBehaviour
         cdIcon.GetComponent<RectTransform>().anchoredPosition = pos;
         cdIcon.GetChild(0).GetComponent<TextMeshProUGUI>().text = type;
 
-        //create symbol
-        Transform symbol = Instantiate(p.symbol, Vector2.zero, Quaternion.identity, cdIcon.GetChild(3)).transform;
+        //spawn symbol
+        Transform symbol = Instantiate(emptyImage, Vector2.zero, Quaternion.identity, cdIcon.GetChild(3)).transform;
         symbol.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-        symbol.localScale *= 1.1f;
         symbol.SetSiblingIndex(cdIcon.childCount - 2);
+
+        Vector2 totalPos = Vector2.zero;
+        string programName = "";
+        float cd = 0;
+        foreach (Block b in p.blocks)
+        {
+            programName += b.nameTxt.text + " + ";
+            cd += b.cd;
+            GameObject s = Instantiate(b.symbol.gameObject, b.symbol.transform.position, Quaternion.identity, symbol);
+            s.GetComponent<Image>().color = fullSymbolColor;
+            totalPos += s.GetComponent<RectTransform>().anchoredPosition;
+        }
+        foreach (Transform child in symbol)
+        {
+            child.GetComponent<RectTransform>().anchoredPosition -= totalPos / symbol.transform.childCount;
+            Destroy(child.GetComponent<Symbol>());
+            Destroy(child.GetComponent<BoxCollider2D>());
+        }
+
+        //set program values
+        p.name = programName.Substring(0, programName.Length - 3);
+        p.cdMax = cd;
 
         p.fillTimer = cdIcon.GetChild(cdIcon.childCount - 1).gameObject;
         if (type == "AURA")
@@ -631,15 +632,16 @@ public class ProgramManager : MonoBehaviour
 [System.Serializable]
 public class Program
 {
-    public Program(List<Block> blocks_, KeyCode bind)
+    public Program(List<Block> blocks_, KeyCode bind_, GameObject symbolIndicator_=null)
     {
         blocks = blocks_;
         name = blocks_[0].name;
-        keybind = bind;
-        if (ProgramManager.Instance.keybindStrMap.ContainsKey(bind))
-            keybindStr = ProgramManager.Instance.keybindStrMap[bind];
+        keybind = bind_;
+        symbolIndicator = symbolIndicator_;
+        if (ProgramManager.Instance.keybindStrMap.ContainsKey(bind_))
+            keybindStr = ProgramManager.Instance.keybindStrMap[bind_];
         else
-            keybindStr = bind.ToString();
+            keybindStr = bind_.ToString();
     }
 
     public string name;
@@ -649,8 +651,7 @@ public class Program
     [HideInInspector] public GameObject fillTimer;
     public KeyCode keybind;
     public string keybindStr;
-    public GameObject symbol;
-    public GameObject programList;
+    public GameObject symbolIndicator;
 }
 
 [System.Serializable]

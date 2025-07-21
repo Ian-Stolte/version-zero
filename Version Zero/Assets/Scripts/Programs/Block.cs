@@ -63,7 +63,8 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
             foreach (Transform child in transform.parent)
             {
                 Block bl = child.GetComponent<Block>();
-                bl.levelUp.SetActive(false);
+                if (bl != null)
+                    bl.levelUp.SetActive(false);
             }
             foreach (Transform child in GameObject.Find("Function Slots").transform)
             {
@@ -168,6 +169,8 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
                 }
             }
             targetSpace = null;
+
+            symbol.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         }
     }
 

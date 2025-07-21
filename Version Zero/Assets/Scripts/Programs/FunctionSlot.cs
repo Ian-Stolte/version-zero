@@ -8,6 +8,7 @@ public class FunctionSlot : MonoBehaviour
 
     public bool shape;
     [SerializeField] private GameObject slotPrefab;
+    [SerializeField] private TMPro.TextMeshProUGUI cdTxt;
 
     private void Start()
     {
@@ -30,6 +31,7 @@ public class FunctionSlot : MonoBehaviour
             float yPos = (shape) ? 0 : GetComponent<RectTransform>().anchoredPosition.y;
             newSlot.GetComponent<RectTransform>().anchoredPosition = new Vector2((parent.childCount - 1) * 150, yPos);
             newSlot.GetComponent<FunctionSlot>().target = null;
+            newSlot.GetComponent<FunctionSlot>().cdTxt = cdTxt;
         }
         ShowElectricity();
     }
@@ -97,27 +99,37 @@ public class FunctionSlot : MonoBehaviour
 
     private void ShowElectricity()
     {
+        float cooldown = 0f;
         Transform parent = (shape) ? transform : transform.parent;
-        if (parent.GetComponent<FunctionSlot>().target == null)
+        if (parent.GetComponent<FunctionSlot>().target == null) //if no parent, hide electricity
         {
             foreach (Transform child in parent)
             {
                 if (child.childCount > 2)
                     child.GetChild(2).gameObject.SetActive(false);
             }
+            cdTxt.gameObject.SetActive(false);
         }
         else
         {
             bool show = true;
             foreach (Transform child in parent)
             {
-                if (child.GetComponent<FunctionSlot>() != null)
+                FunctionSlot slot = child.GetComponent<FunctionSlot>();
+                if (slot != null)
                 {
-                    if (child.GetComponent<FunctionSlot>().target == null)
+                    if (slot.target == null)
                         show = false;
                     child.GetChild(2).gameObject.SetActive(show);
+                    if (show)
+                    {
+                        cooldown += slot.target.cd;
+                    }
                 }
             }
+            cdTxt.gameObject.SetActive(cooldown > 0);
+            cooldown += parent.GetComponent<FunctionSlot>().target.cd;
+            cdTxt.text = cooldown + "s";
         }
     }
 }
