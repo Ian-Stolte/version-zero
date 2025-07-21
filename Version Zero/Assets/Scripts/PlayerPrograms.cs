@@ -259,7 +259,7 @@ public class PlayerPrograms : MonoBehaviour
         List<Material> origMats = new List<Material>();
         foreach (Transform child in transform.GetChild(1))
         {
-            MeshRenderer renderer = child.GetComponent<MeshRenderer>();
+            SkinnedMeshRenderer renderer = child.GetComponent<SkinnedMeshRenderer>();
             if (renderer != null)
             {
                 origMats.Add(renderer.material);
@@ -274,7 +274,7 @@ public class PlayerPrograms : MonoBehaviour
         yield return new WaitForSeconds(duration);
         for (int i = 0; i < origMats.Count; i++)
         {
-            MeshRenderer renderer = transform.GetChild(1).GetChild(i).GetComponent<MeshRenderer>();
+            SkinnedMeshRenderer renderer = transform.GetChild(1).GetChild(i).GetComponent<SkinnedMeshRenderer>();
             if (renderer != null)
             {
                 renderer.material = origMats[i];

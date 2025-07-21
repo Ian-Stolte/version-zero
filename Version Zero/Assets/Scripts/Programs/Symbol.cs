@@ -31,8 +31,9 @@ public class Symbol : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointer
     {
         if (ProgramManager.Instance.spellsLocked && canMove)
         {
+            //TODO: replace w/ better logic (e.g check a bounding box around all symbols)
             Bounds b = GetComponent<BoxCollider2D>().bounds;
-            adjSymbols = Physics2D.OverlapBoxAll(b.center, b.extents*2f, 0, LayerMask.GetMask("Symbol")).Length;
+            adjSymbols = Physics2D.OverlapBoxAll(b.center, b.extents*3f, 0, LayerMask.GetMask("Symbol")).Length;
         }
     }
 

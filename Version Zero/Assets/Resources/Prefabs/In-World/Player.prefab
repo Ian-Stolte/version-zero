@@ -141,7 +141,7 @@ MonoBehaviour:
   dashForce: 50
   dashDur: 0.25
   dashing: 0
-  transparentMat: {fileID: 2100000, guid: 8452cff573296d64cbf15380ca153736, type: 2}
+  transparentMat: {fileID: 2100000, guid: ecea18878d96a4c2ab192fb421a72afc, type: 2}
 --- !u!114 &3045372034943755482
 MonoBehaviour:
   m_ObjectHideFlags: 0

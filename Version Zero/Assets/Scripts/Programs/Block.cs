@@ -21,8 +21,8 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
 
     [Header("Children")]
     public Symbol symbol;
+    public GameObject symbolBG;
     public GameObject cdTxt;
-    public GameObject sectorIndicator;
     public TextMeshProUGUI nameTxt;
     public TextMeshProUGUI infoTxt;
     public GameObject upgradeCircles;
@@ -44,7 +44,6 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
     {
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
-        symbol.GetComponent<Image>().enabled = false;
 
         string[] modTags = new string[] { "passive" };
         if (!Array.Exists(modTags, t => t == tag))
@@ -130,7 +129,7 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
             );
         }
 
-        if (hoverGlow != null && GetComponent<CanvasGroup>().alpha == 1)
+        if (hoverGlow != null && !ProgramManager.Instance.spellsLocked)
             hoverGlow.SetActive(true);
         if (upgradeCircles != null)
             upgradeCircles.SetActive(false);

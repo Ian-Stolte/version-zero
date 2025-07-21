@@ -79,8 +79,7 @@ public class ProgramManager : MonoBehaviour
         {
             keybindStrMap[pair.key] = pair.value;
         }
-        if (GameObject.Find("Options Manager") == null)
-            StartingHand();
+        StartingHand();
     }
 
     public void StartingHand()
@@ -183,6 +182,7 @@ public class ProgramManager : MonoBehaviour
                 }
 
                 b.symbol.GetComponent<Image>().enabled = false;
+                b.symbolBG.SetActive(false);
                 b.nameTxt.GetComponent<CanvasGroup>().alpha = 1;
                 b.cdTxt.GetComponent<CanvasGroup>().alpha = 1;
                 b.cdTxt.gameObject.SetActive(true);
@@ -216,11 +216,15 @@ public class ProgramManager : MonoBehaviour
             if (!b.attached)
             {
                 b.symbol.canMove = false;
-                b.nameTxt.GetComponent<CanvasGroup>().alpha = 0.5f;
-                b.cdTxt.GetComponent<CanvasGroup>().alpha = 0.5f;
                 b.GetComponent<CanvasGroup>().alpha = 0.3f;
-                b.upgradeCircles.SetActive(false);
             }
+            else
+            {
+                b.symbol.transform.SetParent(blockParent);
+            }
+            b.nameTxt.GetComponent<CanvasGroup>().alpha = 0.5f;
+            b.cdTxt.GetComponent<CanvasGroup>().alpha = 0.5f;
+            b.upgradeCircles.SetActive(false);
         }
 
         infoButton.transform.parent.gameObject.SetActive(false);
@@ -234,11 +238,14 @@ public class ProgramManager : MonoBehaviour
         {
             foreach (Block b in p.blocks)
             {
-                b.transform.GetChild(0).GetComponent<Image>().enabled = true;
-                Symbol sym = b.symbol;
-                sym.min = new Vector2(-80 * p.blocks.IndexOf(b) - 40, sym.min.y);
-                sym.max = new Vector2(80 * (p.blocks.Count - p.blocks.IndexOf(b)) - 40, sym.max.y);
-                sym.canMove = true;
+                b.symbol.GetComponent<Image>().enabled = true;
+                Symbol s = b.symbol;
+                //TODO: update min & max x depending on chosen symbol implementation
+                //TODO: compute based on raw position (relative to blockParent instead of specific function block)
+                s.min = new Vector2(-150 * p.blocks.IndexOf(b) - 75, -10);
+                s.max = new Vector2(150 * (p.blocks.Count - p.blocks.IndexOf(b)) - 75, 140);
+                s.canMove = true;
+                b.symbolBG.SetActive(true);
             }
         }
     }
@@ -274,6 +281,7 @@ public class ProgramManager : MonoBehaviour
                 b.cdTxt.SetActive(true);
                 b.GetComponent<CanvasGroup>().alpha = 1;
                 b.symbol.GetComponent<Image>().enabled = false;
+                b.symbolBG.SetActive(false);
                 b.upgradeCircles.SetActive(true);
             }
         }
@@ -359,7 +367,7 @@ public class ProgramManager : MonoBehaviour
         {
             Vector2 offset = new Vector2(Random.Range(-20f, 20f), Random.Range(-10f, 10f));
             b.symbol.GetComponent<RectTransform>().anchoredPosition = new Vector2((b.symbol.min.x + b.symbol.max.x) / 2f * 1.35f, (b.symbol.min.y + b.symbol.max.y) / 2f) + offset;
-
+            //TODO: compute based on raw position (relative to blockParent instead of specific function block)
         }
         ConfirmSpells();
     }
@@ -399,10 +407,9 @@ public class ProgramManager : MonoBehaviour
         //TODO: do this better? (don't need results UI any more)
         foreach (Program p in programs)
         {
-            //spawn symbol
+            //store program's symbol & name
             p.symbol = Instantiate(emptyImage, Vector2.zero, Quaternion.identity, programList);
             p.symbol.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
-            p.symbol.name = p.name + " Symbol";
             Vector2 totalPos = Vector2.zero;
             string programName = "";
             float cd = 0;
@@ -418,7 +425,10 @@ public class ProgramManager : MonoBehaviour
             }
             foreach (Transform child in p.symbol.transform)
             {
-                child.GetComponent<RectTransform>().anchoredPosition -= totalPos / p.symbol.transform.childCount;
+                RectTransform r = child.GetComponent<RectTransform>();
+                r.anchoredPosition -= totalPos / p.symbol.transform.childCount;
+                r.anchoredPosition = new Vector2(r.anchoredPosition.x, r.anchoredPosition.y * 1.4f);
+                //TODO: fix symbol offset
                 Destroy(child.GetComponent<Symbol>());
                 Destroy(child.GetComponent<BoxCollider2D>());
             }
@@ -483,10 +493,13 @@ public class ProgramManager : MonoBehaviour
         Transform cdIcon = Instantiate(cdIconPrefab, Vector2.zero, Quaternion.identity, cdParent).transform;
         cdIcon.GetComponent<RectTransform>().anchoredPosition = pos;
         cdIcon.GetChild(0).GetComponent<TextMeshProUGUI>().text = type;
+
+        //create symbol
         Transform symbol = Instantiate(p.symbol, Vector2.zero, Quaternion.identity, cdIcon.GetChild(3)).transform;
         symbol.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         symbol.localScale *= 1.1f;
         symbol.SetSiblingIndex(cdIcon.childCount - 2);
+
         p.fillTimer = cdIcon.GetChild(cdIcon.childCount - 1).gameObject;
         if (type == "AURA")
             p.fillTimer.GetComponent<Image>().fillAmount = 1;

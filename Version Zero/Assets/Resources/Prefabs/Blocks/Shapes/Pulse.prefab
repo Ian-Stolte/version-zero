@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3408865461471032401, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_Color.b
+      value: 0.63529414
+      objectReference: {fileID: 0}
+    - target: {fileID: 3408865461471032401, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_Color.g
+      value: 0.30588236
+      objectReference: {fileID: 0}
+    - target: {fileID: 3408865461471032401, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8627451
+      objectReference: {fileID: 0}
     - target: {fileID: 3754997502824412307, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -100,6 +112,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: d3692a5f928c88149ba4410283c84df8, type: 3}
+    - target: {fileID: 6695455977087007718, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7452607151405539719, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_text
       value: Pulse
@@ -125,12 +141,24 @@ PrefabInstance:
       value: 108.3242
       objectReference: {fileID: 0}
     - target: {fileID: 9111906722765110435, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.48670167
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111906722765110435, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8019872
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111906722765110435, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.0698996
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111906722765110435, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9111906722765110435, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 103.4
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
