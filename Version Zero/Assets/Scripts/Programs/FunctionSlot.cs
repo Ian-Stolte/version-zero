@@ -114,14 +114,7 @@ public class FunctionSlot : MonoBehaviour
                 if (child.GetComponent<FunctionSlot>() != null)
                 {
                     if (child.GetComponent<FunctionSlot>().target == null)
-                    {
-                        Debug.Log("Show false on " + child.name);
                         show = false;
-                    }
-                    else
-                    {
-                        Debug.Log(child.name + " -> " + child.GetComponent<FunctionSlot>().target.name);
-                    }
                     child.GetChild(2).gameObject.SetActive(show);
                 }
             }
