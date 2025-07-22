@@ -183,7 +183,7 @@ public class ProgramManager : MonoBehaviour
                 b.cdTxt.GetComponent<CanvasGroup>().alpha = 1;
                 b.cdTxt.gameObject.SetActive(true);
                 b.GetComponent<CanvasGroup>().alpha = 1;
-                b.upgradeCircles.SetActive(true);
+                //b.upgradeCircles.SetActive(true);
 
                 b.symbol.GetComponent<Image>().enabled = false;
                 b.symbolBG.SetActive(false);
@@ -284,7 +284,7 @@ public class ProgramManager : MonoBehaviour
                 b.cdTxt.GetComponent<CanvasGroup>().alpha = 1;
                 b.cdTxt.SetActive(true);
                 b.GetComponent<CanvasGroup>().alpha = 1;
-                b.upgradeCircles.SetActive(true);
+                //b.upgradeCircles.SetActive(true);
 
                 b.symbol.GetComponent<Image>().enabled = false;
                 b.symbolBG.SetActive(false);

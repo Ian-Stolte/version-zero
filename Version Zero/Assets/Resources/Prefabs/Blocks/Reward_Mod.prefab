@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 7212515744500599998}
   - component: {fileID: 4317761033264560476}
   m_Layer: 9
-  m_Name: ModReward
+  m_Name: Reward_Mod
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

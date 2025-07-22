@@ -9374,6 +9374,7 @@ RectTransform:
   m_LocalScale: {x: 1.7563189, y: 1.1813395, z: 1.5383935}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3307961587983152838}
   - {fileID: 6389407167924996192}
   - {fileID: 4715755218894511171}
   m_Father: {fileID: 2531940724968868339}
@@ -15100,22 +15101,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   num: 3
   width: 4
-  blockPrefab: {fileID: 7816516429751747857, guid: 215c5b89e0678414dbd0e847e1f7220f, type: 3}
+  shapePrefab: {fileID: 7816516429751747857, guid: a1d0a3e4322f84de08524318126be528, type: 3}
+  effectPrefab: {fileID: 7816516429751747857, guid: 6234e59c7025b448ca7195180862cfd7, type: 3}
   modPrefab: {fileID: 751068182812198834, guid: 5f4e07fd3d5d9e1418e3ade97a0123eb, type: 3}
-  shapeColor: {r: 0.56078434, g: 0.627451, b: 0.5921569, a: 1}
-  effectColor: {r: 0.59026533, g: 0.77818805, b: 0.7987421, a: 1}
-  modColor: {r: 0.5773494, g: 0.735849, b: 0.5206478, a: 1}
-  rarityTxts:
-  - COMMON
-  - UNCOMMON
-  - RARE_
-  - "\u2014ULTRA\u2014"
-  rarityColors:
-  - {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 1}
-  - {r: 0.61071545, g: 0.834433, b: 0.8867924, a: 1}
-  - {r: 0.37308645, g: 0.9010692, b: 0.9056604, a: 1}
-  - {r: 1, g: 0.47484267, b: 0.7862191, a: 1}
-  typeColors:
+  sectorColors:
   - {r: 0.9372549, g: 0.34509805, b: 0.77254903, a: 1}
   - {r: 0.47843137, g: 0.9411765, b: 0.38039216, a: 1}
   - {r: 0.38039216, g: 0.6745098, b: 0.9607843, a: 1}
@@ -16371,6 +16360,94 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &9039466013702410805
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3307961587983152838}
+  - component: {fileID: 6833705892691714520}
+  - component: {fileID: 7316732047906497081}
+  - component: {fileID: 6117566942358491831}
+  m_Layer: 5
+  m_Name: Opacity
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3307961587983152838
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9039466013702410805}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 0.98244995, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8031461062417718621}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -4.40094, y: 7.310486}
+  m_SizeDelta: {x: 10000, y: 10000}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &6833705892691714520
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9039466013702410805}
+  m_CullTransparentMesh: 1
+--- !u!114 &7316732047906497081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9039466013702410805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.30588236}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!225 &6117566942358491831
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9039466013702410805}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &9073324932604729840
 GameObject:
   m_ObjectHideFlags: 0

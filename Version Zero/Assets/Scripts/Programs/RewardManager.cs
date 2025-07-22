@@ -19,14 +19,10 @@ public class RewardManager : MonoBehaviour
     public int width;
 
     [Header("Block UI")]
-    [SerializeField] private GameObject blockPrefab;
+    [SerializeField] private GameObject shapePrefab;
+    [SerializeField] private GameObject effectPrefab;
     [SerializeField] private GameObject modPrefab;
-    [SerializeField] private Color shapeColor;
-    [SerializeField] private Color effectColor;
-    [SerializeField] private Color modColor;
-    [SerializeField] private string[] rarityTxts;
-    [SerializeField] private Color[] rarityColors;
-    [SerializeField] private Color[] typeColors;
+    [SerializeField] private Color[] sectorColors;
 
     [Header("Objects")]
     [SerializeField] private GameObject showPrograms;
@@ -183,7 +179,7 @@ public class RewardManager : MonoBehaviour
 
     private void MakeRow(List<Block> row, int rowNum, int totalRows)
     {   
-        float rowY = (totalRows == 0) ? 0 : Mathf.Lerp(200*totalRows, -200*totalRows, rowNum/(totalRows*1f));
+        float rowY = (totalRows == 0) ? 50 : Mathf.Lerp(200*totalRows, -200*totalRows, rowNum/(totalRows*1f));
         for (int i = 0; i < row.Count; i++)
         {
             //2: -400, 400
@@ -197,30 +193,34 @@ public class RewardManager : MonoBehaviour
             else if (row.Count == 4)
                 rowX = 400*(i-1.5f);    
             
-            GameObject reward;
+            Transform reward;
             if (row[i].name == "Auto" || row[i].name == "Aura")
-                reward = Instantiate(modPrefab, Vector2.zero, Quaternion.identity, rewardParent);
+                reward = Instantiate(modPrefab, Vector2.zero, Quaternion.identity, rewardParent).transform;
+            else if (row[i].tag == "shape")
+                reward = Instantiate(shapePrefab, Vector2.zero, Quaternion.identity, rewardParent).transform;
             else
-                reward = Instantiate(blockPrefab, Vector2.zero, Quaternion.identity, rewardParent);
+                reward = Instantiate(effectPrefab, Vector2.zero, Quaternion.identity, rewardParent).transform;
             
-            //Name
-            reward.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = row[i].nameTxt.text;
-            while (reward.transform.GetChild(1).GetComponent<TextMeshProUGUI>().preferredWidth > reward.GetComponent<RectTransform>().sizeDelta.x+15)
+            //name
+            reward.GetChild(3).GetComponent<TextMeshProUGUI>().text = row[i].nameTxt.text;
+            while (reward.GetChild(3).GetComponent<TextMeshProUGUI>().preferredWidth > reward.GetChild(1).GetComponent<RectTransform>().sizeDelta.x + 80 && reward.GetChild(3).GetComponent<TextMeshProUGUI>().fontSize > 24)
             {
-                reward.transform.GetChild(1).GetComponent<TextMeshProUGUI>().fontSize -= 1;
-                reward.GetComponent<RectTransform>().sizeDelta += new Vector2(8, 0);
-                reward.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta += new Vector2(8, 0);
+                reward.GetChild(3).GetComponent<TextMeshProUGUI>().fontSize -= 1;
             }
 
-            //Set properties
+            //other properties
+            if (row[i].sector == "instinct")
+                reward.GetChild(2).GetComponent<Image>().color = sectorColors[0];
+            else if (row[i].sector == "logic")
+                reward.GetChild(2).GetComponent<Image>().color = sectorColors[1];
+            else if (row[i].sector == "memory")
+                reward.GetChild(2).GetComponent<Image>().color = sectorColors[2];
+            else if (row[i].name == "Damage")
+                reward.GetChild(2).GetComponent<Image>().color = new Color(0, 0, 0, 1);
+
             string cdText = ((row[i].cd+"").Length > 1) ? row[i].cd + "s" : row[i].cd + ".0s";
-            reward.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = cdText;     
-            if (row[i].tag == "shape")
-                reward.GetComponent<Image>().color = shapeColor;
-            else if (row[i].tag == "effect")
-                reward.GetComponent<Image>().color = effectColor;
-            //TODO: set type color
-            reward.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = row[i].description;
+            reward.GetChild(4).GetComponent<TextMeshProUGUI>().text = cdText;
+            reward.GetChild(5).GetComponent<TextMeshProUGUI>().text = row[i].description;
             
             //Set position & references
             reward.GetComponent<RectTransform>().anchoredPosition = new Vector2(rowX, rowY);

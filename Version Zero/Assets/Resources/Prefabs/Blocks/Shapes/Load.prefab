@@ -106,7 +106,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4145732063751185695, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: description
-      value: Dash forward, becoming briefly immune to damage
+      value: A trap that triggers when an enemy walks over it
       objectReference: {fileID: 0}
     - target: {fileID: 6695455977087007718, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_Sprite

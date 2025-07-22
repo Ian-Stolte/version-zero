@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
+public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Dragging")]
     private Vector2 lastPos;
@@ -52,6 +52,7 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
             cdTxt.GetComponent<TextMeshProUGUI>().text = formattedCD;
         }
         infoTxt.text = description;
+        upgradeCircles.SetActive(false);
     }
 
 
@@ -104,13 +105,23 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
                         if (upgrade == null)
                             AudioManager.Instance.Play("Upgrade Hover");
                         bl.levelUp.SetActive(true);
+                        bl.upgradeCircles.SetActive(true);
                         upgrade = bl;
                         upgradeFound = true;
                     }
                 }
             }
             if (!upgradeFound)
+            {
                 upgrade = null;
+                foreach (Transform child in transform.parent)
+                {
+                    Block bl = child.GetComponent<Block>();
+                    if (bl != null)
+                        bl.upgradeCircles.SetActive(false);
+                }
+
+            }
         }
     }
 
@@ -210,8 +221,25 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
 
             if (hoverGlow != null)
                 hoverGlow.SetActive(false);
-            if (upgradeCircles != null)
-                upgradeCircles.SetActive(true);
+            //if (upgradeCircles != null)
+            //    upgradeCircles.SetActive(true);
         }
     }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (!ProgramManager.Instance.spellsLocked)
+        {
+            upgradeCircles.SetActive(true);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (!ProgramManager.Instance.spellsLocked)
+        {
+            upgradeCircles.SetActive(false);
+        }
+    }
+
 }
