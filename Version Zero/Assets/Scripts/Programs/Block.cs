@@ -5,14 +5,14 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
+public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler/*, IPointerEnterHandler, IPointerExitHandler*/
 {
     [Header("Dragging")]
     private Vector2 lastPos;
     [HideInInspector] public RectTransform rectTransform;
     private Canvas canvas;
     private bool dragging;
-    [HideInInspector] public bool attached;
+    [HideInInspector] public FunctionSlot slot;
 
     [Header("Movement")]
     private List<Block> blocks = new List<Block>();
@@ -30,11 +30,10 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
     public GameObject levelUp;
 
     [Header("Spell Effects")]
-    public int lvls = 1;
+    public int lvls;
     public string sector;
     public string tag;
     [SerializeField] private LayerMask targetLayer;
-    [SerializeField] private List<string> blockedTags;
     public float minCd;
     public float cd;
     [TextArea(4, 8)] public string description;
@@ -52,7 +51,14 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
             cdTxt.GetComponent<TextMeshProUGUI>().text = formattedCD;
         }
         infoTxt.text = description;
-        upgradeCircles.SetActive(false);
+        //upgradeCircles.SetActive(false);
+
+        int maxLvls = Mathf.CeilToInt(cd - minCd);
+        for (int i = upgradeCircles.transform.childCount-1; i >= 0; i--)
+        {
+            if (i >= maxLvls)
+                Destroy(upgradeCircles.transform.GetChild(i).gameObject);
+        }
     }
 
 
@@ -111,7 +117,7 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
                     }
                 }
             }
-            if (!upgradeFound)
+            /*if (!upgradeFound)
             {
                 upgrade = null;
                 foreach (Transform child in transform.parent)
@@ -120,8 +126,7 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
                     if (bl != null)
                         bl.upgradeCircles.SetActive(false);
                 }
-
-            }
+            }*/
         }
     }
 
@@ -172,11 +177,11 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
 
             if (targetSpace != null)
             {
-                FunctionSlot slot = targetSpace.transform.parent.GetComponent<FunctionSlot>();
-                if (slot != null && slot.target == this)
+                FunctionSlot fs = targetSpace.transform.parent.GetComponent<FunctionSlot>();
+                if (fs != null && fs.target == this)
                 {
-                    slot.Detach();
-                    attached = false;
+                    fs.Detach();
+                    slot = null;
                 }
             }
             targetSpace = null;
@@ -197,16 +202,22 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
                 upgrade.levelUp.SetActive(false);
                 for (int i = 0; i < lvls; i++)
                 {
-                    upgrade.cd = Mathf.Max(upgrade.minCd, upgrade.cd - 1f);
                     if (upgrade.cd > upgrade.minCd)
+                    {
                         upgrade.lvls++;
+                        int index = upgrade.lvls - 2;
+                        if (index >= 0 && index < upgrade.upgradeCircles.transform.childCount)
+                            upgrade.upgradeCircles.transform.GetChild(index).GetChild(0).gameObject.SetActive(true);
+                    }
+                    upgrade.cd = Mathf.Max(upgrade.minCd, upgrade.cd - 1f);
                 }
-                //TODO: fill in upgrade circles
                 string cdTxt = ((upgrade.cd + "").Length == 1) ? upgrade.cd + ".0s" : upgrade.cd + "s";
                 upgrade.cdTxt.GetComponent<TextMeshProUGUI>().text = cdTxt;
                 ProgramManager.Instance.blocks.Remove(this);
                 Destroy(gameObject);
                 AudioManager.Instance.Play("Upgrade");
+                if (upgrade.slot != null)
+                    upgrade.slot.ShowElectricity();
             }
 
             //snap if released next to valid slot
@@ -215,18 +226,18 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
                 AudioManager.Instance.Play("Snap Block");
                 rectTransform.position = targetSpace.GetComponent<RectTransform>().position;
                 targetSpace.SetActive(false);
-                targetSpace.transform.parent.GetComponent<FunctionSlot>().Attach(this);
-                attached = true;
+                slot = targetSpace.transform.parent.GetComponent<FunctionSlot>();
+                slot.Attach(this);
             }
 
             if (hoverGlow != null)
                 hoverGlow.SetActive(false);
-            //if (upgradeCircles != null)
-            //    upgradeCircles.SetActive(true);
+            if (upgradeCircles != null)
+                upgradeCircles.SetActive(true);
         }
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    /*public void OnPointerEnter(PointerEventData eventData)
     {
         if (!ProgramManager.Instance.spellsLocked)
         {
@@ -240,6 +251,5 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
         {
             upgradeCircles.SetActive(false);
         }
-    }
-
+    }*/
 }

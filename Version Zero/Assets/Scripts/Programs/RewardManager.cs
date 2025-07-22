@@ -208,6 +208,14 @@ public class RewardManager : MonoBehaviour
                 reward.GetChild(3).GetComponent<TextMeshProUGUI>().fontSize -= 1;
             }
 
+            //upgrades
+            int maxLvls = Mathf.CeilToInt(row[i].cd - row[i].minCd);
+            for (int j = reward.GetChild(0).childCount-1; j >= 0; j--)
+            {
+                if (j >= maxLvls)
+                    Destroy(reward.GetChild(0).GetChild(j).gameObject);
+            }
+
             //other properties
             if (row[i].sector == "instinct")
                 reward.GetChild(2).GetComponent<Image>().color = sectorColors[0];

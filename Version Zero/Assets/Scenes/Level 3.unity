@@ -9926,6 +9926,10 @@ PrefabInstance:
       value: -77.66477
       objectReference: {fileID: 0}
     - target: {fileID: 7801337596839946309, guid: ed366113f1ef7954bba91e37b4256f57, type: 3}
+      propertyPath: energyBar
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801337596839946309, guid: ed366113f1ef7954bba91e37b4256f57, type: 3}
       propertyPath: noTargetText
       value: 
       objectReference: {fileID: 168217110}
@@ -10211,7 +10215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3205907087107428264, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3969221263264332549, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

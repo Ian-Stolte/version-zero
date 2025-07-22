@@ -104,6 +104,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 025f5a28b13574137bc499d0f4dc24df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  energy: 0
+  maxEnergy: 15
+  energyRegen: 3
   auraTick: 0.5
   auraDampen: 0
   auraHitbox: {fileID: 1135881467792444086, guid: 224e4b5f94dcb47df8bb4bbaa921aa18, type: 3}
@@ -115,8 +118,7 @@ MonoBehaviour:
     fillTimer: {fileID: 0}
     keybind: 0
     keybindStr: 
-    symbol: {fileID: 0}
-    programList: {fileID: 0}
+    symbolIndicator: {fileID: 0}
   autoTick: 2
   autoTimer: 0
   autoProgram:
@@ -127,8 +129,7 @@ MonoBehaviour:
     fillTimer: {fileID: 0}
     keybind: 0
     keybindStr: 
-    symbol: {fileID: 0}
-    programList: {fileID: 0}
+    symbolIndicator: {fileID: 0}
   hitboxes:
   - {fileID: 1135881467792444086, guid: 3f16dce6459334681b4c760907d47519, type: 3}
   - {fileID: 8968518077185907026, guid: 460a8c4d0314a44d29d2c1613d65de4d, type: 3}

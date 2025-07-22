@@ -97,7 +97,7 @@ public class FunctionSlot : MonoBehaviour
     }
 
 
-    private void ShowElectricity()
+    public void ShowElectricity()
     {
         float cooldown = 0f;
         Transform parent = (shape) ? transform : transform.parent;
