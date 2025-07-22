@@ -30,8 +30,6 @@ public class Enemy : MonoBehaviour
     public Image healthBar;
     [SerializeField] private TextMeshProUGUI statusTxt;
     [SerializeField] private GameObject damageNumber;
-
-    [Header("Mark")]
     [SerializeField] private GameObject mark;
     private int markDmg;
     private float markTimer;
