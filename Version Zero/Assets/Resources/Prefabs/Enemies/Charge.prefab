@@ -420,7 +420,7 @@ GameObject:
   - component: {fileID: 1595533343650753025}
   - component: {fileID: 1006742937906585305}
   m_Layer: 6
-  m_Name: Charge_Logic
+  m_Name: Charge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -436,7 +436,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.9858407, z: -0, w: 0.16768514}
   m_LocalPosition: {x: -0.2, y: 0, z: 20.48}
-  m_LocalScale: {x: 0.38318914, y: 0.4887191, z: 0.38318914}
+  m_LocalScale: {x: 0.488183, y: 0.76097614, z: 0.488183}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6443372242735284680}
@@ -479,11 +479,11 @@ MonoBehaviour:
   statusTxt: {fileID: 4371929824900915114}
   damageNumber: {fileID: 2345899596540281866, guid: 753d7799ea08308459e89e0baabf8ac3, type: 3}
   mark: {fileID: 8038899060374676680}
+  damageMat: {fileID: 2100000, guid: e63099d8a1b75e744807a768ddb7d102, type: 2}
+  shielded: 0
   anim: {fileID: 4823944626910731597}
   rb: {fileID: 0}
   player: {fileID: 0}
-  damageMat: {fileID: 2100000, guid: e63099d8a1b75e744807a768ddb7d102, type: 2}
-  shielded: 0
   defSpeed: 2.5
   atkRange: 10
   atkDelay: 1
@@ -926,7 +926,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bd35153e5afc7f846910069f0cab618e, type: 2}
+  - {fileID: 2100000, guid: 8ffc28c4abcbb324aa86fc94612b57ce, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1167,7 +1167,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bd35153e5afc7f846910069f0cab618e, type: 2}
+  - {fileID: 2100000, guid: 8ffc28c4abcbb324aa86fc94612b57ce, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

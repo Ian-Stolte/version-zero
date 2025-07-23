@@ -34,11 +34,6 @@ public class Enemy : MonoBehaviour
     private int markDmg;
     private float markTimer;
 
-    [Header("References")]
-    public Animator anim;
-    [HideInInspector] public Rigidbody rb;
-    [HideInInspector] public GameObject player;
-
     [Header("Materials")]
     [SerializeField] private Material damageMat;
     private List<MeshRenderer> meshRenderers = new List<MeshRenderer>();
@@ -47,6 +42,11 @@ public class Enemy : MonoBehaviour
     [Header("Misc")]
     [HideInInspector] public bool shielded;
     [HideInInspector] public IEnumerator auraBurn;
+
+    [Header("References")]
+    public Animator anim;
+    [HideInInspector] public Rigidbody rb;
+    [HideInInspector] public GameObject player;
 
 
     public void Start()
