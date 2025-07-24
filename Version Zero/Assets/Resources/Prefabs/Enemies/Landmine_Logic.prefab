@@ -953,7 +953,7 @@ GameObject:
   - component: {fileID: 5228241810168737933}
   - component: {fileID: 7048313956683366665}
   m_Layer: 6
-  m_Name: '!Landmine'
+  m_Name: Landmine_Logic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -995,7 +995,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0582e570cdd7493ca730ebcacd7f3f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 12
+  maxHealth: 8
   health: 0
   aggroRange: 15
   aggro: 0

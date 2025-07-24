@@ -40,8 +40,8 @@ public class GameManager : MonoBehaviour
     private float spawnTimer;
     private float totalSpawn;
     private bool spawningEnemies;
-    private float minSpawn = 20;
-    private float maxSpawn = 30;
+    private float minSpawn = 5;
+    private float maxSpawn = 10;
 
     [Header("Terminals")]
     [SerializeField] private GameObject terminalBar;
@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
                 icon.GetComponent<RectTransform>().anchoredPosition = new Vector2(-810, 450 - 130*i - areaText.preferredHeight);
             }
 
-            //set spawn pct & enemies available by level (15, 25 by default)
+            //set spawn pct & enemies available by level (20, 30 by default)
             enemyType = enemyTypes[Random.Range(0, enemyTypes.Length)];
             if (scene.name == "Level 4")
             {

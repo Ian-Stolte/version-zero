@@ -420,7 +420,7 @@ GameObject:
   - component: {fileID: 1595533343650753025}
   - component: {fileID: 1006742937906585305}
   m_Layer: 6
-  m_Name: '!Charge'
+  m_Name: Charge_Logic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -462,7 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ada7a40d75514b1c8fbc96f8513e12b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 12
   health: 0
   aggroRange: 10
   aggro: 0

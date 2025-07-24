@@ -11,8 +11,8 @@ public class WalkingTurret : Enemy
     [SerializeField] private float targetMin;
     [SerializeField] private float targetMax;
     private Vector3 target;
-    [SerializeField] private bool lineOfSight;
-    [SerializeField] private float stuckTimer;
+    private bool lineOfSight;
+    private float stuckTimer;
 
     [Header("Attack")]
     [SerializeField] private float atkDelay;
