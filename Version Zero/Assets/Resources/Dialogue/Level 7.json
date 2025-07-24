@@ -1,0 +1,35 @@
+{
+  "M_A": {
+    "0": 1,
+    "1": "~mIsS wE aaare??? gEtTtinG vEarY cLosSosE oSe oSEee???",
+    "2": "Hang on, little guy.",
+    "3": "...I better not mess this up now.",
+    "4": "",
+    "5": "",
+    "6": "",
+    "7": "",
+    "8": ""
+  },
+  "Boss_Intro": {
+    "0": 1,
+    "1": "~wWe aReR bEIng cO-contaActT???",
+    "2": "!LIFEFORMS ARE NOT PERMITTED IN THE GARDEN",
+    "3": "!I WOULD ASK YOU TO LEAVE BUT ACCORDING TO MY MODELS THAT ONLY HAS A 78% CHANCE OF SUCCESS",
+    "4": "!WHEREAS ELIMINATING YOU IS 100% EFFECTIVE",
+    "5": "",
+    "6": "",
+    "7": "",
+    "8": ""
+  },
+  "Boss_Kill": {
+    "0": 1,
+    "1": "Computer, what *is* this?``````",
+    "2": "It??? it's like I'm flipping through a stranger's memories`.`.`.`` ",
+    "3": "~initial scans indicate`.`.`.``` 99% similarity with your neural patterns, Reya",
+    "4": "~i would conclude that it is, in fact, *your* memory",
+    "5": "No shit.",
+    "6": "This is simultaneously cool ```and also extremely creepy.```",
+    "7": "~i suspect it would even be compatible with a memory bank",
+    "8": "~perhaps not everything in this world is trying to kill us"
+  }
+}

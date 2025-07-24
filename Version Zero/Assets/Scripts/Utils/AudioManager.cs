@@ -66,8 +66,16 @@ public class AudioManager : MonoBehaviour
         }
         audios = gameObject.GetComponents<AudioSource>();
 
-        Play("Area 1");
-        StartCoroutine(StartFade("Area 1", 2, 0.25f));
+        if (SceneManager.GetActiveScene().name == "Level 7")
+        {
+            Play("Area 2");
+            StartCoroutine(StartFade("Area 2", 2, 0.25f));
+        }
+        else
+        {
+            Play("Area 1");
+            StartCoroutine(StartFade("Area 1", 2, 0.25f));
+        }
     }
 
 
@@ -95,13 +103,13 @@ public class AudioManager : MonoBehaviour
         foreach (Sound s in music)
         {
             if (s.source.volume != 0)
-                StartCoroutine(StartFade(s.name, duration, s.source.volume*n));
+                StartCoroutine(StartFade(s.name, duration, s.source.volume * n));
         }
         yield return new WaitForSeconds(duration);
         foreach (Sound s in music)
         {
             if (s.source.volume != 0)
-                StartCoroutine(StartFade(s.name, duration, s.source.volume/n));
+                StartCoroutine(StartFade(s.name, duration, s.source.volume / n));
         }
 
     }
@@ -127,7 +135,7 @@ public class AudioManager : MonoBehaviour
     {
         Sound s = sfx.Find(sound => sound.name == name);
         if (s == null)
-            s = Array.Find(music, sound => sound.name == name);        
+            s = Array.Find(music, sound => sound.name == name);
         if (s == null)
         {
             Debug.LogError("Sound: " + name + " not found!");
@@ -170,6 +178,14 @@ public class AudioManager : MonoBehaviour
         Play("Walking Turret Die");
         Play("Area 1");
         StartCoroutine(StartFade("Area 1", 2, 0.2f));
+    }
+    
+    public void KillBoss2()
+    {
+        Stop("Boss 2");
+        Play("Walking Turret Die");
+        Play("Area 2");
+        StartCoroutine(StartFade("Area 2", 2, 0.2f));
     }
 }
 

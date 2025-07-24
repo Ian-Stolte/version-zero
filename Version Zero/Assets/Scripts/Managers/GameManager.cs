@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
             }
         
             //replace enemies with chosen type
-            if (scene.name != "Level 6")
+            if (scene.name != "Level 6" && scene.name != "Level 7")
             {
                 List<GameObject> newEnemies = new List<GameObject>();
                 foreach (Transform child in enemyParent)
@@ -184,7 +184,7 @@ public class GameManager : MonoBehaviour
         if (scene.name != "End Screen")
         {
             int sceneNum = int.Parse(SceneManager.GetActiveScene().name.Substring(6));
-            if (((sceneNum > 3 && sceneNum != 6) || (sceneNum == 3 && runNum > 1) || scene.name.Contains("Final")) && !noSpawn)
+            if (((sceneNum > 3 && sceneNum != 6 && sceneNum != 7) || (sceneNum == 3 && runNum > 1) || scene.name.Contains("Final")) && !noSpawn)
             {
                 enemyTimer.gameObject.SetActive(true);
                 player.GetComponent<PlayerMovement>().hpBar.gameObject.SetActive(true);
@@ -196,7 +196,7 @@ public class GameManager : MonoBehaviour
             {
                 spawningEnemies = false;
                 enemyTimer.gameObject.SetActive(false);
-                if (scene.name != "Level 6")
+                if (scene.name != "Level 6" && scene.name != "Level 7")
                 {
                     foreach (Transform child in enemyParent)
                        Destroy(child.gameObject);

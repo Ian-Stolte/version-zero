@@ -158,7 +158,7 @@ public class WalkingTurret : Enemy
         yield return new WaitUntil(() => !DialogueManager.Instance.dialogue.activeSelf);
         GameManager.Instance.pauseGame = false;
         
-        //setup health bar
+        //set up health bar
         GameManager.Instance.bossUI.SetActive(true);
         healthBar = GameObject.Find("Boss Fill").GetComponent<Image>();
         for (float i = spawnInterval; i < 1; i+=spawnInterval)
@@ -302,7 +302,7 @@ public class WalkingTurret : Enemy
     private void OnDestroy()
     {
         GameObject reward = Instantiate(memoryReward, transform.position + new Vector3(0, 0, 0), Quaternion.identity);
-        //set reward program randomly
+        //TODO: set reward program randomly
         healthBar.transform.parent.parent.gameObject.SetActive(false);
         foreach (Transform child in transform.parent)
             Destroy(child.gameObject);
