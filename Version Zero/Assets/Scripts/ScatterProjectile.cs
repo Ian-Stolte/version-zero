@@ -27,6 +27,7 @@ public class ScatterProjectile : MonoBehaviour
     private void Start()
     {
         player = GameObject.Find("Player").transform;
+        tickTimer = tickTime;
     }
 
     private void Update()

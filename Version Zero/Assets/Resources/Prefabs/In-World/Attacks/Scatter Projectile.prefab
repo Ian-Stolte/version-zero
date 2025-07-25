@@ -184,7 +184,7 @@ MonoBehaviour:
   speed: 8
   atkRange: 4
   dmg: 1
-  tickTime: 1
+  tickTime: 0.75
   lifeTimer: 7
 --- !u!1 &6290705244445201392
 GameObject:

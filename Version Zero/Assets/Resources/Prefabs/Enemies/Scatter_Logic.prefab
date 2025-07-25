@@ -684,6 +684,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 16
   health: 0
+  customDestroy: 0
   aggroRange: 15
   aggro: 0
   stunTimer: 0
@@ -709,8 +710,8 @@ MonoBehaviour:
   targetMax: 10
   atkDelay: 3
   atkRange: 10
-  attackDistMin: 5
-  attackDistMax: 8
+  attackDistMin: 2
+  attackDistMax: 6
   projectiles:
   - {fileID: 6003647698123115800}
   - {fileID: 1230648357922542804}

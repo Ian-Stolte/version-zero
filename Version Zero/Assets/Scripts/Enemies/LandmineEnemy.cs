@@ -21,6 +21,7 @@ public class LandmineEnemy : Enemy
     [SerializeField] private int dmg;
     [SerializeField] private float attackRadius;
     [SerializeField] private GameObject explosionVFX;
+    private bool destroying;
 
 
     void Update()
@@ -31,7 +32,7 @@ public class LandmineEnemy : Enemy
         if (dist < aggroRange)
             aggro = true;
 
-        if (!GameManager.Instance.pauseGame && aggro && stunTimer <= 0 && !inTransition)
+        if (!GameManager.Instance.pauseGame && aggro && stunTimer <= 0 && !inTransition && !destroying)
         {
             if (!buried && dist < buryMin)
                 StartCoroutine(Bury());
@@ -86,9 +87,22 @@ public class LandmineEnemy : Enemy
 
     private IEnumerator Attack()
     {
+        destroying = true;
         anim.Play("Landmine_Attack");
+        transform.GetChild(1).gameObject.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
+    }
+
+
+    public override void TakeDamage(int dmg)
+    {
+        if (!destroying)
+        {
+            base.TakeDamage(dmg);
+            if (health <= 0)
+                StartCoroutine(Attack());
+        }
     }
 
     private void OnDestroy()

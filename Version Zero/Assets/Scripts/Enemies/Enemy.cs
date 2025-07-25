@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     [Header("Values")]
     public int maxHealth;
     public int health;
+    [SerializeField] private bool customDestroy;
 
     [Header("States")]
     public int aggroRange;
@@ -165,7 +166,7 @@ public class Enemy : MonoBehaviour
         }
         aggro = true;
         healthBar.fillAmount = health / (maxHealth * 1.0f);
-        if (health <= 0)
+        if (health <= 0 && !customDestroy)
         {
             //play death anim
             Destroy(gameObject);
@@ -179,7 +180,7 @@ public class Enemy : MonoBehaviour
             foreach (Transform child in GetComponentsInChildren<Transform>(true))
             {
                 MeshRenderer mr = child.GetComponent<MeshRenderer>();
-                if (mr != null && child.name != "Shield" && !child.name.Contains("Warning"))
+                if (mr != null && child.name != "Shield" && !child.name.Contains("Warning") && !child.name.Contains("Projectile"))
                 {
                     mr.material = damageMat;
                 }

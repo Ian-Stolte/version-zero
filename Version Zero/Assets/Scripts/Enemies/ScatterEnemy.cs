@@ -39,7 +39,7 @@ public class ScatterEnemy : Enemy
         if (dist < aggroRange && !aggro)
         {
             aggro = true;
-            movementTarget = ChooseTarget(targetMin, targetMax);
+            movementTarget = ChooseTarget(targetMin, targetMax, new Vector3(transform.position.x, 0.7f, transform.position.z));
         }
 
         if (!GameManager.Instance.pauseGame && aggro && stunTimer <= 0)
@@ -51,7 +51,7 @@ public class ScatterEnemy : Enemy
             if (Vector3.Distance(rb.position, movementTarget) < 3f)
                 stuckTimer += Time.deltaTime;
             if (Vector3.Distance(rb.position, movementTarget) < 0.5f || stuckTimer > 2f)
-                movementTarget = ChooseTarget(targetMin, targetMax);
+                movementTarget = ChooseTarget(targetMin, targetMax, new Vector3(transform.position.x, 0.7f, transform.position.z));
             else
                 MoveTo(movementTarget, speed);
 
@@ -65,17 +65,16 @@ public class ScatterEnemy : Enemy
     }
 
 
-    private Vector3 ChooseTarget(float minDist, float maxDist)
+    private Vector3 ChooseTarget(float minDist, float maxDist, Vector3 center)
     {
         Debug.Log("Choosing target!");
         stuckTimer = 0f;
         Vector3 target;
         do
         {
-            target = transform.position + Quaternion.Euler(0, Random.Range(0, 360), 0) * new Vector3(1, 0, 1) * Random.Range(minDist, maxDist);
-            target.x = Mathf.Clamp(target.x, 15f, 43f);
+            target = center + Quaternion.Euler(0, Random.Range(0, 360), 0) * new Vector3(1, 0, 1) * Random.Range(minDist, maxDist);
             //lineOfSight = !Physics.Raycast(transform.position, target-transform.position, Vector3.Distance(target, transform.position), terrainLayer);
-        } while (!pathfinding.IsWalkable(target, gridIndex));
+        } while (!pathfinding.IsWalkable(target, gridIndex+1));
         Debug.Log("Successful target!");
         return target;
     }
@@ -85,13 +84,13 @@ public class ScatterEnemy : Enemy
     {
         Debug.Log("Attack!");
         //TODO: pick better target
-        Vector3 atkTarget = ChooseTarget(attackDistMin, attackDistMax) - new Vector3(0, 0.5f, 0);
+        Vector3 atkTarget = ChooseTarget(attackDistMin, attackDistMax, player.transform.position) - new Vector3(0, 0.5f, 0);
 
         anim.Play("Scatter_Attack");
         //TODO: manually animate attack?
 
         yield return new WaitForSeconds(0.5f);
-        projectiles[0].GetComponent<ScatterProjectile>().Shoot(atkTarget);
+        projectiles[0].GetComponent<ScatterProjectile>().Shoot(new Vector3(atkTarget.x, 0, atkTarget.z));
         projectiles.RemoveAt(0);
         foreach (GameObject g in projectiles)
             StartCoroutine(MoveProjUp(g));
