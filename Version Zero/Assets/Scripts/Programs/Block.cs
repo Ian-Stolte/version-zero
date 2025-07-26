@@ -67,12 +67,12 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
         if (dragging)
         {
             //hide indicators by default
-            foreach (Transform child in transform.parent)
+            /*foreach (Transform child in transform.parent)
             {
                 Block bl = child.GetComponent<Block>();
                 if (bl != null)
                     bl.levelUp.SetActive(false);
-            }
+            }*/
             foreach (Transform child in GameObject.Find("Function Slots").transform)
             {
                 child.GetChild(0).gameObject.SetActive(false);
@@ -171,7 +171,7 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
             rectTransform.anchoredPosition = localMousePos - lastPos;
 
             // Bound to the border of the UI
-            float newX = Mathf.Clamp(rectTransform.anchoredPosition.x, -(860 - rectTransform.sizeDelta.x), 850 - rectTransform.sizeDelta.x);
+            float newX = Mathf.Clamp(rectTransform.anchoredPosition.x, -(860 - rectTransform.sizeDelta.x), 930 - rectTransform.sizeDelta.x);
             float newY = Mathf.Clamp(rectTransform.anchoredPosition.y, -415, 415);
             rectTransform.anchoredPosition = new Vector2(newX, newY);
 
@@ -187,6 +187,10 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
             targetSpace = null;
 
             symbol.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+            if (rectTransform.anchoredPosition.x > 850 - rectTransform.sizeDelta.x && -200 < rectTransform.anchoredPosition.y && 200 > rectTransform.anchoredPosition.y)
+                levelUp.SetActive(true);
+            else
+                levelUp.SetActive(false);
         }
     }
 
@@ -196,6 +200,7 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
         if (!ProgramManager.Instance.spellsLocked)
         {
             dragging = false;
+
             //upgrade if released on same type
             if (upgrade != null)
             {
@@ -229,6 +234,14 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
                 slot = targetSpace.transform.parent.GetComponent<FunctionSlot>();
                 slot.Attach(this);
             }
+            
+            //discard for reroll if released on right edge
+            else if (rectTransform.anchoredPosition.x > 850 - rectTransform.sizeDelta.x && -180 < rectTransform.anchoredPosition.y && 180 > rectTransform.anchoredPosition.y)
+            {
+                RewardManager.Instance.AddReroll();
+                Destroy(gameObject);
+            }
+
 
             if (hoverGlow != null)
                 hoverGlow.SetActive(false);

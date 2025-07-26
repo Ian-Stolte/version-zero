@@ -33,6 +33,11 @@ public class RewardManager : MonoBehaviour
     [SerializeField] private Transform rewardParent;
     [SerializeField] private Transform blockParent;
 
+    [Header("Rerolls")]
+    public int rerolls;
+    [SerializeField] private TextMeshProUGUI rerollTxt;
+    [SerializeField] private TextMeshProUGUI rerollTxtSmall;
+
 
     private void Update()
     {
@@ -121,27 +126,27 @@ public class RewardManager : MonoBehaviour
             }
             MakeRow(currRow, 0, 0);
         }
-        else if (n%width == 1)
+        else if (n % width == 1)
         {
             //first row of width-1
             List<Block> currRow = new List<Block>();
-            for (int i = 0; i < width-1; i++)
+            for (int i = 0; i < width - 1; i++)
             {
                 currRow.Add(blocks[i]);
             }
-            MakeRow(currRow, 0, n/width);
+            MakeRow(currRow, 0, n / width);
             currRow.Clear();
 
             //middle rows
             int rowCount = 0;
             int rowNum = 1;
-            for (int i = width-1; i < n-2; i++)
+            for (int i = width - 1; i < n - 2; i++)
             {
                 rowCount++;
                 currRow.Add(blocks[i]);
                 if (rowCount == width)
                 {
-                    MakeRow(currRow, rowNum, n/width);
+                    MakeRow(currRow, rowNum, n / width);
                     rowCount = 0;
                     currRow.Clear();
                     rowNum++;
@@ -149,17 +154,17 @@ public class RewardManager : MonoBehaviour
             }
 
             //last row of 2
-            for (int i = n-2; i < n; i++)
+            for (int i = n - 2; i < n; i++)
             {
-                currRow.Add(blocks[i]); 
+                currRow.Add(blocks[i]);
             }
-            MakeRow(currRow, rowNum, n/width);
+            MakeRow(currRow, rowNum, n / width);
         }
         else
         {
             int rowNum = 0;
             int rowCount = 0;
-            int totalRows = (n%width == 0) ? n/width - 1 : n/width;
+            int totalRows = (n % width == 0) ? n / width - 1 : n / width;
             List<Block> currRow = new List<Block>();
             for (int i = 0; i < n; i++)
             {
@@ -178,21 +183,21 @@ public class RewardManager : MonoBehaviour
     }
 
     private void MakeRow(List<Block> row, int rowNum, int totalRows)
-    {   
-        float rowY = (totalRows == 0) ? 50 : Mathf.Lerp(200*totalRows, -200*totalRows, rowNum/(totalRows*1f));
+    {
+        float rowY = (totalRows == 0) ? 50 : Mathf.Lerp(200 * totalRows, -200 * totalRows, rowNum / (totalRows * 1f));
         for (int i = 0; i < row.Count; i++)
         {
             //2: -400, 400
-            float rowX = 600*(i-0.5f);
-            
+            float rowX = 600 * (i - 0.5f);
+
             //3: -500, 0, 500
-            if (row.Count == 3) 
-                rowX = 500*(i-1);
-            
+            if (row.Count == 3)
+                rowX = 500 * (i - 1);
+
             //4: -600, -200, 200, 600
             else if (row.Count == 4)
-                rowX = 400*(i-1.5f);    
-            
+                rowX = 400 * (i - 1.5f);
+
             Transform reward;
             if (row[i].name == "Auto" || row[i].name == "Aura")
                 reward = Instantiate(modPrefab, Vector2.zero, Quaternion.identity, rewardParent).transform;
@@ -200,7 +205,7 @@ public class RewardManager : MonoBehaviour
                 reward = Instantiate(shapePrefab, Vector2.zero, Quaternion.identity, rewardParent).transform;
             else
                 reward = Instantiate(effectPrefab, Vector2.zero, Quaternion.identity, rewardParent).transform;
-            
+
             //name
             reward.GetChild(3).GetComponent<TextMeshProUGUI>().text = row[i].nameTxt.text;
             while (reward.GetChild(3).GetComponent<TextMeshProUGUI>().preferredWidth > reward.GetChild(1).GetComponent<RectTransform>().sizeDelta.x + 80 && reward.GetChild(3).GetComponent<TextMeshProUGUI>().fontSize > 24)
@@ -210,7 +215,7 @@ public class RewardManager : MonoBehaviour
 
             //upgrades
             int maxLvls = Mathf.CeilToInt(row[i].cd - row[i].minCd);
-            for (int j = reward.GetChild(0).childCount-1; j >= 0; j--)
+            for (int j = reward.GetChild(0).childCount - 1; j >= 0; j--)
             {
                 if (j >= maxLvls)
                     Destroy(reward.GetChild(0).GetChild(j).gameObject);
@@ -226,14 +231,35 @@ public class RewardManager : MonoBehaviour
             else if (row[i].name == "Damage")
                 reward.GetChild(2).GetComponent<Image>().color = new Color(0, 0, 0, 1);
 
-            string cdText = ((row[i].cd+"").Length > 1) ? row[i].cd + "s" : row[i].cd + ".0s";
+            string cdText = ((row[i].cd + "").Length > 1) ? row[i].cd + "s" : row[i].cd + ".0s";
             reward.GetChild(4).GetComponent<TextMeshProUGUI>().text = cdText;
             reward.GetChild(5).GetComponent<TextMeshProUGUI>().text = row[i].description;
-            
+
             //Set position & references
             reward.GetComponent<RectTransform>().anchoredPosition = new Vector2(rowX, rowY);
             reward.GetComponent<RewardClick>().blockParent = blockParent;
             reward.GetComponent<RewardClick>().blockToAdd = row[i].gameObject;
         }
+    }
+
+
+    public void AddReroll()
+    {
+        rerolls++;
+        rerollTxt.text = "(" + rerolls + ")";
+        rerollTxtSmall.text = "Rerolls: <b>" + rerolls + "</b>";
+        rerollTxt.transform.parent.GetComponent<Button>().interactable = (rerolls > 0);
+    }
+
+    public void Reroll()
+    {
+        rerolls--;
+        rerollTxt.text = "(" + rerolls + ")";
+        rerollTxtSmall.text = "Rerolls: <b>" + rerolls + "</b>";
+        rerollTxt.transform.parent.GetComponent<Button>().interactable = (rerolls > 0);
+
+        if (hidePrograms.activeSelf)
+            HidePrograms();
+        Reward(num);
     }
 }
