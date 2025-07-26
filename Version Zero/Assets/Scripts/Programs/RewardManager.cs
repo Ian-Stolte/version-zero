@@ -54,10 +54,13 @@ public class RewardManager : MonoBehaviour
             if (child.name.Contains("Reward"))
                 Destroy(child.gameObject);
         }
-        rewardParent.GetComponent<Image>().enabled = true;
-        hidePrograms.SetActive(false);
-        showPrograms.SetActive(true);
-        blockBG.SetActive(false);
+        if (rewardParent.GetComponent<Image>().enabled = false)
+        {
+            rewardParent.GetComponent<Image>().enabled = true;
+            hidePrograms.SetActive(false);
+            showPrograms.SetActive(true);
+            blockBG.SetActive(false);
+        }
         List<Block> chosenBlocks = new List<Block>();
         for (int i = 0; i < n; i++)
         {

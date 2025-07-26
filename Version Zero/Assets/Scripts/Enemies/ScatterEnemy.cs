@@ -67,7 +67,6 @@ public class ScatterEnemy : Enemy
 
     private Vector3 ChooseTarget(float minDist, float maxDist, Vector3 center)
     {
-        Debug.Log("Choosing target!");
         stuckTimer = 0f;
         Vector3 target;
         do
@@ -75,14 +74,12 @@ public class ScatterEnemy : Enemy
             target = center + Quaternion.Euler(0, Random.Range(0, 360), 0) * new Vector3(1, 0, 1) * Random.Range(minDist, maxDist);
             //lineOfSight = !Physics.Raycast(transform.position, target-transform.position, Vector3.Distance(target, transform.position), terrainLayer);
         } while (!pathfinding.IsWalkable(target, gridIndex+1));
-        Debug.Log("Successful target!");
         return target;
     }
 
 
     private IEnumerator Attack()
     {
-        Debug.Log("Attack!");
         //TODO: pick better target
         Vector3 atkTarget = ChooseTarget(attackDistMin, attackDistMax, player.transform.position) - new Vector3(0, 0.5f, 0);
 

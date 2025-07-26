@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
             //create an icon for each terminal in the level
             foreach (Transform child in terminalIcons)
                 Destroy(child.gameObject);
-            
+
             numTerminals = 0;
             foreach (GameObject g in Resources.FindObjectsOfTypeAll<GameObject>())
             {
@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < numTerminals; i++)
             {
                 GameObject icon = Instantiate(terminalIcon, Vector2.zero, terminalIcon.transform.rotation, terminalIcons);
-                icon.GetComponent<RectTransform>().anchoredPosition = new Vector2(-810, 450 - 130*i - areaText.preferredHeight);
+                icon.GetComponent<RectTransform>().anchoredPosition = new Vector2(-810, 450 - 130 * i - areaText.preferredHeight);
             }
 
             //set spawn pct & enemies available by level (20, 30 by default)
@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
                 minSpawn = 1;
                 maxSpawn = 3;
             }
-        
+
             //replace enemies with chosen type
             if (scene.name != "Level 6" && scene.name != "Level 7")
             {
@@ -136,7 +136,7 @@ public class GameManager : MonoBehaviour
                         {
                             string name = child.name.Substring(0, i) + "_" + enemyType;
                             GameObject prefab = Resources.Load<GameObject>("Prefabs/Enemies/" + name);
-                            
+
                             if (prefab != null && child.gameObject.activeSelf)
                             {
                                 newEnemies.Add(Instantiate(prefab, child.position, child.rotation));
@@ -461,6 +461,7 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.Play("Static");
         AudioManager.Instance.Play("Game Over");
         Camera.main.GetComponent<GlitchManager>().ShowGlitch(2, 1);
+        DialogueManager.Instance.PlayByID("OnDeath", true, true);
 
         yield return new WaitForSeconds(2);
         AudioManager.Instance.Stop("Static");
@@ -509,6 +510,7 @@ public class GameManager : MonoBehaviour
             SequenceManager.Instance.lastRoom = int.Parse(SceneManager.GetActiveScene().name.Substring(6));
         else
             SequenceManager.Instance.lastRoom = 7;
+
         Fader.Instance.FadeIn(1.5f);
         yield return new WaitForSeconds(2);
         gameOver.SetActive(false);

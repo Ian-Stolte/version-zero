@@ -48,7 +48,7 @@ public class DialogueManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         terminalNum = 0;
-        lvlNum = int.Parse(scene.name.Substring(6));
+        int.TryParse(scene.name.Substring(6), out lvlNum);
     }
 
     private void Update()
@@ -165,26 +165,29 @@ public class DialogueManager : MonoBehaviour
     ///////// LOAD FROM BANK /////////
     //////////////////////////////////
 
-    public string[] PlayByID(string ID, bool play=true)
-    {   
-        string runNum = "";
-        if (ID == "ordered")
+    public string[] PlayByID(string ID, bool play=true, bool persistent=false)
+    {
+        if (persistent)
+            lvlNum = 0;
+
+        string runNum = "1";
+        /*if (ID == "ordered")
         {
             terminalNum++;
             ID = "Pt " + terminalNum;
             if (ID == "Pt 1")
-                timesPlayed[lvlNum - 1][ID]++;
-            runNum = "" + timesPlayed[lvlNum - 1]["Pt 1"];
+                timesPlayed[lvlNum][ID]++;
+            runNum = "" + timesPlayed[lvlNum]["Pt 1"];
         }
         else
         {
-            runNum = "" + (++timesPlayed[lvlNum - 1][ID]);
-        }
+            runNum = "" + (++timesPlayed[lvlNum][ID]);
+        }*/
 
-        if (dialogueBank.Count > lvlNum - 1 && dialogueBank[lvlNum - 1].ContainsKey(ID))
+        if (dialogueBank.Count > lvlNum && dialogueBank[lvlNum].ContainsKey(ID))
         {
             int greatestInt = -1;
-            foreach (var value in dialogueBank[lvlNum - 1][ID].Values)
+            foreach (var value in dialogueBank[lvlNum][ID].Values)
             {
                 if (int.TryParse(value, out int parsedInt))
                 {
@@ -198,7 +201,7 @@ public class DialogueManager : MonoBehaviour
 
             List<string> lines = new List<string>();
             bool correctPart = false;
-            foreach (var kvp in dialogueBank[lvlNum - 1][ID])
+            foreach (var kvp in dialogueBank[lvlNum][ID])
             {
                 if (kvp.Value == "" && correctPart)
                     break;
