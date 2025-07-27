@@ -5,11 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class AccessPoint : MonoBehaviour
 {
+    [Header("Interaction")]
     [SerializeField] private KeyCode interactKey;
     [SerializeField] private float interactDist;
     private bool used;
 
-    public Transform barrier;
+    [Header("On Complete")]
+    public GameObject[] showOnComplete;
+
+    [Header("Dialogue")]
     public string ID;
 
     private Transform player;
@@ -40,6 +44,11 @@ public class AccessPoint : MonoBehaviour
                     RewardManager.Instance.Reward(3);
                     if (ID != "")
                         StartCoroutine(DelayedDialogue());
+                }
+                if (showOnComplete != null)
+                {
+                    foreach (GameObject g in showOnComplete)
+                        g.SetActive(!g.activeSelf);
                 }
             }
             else

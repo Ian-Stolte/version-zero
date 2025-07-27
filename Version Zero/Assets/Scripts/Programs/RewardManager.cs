@@ -54,13 +54,16 @@ public class RewardManager : MonoBehaviour
             if (child.name.Contains("Reward"))
                 Destroy(child.gameObject);
         }
-        if (rewardParent.GetComponent<Image>().enabled = false)
+
+        bool smallIcons = !rewardParent.GetComponent<Image>().enabled;
+        if (!smallIcons)
         {
             rewardParent.GetComponent<Image>().enabled = true;
             hidePrograms.SetActive(false);
             showPrograms.SetActive(true);
             blockBG.SetActive(false);
         }
+
         List<Block> chosenBlocks = new List<Block>();
         for (int i = 0; i < n; i++)
         {
@@ -77,6 +80,8 @@ public class RewardManager : MonoBehaviour
                 chosenBlocks.Add(ProgramManager.Instance.ChooseRandom(1, forbidden)[0]);
         }
         ShowRewards(chosenBlocks);
+        if (smallIcons)
+            ShowPrograms();
         GameManager.Instance.pauseGame = true;
     }
 
@@ -260,9 +265,6 @@ public class RewardManager : MonoBehaviour
         rerollTxt.text = "(" + rerolls + ")";
         rerollTxtSmall.text = "Rerolls: <b>" + rerolls + "</b>";
         rerollTxt.transform.parent.GetComponent<Button>().interactable = (rerolls > 0);
-
-        if (hidePrograms.activeSelf)
-            HidePrograms();
         Reward(num);
     }
 }

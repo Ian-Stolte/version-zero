@@ -165,15 +165,11 @@ public class GameManager : MonoBehaviour
         else if (scene.name == "Level 2")
         {
             Terminal terminal = GameObject.Find("Terminal A").GetComponent<Terminal>();
-            if (runNum == 1)
-            {
-                foreach (GameObject g in terminal.hiddenRoom)
-                    g.SetActive(!g.activeSelf);
-            }
-            else
+            if (runNum > 1)
             {
                 terminal.complete = true;
-                Destroy(terminalIcons.GetChild(1).gameObject);
+                UnlockBarrier(terminal.barrier);
+                FinishTerminalIcon();
                 numTerminals--;
                 foreach (MeshRenderer m in terminal.bars)
                     m.material = terminalGreen;
@@ -349,12 +345,9 @@ public class GameManager : MonoBehaviour
             DialogueManager.Instance.PlayByID(currentTerminal.ID);
         FinishTerminalIcon();
         numTerminals--;
-        
-        //disable barrier &/or show hidden room
+    
         if (currentTerminal.barrier != null)
             UnlockBarrier(currentTerminal.barrier);
-        foreach (GameObject g in currentTerminal.hiddenRoom)
-            g.SetActive(!g.activeSelf);
     }
 
     public void FinishTerminalIcon()

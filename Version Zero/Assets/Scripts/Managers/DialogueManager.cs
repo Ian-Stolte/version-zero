@@ -394,12 +394,9 @@ public class DialogueManager : MonoBehaviour
             //yield return new WaitForSeconds(1);
             //StartCoroutine(PlayMultipleDialogues(firstAccessPt));
         }
-        yield return new WaitUntil(() => !GameManager.Instance.playerPaused);
-        GameManager.Instance.UnlockBarrier(GameObject.Find("Barrier").transform);
-        GameManager.Instance.FinishTerminalIcon();
 
         yield return new WaitUntil(() => GameObject.Find("Player").transform.position.z < 0);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         StartCoroutine(GameManager.Instance.WaveEnemies(1, new Vector3(40, 0, -5)));
 
         yield return new WaitForSeconds(1.2f);

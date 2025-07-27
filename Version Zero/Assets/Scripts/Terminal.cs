@@ -11,7 +11,6 @@ public class Terminal : MonoBehaviour
     [HideInInspector] public bool complete;
     
     public Transform barrier;
-    public GameObject[] hiddenRoom;
     public string ID;
 
     private Transform player;
