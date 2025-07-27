@@ -60,7 +60,9 @@ public class AggroEvasive : Enemy
             aggro = true;
             StartCoroutine(StartAggro());
         }
-
+    
+        if (!GameManager.Instance.pauseGame)
+            stunTimer -= Time.deltaTime; //un-stuns twice as fast
         if (!GameManager.Instance.pauseGame && aggro && stunTimer <= 0)
         {
             if (evasive) //evasive mode

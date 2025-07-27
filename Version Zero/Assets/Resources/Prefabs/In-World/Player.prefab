@@ -104,9 +104,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 025f5a28b13574137bc499d0f4dc24df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energy: 0
-  maxEnergy: 15
-  energyRegen: 3
   auraTick: 0.5
   auraDampen: 0
   auraHitbox: {fileID: 1135881467792444086, guid: 224e4b5f94dcb47df8bb4bbaa921aa18, type: 3}
@@ -158,16 +155,6 @@ MonoBehaviour:
   speed: 6
   rotationSpeed: 10
   moveDir: {x: 0, y: 0, z: 0}
-  groundCheck: {fileID: 6528723167352113389}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  jumpPower: 8
-  upGravity: 2
-  downGravity: 2
-  hangGravity: 2
-  hangPoint: 1
-  grounded: 0
   health: 2
   maxHealth: 20
   hpBar: {fileID: 0}
@@ -229,7 +216,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
