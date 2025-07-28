@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: d11303b4a48ec4cf08e5fb8c98caa29e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 36.536
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d11303b4a48ec4cf08e5fb8c98caa29e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.403
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d11303b4a48ec4cf08e5fb8c98caa29e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -14.572
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d11303b4a48ec4cf08e5fb8c98caa29e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: ecb6263bf24cbb44d98285666428bd21, type: 2}
     - target: {fileID: 919132149155446097, guid: d11303b4a48ec4cf08e5fb8c98caa29e, type: 3}
       propertyPath: m_Name
-      value: Railing_End
+      value: Railing_End_L
       objectReference: {fileID: 0}
     - target: {fileID: 4127316761828931847, guid: d11303b4a48ec4cf08e5fb8c98caa29e, type: 3}
       propertyPath: m_Materials.Array.data[0]
