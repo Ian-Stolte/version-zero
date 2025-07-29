@@ -10,14 +10,16 @@ public class ScatterEnemy : Enemy
     [SerializeField] private float defSpeed;
     [SerializeField] private float targetMin;
     [SerializeField] private float targetMax;
-    private Vector3 movementTarget;
+    public Vector3 movementTarget;
     private bool lineOfSight;
-    private float stuckTimer;
+    public float stuckTimer;
 
     [Header("Attack")]
     [SerializeField] private float atkDelay;
     private float atkTimer;
     [SerializeField] private float atkRange;
+    [SerializeField] private float projLifetime;
+    [SerializeField] private float projRange;
     [SerializeField] private float attackDistMin;
     [SerializeField] private float attackDistMax;
 
@@ -29,6 +31,13 @@ public class ScatterEnemy : Enemy
     {
         atkTimer = atkDelay;
         base.Start();
+
+        foreach (GameObject g in projectiles)
+        {
+            g.GetComponent<ScatterProjectile>().lifeTimer = projLifetime;
+            g.GetComponent<ScatterProjectile>().atkRange = projRange;
+            g.transform.GetChild(0).localScale = new Vector3(projRange*2.5f, 0.1f, projRange*2.5f);
+        }
     }
 
     void Update()
@@ -73,7 +82,7 @@ public class ScatterEnemy : Enemy
         {
             target = center + Quaternion.Euler(0, Random.Range(0, 360), 0) * new Vector3(1, 0, 1) * Random.Range(minDist, maxDist);
             //lineOfSight = !Physics.Raycast(transform.position, target-transform.position, Vector3.Distance(target, transform.position), terrainLayer);
-        } while (!pathfinding.IsWalkable(target, gridIndex+1));
+        } while (!pathfinding.IsWalkable(target, gridIndex));
         return target;
     }
 
@@ -92,7 +101,10 @@ public class ScatterEnemy : Enemy
         foreach (GameObject g in projectiles)
             StartCoroutine(MoveProjUp(g));
 
-        GameObject newProj = Instantiate(projPrefab, transform.position + new Vector3(0, 1.5f, 0), Quaternion.identity, transform);
+        GameObject newProj = Instantiate(projPrefab, transform.position + new Vector3(0, 0.2f, 0), Quaternion.identity, transform);
+        newProj.GetComponent<ScatterProjectile>().lifeTimer = projLifetime;
+        newProj.GetComponent<ScatterProjectile>().atkRange = projRange;
+        newProj.transform.GetChild(0).localScale = new Vector3(projRange*2.5f, 0.1f, projRange*2.5f);
         projectiles.Add(newProj);
         Vector3 scale = newProj.transform.localScale;
         float elapsed = 0f;
@@ -110,7 +122,7 @@ public class ScatterEnemy : Enemy
         float elapsed = 0;
         while (elapsed < 0.5f)
         {
-            g.transform.position = new Vector3(g.transform.position.x, startingY + elapsed, g.transform.position.z);
+            g.transform.position = new Vector3(g.transform.position.x, startingY + elapsed * 0.8f, g.transform.position.z);
             elapsed += Time.deltaTime;
             yield return null;
         }

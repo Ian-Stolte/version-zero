@@ -14,7 +14,7 @@ public class ScatterProjectile : MonoBehaviour
     public float tickTime;
     private float tickTimer;
 
-    [SerializeField] private float lifeTimer;
+    public float lifeTimer;
 
     [Header("Bools")]
     private bool shooting;
@@ -54,7 +54,7 @@ public class ScatterProjectile : MonoBehaviour
 
                 float dist = Vector3.Distance(player.position, transform.position);
                 tickTimer = (dist < atkRange) ? tickTimer - Time.deltaTime : tickTime / 2f;
-                transform.GetChild(1).gameObject.SetActive(dist < atkRange);
+                transform.GetChild(0).GetChild(0).gameObject.SetActive(dist < atkRange);
 
                 if (tickTimer <= 0)
                 {

@@ -669,7 +669,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.99126804, z: -0, w: 0.13186257}
   m_LocalPosition: {x: 0, y: -0.92401576, z: 0}
-  m_LocalScale: {x: 10, y: 0.21451, z: 10}
+  m_LocalScale: {x: 8, y: 0.21451, z: 8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1521777534508422825}
@@ -775,19 +775,19 @@ PrefabInstance:
     - target: {fileID: -6350362501515835969, guid: 919da16e988b7474a92654154fa2f4c2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f98c621522ef9044f817b224d7b4278d, type: 2}
+      objectReference: {fileID: 2100000, guid: 235301c56b4d9504c8ccd1c5901b9e04, type: 2}
     - target: {fileID: -6350362501515835969, guid: 919da16e988b7474a92654154fa2f4c2, type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 
-      objectReference: {fileID: 2100000, guid: 8dd3c52f89bbe0a4ebff92ac661b4af9, type: 2}
+      objectReference: {fileID: 2100000, guid: 93ade3e1f2186394e8642c9a28e2f80d, type: 2}
     - target: {fileID: -6350362501515835969, guid: 919da16e988b7474a92654154fa2f4c2, type: 3}
       propertyPath: m_Materials.Array.data[3]
       value: 
-      objectReference: {fileID: 2100000, guid: f98c621522ef9044f817b224d7b4278d, type: 2}
+      objectReference: {fileID: 2100000, guid: 235301c56b4d9504c8ccd1c5901b9e04, type: 2}
     - target: {fileID: -6350362501515835969, guid: 919da16e988b7474a92654154fa2f4c2, type: 3}
       propertyPath: m_Materials.Array.data[4]
       value: 
-      objectReference: {fileID: 2100000, guid: 18484ee356adced42ba7859cc1bea771, type: 2}
+      objectReference: {fileID: 2100000, guid: 8b580263aa76325498aa5321aaf6a14f, type: 2}
     - target: {fileID: -4128383740851021839, guid: 919da16e988b7474a92654154fa2f4c2, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0
@@ -815,10 +815,10 @@ PrefabInstance:
     - target: {fileID: -280149165941768484, guid: 919da16e988b7474a92654154fa2f4c2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: bd35153e5afc7f846910069f0cab618e, type: 2}
+      objectReference: {fileID: 2100000, guid: e976db253ba297641be909681babce4e, type: 2}
     - target: {fileID: 919132149155446097, guid: 919da16e988b7474a92654154fa2f4c2, type: 3}
       propertyPath: m_Name
-      value: Landmine_Logic
+      value: Landmine_Instinct
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 919da16e988b7474a92654154fa2f4c2, type: 3}
       propertyPath: m_Layer
@@ -859,7 +859,7 @@ PrefabInstance:
     - target: {fileID: 4852852158133477393, guid: 919da16e988b7474a92654154fa2f4c2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: bd35153e5afc7f846910069f0cab618e, type: 2}
+      objectReference: {fileID: 2100000, guid: e976db253ba297641be909681babce4e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: -8700617353114198275, guid: 919da16e988b7474a92654154fa2f4c2, type: 3}
@@ -933,7 +933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0582e570cdd7493ca730ebcacd7f3f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 8
+  maxHealth: 6
   health: 0
   customDestroy: 1
   aggroRange: 15
@@ -956,13 +956,13 @@ MonoBehaviour:
   anim: {fileID: 4593964892548095975}
   rb: {fileID: 0}
   player: {fileID: 0}
-  defSpeed: 2.5
-  sitMin: 4.5
-  sitMax: 9
-  attackRange: 4
+  defSpeed: 3.5
+  sitMin: 3
+  sitMax: 7
+  attackRange: 3.5
   explosionForce: 600
-  dmg: 4
-  attackRadius: 5
+  dmg: 3
+  attackRadius: 4
   explosionVFX: {fileID: 3512434751255828300, guid: b4506d25e23ca4a4c8038d1b2d038aaa, type: 3}
 --- !u!54 &1077349715561218253
 Rigidbody:

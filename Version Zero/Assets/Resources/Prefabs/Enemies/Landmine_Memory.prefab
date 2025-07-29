@@ -775,19 +775,19 @@ PrefabInstance:
     - target: {fileID: -6350362501515835969, guid: 919da16e988b7474a92654154fa2f4c2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f98c621522ef9044f817b224d7b4278d, type: 2}
+      objectReference: {fileID: 2100000, guid: 8372a529bc3b5be4196fe40b6eedc9ea, type: 2}
     - target: {fileID: -6350362501515835969, guid: 919da16e988b7474a92654154fa2f4c2, type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 
-      objectReference: {fileID: 2100000, guid: 8dd3c52f89bbe0a4ebff92ac661b4af9, type: 2}
+      objectReference: {fileID: 2100000, guid: f72ba3e02bdda6142b7b68ea160b32ea, type: 2}
     - target: {fileID: -6350362501515835969, guid: 919da16e988b7474a92654154fa2f4c2, type: 3}
       propertyPath: m_Materials.Array.data[3]
       value: 
-      objectReference: {fileID: 2100000, guid: f98c621522ef9044f817b224d7b4278d, type: 2}
+      objectReference: {fileID: 2100000, guid: 8372a529bc3b5be4196fe40b6eedc9ea, type: 2}
     - target: {fileID: -6350362501515835969, guid: 919da16e988b7474a92654154fa2f4c2, type: 3}
       propertyPath: m_Materials.Array.data[4]
       value: 
-      objectReference: {fileID: 2100000, guid: 18484ee356adced42ba7859cc1bea771, type: 2}
+      objectReference: {fileID: 2100000, guid: 07f5d62c35be327498ee32d40a363baf, type: 2}
     - target: {fileID: -4128383740851021839, guid: 919da16e988b7474a92654154fa2f4c2, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0
@@ -815,10 +815,10 @@ PrefabInstance:
     - target: {fileID: -280149165941768484, guid: 919da16e988b7474a92654154fa2f4c2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: bd35153e5afc7f846910069f0cab618e, type: 2}
+      objectReference: {fileID: 2100000, guid: 04e9aa927a9ebbf42977915462d86a8a, type: 2}
     - target: {fileID: 919132149155446097, guid: 919da16e988b7474a92654154fa2f4c2, type: 3}
       propertyPath: m_Name
-      value: Landmine_Logic
+      value: Landmine_Memory
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 919da16e988b7474a92654154fa2f4c2, type: 3}
       propertyPath: m_Layer
@@ -859,7 +859,7 @@ PrefabInstance:
     - target: {fileID: 4852852158133477393, guid: 919da16e988b7474a92654154fa2f4c2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: bd35153e5afc7f846910069f0cab618e, type: 2}
+      objectReference: {fileID: 2100000, guid: 04e9aa927a9ebbf42977915462d86a8a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: -8700617353114198275, guid: 919da16e988b7474a92654154fa2f4c2, type: 3}
@@ -958,7 +958,7 @@ MonoBehaviour:
   player: {fileID: 0}
   defSpeed: 2.5
   sitMin: 4.5
-  sitMax: 9
+  sitMax: 8
   attackRange: 4
   explosionForce: 600
   dmg: 4

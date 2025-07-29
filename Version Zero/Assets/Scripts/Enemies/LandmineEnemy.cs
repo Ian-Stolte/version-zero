@@ -11,9 +11,9 @@ public class LandmineEnemy : Enemy
 
     [Header("Movement")]
     private bool inTransition;
-    private bool buried;
-    [SerializeField] private float buryMin;
-    [SerializeField] private float buryMax;
+    private bool sitting;
+    [SerializeField] private float sitMin;
+    [SerializeField] private float sitMax;
 
     [Header("Attack")]
     [SerializeField] private float attackRange;
@@ -34,53 +34,51 @@ public class LandmineEnemy : Enemy
 
         if (!GameManager.Instance.pauseGame && aggro && stunTimer <= 0 && !inTransition && !destroying)
         {
-            if (!buried && dist < buryMin)
-                StartCoroutine(Bury());
-            else if (buried && dist > buryMax)
-                StartCoroutine(Unbury());
+            if (!sitting && dist < sitMin)
+                StartCoroutine(Sit());
+            else if (sitting && dist > sitMax)
+                StartCoroutine(Stand());
 
             //move
             float speed = (slowTimer > 0) ? defSpeed * 0.3f : defSpeed;
-            if (!buried)
+            if (!sitting)
             {
+                anim.SetBool("Moving", true);
                 MoveTo(player.transform.position, speed);
+            }
+            else
+            {
+                anim.SetBool("Moving", false);
             }
 
             //attack
-            if (buried && dist < attackRange)
+            if (sitting && dist < attackRange)
             {
                 StartCoroutine(Attack());
             }
         }
+        else
+        {
+            anim.SetBool("Moving", false);
+        }
     }
 
 
-    private IEnumerator Bury()
+    private IEnumerator Sit()
     {
         inTransition = true;
-        //play bury anim
-        Vector3 scale = transform.localScale;
-        for (float i = 1; i > 0; i -= 0.01f)
-        {
-            transform.localScale = new Vector3(scale.x, scale.y / 2f + (scale.y * i) / 2f, scale.z);
-            yield return new WaitForSeconds(0.01f);
-        }
-
-        buried = true;
+        anim.Play("Landmine_Sit");
+        yield return new WaitForSeconds(0.8f);
+        sitting = true;
         inTransition = false;
     }
 
-    private IEnumerator Unbury()
+    private IEnumerator Stand()
     {
         inTransition = true;
-        //play bury anim
-        Vector3 scale = transform.localScale;
-        for (float i = 0; i < 1; i += 0.02f)
-        {
-            transform.localScale = new Vector3(scale.x, scale.y + scale.y * i, scale.z);
-            yield return new WaitForSeconds(0.01f);
-        }
-        buried = false;
+        anim.Play("Landmine_Stand");
+        yield return new WaitForSeconds(0.3f);
+        sitting = false;
         inTransition = false;
     }
 
@@ -88,7 +86,7 @@ public class LandmineEnemy : Enemy
     private IEnumerator Attack()
     {
         destroying = true;
-        anim.Play("Landmine_Attack");
+        anim.Play("Landmine_Explode");
         transform.GetChild(1).gameObject.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);

@@ -532,8 +532,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 2012293327691038794}
     m_Modifications:
     - target: {fileID: 1686376344744660608, guid: fb70c1daeb57843b6b2bb988042f1ff5, type: 3}
-      propertyPath: lifeTimer
+      propertyPath: atkRange
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1686376344744660608, guid: fb70c1daeb57843b6b2bb988042f1ff5, type: 3}
+      propertyPath: lifeTimer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2834134337918082366, guid: fb70c1daeb57843b6b2bb988042f1ff5, type: 3}
       propertyPath: m_LocalScale.x
@@ -590,6 +594,14 @@ PrefabInstance:
     - target: {fileID: 5521411784592495778, guid: fb70c1daeb57843b6b2bb988042f1ff5, type: 3}
       propertyPath: m_Name
       value: Projectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 6653820376769202298, guid: fb70c1daeb57843b6b2bb988042f1ff5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6653820376769202298, guid: fb70c1daeb57843b6b2bb988042f1ff5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -657,10 +669,10 @@ PrefabInstance:
     - target: {fileID: -2584706482803993661, guid: 77a52e3d622c14a8194bc3ea81866d85, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f98c621522ef9044f817b224d7b4278d, type: 2}
+      objectReference: {fileID: 2100000, guid: 07f5d62c35be327498ee32d40a363baf, type: 2}
     - target: {fileID: 919132149155446097, guid: 77a52e3d622c14a8194bc3ea81866d85, type: 3}
       propertyPath: m_Name
-      value: Scatter_Logic
+      value: Scatter_Memory
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 77a52e3d622c14a8194bc3ea81866d85, type: 3}
       propertyPath: m_Layer
@@ -669,11 +681,11 @@ PrefabInstance:
     - target: {fileID: 3038092823880103317, guid: 77a52e3d622c14a8194bc3ea81866d85, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f98c621522ef9044f817b224d7b4278d, type: 2}
+      objectReference: {fileID: 2100000, guid: 07f5d62c35be327498ee32d40a363baf, type: 2}
     - target: {fileID: 7202271454713460447, guid: 77a52e3d622c14a8194bc3ea81866d85, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 90ac25ab91a76f346b15c8b0a2366d2d, type: 2}
+      objectReference: {fileID: 2100000, guid: 04e9aa927a9ebbf42977915462d86a8a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -751,10 +763,10 @@ MonoBehaviour:
   targetMax: 10
   movementTarget: {x: 0, y: 0, z: 0}
   stuckTimer: 0
-  atkDelay: 3
+  atkDelay: 5
   atkRange: 10
-  projLifetime: 5
-  projRange: 4
+  projLifetime: 8
+  projRange: 5
   attackDistMin: 2
   attackDistMax: 6
   projectiles:
@@ -958,8 +970,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 2012293327691038794}
     m_Modifications:
     - target: {fileID: 1686376344744660608, guid: fb70c1daeb57843b6b2bb988042f1ff5, type: 3}
-      propertyPath: lifeTimer
+      propertyPath: atkRange
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1686376344744660608, guid: fb70c1daeb57843b6b2bb988042f1ff5, type: 3}
+      propertyPath: lifeTimer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2834134337918082366, guid: fb70c1daeb57843b6b2bb988042f1ff5, type: 3}
       propertyPath: m_LocalScale.x
@@ -1017,6 +1033,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Projectile (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6653820376769202298, guid: fb70c1daeb57843b6b2bb988042f1ff5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6653820376769202298, guid: fb70c1daeb57843b6b2bb988042f1ff5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1041,8 +1065,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 2012293327691038794}
     m_Modifications:
     - target: {fileID: 1686376344744660608, guid: fb70c1daeb57843b6b2bb988042f1ff5, type: 3}
-      propertyPath: lifeTimer
+      propertyPath: atkRange
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1686376344744660608, guid: fb70c1daeb57843b6b2bb988042f1ff5, type: 3}
+      propertyPath: lifeTimer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2834134337918082366, guid: fb70c1daeb57843b6b2bb988042f1ff5, type: 3}
       propertyPath: m_LocalScale.x
@@ -1099,6 +1127,14 @@ PrefabInstance:
     - target: {fileID: 5521411784592495778, guid: fb70c1daeb57843b6b2bb988042f1ff5, type: 3}
       propertyPath: m_Name
       value: Projectile (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6653820376769202298, guid: fb70c1daeb57843b6b2bb988042f1ff5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6653820376769202298, guid: fb70c1daeb57843b6b2bb988042f1ff5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
