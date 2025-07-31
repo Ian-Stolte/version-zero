@@ -79,6 +79,8 @@ MonoBehaviour:
   bossUI: {fileID: 0}
   loadingText: {fileID: 0}
   gameOver: {fileID: 0}
+  debugSphereGreen: {fileID: 5140415721212421480, guid: 4d7651cbded78400e996555fcd7bcb95, type: 3}
+  debugSphereRed: {fileID: 1612293334209307946, guid: b3ccb5a8aa246401db3ed36466c79d65, type: 3}
 --- !u!114 &4079633256185062833
 MonoBehaviour:
   m_ObjectHideFlags: 0

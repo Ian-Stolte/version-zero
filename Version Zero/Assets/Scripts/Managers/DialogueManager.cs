@@ -397,7 +397,7 @@ public class DialogueManager : MonoBehaviour
 
         yield return new WaitUntil(() => GameObject.Find("Player").transform.position.z < 0);
         yield return new WaitForSeconds(0.5f);
-        StartCoroutine(GameManager.Instance.WaveEnemies(1, new Vector3(40, 0, -5)));
+        StartCoroutine(GameManager.Instance.SpawnEnemies(1, new Vector3(40, 0, -5)));
 
         yield return new WaitForSeconds(1.2f);
         PlayByID("First_Enemy");

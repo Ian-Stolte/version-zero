@@ -65,6 +65,10 @@ public class GameManager : MonoBehaviour
     private GameObject canvas;
     private Transform player;
 
+    [Header("Debug")]
+    [SerializeField] private GameObject debugSphereGreen;
+    [SerializeField] private GameObject debugSphereRed;
+
 
     void OnEnable()
     {
@@ -223,43 +227,41 @@ public class GameManager : MonoBehaviour
                 Destroy(child.gameObject);
         }
 
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            StartCoroutine(SpawnEnemies(1, Vector3.zero, true));
+        }
+
+
         if (spawningEnemies && !pauseGame && !loadingLevel)
-        {
-            spawnTimer -= Time.deltaTime;
-            enemyTimer.GetChild(2).GetComponent<TextMeshProUGUI>().text = Mathf.Round(spawnTimer * 10)/10f + "s";
-            enemyTimer.GetChild(4).GetComponent<Image>().fillAmount = 1 - spawnTimer / totalSpawn;
-            if (spawnTimer < 0)
             {
-                StartCoroutine(WaveEnemies(1));
-                spawnTimer = Random.Range(minSpawn, maxSpawn);
-                totalSpawn = spawnTimer;
+                spawnTimer -= Time.deltaTime;
+                enemyTimer.GetChild(2).GetComponent<TextMeshProUGUI>().text = Mathf.Round(spawnTimer * 10) / 10f + "s";
+                enemyTimer.GetChild(4).GetComponent<Image>().fillAmount = 1 - spawnTimer / totalSpawn;
+                if (spawnTimer < 0)
+                {
+                    StartCoroutine(SpawnEnemies(1));
+                    spawnTimer = Random.Range(minSpawn, maxSpawn);
+                    totalSpawn = spawnTimer;
+                }
             }
-        }
     }
 
 
-    private void SetupWaves(int n)
-    {
-        int maxPerWave = Mathf.Max(2, (int)Mathf.Round(n*3/5));
-        waves.Clear();
-        foreach (Transform child in enemyParent)
-        {
-            Destroy(child.gameObject);
-        }
-        while (n > 0)
-        {
-            int numToAdd = Random.Range(2, Mathf.Min(n, maxPerWave)+1);
-            if (n - numToAdd == 1)
-                numToAdd--;
-            waves.Add(numToAdd);
-            n -= numToAdd;
-        }
-    }
 
-    public IEnumerator WaveEnemies(int n, Vector3 setPos = default)
+    public IEnumerator SpawnEnemies(int n, Vector3 setPos = default, bool debug=false)
     {
         if (loadingLevel)
             yield break;
+
+        if (debug)
+        {
+            foreach (Transform child in transform)
+                Destroy(child.gameObject);
+            //foreach (Transform child in enemyParent)
+            //    Destroy(child.gameObject);
+        }
+
         for (int i = 0; i < n; i++)
         {
             string name = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)] + "_" + enemyType;
@@ -271,22 +273,27 @@ public class GameManager : MonoBehaviour
                 {
                     if (loadingLevel)
                         yield break;
-                    if (setPos != Vector3.zero)
+                    if (setPos != Vector3.zero) //if we're given a position, just spawn there
                     {
                         GameObject enemy = Instantiate(prefab, setPos + new Vector3(0, 15, 0), Quaternion.identity, enemyParent);
                         enemy.GetComponent<Rigidbody>().velocity = new Vector3(0, -100, 0);
                     }
                     else
                     {
-                        float minDist = 5;
+                        float minDist = 3;
                         float maxDist = 10;
-                        Vector3 offset = new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1)).normalized * Random.Range(5, 10) + new Vector3(0, 1, 0);
+                        Vector3 offset = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized * Random.Range(minDist, maxDist) + new Vector3(0, 1, 0);
                         int attempts = 0;
+
                         //while pos overlaps something or doesn't touch the ground, regenerate
-                        float checkSize = (prefab.name.Contains("Tank")) ? 1.5f : 0.5f;
+                        float checkSize = (prefab.name.Contains("Tank")) ? 2f : 1f;
+                        //TODO: more accurate check size? (based on prefab scale or smth)
+                        //TODO: don't spawn if on other side of barrier? (check walkable)
                         while (Physics.OverlapSphere(player.position + offset, checkSize).Length > 0 || Physics.OverlapSphere(player.position + offset + new Vector3(0, -1.5f, 0), 1f, LayerMask.GetMask("Ground")).Length == 0)
                         {
-                            offset = new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1)).normalized * Random.Range(minDist, maxDist) + new Vector3(0, 1, 0);
+                            if (debug)
+                                Instantiate(debugSphereRed, player.position + offset, Quaternion.identity, transform);
+                            offset = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized * Random.Range(minDist, maxDist) + new Vector3(0, 1, 0);
                             attempts++;
                             if (attempts == 10) //fail to find open spot
                             {
@@ -299,9 +306,13 @@ public class GameManager : MonoBehaviour
                                     break;
                                 }
                             }
+                            if (debug)
+                                yield return new WaitForSeconds(0.2f);
                         }
                         if (maxDist < 20)
                         {
+                            if (debug)
+                                Instantiate(debugSphereGreen, player.position + offset, Quaternion.identity, transform);
                             GameObject enemy = Instantiate(prefab, player.position + offset + new Vector3(0, 15, 0), Quaternion.identity, enemyParent);
                             enemy.GetComponent<Rigidbody>().velocity = new Vector3(0, -100, 0);
                         }
@@ -312,6 +323,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
     }
+    
 
 
     public IEnumerator UseTerminal()
@@ -324,7 +336,7 @@ public class GameManager : MonoBehaviour
         {
             if (bar == null)
                 yield break;
-            bar.fillAmount = elapsed/4f;
+            bar.fillAmount = elapsed / 4f;
             yield return null;
             elapsed += Time.deltaTime;
         }
@@ -345,7 +357,7 @@ public class GameManager : MonoBehaviour
             DialogueManager.Instance.PlayByID(currentTerminal.ID);
         FinishTerminalIcon();
         numTerminals--;
-    
+
         if (currentTerminal.barrier != null)
             UnlockBarrier(currentTerminal.barrier);
     }
