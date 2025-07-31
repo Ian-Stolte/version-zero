@@ -379,10 +379,8 @@ public class DialogueManager : MonoBehaviour
                     buildSelect.GetChild(2).gameObject.SetActive(false);
                     buildSelect.GetChild(1).gameObject.SetActive(true);
                     StartCoroutine(ProgressBar());
-                    yield return new WaitForSeconds(3);
+                    yield return new WaitForSeconds(3.5f);
                 }
-                if (i == 5)
-                    yield return new WaitForSeconds(1);
             }
             yield return new WaitForSeconds(3);
             PlayByID("M_A");

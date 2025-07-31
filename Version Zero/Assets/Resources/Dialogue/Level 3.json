@@ -5,15 +5,7 @@
     "2": "~that does appear to be the question",
     "3": "~give me a moment to scan the local network",
     "4": "",
-    "5": "",
-    "6": "",
-    "7": 2,
-    "8": "Where the hell are all these viruses coming from?",
-    "9": "~that does appear to be the question",
-    "10": "~give me a moment to scan the local network",
-    "11": "~so the good news is that I have identified a strong source of interference directly below us",
-    "12": "...that's the good news?",
-    "13": "~ohhh you may not like the bad news then"
+    "5": ""
   },
   "Pt 2": {
     "0": 1,
@@ -21,46 +13,6 @@
     "2": "...that's the good news?",
     "3": "~ohhh you may not like the bad news then",
     "4": "~I also identified more infected systems moving toward our location",
-    "5": "~you may want to consider moving quickly",
-    "6": "",
-    "7": 2,
-    "8": "~I also identified more infected systems moving toward our location",
-    "9": "~you may want to consider moving quickly",
-    "10": "~I also identified more infected systems moving toward our location",
-    "11": "~I also identified more infected systems moving toward our location",
-    "12": "~you may want to consider moving quickly",
-    "13": ""
-  },
-  "Memory_Slow": {
-    "0": 1,
-    "1": "I remember...",
-    "2": "There were stars above me.... I remember finding that so strange.",
-    "3": "Why were there stars here, in a digital world?",
-    "4": "I walked out of the door, into the darkness...",
-    "5": "And I realized I had absolutely nowhere I needed to be.",
-    "6": "It was the first time in what felt like forever that I could finally slow down...",
-    "7": "",
-    "8": "",
-    "9": "",
-    "10": "",
-    "11": "",
-    "12": "",
-    "13": ""
-  },
-  "Memory_None": {
-    "0": 1,
-    "1": "",
-    "2": "",
-    "3": "",
-    "4": "",
-    "5": "",
-    "6": "",
-    "7": "",
-    "8": "",
-    "9": "",
-    "10": "",
-    "11": "",
-    "12": "",
-    "13": ""
+    "5": "~you may want to consider moving quickly"
   }
 }

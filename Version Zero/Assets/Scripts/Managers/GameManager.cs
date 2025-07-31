@@ -34,7 +34,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private string[] enemyTypes;
     private string enemyType = "Logic";
     [SerializeField] private Transform enemyParent;
-    [SerializeField] private List<int> waves = new List<int>();
 
     public Transform enemyTimer;
     private float spawnTimer;
@@ -214,7 +213,7 @@ public class GameManager : MonoBehaviour
         }
         for (int i = 1; i <= 6; i++)
         {
-            if (Input.GetKeyDown(i.ToString()))
+            if (Input.GetKeyDown(i.ToString()) && Input.GetKey(KeyCode.LeftShift))
             {
                 SceneManager.LoadScene("Level " + i);
             }
