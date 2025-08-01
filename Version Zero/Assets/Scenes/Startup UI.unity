@@ -3341,6 +3341,10 @@ PrefabInstance:
       value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
+      propertyPath: music.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
       propertyPath: music.Array.data[2].name
       value: Startup UI
       objectReference: {fileID: 0}

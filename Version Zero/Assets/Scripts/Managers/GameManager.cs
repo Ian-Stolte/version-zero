@@ -110,9 +110,14 @@ public class GameManager : MonoBehaviour
 
             //set spawn pct & enemies available by level (20, 30 by default)
             enemyType = enemyTypes[Random.Range(0, enemyTypes.Length)];
+            if (scene.name == "Level 3")
+            {
+                minSpawn = 15;
+                maxSpawn = 25;
+            }
             if (scene.name == "Level 4")
             {
-                enemyPrefabs.Add("Artillerist");
+                enemyPrefabs.Add("Artillery");
                 minSpawn = 15;
                 maxSpawn = 25;
             }
@@ -195,7 +200,7 @@ public class GameManager : MonoBehaviour
             {
                 spawningEnemies = false;
                 enemyTimer.gameObject.SetActive(false);
-                if (scene.name != "Level 6" && scene.name != "Level 7")
+                if (noSpawn)
                 {
                     foreach (Transform child in enemyParent)
                        Destroy(child.gameObject);

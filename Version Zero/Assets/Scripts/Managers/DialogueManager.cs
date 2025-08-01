@@ -171,7 +171,7 @@ public class DialogueManager : MonoBehaviour
             lvlNum = 0;
 
         string runNum = "1";
-        /*if (ID == "ordered")
+        if (ID == "ordered")
         {
             terminalNum++;
             ID = "Pt " + terminalNum;
@@ -182,7 +182,7 @@ public class DialogueManager : MonoBehaviour
         else
         {
             runNum = "" + (++timesPlayed[lvlNum][ID]);
-        }*/
+        }
 
         if (dialogueBank.Count > lvlNum && dialogueBank[lvlNum].ContainsKey(ID))
         {

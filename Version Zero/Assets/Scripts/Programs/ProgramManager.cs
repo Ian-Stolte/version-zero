@@ -149,6 +149,22 @@ public class ProgramManager : MonoBehaviour
         }
         block.name = block.name.Substring(0, block.name.Length - 7);
         blocks.Add(block.GetComponent<Block>());
+
+        //check if should show upgrade tutorial
+        HashSet<string> blockNames = new HashSet<string>();
+        foreach (Block b in blocks)
+        {
+            if (b.gameObject.activeSelf)
+            {
+                if (!blockNames.Contains(b.name))
+                    blockNames.Add(b.name);
+                else if (!upgradeShown) //TODO: also check that block is not at max lvl (i.e can actually be upgraded)
+                {
+                    upgradeShown = true;
+                    upgradeTutorial.SetActive(true);
+                }
+            }
+        }
     }
 
 
@@ -165,20 +181,10 @@ public class ProgramManager : MonoBehaviour
         randomButton.SetActive(false);
         spellsLocked = false;
 
-        HashSet<string> blockNames = new HashSet<string>();
         foreach (Block b in blocks)
         {
             if (b.gameObject.activeSelf)
             {
-                //check if should show upgrade tutorial
-                if (!blockNames.Contains(b.name))
-                    blockNames.Add(b.name);
-                else if (!upgradeShown) //TODO: also check that block is not at max lvl (i.e can actually be upgraded)
-                {
-                    upgradeShown = true;
-                    upgradeTutorial.SetActive(true);
-                }
-
                 b.nameTxt.GetComponent<CanvasGroup>().alpha = 1;
                 b.cdTxt.GetComponent<CanvasGroup>().alpha = 1;
                 b.cdTxt.gameObject.SetActive(true);

@@ -197,7 +197,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6842877522273737632
 Transform:
   m_ObjectHideFlags: 0
@@ -944,6 +944,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 11
   health: 0
+  customDestroy: 0
   aggroRange: 15
   aggro: 0
   stunTimer: 0
@@ -959,11 +960,11 @@ MonoBehaviour:
   statusTxt: {fileID: 3842984472745216834}
   damageNumber: {fileID: 2345899596540281866, guid: 753d7799ea08308459e89e0baabf8ac3, type: 3}
   mark: {fileID: 3475644836673767805}
+  damageMat: {fileID: 2100000, guid: a1e9fa7d2ec9eb340a650ce47e58854b, type: 2}
+  shielded: 0
   anim: {fileID: 7763100043722708595}
   rb: {fileID: 0}
   player: {fileID: 0}
-  damageMat: {fileID: 2100000, guid: a1e9fa7d2ec9eb340a650ce47e58854b, type: 2}
-  shielded: 0
   defSpeed: 1.5
   atkRange: 15
   atkDelay: 5
@@ -973,7 +974,7 @@ MonoBehaviour:
   projPrefab: {fileID: 3512434751255828300, guid: 3964fdbb2368ece4ab9b0ca91fedabcc, type: 3}
   retreatRange: 10
   retreatThreshold: 1
-  shield: {fileID: 1677769454515222430}
+  shield: {fileID: 0}
 --- !u!54 &4569877423977505365
 Rigidbody:
   m_ObjectHideFlags: 0

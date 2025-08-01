@@ -187,10 +187,10 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
             targetSpace = null;
 
             symbol.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-            if (rectTransform.anchoredPosition.x > 850 - rectTransform.sizeDelta.x && -200 < rectTransform.anchoredPosition.y && 200 > rectTransform.anchoredPosition.y)
+            /*if (rectTransform.anchoredPosition.x > 850 - rectTransform.sizeDelta.x && -200 < rectTransform.anchoredPosition.y && 200 > rectTransform.anchoredPosition.y)
                 levelUp.SetActive(true);
             else
-                levelUp.SetActive(false);
+                levelUp.SetActive(false);*/
         }
     }
 
@@ -236,11 +236,11 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
             }
             
             //discard for reroll if released on right edge
-            else if (rectTransform.anchoredPosition.x > 850 - rectTransform.sizeDelta.x && -180 < rectTransform.anchoredPosition.y && 180 > rectTransform.anchoredPosition.y)
+            /*else if (rectTransform.anchoredPosition.x > 850 - rectTransform.sizeDelta.x && -180 < rectTransform.anchoredPosition.y && 180 > rectTransform.anchoredPosition.y)
             {
                 RewardManager.Instance.AddReroll();
                 Destroy(gameObject);
-            }
+            }*/
 
 
             if (hoverGlow != null)
