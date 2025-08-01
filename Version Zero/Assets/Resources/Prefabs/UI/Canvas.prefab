@@ -2121,7 +2121,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3116564292287426449
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3758,7 +3758,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6769001363974368101
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14607,8 +14607,8 @@ MonoBehaviour:
   symbolIndicatorColors:
   - {r: 0.5771182, g: 0.9339623, b: 0.6928776, a: 1}
   - {r: 0.5849056, g: 0.26210395, b: 0.26210395, a: 1}
-  player: {fileID: 0}
   buildSelect: {fileID: 6797571141691584449}
+  symbolsTutorial: {fileID: 7830180260362325263}
   upgradeTutorial: {fileID: 7580214583085108010}
   defaultBinds: 430100004401000045010000
   bindTxt:
@@ -14690,7 +14690,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1429262419953881125
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15182,7 +15182,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -722, y: 445.5}
+  m_AnchoredPosition: {x: -722, y: 477}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1494138076353142087
@@ -15213,7 +15213,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Drag <color=#86EBFF>symbols</color> next to each other to create an icon*
+  m_text: Drag <color=#86EBFF>symbols</color> next to each other to create an icon
     for each program
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1fb36033c6d300748b0e2e7580fde9b6, type: 2}
@@ -15277,7 +15277,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -267.93027, w: 0}
+  m_margin: {x: 0, y: 0, z: -434.3127, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

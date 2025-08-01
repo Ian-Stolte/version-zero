@@ -46,8 +46,10 @@ public class ProgramManager : MonoBehaviour
     [SerializeField] private Color[] symbolIndicatorColors;
 
     [Header("Misc")]
-    [SerializeField] private PlayerPrograms player;
     public GameObject buildSelect;
+    [SerializeField] private GameObject symbolsTutorial;
+    private bool showTutorial = true;
+    private PlayerPrograms player;
 
     [Header("Upgrade")]
     private bool upgradeShown;
@@ -118,7 +120,7 @@ public class ProgramManager : MonoBehaviour
             meleeUlt.Add(GameObject.Find("Damage").GetComponent<Block>());
             Program meleeUltSpell = new Program(meleeUlt, KeyCode.Mouse2);
             programs.Add(meleeUltSpell);
-            ConfirmSpells();
+            ConfirmSpells(true);
             EnterGame();
         }
     }
@@ -251,12 +253,15 @@ public class ProgramManager : MonoBehaviour
             {
                 b.symbol.GetComponent<Image>().enabled = true;
                 Symbol s = b.symbol;
-                s.min = new Vector2(-500, b.GetComponent<RectTransform>().anchoredPosition.y-100);
-                s.max = new Vector2(-500 + 210*(p.blocks.Count), b.GetComponent<RectTransform>().anchoredPosition.y+100);
+                s.min = new Vector2(-500, b.GetComponent<RectTransform>().anchoredPosition.y - 100);
+                s.max = new Vector2(-500 + 210 * (p.blocks.Count), b.GetComponent<RectTransform>().anchoredPosition.y + 100);
                 s.canMove = true;
                 b.symbolBG.SetActive(true);
             }
         }
+
+        if (SequenceManager.Instance.runNum == 1 && showTutorial)
+            symbolsTutorial.SetActive(true);
     }
 
     //find all blocks attached to a keybind slot
@@ -388,14 +393,17 @@ public class ProgramManager : MonoBehaviour
             Vector2 offset = new Vector2(Random.Range(-20f, 20f), Random.Range(-10f, 10f));
             b.symbol.GetComponent<RectTransform>().anchoredPosition = new Vector2(-450, b.GetComponent<RectTransform>().anchoredPosition.y+10) + offset;
         }
-        ConfirmSpells();
+        ConfirmSpells(true);
     }
 
-    public void ConfirmSpells()
+    public void ConfirmSpells(bool random=false)
     {
         confirmButton.SetActive(false);
         randomButton.SetActive(false);
         backButton.SetActive(false);
+        symbolsTutorial.SetActive(false);
+        if (!random)
+            showTutorial = false;
 
         //filter out aura and auto programs
         player.auraProgram.name = "";
