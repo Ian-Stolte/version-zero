@@ -39,8 +39,8 @@ public class GameManager : MonoBehaviour
     private float spawnTimer;
     private float totalSpawn;
     private bool spawningEnemies;
-    private float minSpawn = 5;
-    private float maxSpawn = 10;
+    private float minSpawn = 15;
+    private float maxSpawn = 25;
 
     [Header("Terminals")]
     [SerializeField] private GameObject terminalBar;
@@ -131,9 +131,14 @@ public class GameManager : MonoBehaviour
                 minSpawn = 1;
                 maxSpawn = 3;
             }
+            else
+            {
+                minSpawn = 8;
+                maxSpawn = 18;
+            }
 
             //replace enemies with chosen type
-            if (scene.name != "Level 6" && scene.name != "Level 7")
+            if (scene.name != "Level 6" && scene.name != "Level 9")
             {
                 List<GameObject> newEnemies = new List<GameObject>();
                 foreach (Transform child in enemyParent)
@@ -188,7 +193,7 @@ public class GameManager : MonoBehaviour
         if (scene.name != "End Screen")
         {
             int sceneNum = int.Parse(SceneManager.GetActiveScene().name.Substring(6));
-            if (((sceneNum > 3 && sceneNum != 6 && sceneNum != 7) || (sceneNum == 3 && runNum > 1) || scene.name.Contains("Final")) && !noSpawn)
+            if (((sceneNum > 3 && sceneNum != 6 && sceneNum != 9) || (sceneNum == 3 && runNum > 1) || scene.name.Contains("Final")) && !noSpawn)
             {
                 enemyTimer.gameObject.SetActive(true);
                 player.GetComponent<PlayerMovement>().hpBar.gameObject.SetActive(true);
@@ -432,7 +437,7 @@ public class GameManager : MonoBehaviour
             
         int levelNum = int.Parse(SceneManager.GetActiveScene().name.Substring(6))+1;
         areaText.text = nextArea;
-        if (levelNum < 7)
+        if (levelNum < 10)
             SceneManager.LoadScene("Level " + levelNum);
         else
         {

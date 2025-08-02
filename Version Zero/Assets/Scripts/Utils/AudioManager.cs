@@ -66,7 +66,9 @@ public class AudioManager : MonoBehaviour
         }
         audios = gameObject.GetComponents<AudioSource>();
 
-        /*if (SceneManager.GetActiveScene().name == "Level 7")
+        int sceneNum = 0;
+        int.TryParse(SceneManager.GetActiveScene().name.Substring(6), out sceneNum);
+        if (sceneNum > 6)
         {
             Play("Area 2");
             StartCoroutine(StartFade("Area 2", 2, 0.25f));
@@ -75,7 +77,7 @@ public class AudioManager : MonoBehaviour
         {
             Play("Area 1");
             StartCoroutine(StartFade("Area 1", 2, 0.25f));
-        }*/
+        }
     }
 
 

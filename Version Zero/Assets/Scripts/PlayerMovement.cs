@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dampTime;
     private Vector3 dampVel = Vector3.zero;
     private Vector3 diff;
-    private List<Vector3> lastPos = new List<Vector3>();
+    [HideInInspector] public List<Vector3> lastPos = new List<Vector3>();
     [SerializeField] private int maxPosData;
     //y-movement
     [SerializeField] private float compYFreq;
@@ -121,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
         //x-z position
         float adjustedDampTime = Mathf.Lerp(dampTime*100, dampTime, distPct);
         computer.position = Vector3.SmoothDamp(computer.position, transform.position - diff*compDist, ref dampVel, dampTime);
-        computer.rotation = Quaternion.Slerp(computer.rotation, Quaternion.LookRotation(diff*compDist), rotationSpeed * Time.deltaTime);
+        computer.rotation = Quaternion.Slerp(computer.rotation, Quaternion.LookRotation(new Vector3(diff.x, 0, diff.z)*compDist), rotationSpeed * Time.deltaTime);
         //y position
         float freq = Mathf.Lerp(compYFreq*0.5f, compYFreq, distPct);
         float amp = Mathf.Lerp(compYAmp, compYAmp*2, distPct);

@@ -13,16 +13,21 @@ public class Portal : MonoBehaviour
         if (col.tag == "Player" && !teleporting)
         {
             teleporting = true;
-            StartCoroutine(Teleport());
+            StartCoroutine(Teleport(col));
         }
     }
 
-    private IEnumerator Teleport()
+    private IEnumerator Teleport(Collider player)
     {
         Fader.Instance.FadeInOut(0.2f, 0.2f);
         //do some VFX maybe
         yield return new WaitForSeconds(0.2f);
-        GameObject.Find("Player").transform.position = destination.position + offset;
+        player.transform.position = destination.position + offset;
+        player.GetComponent<PlayerMovement>().lastPos.Clear();
+        GameObject.Find("Computer").transform.position = destination.position + offset / 2f;
+        for (int i = 0; i < 40; i++)
+            player.GetComponent<PlayerMovement>().lastPos.Add(destination.position + offset / 2f);
+    
         destination.GetChild(0).GetComponent<UnityEngine.VFX.VisualEffect>().Play();
         yield return new WaitForSeconds(0.5f);
         teleporting = false;
