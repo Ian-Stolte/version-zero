@@ -22,6 +22,9 @@ public class AggroEvasive : Enemy
     [SerializeField] private Vector3[] arenaStarts;
     [SerializeField] private Vector3[] playerStarts;
 
+    [Header("Invis")]
+    private float invisTimer = 15f;
+
     [Header("Aggro Attack")]
     [SerializeField] private float atkRange;
     [SerializeField] private float aggroAtkDelay;
@@ -68,6 +71,12 @@ public class AggroEvasive : Enemy
             stunTimer -= Time.deltaTime; //un-stuns twice as fast
         if (!GameManager.Instance.pauseGame && aggro && stunTimer <= 0)
         {
+            invisTimer = Mathf.Max(0, invisTimer - Time.deltaTime);
+            if (invisTimer <= 0)
+            {
+                StartCoroutine(GoInvis());
+                invisTimer = Random.Range(12, 22);
+            }
             if (evasive) //evasive mode
             {
                 lineOfSight = !Physics.Raycast(transform.position, (player.transform.position - transform.position).normalized, Vector3.Distance(transform.position, player.transform.position), terrainLayer);
@@ -175,13 +184,6 @@ public class AggroEvasive : Enemy
         //set up health bar
         GameManager.Instance.bossUI.SetActive(true);
         healthBar = GameObject.Find("Boss Fill").GetComponent<Image>();
-        //TODO: set up any indicators for phases
-        /*for (float i = spawnInterval; i < 1; i+=spawnInterval)
-        {
-            GameObject indicator = Instantiate(spawnIndicator, Vector2.zero, Quaternion.identity, healthBar.transform.parent.parent);
-            indicator.GetComponent<RectTransform>().anchoredPosition = new Vector2(Mathf.Lerp(-348, 348, i), 0);
-            indicators.Add(indicator);
-        }*/
     }
 
 
@@ -203,11 +205,32 @@ public class AggroEvasive : Enemy
 
 
 
+    private IEnumerator GoInvis()
+    {
+        atkTimer = Random.Range(3f, 7f);
+
+        foreach (Transform child in transform.GetChild(2))
+        {
+            child.gameObject.SetActive(false);
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        int sign = (Random.Range(0f, 1f) > 0.5f) ? 1 : -1;
+        StartCoroutine(Dash(Random.Range(70, 110) * sign, 1, 0.5f));
+        yield return null;
+    }
+
+
+
     private IEnumerator AggroAttack()
     {
         SwitchMode();
         attacking = true;
         GetComponent<Animator>().Play("Aggro_Attack");
+        foreach (Transform child in transform.GetChild(2))
+        {
+            child.gameObject.SetActive(true);
+        }
 
         Vector3 target = player.transform.position + player.GetComponent<PlayerMovement>().moveDir * 2 + (player.transform.position - transform.position).normalized * 2f;
         Vector3 dir = Vector3.Scale(target - transform.position, new Vector3(1, 0, 1)).normalized;
@@ -370,7 +393,7 @@ public class AggroEvasive : Enemy
         attacking = true;
         anim.Play("Evasive_Attack");
 
-        //wait 1 sec to charge
+        //wait 0.5 sec to charge
         float elapsed = 0f;
         while (elapsed < 0.5f)
         {
@@ -382,32 +405,66 @@ public class AggroEvasive : Enemy
                 yield break;
             }
         }
+        foreach (Transform child in transform.GetChild(2))
+        {
+            child.gameObject.SetActive(true);
+        }
 
         int sign = (Random.Range(0f, 1f) > 0.5f) ? 1 : -1;
         StartCoroutine(Dash(Random.Range(70, 110) * sign));
         yield return new WaitForSeconds(0.2f);
 
-        Vector3 dir = Vector3.Scale(player.transform.position - transform.position, new Vector3(1, 0, 1)).normalized;
-        rb.AddForce(dir * -200, ForceMode.Impulse);
-        for (int i = 0; i < numProjectiles; i++)
+        //randomly choose between 4 different attack variations
+        float attackType = Random.Range(0f, 1f);
+        if (attackType < 0.5f)
         {
-            float angle = 0f;
-            if (numProjectiles > 1)
-                angle = Mathf.Lerp(-30f, 30f, (float)i / (numProjectiles - 1));
-            Vector3 rotatedDir = Quaternion.Euler(0, angle, 0) * dir;
-
-            GameObject proj = Instantiate(projPrefab, transform.position + rotatedDir * 0.5f + new Vector3(0, 0.5f, 0), Quaternion.LookRotation(rotatedDir));
-            var projectile = proj.GetComponent<Projectile>();
-            projectile.dmg = evasiveDmg;
-            projectile.dir = rotatedDir;
-            projectile.speed = projSpeed;
-            projectile.despawnDist = atkRange + 2f;
+            //basic attack
+            FireProjectiles(numProjectiles);
+        }
+        else if (attackType < 0.75f)
+        {
+            //fire three waves
+            FireProjectiles(numProjectiles);
+            yield return new WaitForSeconds(0.3f);
+            FireProjectiles(numProjectiles + 1);
+            yield return new WaitForSeconds(0.3f);
+            FireProjectiles(numProjectiles);
+        }
+        else
+        {
+            //attack then dash 4 times in a row
+            for (int i = 0; i < 4; i++)
+            {
+                FireProjectiles(1, 5);
+                yield return new WaitForSeconds(0.2f);
+                sign = (Random.Range(0f, 1f) > 0.5f) ? 1 : -1;
+                StartCoroutine(Dash(Random.Range(70, 110) * sign));
+            }
         }
 
         yield return new WaitForSeconds(0.5f);
         attacking = false;
     }
 
+    private void FireProjectiles(int numProj, int speedBoost=0)
+    {
+        Vector3 dir = Vector3.Scale(player.transform.position - transform.position, new Vector3(1, 0, 1)).normalized;
+        rb.AddForce(dir * -200, ForceMode.Impulse);
+        for (int i = 0; i < numProj; i++)
+        {
+            float angle = 0f;
+            if (numProj > 1)
+                angle = Mathf.Lerp(-30f, 30f, (float)i / (numProj - 1));
+            Vector3 rotatedDir = Quaternion.Euler(0, angle, 0) * dir;
+
+            GameObject proj = Instantiate(projPrefab, transform.position + rotatedDir * 0.5f + new Vector3(0, 0.5f, 0), Quaternion.LookRotation(rotatedDir));
+            var projectile = proj.GetComponent<Projectile>();
+            projectile.dmg = evasiveDmg;
+            projectile.dir = rotatedDir;
+            projectile.speed = projSpeed+speedBoost;
+            projectile.despawnDist = atkRange + 3f;
+        }
+    }
 
 
     public override void TakeDamage(int dmg)
