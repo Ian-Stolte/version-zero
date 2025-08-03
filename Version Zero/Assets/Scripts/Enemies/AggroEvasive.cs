@@ -18,6 +18,9 @@ public class AggroEvasive : Enemy
     [SerializeField] private GameObject startBarrier;
     [SerializeField] private GameObject endBarrier;
     [SerializeField] private GameObject memoryReward;
+    private int arenaNum = 1;
+    [SerializeField] private Vector3[] arenaStarts;
+    [SerializeField] private Vector3[] playerStarts;
 
     [Header("Aggro Attack")]
     [SerializeField] private float atkRange;
@@ -411,25 +414,56 @@ public class AggroEvasive : Enemy
     {
         base.TakeDamage(dmg);
         RectTransform rightTri = healthBar.transform.parent.GetChild(1).GetComponent<RectTransform>();
-        rightTri.anchoredPosition = new Vector2(Mathf.Lerp(-150, 140, health/(maxHealth * 1.0f)), rightTri.anchoredPosition.y);
+        rightTri.anchoredPosition = new Vector2(Mathf.Lerp(-150, 140, health / (maxHealth * 1.0f)), rightTri.anchoredPosition.y);
+        if ((health <= 100 && arenaNum == 1) || (health <= 60 && arenaNum == 2) || (health <= 20 && arenaNum == 3))
+        {
+            StartCoroutine(NextArena());
+        }
+        else if (health <= 0)
+            StartCoroutine(CustomDestroy());
+    }
+
+    private IEnumerator NextArena()
+    {
+        arenaNum++;
+        gridIndex++;
+        GameManager.Instance.pauseGame = true;
+        Fader.Instance.FadeInOut(0.5f, 0.5f);
+        yield return new WaitForSeconds(0.5f);
+
+        //move boss and player
+        transform.position = arenaStarts[arenaNum - 1];
+        Vector3 origPos = player.transform.position;
+        player.transform.position = playerStarts[arenaNum - 1];
+        //move computer
+        player.GetComponent<PlayerMovement>().lastPos.Clear();
+        GameObject.Find("Computer").transform.position = player.transform.position + new Vector3(-1, 0, -1);
+        for (int i = 0; i < 40; i++)
+            player.GetComponent<PlayerMovement>().lastPos.Add(player.transform.position + new Vector3(-1, 0, -1));
+        //move camera
+        Vector3 offset = player.transform.position - origPos;
+        Camera.main.transform.position += offset;
+
+        yield return new WaitForSeconds(0.5f);
+        GameManager.Instance.pauseGame = false;
     }
 
 
-
-    private void OnDestroy()
+    private IEnumerator CustomDestroy()
     {
         if (atkWarning != null)
             Destroy(atkWarning.parent.gameObject);
+        AudioManager.Instance.KillBoss2();
+        healthBar.transform.parent.parent.gameObject.SetActive(false);
+
+        StartCoroutine(NextArena());
+        yield return new WaitForSeconds(0.5f);
+        yield return null;
+        GameManager.Instance.pauseGame = false;
 
         GameObject reward = Instantiate(memoryReward, transform.position + new Vector3(0, 0, 0), Quaternion.identity);
         //TODO: set reward program randomly
-        healthBar.transform.parent.parent.gameObject.SetActive(false);
-        foreach (Transform child in transform.parent)
-            Destroy(child.gameObject);
-
-        endBarrier.SetActive(false);
-
-        if (!GameManager.Instance.pauseGame)
-            AudioManager.Instance.KillBoss2();
+        
+        Destroy(gameObject);
     }
 }

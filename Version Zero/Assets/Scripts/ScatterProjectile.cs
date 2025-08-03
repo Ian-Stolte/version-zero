@@ -17,6 +17,7 @@ public class ScatterProjectile : MonoBehaviour
     public float lifeTimer;
 
     [Header("Bools")]
+    [SerializeField] private bool stationary;
     private bool shooting;
     private bool reachedTarget;
     private bool destroying;
@@ -28,6 +29,11 @@ public class ScatterProjectile : MonoBehaviour
     {
         player = GameObject.Find("Player").transform;
         tickTimer = tickTime;
+        if (stationary)
+        {
+            shooting = true;
+            reachedTarget = true;
+        }
     }
 
     private void Update()
@@ -48,7 +54,8 @@ public class ScatterProjectile : MonoBehaviour
             }
             else if (!destroying) //attack
             {
-                lifeTimer -= Time.deltaTime;
+                if (lifeTimer < 1000)
+                    lifeTimer -= Time.deltaTime;
                 if (lifeTimer <= 0)
                     StartCoroutine(DelayedDestroy());
 
