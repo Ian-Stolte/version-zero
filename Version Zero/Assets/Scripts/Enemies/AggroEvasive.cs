@@ -16,7 +16,6 @@ public class AggroEvasive : Enemy
 
     [Header("Boss")]
     [SerializeField] private GameObject startBarrier;
-    [SerializeField] private GameObject endBarrier;
     [SerializeField] private GameObject memoryReward;
     private int arenaNum = 1;
     [SerializeField] private Vector3[] arenaStarts;
@@ -32,7 +31,9 @@ public class AggroEvasive : Enemy
     [SerializeField] private float atkDuration;
     [SerializeField] private int aggroDmg;
     [SerializeField] private GameObject atkPrefab;
-    private Transform atkWarning;
+    [SerializeField] private GameObject slashPrefab;
+    [SerializeField] private float slashForce;
+    private GameObject atkWarning;
     private IEnumerator atkCor;
 
     [Header("Evasive Attack")]
@@ -72,7 +73,7 @@ public class AggroEvasive : Enemy
         if (!GameManager.Instance.pauseGame && aggro && stunTimer <= 0)
         {
             invisTimer = Mathf.Max(0, invisTimer - Time.deltaTime);
-            if (invisTimer <= 0)
+            if (invisTimer <= 0 && !attacking)
             {
                 StartCoroutine(GoInvis());
                 invisTimer = Random.Range(12, 22);
@@ -137,7 +138,10 @@ public class AggroEvasive : Enemy
                 if (atkTimer <= 0 && dist < atkRange && lineOfSight && !player.GetComponent<PlayerPrograms>().dashing)
                 {
                     atkTimer = aggroAtkDelay;
-                    atkCor = AggroAttack();
+                    if (Random.Range(0f, 1f) < 0.6f)
+                        atkCor = AggroAttack(false);
+                    else
+                        atkCor = AggroAttack(true);
                     StartCoroutine(atkCor);
                 }
             }
@@ -146,7 +150,7 @@ public class AggroEvasive : Enemy
         {
             StopCoroutine(atkCor);
             if (atkWarning != null)
-                Destroy(atkWarning.parent.gameObject);
+                Destroy(atkWarning);
             atkCor = null;
             attacking = false;
             canHitPlayer = false;
@@ -190,7 +194,6 @@ public class AggroEvasive : Enemy
 
     private void SwitchMode()
     {
-        //Debug.Log("Switch mode: " + modeSwitchPct + "%");
         if (Random.Range(0f, 1f) < modeSwitchPct)
         {
             modeSwitchPct = 0f;
@@ -207,7 +210,7 @@ public class AggroEvasive : Enemy
 
     private IEnumerator GoInvis()
     {
-        atkTimer = Random.Range(3f, 7f);
+        atkTimer = Random.Range(2f, 6f);
 
         foreach (Transform child in transform.GetChild(2))
         {
@@ -217,12 +220,18 @@ public class AggroEvasive : Enemy
 
         int sign = (Random.Range(0f, 1f) > 0.5f) ? 1 : -1;
         StartCoroutine(Dash(Random.Range(70, 110) * sign, 1, 0.5f));
-        yield return null;
+
+        yield return new WaitForSeconds(7f);
+        foreach (Transform child in transform.GetChild(2))
+        {
+            child.gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
 
 
-    private IEnumerator AggroAttack()
+    private IEnumerator AggroAttack(bool slash)
     {
         SwitchMode();
         attacking = true;
@@ -232,9 +241,11 @@ public class AggroEvasive : Enemy
             child.gameObject.SetActive(true);
         }
 
-        Vector3 target = player.transform.position + player.GetComponent<PlayerMovement>().moveDir * 2 + (player.transform.position - transform.position).normalized * 2f;
+        float offsetDir = (slash) ? -2f : 3;
+        Vector3 target = player.transform.position + player.GetComponent<PlayerMovement>().moveDir*2 + (player.transform.position - transform.position).normalized * offsetDir;
         Vector3 dir = Vector3.Scale(target - transform.position, new Vector3(1, 0, 1)).normalized;
         transform.rotation = Quaternion.LookRotation(dir);
+        Vector3 followThrough = (slash) ? Vector3.zero : (target - transform.position).normalized * 3f;
 
         //shorten target if would hit a wall
         RaycastHit hit;
@@ -242,15 +253,16 @@ public class AggroEvasive : Enemy
         if (Physics.Raycast(transform.position, dir, out hit, dist, terrainLayer))
         {
             target = hit.point - dir.normalized * 0.5f;
+            followThrough = Vector3.zero;
         }
 
         float spd = (slowTimer > 0) ? dashSpeed * 0.5f : dashSpeed;
         float duration = (slowTimer > 0) ? atkDuration * 0.5f : atkDuration;
 
-        atkWarning = Instantiate(atkPrefab, new Vector3(target.x, 0, target.z), transform.rotation).transform.GetChild(0);
-        StartCoroutine(AttackIndicator(atkWarning, duration));
+        atkWarning = Instantiate(atkPrefab, new Vector3(target.x, 0, target.z), transform.rotation);
+        StartCoroutine(AttackIndicator(atkWarning.transform.GetChild(0), duration));
 
-        bool preDash = Random.Range(0f, 1f) > 0.5f;
+        bool preDash = Random.Range(0f, 1f) > 0.5f && !slash;
         if (preDash && Vector3.Distance(target, transform.position) > 7)
         {
             yield return new WaitForSeconds(duration - dist / spd - 0.3f);
@@ -269,7 +281,7 @@ public class AggroEvasive : Enemy
             hitboxOn = true;
         }
         dir = Vector3.Scale(target - transform.position, new Vector3(1, 0, 1)).normalized;
-        while (Vector2.Distance(new Vector2(target.x, atkWarning.position.z), new Vector2(target.x, transform.position.z)) > 0.5f && attacking)
+        while (Vector3.Distance(target+followThrough, transform.position) > 0.5f && attacking)
         {
             //TODO: fix something else setting rb.velocity & causing aggro to occasionally get stuck
             rb.velocity = dir * spd;
@@ -279,10 +291,24 @@ public class AggroEvasive : Enemy
         canHitPlayer = false;
         hitboxOn = false;
 
-        Destroy(atkWarning.parent.gameObject);
+        Destroy(atkWarning);
+
+        if (slash)
+        {
+            //circle slash
+            atkWarning = Instantiate(slashPrefab, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
+            yield return StartCoroutine(AttackIndicator(atkWarning.transform.GetChild(0), 0.4f));
+            if (Vector3.Distance(player.transform.position, transform.position) < 5)
+            {
+                player.GetComponent<PlayerMovement>().TakeDamage(aggroDmg);
+                Vector3 kbDir = (player.transform.position - transform.position).normalized + new Vector3(0, 0.3f, 0);
+                player.GetComponent<Rigidbody>().AddForce(kbDir * slashForce, ForceMode.Impulse);
+            }
+            Destroy(atkWarning);
+        }
+
         yield return new WaitForSeconds(0.2f);
         attacking = false;
-        SwitchMode();
     }
 
     private IEnumerator AttackIndicator(Transform atkWarning, float duration)
@@ -300,12 +326,12 @@ public class AggroEvasive : Enemy
     }
 
 
-    
+
     private IEnumerator Dash(float angle, int sign = 1, float slowFactor = 1f, int failedAttempts = 0, int numTimes = 1)
     {
         dashing = true;
         dashCD = dashDelay;
-     
+
         float distMod = 0;
         float dist = Vector3.Distance(transform.position, player.transform.position);
         if (dist > 15 && sign == -1)
@@ -329,20 +355,20 @@ public class AggroEvasive : Enemy
 
                 if (Mathf.Abs(angle) >= 70) //if side dash invert direction
                 {
-                    StartCoroutine(Dash(-angle, sign, slowFactor, failedAttempts+1));
+                    StartCoroutine(Dash(-angle, sign, slowFactor, failedAttempts + 1));
                     yield break;
                 }
                 else //if dash away or toward, try small side dash
                 {
                     int newSign = (Random.Range(0f, 1f) > 0.5f) ? 1 : -1;
-                    StartCoroutine(Dash(Random.Range(70, 110) * newSign, 1, 0.5f, failedAttempts+1));
+                    StartCoroutine(Dash(Random.Range(70, 110) * newSign, 1, 0.5f, failedAttempts + 1));
                     yield break;
                 }
             }
         }
 
         //apply slows
-        float spd = (slowTimer > 0) ? dashSpeed*0.3f : dashSpeed;
+        float spd = (slowTimer > 0) ? dashSpeed * 0.3f : dashSpeed;
         float totalDist = (dashDist + distMod) * slowFactor;
 
         transform.GetChild(1).GetComponent<TrailRenderer>().emitting = true;
@@ -380,7 +406,7 @@ public class AggroEvasive : Enemy
             }
             yield break;
         }
-        
+
         transform.GetChild(1).GetComponent<TrailRenderer>().emitting = false;
         dashing = false;
     }
@@ -462,7 +488,7 @@ public class AggroEvasive : Enemy
             projectile.dmg = evasiveDmg;
             projectile.dir = rotatedDir;
             projectile.speed = projSpeed+speedBoost;
-            projectile.despawnDist = atkRange + 3f;
+            projectile.despawnDist = atkRange + 3f + speedBoost;
         }
     }
 
@@ -509,7 +535,7 @@ public class AggroEvasive : Enemy
     private IEnumerator CustomDestroy()
     {
         if (atkWarning != null)
-            Destroy(atkWarning.parent.gameObject);
+            Destroy(atkWarning);
         AudioManager.Instance.KillBoss2();
         healthBar.transform.parent.parent.gameObject.SetActive(false);
 
