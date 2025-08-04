@@ -61,19 +61,19 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Area 2
     clip: {fileID: 8300000, guid: 5be5faa5fa5cb0b4bb7a1e3bf03c2de0, type: 3}
-    volume: 0.1
+    volume: 0
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: Boss 2
     clip: {fileID: 8300000, guid: c2852cbc21b27744094d863053f84b3d, type: 3}
-    volume: 0.1
+    volume: 0
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: Startup UI
     clip: {fileID: 8300000, guid: 0eb01312f581b7e4687b2bafe5277058, type: 3}
-    volume: 0.1
+    volume: 0
     pitch: 1
     loop: 0
     source: {fileID: 0}

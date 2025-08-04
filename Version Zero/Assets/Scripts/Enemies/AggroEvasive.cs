@@ -187,6 +187,7 @@ public class AggroEvasive : Enemy
 
         //set up health bar
         GameManager.Instance.bossUI.SetActive(true);
+        GameManager.Instance.bossUI.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = "The Hunter";
         healthBar = GameObject.Find("Boss Fill").GetComponent<Image>();
     }
 

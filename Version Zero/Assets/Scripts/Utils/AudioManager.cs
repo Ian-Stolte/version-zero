@@ -181,13 +181,26 @@ public class AudioManager : MonoBehaviour
         Play("Area 1");
         StartCoroutine(StartFade("Area 1", 2, 0.2f));
     }
-    
+
     public void KillBoss2()
     {
         Stop("Boss 2");
         Play("Walking Turret Die");
         Play("Area 2");
         StartCoroutine(StartFade("Area 2", 2, 0.2f));
+    }
+
+
+    public IEnumerator Area2()
+    {
+        StartCoroutine(StartFade("Area 1", 3, 0f));
+        yield return new WaitForSeconds(2f);
+        Stop("Area 1");
+
+        yield return new WaitForSeconds(2f);
+        Play("Area 2");
+        StartCoroutine(StartFade("Area 2", 2, 0.2f));
+        yield return new WaitForSeconds(1f);
     }
 }
 

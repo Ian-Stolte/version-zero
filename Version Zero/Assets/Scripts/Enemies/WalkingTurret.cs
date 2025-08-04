@@ -18,8 +18,6 @@ public class WalkingTurret : Enemy
     [SerializeField] private float atkDelay;
     private float atkTimer;
     [SerializeField] private int dmg;
-    [SerializeField] private int numProj;
-    [SerializeField] private float spread;
     [SerializeField] private GameObject projPrefab;
 
     [Header("Stomp")]
@@ -109,6 +107,7 @@ public class WalkingTurret : Enemy
 
             if (atkTimer <= 0 && (dist > meleeRange) && !finalForm) //ranged attack
             {
+                atkTimer = atkDelay;
                 Vector3 dir = Vector3.Scale(player.transform.position - transform.position, new Vector3(1, 0, 1)).normalized;
                 StartCoroutine(FireProjectiles(dir));
             }
@@ -186,17 +185,39 @@ public class WalkingTurret : Enemy
     private IEnumerator FireProjectiles(Vector3 dir)
     {
         yield return new WaitUntil(() => !GameManager.Instance.pauseGame);
-        atkTimer = atkDelay;
         anim.Play("Gardener_Open");
         yield return new WaitForSeconds(0.3f);
         AudioManager.Instance.Play("Walking Turret Fire");
-        for (int i = 0; i < numProj; i++)
+
+        //randomly choose between different attack variations
+        float random = Random.Range(0f, 1f);
+        if (random < 0.5f)
         {
-            GameObject proj = Instantiate(projPrefab, transform.position + dir * 0.5f + new Vector3(0, 1, 0), Quaternion.LookRotation(dir));
-            proj.GetComponent<Missile>().dmg = dmg;
-            proj.GetComponent<Missile>().dir = dir * 0.5f + new Vector3(0, 2.5f+(0.1f*i), 0);
-            proj.GetComponent<Missile>().target = new Vector3(player.transform.position.x, 0, player.transform.position.z) + player.GetComponent<PlayerMovement>().moveDir*3 + Quaternion.Euler(0, Random.Range(0, 360), 0) * new Vector3(Random.Range(0f, spread), 0, 0);
+            //basic attack (70 at once)
+            for (int i = 0; i < 70; i++)
+            {
+                GameObject proj = Instantiate(projPrefab, transform.position + dir * 0.5f + new Vector3(0, 1, 0), Quaternion.LookRotation(dir));
+                proj.GetComponent<Missile>().dmg = dmg;
+                proj.GetComponent<Missile>().dir = dir * 0.5f + new Vector3(0, 2.5f + (0.1f * i), 0);
+                proj.GetComponent<Missile>().target = new Vector3(player.transform.position.x, 0, player.transform.position.z) + player.GetComponent<PlayerMovement>().moveDir * 3 + Quaternion.Euler(0, Random.Range(0, 360), 0) * new Vector3(Random.Range(0f, 10), 0, 0);
+            }
         }
+        else
+        {
+            //5 waves of 15
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 15; j++)
+                {
+                    GameObject proj = Instantiate(projPrefab, transform.position + dir * 0.5f + new Vector3(0, 1, 0), Quaternion.LookRotation(dir));
+                    proj.GetComponent<Missile>().dmg = dmg;
+                    proj.GetComponent<Missile>().dir = dir * 0.5f + new Vector3(0, 2.5f + (0.1f * i), 0);
+                    proj.GetComponent<Missile>().target = new Vector3(player.transform.position.x, 0, player.transform.position.z) + player.GetComponent<PlayerMovement>().moveDir * 3 + Quaternion.Euler(0, Random.Range(0, 360), 0) * new Vector3(Random.Range(0f, 5), 0, 0);
+                }
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+
         yield return new WaitForSeconds(1);
         if (finalForm)
             StartCoroutine(Stomp());

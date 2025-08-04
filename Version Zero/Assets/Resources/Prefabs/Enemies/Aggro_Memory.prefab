@@ -842,8 +842,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61632c4e59cf4f54c86c7b080dc3f888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 16
-  health: 16
+  maxHealth: 12
+  health: 12
+  customDestroy: 0
   aggroRange: 15
   aggro: 0
   stunTimer: -3.1341145
@@ -859,14 +860,14 @@ MonoBehaviour:
   statusTxt: {fileID: 8044487817934671963}
   damageNumber: {fileID: 2345899596540281866, guid: 753d7799ea08308459e89e0baabf8ac3, type: 3}
   mark: {fileID: 5597119354336373437}
+  damageMat: {fileID: 2100000, guid: a1e9fa7d2ec9eb340a650ce47e58854b, type: 2}
+  shielded: 0
   anim: {fileID: 7969084480942757088}
   rb: {fileID: 0}
   player: {fileID: 0}
-  damageMat: {fileID: 2100000, guid: a1e9fa7d2ec9eb340a650ce47e58854b, type: 2}
-  shielded: 0
   defSpeed: 3
   atkRange: 10
-  atkDelay: 1
+  atkDelay: 1.5
   atkDuration: 1
   dmg: 2
   atkPrefab: {fileID: 7885541697637758948, guid: a672d51df29dce240908bb5a9052eff4, type: 3}
