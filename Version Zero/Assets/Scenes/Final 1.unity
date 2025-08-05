@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465788, g: 0.49641287, b: 0.5748173, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -353,15 +353,7 @@ MonoBehaviour:
   bars: []
   complete: 0
   barrier: {fileID: 1034278538}
-  hiddenRoom: []
-  dialogue:
-  - "That\u2019s strange... I\u2019m not seeing any other users online right now..."
-  - ~my databases indicate that this world has been closed indefinitely miss
-  - ~in fact, it has been over 3 years since it was available on public servers!*****
-  - "~we appear to be running\u2013"
-  - A local copy.****** Yeah.*.*.****
-  - ...I must've pulled the data before they took it down, I guess.
-  order: 0
+  ID: 
 --- !u!1 &11750820 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1429909108834651106, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
@@ -5433,6 +5425,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
+      propertyPath: music.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 0e3a7f3c8f8874c48b1315ed9777d23d, type: 3}
     - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
       propertyPath: worldSFX.Array.data[0].clip
       value: 
