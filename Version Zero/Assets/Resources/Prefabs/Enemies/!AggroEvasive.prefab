@@ -97,7 +97,7 @@ MonoBehaviour:
   slashPrefab: {fileID: 7885541697637758948, guid: 51854770d12b042fb899782ef4f6764b, type: 3}
   slashForce: 80
   evasiveAtkDelay: 2
-  evasiveDmg: 2
+  evasiveDmg: 1
   numProjectiles: 3
   projPrefab: {fileID: 3512434751255828300, guid: 770fd79ab065a420e9640d64f5ea1c7f, type: 3}
   projSpeed: 12

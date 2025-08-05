@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d16c97cf369893148a76831d53d6b2bd, type: 2}
+  - {fileID: 2100000, guid: a81daee12dede45e186b238e880fbe90, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -420,7 +420,7 @@ GameObject:
   - component: {fileID: 1595533343650753025}
   - component: {fileID: 1006742937906585305}
   m_Layer: 6
-  m_Name: Charge_Logic
+  m_Name: Charge_Instinct
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -844,7 +844,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d16c97cf369893148a76831d53d6b2bd, type: 2}
+  - {fileID: 2100000, guid: a81daee12dede45e186b238e880fbe90, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -927,7 +927,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 533e60017957d084c9e99f89b82033f1, type: 2}
+  - {fileID: 2100000, guid: da0f82b86f33b254b84f34a42fe33b01, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1010,7 +1010,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d16c97cf369893148a76831d53d6b2bd, type: 2}
+  - {fileID: 2100000, guid: a81daee12dede45e186b238e880fbe90, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1168,7 +1168,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 533e60017957d084c9e99f89b82033f1, type: 2}
+  - {fileID: 2100000, guid: da0f82b86f33b254b84f34a42fe33b01, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

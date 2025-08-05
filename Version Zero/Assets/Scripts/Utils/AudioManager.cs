@@ -68,7 +68,12 @@ public class AudioManager : MonoBehaviour
 
         int sceneNum = 0;
         int.TryParse(SceneManager.GetActiveScene().name.Substring(6), out sceneNum);
-        if (sceneNum > 6)
+        if (sceneNum >= 10)
+        {
+            Play("Area 3");
+            StartCoroutine(StartFade("Area 3", 2, 0.25f));
+        }
+        else if (sceneNum >= 7)
         {
             Play("Area 2");
             StartCoroutine(StartFade("Area 2", 2, 0.25f));
@@ -200,6 +205,18 @@ public class AudioManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         Play("Area 2");
         StartCoroutine(StartFade("Area 2", 2, 0.2f));
+        yield return new WaitForSeconds(1f);
+    }
+    
+    public IEnumerator Area3()
+    {
+        StartCoroutine(StartFade("Area 2", 3, 0f));
+        yield return new WaitForSeconds(2f);
+        Stop("Area 2");
+
+        yield return new WaitForSeconds(2f);
+        Play("Area 3");
+        StartCoroutine(StartFade("Area 3", 2, 0.2f));
         yield return new WaitForSeconds(1f);
     }
 }

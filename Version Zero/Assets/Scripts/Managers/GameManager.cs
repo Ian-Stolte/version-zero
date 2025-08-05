@@ -81,6 +81,9 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        int sceneNum = 0;
+        int.TryParse(SceneManager.GetActiveScene().name.Substring(6), out sceneNum);
+
         if (scene.name == "Playtest Options" || scene.name == "Startup UI")
         {
             Destroy(canvas);
@@ -110,23 +113,23 @@ public class GameManager : MonoBehaviour
 
             //set spawn pct & enemies available by level
             enemyType = enemyTypes[Random.Range(0, enemyTypes.Length)];
-            if (scene.name == "Level 3")
+            if (sceneNum == 3)
             {
                 minSpawn = 15;
                 maxSpawn = 25;
             }
-            if (scene.name == "Level 4")
+            if (sceneNum == 4)
             {
                 enemyPrefabs.Add("Artillery");
                 minSpawn = 15;
                 maxSpawn = 25;
             }
-            else if (scene.name == "Level 5")
+            else if (sceneNum == 5)
             {
                 minSpawn = 10;
                 maxSpawn = 20;
             }
-            else if (scene.name == "Level 7")
+            else if (sceneNum >= 7 && sceneNum <= 9)
             {
                 enemyPrefabs.Remove("Swarm");
                 enemyPrefabs.Remove("Tank");
@@ -136,6 +139,21 @@ public class GameManager : MonoBehaviour
                 minSpawn = 10;
                 maxSpawn = 20;
             }
+            else if (sceneNum == 10)
+            {
+                enemyPrefabs.Remove("Aggro");
+                enemyPrefabs.Remove("Evasive");
+                enemyPrefabs.Add("Landmine");
+                enemyPrefabs.Add("Charge");
+                minSpawn = 8;
+                maxSpawn = 18;
+            }
+            else if (sceneNum == 11)
+            {
+                enemyPrefabs.Add("Scatter");
+                minSpawn = 5;
+                maxSpawn = 15;
+            }
             else if (scene.name.Contains("Final"))
             {
                 minSpawn = 1;
@@ -143,7 +161,7 @@ public class GameManager : MonoBehaviour
             }
 
             //replace enemies with chosen type
-            if (scene.name != "Level 6" && scene.name != "Level 9")
+            if (sceneNum != 6 && sceneNum != 9)
             {
                 List<GameObject> newEnemies = new List<GameObject>();
                 foreach (Transform child in enemyParent)
@@ -197,7 +215,6 @@ public class GameManager : MonoBehaviour
         //check if spawning enemies
         if (scene.name != "End Screen")
         {
-            int sceneNum = int.Parse(SceneManager.GetActiveScene().name.Substring(6));
             if (((sceneNum > 3 && sceneNum != 6 && sceneNum != 9) || (sceneNum == 3 && runNum > 1) || scene.name.Contains("Final")) && !noSpawn)
             {
                 enemyTimer.gameObject.SetActive(true);
@@ -282,7 +299,7 @@ public class GameManager : MonoBehaviour
             GameObject prefab = Resources.Load<GameObject>("Prefabs/Enemies/" + name);
             if (prefab != null)
             {
-                int repeats = name.Contains("Swarm") ? 2 : 1;
+                int repeats = (name.Contains("Swarm") || name.Contains("Landmine")) ? 2 : 1;
                 for (int j = 0; j < repeats; j++)
                 {
                     if (loadingLevel)
@@ -409,11 +426,12 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public IEnumerator LoadNextLevel(string nextArea, bool skip=false)
+
+    public IEnumerator LoadNextLevel(string nextArea, bool skip = false)
     {
         loadingLevel = true;
-        int levelNum = int.Parse(SceneManager.GetActiveScene().name.Substring(6))+1;
-        
+        int levelNum = int.Parse(SceneManager.GetActiveScene().name.Substring(6)) + 1;
+
         if (!skip)
         {
             AudioManager.Instance.Play("Elevator Down");
@@ -421,6 +439,8 @@ public class GameManager : MonoBehaviour
                 Destroy(child.gameObject);
             if (levelNum == 7)
                 StartCoroutine(AudioManager.Instance.Area2());
+            else if (levelNum == 10)
+                StartCoroutine(AudioManager.Instance.Area3());
 
             yield return new WaitForSeconds(0.5f);
             Fader.Instance.FadeIn(1.2f, true);
@@ -444,9 +464,9 @@ public class GameManager : MonoBehaviour
         }
         else
             yield return null;
-            
+
         areaText.text = nextArea;
-        if (levelNum < 10)
+        if (levelNum < 12)
             SceneManager.LoadScene("Level " + levelNum);
         else
         {
@@ -473,6 +493,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(scene);
     }
+
 
 
     public IEnumerator GameOver()
