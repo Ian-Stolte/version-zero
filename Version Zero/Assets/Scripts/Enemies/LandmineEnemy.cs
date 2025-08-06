@@ -89,6 +89,7 @@ public class LandmineEnemy : Enemy
         anim.Play("Landmine_Explode");
         transform.GetChild(1).gameObject.SetActive(true);
         yield return new WaitForSeconds(0.5f);
+        health = 0;
         Destroy(gameObject);
     }
 
@@ -113,7 +114,7 @@ public class LandmineEnemy : Enemy
                 Vector3 dir = (hit.transform.position - transform.position).normalized;
                 hit.GetComponent<Rigidbody>().AddForce(dir * explosionForce);
                 hit.GetComponent<Enemy>().stunTimer = 0.5f;
-                hit.GetComponent<Enemy>().TakeDamage(dmg);
+                hit.GetComponent<Enemy>().TakeDamage(dmg*2);
             }
 
             if (Vector3.Distance(player.transform.position, transform.position) < attackRadius)

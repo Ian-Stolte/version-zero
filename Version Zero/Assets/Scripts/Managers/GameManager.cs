@@ -151,8 +151,8 @@ public class GameManager : MonoBehaviour
             else if (sceneNum == 11)
             {
                 enemyPrefabs.Add("Scatter");
-                minSpawn = 5;
-                maxSpawn = 15;
+                minSpawn = 10;
+                maxSpawn = 20;
             }
             else if (scene.name.Contains("Final"))
             {
@@ -386,6 +386,8 @@ public class GameManager : MonoBehaviour
         }
         if (currentTerminal.ID != "")
             DialogueManager.Instance.PlayByID(currentTerminal.ID);
+        foreach (GameObject g in currentTerminal.toggleOnComplete)
+            g.SetActive(!g.activeSelf);
         FinishTerminalIcon();
         numTerminals--;
 

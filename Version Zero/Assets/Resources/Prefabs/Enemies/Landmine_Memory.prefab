@@ -961,7 +961,7 @@ MonoBehaviour:
   sitMax: 8
   attackRange: 4
   explosionForce: 600
-  dmg: 4
+  dmg: 2
   attackRadius: 5
   explosionVFX: {fileID: 3512434751255828300, guid: b4506d25e23ca4a4c8038d1b2d038aaa, type: 3}
 --- !u!54 &1077349715561218253

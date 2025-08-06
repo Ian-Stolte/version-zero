@@ -6,10 +6,12 @@ public class Terminal : MonoBehaviour
 {
     [SerializeField] private float activateDist;
     [SerializeField] private GameObject activateTxt;
+    [HideInInspector] public bool complete;
+
+    [Header("On Complete")]
     public MeshRenderer screen;
     public MeshRenderer[] bars;
-    [HideInInspector] public bool complete;
-    
+    public GameObject[] toggleOnComplete;
     public Transform barrier;
     public string ID;
 

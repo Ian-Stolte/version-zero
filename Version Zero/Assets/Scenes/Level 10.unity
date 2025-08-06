@@ -180,9 +180,9 @@ MonoBehaviour:
   unwalkable:
     serializedVersion: 2
     m_Bits: 10240
-  rawGridSize: {x: 70, y: 35}
-  nodeRadius: 1
-  walkableCheckRadius: 0.5
+  rawGridSize: {x: 45, y: 40}
+  nodeRadius: 0.3
+  walkableCheckRadius: 1
   drawGizmos: 1
 --- !u!1 &200959293 stripped
 GameObject:
@@ -1005,7 +1005,7 @@ MonoBehaviour:
   unwalkable:
     serializedVersion: 2
     m_Bits: 10240
-  rawGridSize: {x: 70, y: 35}
+  rawGridSize: {x: 45, y: 40}
   nodeRadius: 0.3
   walkableCheckRadius: 1
   drawGizmos: 1
@@ -4095,9 +4095,9 @@ MonoBehaviour:
   unwalkable:
     serializedVersion: 2
     m_Bits: 10240
-  rawGridSize: {x: 70, y: 35}
+  rawGridSize: {x: 45, y: 40}
   nodeRadius: 0.3
-  walkableCheckRadius: 2
+  walkableCheckRadius: 1.7
   drawGizmos: 1
 --- !u!1 &1964982575
 GameObject:

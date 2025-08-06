@@ -490,7 +490,7 @@ MonoBehaviour:
   atkDelay: 1
   chargeTime: 2
   atkTimer: 0
-  dmg: 2
+  dmg: 1
   numProjectiles: 8
   numWaves: 3
   projPrefab: {fileID: 3512434751255828300, guid: 770fd79ab065a420e9640d64f5ea1c7f, type: 3}

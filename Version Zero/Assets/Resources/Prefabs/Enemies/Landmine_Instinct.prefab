@@ -933,7 +933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0582e570cdd7493ca730ebcacd7f3f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 6
+  maxHealth: 4
   health: 8
   customDestroy: 1
   aggroRange: 15
@@ -959,9 +959,9 @@ MonoBehaviour:
   defSpeed: 3.5
   sitMin: 3
   sitMax: 7
-  attackRange: 3.5
+  attackRange: 3
   explosionForce: 600
-  dmg: 3
+  dmg: 2
   attackRadius: 4
   explosionVFX: {fileID: 3512434751255828300, guid: b4506d25e23ca4a4c8038d1b2d038aaa, type: 3}
 --- !u!54 &1077349715561218253
