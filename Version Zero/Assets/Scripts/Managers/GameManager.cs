@@ -154,6 +154,11 @@ public class GameManager : MonoBehaviour
                 minSpawn = 10;
                 maxSpawn = 20;
             }
+            else if (sceneNum == 12)
+            {
+                minSpawn = 5;
+                maxSpawn = 10;
+            }
             else if (scene.name.Contains("Final"))
             {
                 minSpawn = 1;
