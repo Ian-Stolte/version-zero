@@ -170,7 +170,7 @@ public class PlayerMovement : MonoBehaviour
                 else
                     health = maxHealth;
             }
-            else
+            else if (dmg > 0)
             {
                 AudioManager.Instance.Play("Take Damage");
                 damageFlash.Play("DamageFlash");

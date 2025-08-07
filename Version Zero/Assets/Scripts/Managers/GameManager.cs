@@ -156,8 +156,8 @@ public class GameManager : MonoBehaviour
             }
             else if (sceneNum == 12)
             {
-                minSpawn = 5;
-                maxSpawn = 10;
+                minSpawn = 3;
+                maxSpawn = 8;
             }
             else if (scene.name.Contains("Final"))
             {
@@ -505,8 +505,8 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator GameOver()
     {
+        //TODO: computer saves from death during Final area
         DialogueManager.Instance.StopCoroutines();
-        player.GetComponent<PlayerPrograms>().enabled = false;
         pauseGame = true;
         StartCoroutine(AudioManager.Instance.FadeOutAll(0));
         AudioManager.Instance.Play("Static");
@@ -528,7 +528,65 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
         }
         yield return new WaitForSeconds(1);
-        string message = "Program Terminated";
+
+        if (SceneManager.GetActiveScene().name == "Level 12")
+        {
+            StartCoroutine(StartFinal());
+        }
+        else
+        {
+            string message = "Program Terminated";
+            foreach (char c in message)
+            {
+                txt.text += c;
+                if (c == ' ')
+                    yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.1f);
+            }
+
+            yield return new WaitForSeconds(1.5f);
+            StartCoroutine(AudioManager.Instance.StartFade("Game Over", 2, 0));
+            for (float i = 0; i < 1; i += 0.01f)
+            {
+                gameOver.transform.GetChild(1).GetComponent<CanvasGroup>().alpha = i;
+                gameOver.transform.GetChild(2).GetComponent<CanvasGroup>().alpha = i;
+                yield return new WaitForSeconds(0.01f);
+            }
+        }
+    }
+
+    private IEnumerator StartFinal()
+    {
+        SceneManager.LoadScene("Final 1");
+        spawningEnemies = false;
+
+        TMPro.TextMeshProUGUI txt = gameOver.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
+        string message = "Progr";
+        foreach (char c in message)
+        {
+            txt.text += c;
+            if (c == ' ')
+                yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.1f);
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            txt.text = "Progr-";
+            yield return new WaitForSeconds(0.5f);
+            txt.text = "Progr";
+            yield return new WaitForSeconds(0.1f);
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            gameOver.SetActive(false);
+            yield return new WaitForSeconds(Random.Range(0f, 0.05f));
+            gameOver.SetActive(true);
+            yield return new WaitForSeconds(Random.Range(0f, 0.4f));
+        }
+        yield return new WaitForSeconds(1f);
+        txt.text = "";
+        yield return new WaitForSeconds(2f);
+        message = "Reboot Successful";
         foreach (char c in message)
         {
             txt.text += c;
@@ -537,14 +595,29 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
 
-        yield return new WaitForSeconds(1.5f);
-        StartCoroutine(AudioManager.Instance.StartFade("Game Over", 2, 0));
-        for (float i = 0; i < 1; i += 0.01f)
+        yield return new WaitForSeconds(1f);
+        AudioManager.Instance.Play("Area Final");
+        StartCoroutine(AudioManager.Instance.StartFade("Area Final", 1, 0.25f));
+        player.GetComponent<PlayerMovement>().TakeDamage(-20);
+
+        float elapsed = 0;
+        while (elapsed < 5f)
         {
-            gameOver.transform.GetChild(1).GetComponent<CanvasGroup>().alpha = i;
-            gameOver.transform.GetChild(2).GetComponent<CanvasGroup>().alpha = i;
-            yield return new WaitForSeconds(0.01f);
+            gameOver.GetComponent<CanvasGroup>().alpha = 1 - elapsed / 5f;
+            yield return null;
+            elapsed += Time.deltaTime;
         }
+        DialogueManager.Instance.PlayByID("Final_Intro");      
+        yield return new WaitUntil(() => !DialogueManager.Instance.dialogue.activeSelf);
+
+        enemyPrefabs.Add("Swarm");
+        enemyPrefabs.Add("Tank");
+        enemyPrefabs.Add("Artillery");
+        enemyPrefabs.Add("Aggro");
+        enemyPrefabs.Add("Evasive");
+
+        spawningEnemies = true;
+        pauseGame = false;
     }
 
     public void Reset()

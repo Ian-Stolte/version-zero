@@ -10786,6 +10786,7 @@ GameObject:
   - component: {fileID: 1393418394969484926}
   - component: {fileID: 6020442157789779927}
   - component: {fileID: 971585150680582404}
+  - component: {fileID: 5022446086557443129}
   m_Layer: 5
   m_Name: Game Over
   m_TagString: Untagged
@@ -10853,6 +10854,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &5022446086557443129
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5924697330221905879}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5944574972401891839
 GameObject:
   m_ObjectHideFlags: 0

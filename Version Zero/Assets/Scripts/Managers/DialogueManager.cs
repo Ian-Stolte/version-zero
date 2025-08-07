@@ -48,7 +48,10 @@ public class DialogueManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         terminalNum = 0;
-        int.TryParse(scene.name.Substring(6), out lvlNum);
+        if (scene.name.Contains("Final"))
+            lvlNum = 10;
+        else
+            int.TryParse(scene.name.Substring(6), out lvlNum);
     }
 
     private void Update()

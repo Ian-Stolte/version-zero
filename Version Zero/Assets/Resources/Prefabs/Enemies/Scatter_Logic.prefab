@@ -751,7 +751,7 @@ MonoBehaviour:
   targetMax: 10
   movementTarget: {x: 0, y: 0, z: 0}
   stuckTimer: 0
-  atkDelay: 3
+  atkDelay: 2
   atkRange: 10
   projLifetime: 5
   projRange: 4
