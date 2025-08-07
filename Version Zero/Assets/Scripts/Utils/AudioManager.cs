@@ -68,7 +68,12 @@ public class AudioManager : MonoBehaviour
 
         int sceneNum = 0;
         int.TryParse(SceneManager.GetActiveScene().name.Substring(6), out sceneNum);
-        if (sceneNum >= 10)
+        if (SceneManager.GetActiveScene().name.Contains("Final"))
+        {
+            Play("Area Final");
+            StartCoroutine(StartFade("Area Final", 1, 0.25f));
+        }
+        else if (sceneNum >= 10)
         {
             Play("Area 3");
             StartCoroutine(StartFade("Area 3", 2, 0.25f));

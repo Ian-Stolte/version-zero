@@ -496,8 +496,8 @@ public class GameManager : MonoBehaviour
     public IEnumerator FinalNextLevel(string scene)
     {
         //show dissolve/teleport effect?
-        Fader.Instance.FadeInOut(0.5f, 0.5f);
-        yield return new WaitForSeconds(0.5f);
+        Fader.Instance.FadeInOut(0.3f, 0.3f);
+        yield return new WaitForSeconds(0.3f);
         SceneManager.LoadScene(scene);
     }
 
