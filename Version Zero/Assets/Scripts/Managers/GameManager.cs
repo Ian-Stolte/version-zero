@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
     public GameObject bossUI;
     [SerializeField] private GameObject loadingText;
     [SerializeField] private GameObject gameOver;
+    [SerializeField] private GameObject finalVFX;
     private GameObject canvas;
     private Transform player;
 
@@ -287,7 +288,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator SpawnEnemies(int n, Vector3 setPos = default, bool debug=false)
     {
-        if (loadingLevel)
+        if (loadingLevel || enemyParent.childCount >= 25)
             yield break;
 
         if (debug)
@@ -365,7 +366,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator UseTerminal()
     {
         playerPaused = true;
-        bar = Instantiate(terminalBar, player.transform.position + new Vector3(0, 1.3f, 0), Quaternion.identity).transform.GetChild(1).GetComponent<Image>();
+        bar = Instantiate(terminalBar, player.position + new Vector3(0, 1.3f, 0), Quaternion.identity).transform.GetChild(1).GetComponent<Image>();
         AudioManager.Instance.Play("Terminal Charge");
         float elapsed = 0;
         while (elapsed < 4)
@@ -508,6 +509,13 @@ public class GameManager : MonoBehaviour
         //TODO: computer saves from death during Final area
         DialogueManager.Instance.StopCoroutines();
         pauseGame = true;
+
+        if (SceneManager.GetActiveScene().name.Contains("Final"))
+        {
+            StartCoroutine(FinalNoDeath());
+            yield break;
+        }
+
         StartCoroutine(AudioManager.Instance.FadeOutAll(0));
         AudioManager.Instance.Play("Static");
         AudioManager.Instance.Play("Game Over");
@@ -532,33 +540,31 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Level 12")
         {
             StartCoroutine(StartFinal());
+            yield break;
         }
-        else
-        {
-            string message = "Program Terminated";
-            foreach (char c in message)
-            {
-                txt.text += c;
-                if (c == ' ')
-                    yield return new WaitForSeconds(0.1f);
-                yield return new WaitForSeconds(0.1f);
-            }
 
-            yield return new WaitForSeconds(1.5f);
-            StartCoroutine(AudioManager.Instance.StartFade("Game Over", 2, 0));
-            for (float i = 0; i < 1; i += 0.01f)
-            {
-                gameOver.transform.GetChild(1).GetComponent<CanvasGroup>().alpha = i;
-                gameOver.transform.GetChild(2).GetComponent<CanvasGroup>().alpha = i;
-                yield return new WaitForSeconds(0.01f);
-            }
+        string message = "Program Terminated";
+        foreach (char c in message)
+        {
+            txt.text += c;
+            if (c == ' ')
+                yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        yield return new WaitForSeconds(1.5f);
+        StartCoroutine(AudioManager.Instance.StartFade("Game Over", 2, 0));
+        for (float i = 0; i < 1; i += 0.01f)
+        {
+            gameOver.transform.GetChild(1).GetComponent<CanvasGroup>().alpha = i;
+            gameOver.transform.GetChild(2).GetComponent<CanvasGroup>().alpha = i;
+            yield return new WaitForSeconds(0.01f);
         }
     }
 
     private IEnumerator StartFinal()
     {
         SceneManager.LoadScene("Final 1");
-        spawningEnemies = false;
 
         TMPro.TextMeshProUGUI txt = gameOver.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
         string message = "Progr";
@@ -599,6 +605,7 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.Play("Area Final");
         StartCoroutine(AudioManager.Instance.StartFade("Area Final", 1, 0.25f));
         player.GetComponent<PlayerMovement>().TakeDamage(-20);
+        //TODO: reset player program cds
 
         float elapsed = 0;
         while (elapsed < 5f)
@@ -616,8 +623,48 @@ public class GameManager : MonoBehaviour
         enemyPrefabs.Add("Aggro");
         enemyPrefabs.Add("Evasive");
 
-        spawningEnemies = true;
         pauseGame = false;
+    }
+
+    private IEnumerator FinalNoDeath()
+    {
+        DialogueManager.Instance.PlayByID("OnDeath", true);
+        Camera.main.GetComponent<GlitchManager>().ShowGlitch(2, 1);
+        AudioManager.Instance.Play("Static");
+        AudioManager.Instance.Play("Game Over");
+        //StartCoroutine(AudioManager.Instance.StartFade("Area Final", 0.5f, 0.05f));
+
+        //TODO: computer anim providing shield & rebooting Reya
+        yield return new WaitForSeconds(0.5f);
+        player.GetComponent<PlayerMovement>().shield.SetActive(true);
+
+        yield return new WaitUntil(() => !DialogueManager.Instance.dialogue.activeSelf);
+        player.GetComponent<PlayerMovement>().TakeDamage(-20);
+        pauseGame = false;
+        GameObject vfx = Instantiate(finalVFX, player.position + new Vector3(0, -2.5f, 0), Quaternion.identity);
+        vfx.transform.GetChild(0).GetComponent<Animator>().Play("MemoryBurst");
+        player.GetComponent<PlayerMovement>().shield.SetActive(false);
+
+        //TODO: play SFX?
+
+        //knock back nearby enemies
+        Collider[] enemies = Physics.OverlapSphere(new Vector3(player.position.x, 1f, player.position.z), 10f, LayerMask.GetMask("Enemy"));
+        foreach (Collider enemy in enemies)
+        {
+            Rigidbody rb = enemy.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                Vector3 direction = (enemy.transform.position - player.position).normalized;
+                direction.y = 0.2f;
+                float distance = Vector3.Distance(new Vector3(player.position.x, 0, player.position.z), new Vector3(enemy.transform.position.x, 0, enemy.transform.position.z));
+                float forceMagnitude = Mathf.Lerp(3000f, 500f, distance / 10f); // Stronger force if closer
+                rb.GetComponent<Enemy>().stunTimer = 1f;
+                rb.AddForce(direction * forceMagnitude, ForceMode.Impulse);
+            }
+        }
+
+        AudioManager.Instance.Stop("Game Over");
+        //StartCoroutine(AudioManager.Instance.StartFade("Area Final", 0.05f, 0.25f));
     }
 
     public void Reset()

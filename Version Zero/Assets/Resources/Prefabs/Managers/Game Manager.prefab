@@ -63,7 +63,6 @@ MonoBehaviour:
   - Instinct
   - Memory
   enemyParent: {fileID: 0}
-  waves: 
   enemyTimer: {fileID: 0}
   terminalBar: {fileID: 6707010038411078085, guid: 2d9d87afa2fc5f04285eeb045bcb9a1d, type: 3}
   bar: {fileID: 0}
@@ -79,6 +78,7 @@ MonoBehaviour:
   bossUI: {fileID: 0}
   loadingText: {fileID: 0}
   gameOver: {fileID: 0}
+  finalVFX: {fileID: 4808948003568065144, guid: 2040c94536fd54cd1a2da425cfe2aef2, type: 3}
   debugSphereGreen: {fileID: 5140415721212421480, guid: 4d7651cbded78400e996555fcd7bcb95, type: 3}
   debugSphereRed: {fileID: 1612293334209307946, guid: b3ccb5a8aa246401db3ed36466c79d65, type: 3}
 --- !u!114 &4079633256185062833

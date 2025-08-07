@@ -89,7 +89,7 @@ public class ChargeEnemy : Enemy
             {
                 float angle = 0f;
                 if (numProjectiles > 1)
-                    angle = Mathf.Lerp(0, 360, (float)j / (numProjectiles - 1)) + baseAngle;
+                    angle = Mathf.Lerp(0, 360, (float)j/(numProjectiles)) + baseAngle;
                 Vector3 rotatedDir = Quaternion.Euler(0, angle, 0) * dir;
 
                 GameObject proj = Instantiate(projPrefab, transform.position + rotatedDir * 0.5f + new Vector3(0, 0.5f, 0), Quaternion.LookRotation(rotatedDir));

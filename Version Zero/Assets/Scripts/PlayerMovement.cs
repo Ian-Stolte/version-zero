@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     private float compPhase;
 
     [Header("Shield")]
-    [SerializeField] private GameObject shield;
+    public GameObject shield;
     [HideInInspector] public float shieldTimer;
 
     [Header("Misc")]
@@ -71,11 +71,14 @@ public class PlayerMovement : MonoBehaviour
         if (!Camera.main.GetComponent<GlitchManager>().showingGlitch)
             Camera.main.GetComponent<Glitch>().glitch = Mathf.Lerp(0, 0.3f, Mathf.Pow((maxHealth - health) / (1f * maxHealth), 3));
 
-        immunityTimer = Mathf.Max(0, immunityTimer - Time.deltaTime);
-        shieldTimer = Mathf.Max(0, shieldTimer - Time.deltaTime);
-        shield.SetActive(shieldTimer > 0);
+        if (!GameManager.Instance.pauseGame)
+        {
+            immunityTimer = Mathf.Max(0, immunityTimer - Time.deltaTime);
+            shieldTimer = Mathf.Max(0, shieldTimer - Time.deltaTime);
+            shield.SetActive(shieldTimer > 0);
+        }
 
-        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - 10*Time.deltaTime, rb.velocity.z);
+        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - 10*Time.deltaTime, rb.velocity.z); //apply gravity
     }
 
 
