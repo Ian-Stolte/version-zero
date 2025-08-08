@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float rotationSpeed;
     [HideInInspector] public Vector3 moveDir;
     private Rigidbody rb;
+    [HideInInspector] public bool cutsceneMovement;
 
     [Header("Health")]
     public int health;
@@ -40,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public float shieldTimer;
 
     [Header("Misc")]
-    [SerializeField] private Animator anim;
+    public Animator anim;
     [SerializeField] private Animator damageFlash;
     //Game Over
     private bool endingGame;
@@ -96,10 +97,14 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
             forward--;
 
+        //compute input direction
         Vector3 camForward = Vector3.ProjectOnPlane(Camera.main.transform.forward, Vector3.up).normalized;
         Vector3 camRight = Vector3.ProjectOnPlane(Camera.main.transform.right, Vector3.up).normalized;
-        moveDir = (lateral*camRight + forward*camForward).normalized;
-        if (moveDir != Vector3.zero && !GameManager.Instance.pauseGame && !GameManager.Instance.playerPaused && !GetComponent<PlayerPrograms>().dashing)
+        if (!cutsceneMovement)
+            moveDir = (lateral*camRight + forward*camForward).normalized;
+
+        //move or not move based on game state
+        if ((moveDir != Vector3.zero && !GameManager.Instance.pauseGame && !GameManager.Instance.playerPaused && !GetComponent<PlayerPrograms>().dashing) || (cutsceneMovement))
         {
             float spd = speed;
             float rotSpd = rotationSpeed;

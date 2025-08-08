@@ -24,11 +24,11 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool pauseGame;
     [HideInInspector] public bool playerPaused;
     [HideInInspector] public bool loadingLevel;
-    
+
     [Header("Rooms")]
     [SerializeField] private TextMeshProUGUI areaText;
     [SerializeField] private LayerMask terrainLayer;
-    
+
     [Header("Enemy Spawn")]
     [SerializeField] private List<string> enemyPrefabs; //TODO: change to struct w/ spawn pct, weight, etc
     [SerializeField] private string[] enemyTypes;
@@ -217,7 +217,7 @@ public class GameManager : MonoBehaviour
                     m.material = terminalGreen;
             }
         }
-        
+
         //check if spawning enemies
         if (scene.name != "End Screen")
         {
@@ -236,7 +236,7 @@ public class GameManager : MonoBehaviour
                 if (noSpawn)
                 {
                     foreach (Transform child in enemyParent)
-                       Destroy(child.gameObject);
+                        Destroy(child.gameObject);
                 }
             }
         }
@@ -271,22 +271,22 @@ public class GameManager : MonoBehaviour
 
 
         if (spawningEnemies && !pauseGame && !loadingLevel)
+        {
+            spawnTimer -= Time.deltaTime;
+            enemyTimer.GetChild(2).GetComponent<TextMeshProUGUI>().text = Mathf.Round(spawnTimer * 10) / 10f + "s";
+            enemyTimer.GetChild(4).GetComponent<Image>().fillAmount = 1 - spawnTimer / totalSpawn;
+            if (spawnTimer < 0)
             {
-                spawnTimer -= Time.deltaTime;
-                enemyTimer.GetChild(2).GetComponent<TextMeshProUGUI>().text = Mathf.Round(spawnTimer * 10) / 10f + "s";
-                enemyTimer.GetChild(4).GetComponent<Image>().fillAmount = 1 - spawnTimer / totalSpawn;
-                if (spawnTimer < 0)
-                {
-                    StartCoroutine(SpawnEnemies(1));
-                    spawnTimer = Random.Range(minSpawn, maxSpawn);
-                    totalSpawn = spawnTimer;
-                }
+                StartCoroutine(SpawnEnemies(1));
+                spawnTimer = Random.Range(minSpawn, maxSpawn);
+                totalSpawn = spawnTimer;
             }
+        }
     }
 
 
 
-    public IEnumerator SpawnEnemies(int n, Vector3 setPos = default, bool debug=false)
+    public IEnumerator SpawnEnemies(int n, Vector3 setPos = default, bool debug = false)
     {
         if (loadingLevel || enemyParent.childCount >= 25)
             yield break;
@@ -360,7 +360,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
     }
-    
+
 
 
     public IEnumerator UseTerminal()
@@ -614,7 +614,7 @@ public class GameManager : MonoBehaviour
             yield return null;
             elapsed += Time.deltaTime;
         }
-        DialogueManager.Instance.PlayByID("Final_Intro");      
+        DialogueManager.Instance.PlayByID("Final_Intro");
         yield return new WaitUntil(() => !DialogueManager.Instance.dialogue.activeSelf);
 
         enemyPrefabs.Add("Swarm");
@@ -700,18 +700,58 @@ public class GameManager : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-        #endif
+#endif
     }
-}
 
 
-[System.Serializable]
-public class Room
-{
-    public string name;
-    public bool active;
-    public float weight;
-    //tags like encounter type, etc.
+
+    public IEnumerator Ending()
+    {
+        pauseGame = true;
+        PlayerMovement p = player.GetComponent<PlayerMovement>();
+        Transform accessPt = GameObject.Find("Access Point").transform;
+
+        DialogueManager.Instance.PlayByID("M_Approach");
+
+        yield return new WaitUntil(() => !DialogueManager.Instance.dialogue.activeSelf);
+        pauseGame = false;
+    }
+
+    public IEnumerator LastAccessPt()
+    {
+        pauseGame = true;
+        spawningEnemies = false;
+        foreach (Transform child in enemyParent)
+            Destroy(child.gameObject);
+
+        RewardManager.Instance.Reward(3); //TODO: make sure compile button doesn't work
+        yield return new WaitForSeconds(3f);
+
+        //show program creation UI glitching in and out
+        GameObject canvas = GameObject.Find("Canvas");
+        for (int i = 0; i < 5; i++)
+        {
+            canvas.SetActive(false);
+            yield return new WaitForSeconds(Random.Range(0f, 0.05f));
+            canvas.SetActive(true);
+            yield return new WaitForSeconds(Random.Range(0f, 0.4f));
+        }
+
+        DialogueManager.Instance.PlayByID("Final_Ending"); //TODO: troubleshoot only 1st line of dialogue playing
+        yield return new WaitForSeconds(2f);
+
+        //more glitches
+        /*for (int i = 0; i < 10; i++)
+        {
+            canvas.SetActive(false);
+            yield return new WaitForSeconds(Random.Range(0f, 0.05f));
+            canvas.SetActive(true);
+            yield return new WaitForSeconds(Random.Range(0f, 0.4f));
+        }*/
+        yield return new WaitUntil(() => !DialogueManager.Instance.dialogue.activeSelf);
+
+        //ending sequence -> credits
+    }
 }

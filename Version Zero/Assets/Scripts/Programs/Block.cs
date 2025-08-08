@@ -32,7 +32,7 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
     [Header("Spell Effects")]
     public int lvls;
     public string sector;
-    public string tag;
+    new public string tag;
     [SerializeField] private LayerMask targetLayer;
     public float minCd;
     public float cd;

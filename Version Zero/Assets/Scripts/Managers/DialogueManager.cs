@@ -42,7 +42,7 @@ public class DialogueManager : MonoBehaviour
     private bool skip;
     [SerializeField] private TextMeshProUGUI areaIntroText;
 
-    
+
     void OnEnable() { SceneManager.sceneLoaded += OnSceneLoaded; }
     void OnDisable() { SceneManager.sceneLoaded -= OnSceneLoaded; }
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -69,6 +69,8 @@ public class DialogueManager : MonoBehaviour
 
     public void PlayMultiple(string[] lines)
     {
+        foreach (string s in lines)
+            Debug.Log(s);
         StopCoroutines();
         playMultipleCor = PlayMultipleDialogues(lines);
         StartCoroutine(playMultipleCor);
@@ -81,7 +83,7 @@ public class DialogueManager : MonoBehaviour
             if (playCor != null)
                 StopCoroutine(playCor);
             playCor = PlayDialogue(s, 2f);
-            yield return playCor; 
+            yield return playCor;
         }
     }
 
@@ -129,9 +131,9 @@ public class DialogueManager : MonoBehaviour
                 }
             }
         }
-        if (line[line.Length-1] == '—')
+        if (line[line.Length - 1] == '—')
             waitTime *= 0.5f;
-            
+
         skip = false;
         while (!skip && waitTime > 0)
         {
@@ -168,7 +170,7 @@ public class DialogueManager : MonoBehaviour
     ///////// LOAD FROM BANK /////////
     //////////////////////////////////
 
-    public string[] PlayByID(string ID, bool play=true, bool persistent=false)
+    public string[] PlayByID(string ID, bool play = true, bool persistent = false)
     {
         if (persistent)
             lvlNum = 0;
@@ -236,7 +238,7 @@ public class DialogueManager : MonoBehaviour
             {
                 if (!file.Contains(".meta"))
                 {
-                    string relativePath = Path.GetRelativePath(Application.dataPath, file).Substring("Resources".Length+1);
+                    string relativePath = Path.GetRelativePath(Application.dataPath, file).Substring("Resources".Length + 1);
                     relativePath = Path.ChangeExtension(relativePath, null);
                     var res = Resources.Load<TextAsset>(relativePath).text;
                     var dict = ParseJsonToDictionary(res);
@@ -338,7 +340,7 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             GameManager.Instance.pauseGame = false;
         }
-        
+
         //show area intro text
         float waitTime = 0.1f;
         foreach (char ch in "Abandoned Rooftop, Hightower District\n(Virtual Reality)")
@@ -412,7 +414,7 @@ public class DialogueManager : MonoBehaviour
         float elapsed = 0;
         while (elapsed < 15)
         {
-            progressBar.fillAmount = Mathf.Min(elapsed/25, progressBar.fillAmount + (Random.Range(0.01f, 0.2f)/25));
+            progressBar.fillAmount = Mathf.Min(elapsed / 25, progressBar.fillAmount + (Random.Range(0.01f, 0.2f) / 25));
             float randomWait = Random.Range(0.01f, 0.2f);
             elapsed += randomWait;
             yield return new WaitForSeconds(randomWait);
@@ -425,7 +427,7 @@ public class DialogueManager : MonoBehaviour
         for (float i = 2; i > 0; i -= 0.01f)
         {
             yield return new WaitForSeconds(0.01f);
-            buildSelect.GetChild(1).GetComponent<CanvasGroup>().alpha = i/2f;
+            buildSelect.GetChild(1).GetComponent<CanvasGroup>().alpha = i / 2f;
         }
         buildSelect.GetChild(1).gameObject.SetActive(false);
     }

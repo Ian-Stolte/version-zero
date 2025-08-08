@@ -63,7 +63,7 @@ public class ScatterProjectile : MonoBehaviour
                 tickTimer = (dist < atkRange) ? tickTimer - Time.deltaTime : tickTime / 2f;
                 transform.GetChild(0).GetChild(0).gameObject.SetActive(dist < atkRange);
 
-                if (tickTimer <= 0)
+                if (tickTimer <= 0 && !GameManager.Instance.pauseGame)
                 {
                     tickTimer = tickTime;
                     player.GetComponent<PlayerMovement>().TakeDamage(dmg);

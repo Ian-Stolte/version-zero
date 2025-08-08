@@ -10,6 +10,10 @@ public class AccessPoint : MonoBehaviour
     [SerializeField] private float interactDist;
     private bool used;
 
+    [Header("On Approach")]
+    [SerializeField] private bool dialogueOnApproach;
+    private bool approached;
+
     [Header("On Complete")]
     public GameObject[] showOnComplete;
 
@@ -28,6 +32,20 @@ public class AccessPoint : MonoBehaviour
 
     void Update()
     {
+        if (dialogueOnApproach && !approached)
+        {
+            if (Vector3.Distance(player.position, transform.position) < 13)
+            {
+                approached = true;
+                if (SceneManager.GetActiveScene().name == "Final 10")
+                    StartCoroutine(GameManager.Instance.Ending());
+                else
+                    DialogueManager.Instance.PlayByID("M_Approach");
+            }
+        }
+
+
+
         bool playerClose = Vector3.Distance(player.position, transform.position) < interactDist;
         transform.GetChild(0).gameObject.SetActive(playerClose);
         transform.GetChild(0).transform.forward = cam.forward;
@@ -39,6 +57,8 @@ public class AccessPoint : MonoBehaviour
                 used = true;
                 if (SceneManager.GetActiveScene().name == "Level 2")
                     StartCoroutine(DialogueManager.Instance.FirstAccessPt());
+                else if (SceneManager.GetActiveScene().name == "Final 10")
+                    StartCoroutine(GameManager.Instance.LastAccessPt());
                 else
                 {
                     RewardManager.Instance.Reward(3);

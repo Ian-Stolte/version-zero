@@ -12,6 +12,8 @@ public class CameraFollow : MonoBehaviour
     public Vector3 offset;
     public float rotationSpeed;
 
+    public bool cutscene;
+
 
     void Start()
     {
@@ -22,7 +24,7 @@ public class CameraFollow : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.Instance.pauseGame)
+        if (!GameManager.Instance.pauseGame || cutscene)
         {
             transform.position = target.position - offset;
             /*if (rotSnap)
