@@ -51,9 +51,15 @@ public class ChargeEnemy : Enemy
             {
                 MoveTo(player.transform.position, speed);
             }
+            else
+            {
+                //rotate in place
+                float targetYRotation = Mathf.Repeat(transform.eulerAngles.y + 90f, 360f);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, targetYRotation, 0), Time.deltaTime);
+            }
 
             //attack
-            atkTimer = Mathf.Max(0, atkTimer - Time.deltaTime);
+                atkTimer = Mathf.Max(0, atkTimer - Time.deltaTime);
             if (atkTimer <= 0 && dist < atkRange && lineOfSight)
             {
                 StartCoroutine(Attack());
@@ -66,7 +72,7 @@ public class ChargeEnemy : Enemy
     private IEnumerator Attack()
     {
         attacking = true;
-        anim.Play("Charge_Attack");
+        //anim.Play("Charge_Attack");
 
         //wait for charge time
         float elapsed = 0f;

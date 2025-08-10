@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
             }
 
             //replace enemies with chosen type
-            if (sceneNum != 6 && sceneNum != 9)
+            if (sceneNum != 6 && sceneNum != 12)
             {
                 List<GameObject> newEnemies = new List<GameObject>();
                 foreach (Transform child in enemyParent)
@@ -196,7 +196,7 @@ public class GameManager : MonoBehaviour
         //check if spawning enemies
         if (scene.name != "End Screen")
         {
-            if (((sceneNum > 3 && sceneNum != 6 && sceneNum != 9) || (sceneNum == 3 && runNum > 1) || scene.name.Contains("Final")) && !noSpawn)
+            if (minSpawn > 0 && (sceneNum > 3 || (sceneNum == 3 && runNum > 1) || scene.name.Contains("Final")) && !noSpawn)
             {
                 enemyTimer.gameObject.SetActive(true);
                 player.GetComponent<PlayerMovement>().hpBar.gameObject.SetActive(true);
@@ -510,7 +510,7 @@ public class GameManager : MonoBehaviour
         }
         yield return new WaitForSeconds(1);
 
-        if (SceneManager.GetActiveScene().name == "Level 12")
+        if (SceneManager.GetActiveScene().name == "Level 16")
         {
             StartCoroutine(StartFinal());
             yield break;

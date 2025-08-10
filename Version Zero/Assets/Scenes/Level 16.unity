@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465788, g: 0.49641287, b: 0.5748173, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -212,6 +212,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Charge_Logic (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 2068783054567146362, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5823249285815231021, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.48818305
@@ -260,11 +264,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7979471968264510353, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 22.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7979471968264510353, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 20.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+--- !u!4 &82631788 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7979471968264510353, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+  m_PrefabInstance: {fileID: 82631787}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &97006896
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,6 +449,10 @@ PrefabInstance:
     - target: {fileID: 2185829349041310739, guid: 8ad23ba6f2c2e4b259204661c4d070d3, type: 3}
       propertyPath: m_Name
       value: Landmine_Logic (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185829349041310739, guid: 8ad23ba6f2c2e4b259204661c4d070d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -858,11 +879,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 209530953}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &212236668 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5823249285815231021, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
-  m_PrefabInstance: {fileID: 1309667914}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &233099732
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,6 +1107,10 @@ PrefabInstance:
     - target: {fileID: 2185829349041310739, guid: 8ad23ba6f2c2e4b259204661c4d070d3, type: 3}
       propertyPath: m_Name
       value: Landmine_Logic
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185829349041310739, guid: 8ad23ba6f2c2e4b259204661c4d070d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1862,6 +1882,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Charge_Logic
       objectReference: {fileID: 0}
+    - target: {fileID: 2068783054567146362, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5823249285815231021, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.48818344
@@ -1915,6 +1939,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+--- !u!4 &407305228 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7979471968264510353, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+  m_PrefabInstance: {fileID: 407305227}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &407774139 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6779582893514965655, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
@@ -2213,6 +2242,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Charge_Logic (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2068783054567146362, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5823249285815231021, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.48818305
@@ -2261,11 +2294,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7979471968264510353, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 18.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7979471968264510353, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -31.46
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+--- !u!4 &495477094 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7979471968264510353, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+  m_PrefabInstance: {fileID: 495477093}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &496829803
 GameObject:
   m_ObjectHideFlags: 0
@@ -2349,11 +2395,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 496829803}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &511640064 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5823249285815231021, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
-  m_PrefabInstance: {fileID: 863247539}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &526987479
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2852,11 +2893,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 611828775}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &682003185 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5823249285815231021, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
-  m_PrefabInstance: {fileID: 495477093}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &698386259
 GameObject:
   m_ObjectHideFlags: 0
@@ -3749,6 +3785,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Charge_Logic (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2068783054567146362, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5823249285815231021, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.48818305
@@ -3797,11 +3837,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7979471968264510353, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 57.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7979471968264510353, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -35.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+--- !u!4 &863247540 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7979471968264510353, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+  m_PrefabInstance: {fileID: 863247539}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &866417943
 GameObject:
   m_ObjectHideFlags: 0
@@ -4440,11 +4493,6 @@ Transform:
   - {fileID: 1162688001}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &988412734 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5823249285815231021, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
-  m_PrefabInstance: {fileID: 1645575266}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &995371015
 GameObject:
   m_ObjectHideFlags: 0
@@ -4557,6 +4605,10 @@ PrefabInstance:
     - target: {fileID: 2185829349041310739, guid: 8ad23ba6f2c2e4b259204661c4d070d3, type: 3}
       propertyPath: m_Name
       value: Landmine_Logic (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185829349041310739, guid: 8ad23ba6f2c2e4b259204661c4d070d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5741,11 +5793,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1167333600}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1176184117 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5823249285815231021, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
-  m_PrefabInstance: {fileID: 82631787}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1200941633
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5797,6 +5844,10 @@ PrefabInstance:
     - target: {fileID: 2185829349041310739, guid: 8ad23ba6f2c2e4b259204661c4d070d3, type: 3}
       propertyPath: m_Name
       value: Landmine_Logic (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185829349041310739, guid: 8ad23ba6f2c2e4b259204661c4d070d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6108,6 +6159,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Landmine_Logic (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 2185829349041310739, guid: 8ad23ba6f2c2e4b259204661c4d070d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6412,6 +6467,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Charge_Logic (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2068783054567146362, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5823249285815231021, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.48818305
@@ -6460,11 +6519,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7979471968264510353, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 49.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 7979471968264510353, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -41.12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+--- !u!4 &1309667915 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7979471968264510353, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+  m_PrefabInstance: {fileID: 1309667914}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1312549067 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1521777534508422825, guid: 8ad23ba6f2c2e4b259204661c4d070d3, type: 3}
@@ -7586,6 +7658,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Landmine_Logic (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 2185829349041310739, guid: 8ad23ba6f2c2e4b259204661c4d070d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7704,6 +7780,10 @@ PrefabInstance:
     - target: {fileID: 2185829349041310739, guid: 8ad23ba6f2c2e4b259204661c4d070d3, type: 3}
       propertyPath: m_Name
       value: Landmine_Logic (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185829349041310739, guid: 8ad23ba6f2c2e4b259204661c4d070d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7915,26 +7995,26 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1809393497}
+  - {fileID: 407305228}
   - {fileID: 725440714}
   - {fileID: 89649}
-  - {fileID: 682003185}
+  - {fileID: 495477094}
   - {fileID: 1312549067}
   - {fileID: 153628389}
   - {fileID: 1023027017}
   - {fileID: 1963380818}
-  - {fileID: 988412734}
-  - {fileID: 212236668}
+  - {fileID: 1645575267}
+  - {fileID: 1309667915}
   - {fileID: 25313029}
   - {fileID: 960061430}
   - {fileID: 2012050412}
   - {fileID: 121069791}
   - {fileID: 748284392}
   - {fileID: 311907436}
-  - {fileID: 511640064}
+  - {fileID: 863247540}
   - {fileID: 1502147717}
   - {fileID: 2144774244}
-  - {fileID: 1176184117}
+  - {fileID: 82631788}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1548995605
@@ -8414,6 +8494,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Landmine_Logic (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2185829349041310739, guid: 8ad23ba6f2c2e4b259204661c4d070d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8493,6 +8577,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Charge_Logic (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2068783054567146362, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5823249285815231021, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.48818305
@@ -8541,11 +8629,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7979471968264510353, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 29.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 7979471968264510353, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -21.87
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+--- !u!4 &1645575267 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7979471968264510353, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
+  m_PrefabInstance: {fileID: 1645575266}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1722608506
 GameObject:
   m_ObjectHideFlags: 0
@@ -8750,11 +8851,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2485507487164972649, guid: dbc6da13947dc374a9591e24a0aeb8b8, type: 3}
   m_PrefabInstance: {fileID: 1753096564}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1809393497 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5823249285815231021, guid: a0cb9765c4a3943968c2705b1cb45e7f, type: 3}
-  m_PrefabInstance: {fileID: 407305227}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1810239126
 GameObject:
   m_ObjectHideFlags: 0
@@ -8929,6 +9025,7 @@ MonoBehaviour:
   rotSnap: 0
   offset: {x: -5, y: -4.774, z: 5.32}
   rotationSpeed: 80
+  cutscene: 0
 --- !u!114 &1844514598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9254,6 +9351,10 @@ PrefabInstance:
     - target: {fileID: 2185829349041310739, guid: 8ad23ba6f2c2e4b259204661c4d070d3, type: 3}
       propertyPath: m_Name
       value: Landmine_Logic (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185829349041310739, guid: 8ad23ba6f2c2e4b259204661c4d070d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9702,6 +9803,10 @@ PrefabInstance:
     - target: {fileID: 2185829349041310739, guid: 8ad23ba6f2c2e4b259204661c4d070d3, type: 3}
       propertyPath: m_Name
       value: Landmine_Logic (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185829349041310739, guid: 8ad23ba6f2c2e4b259204661c4d070d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

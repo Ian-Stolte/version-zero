@@ -69,8 +69,6 @@ public class DialogueManager : MonoBehaviour
 
     public void PlayMultiple(string[] lines)
     {
-        foreach (string s in lines)
-            Debug.Log(s);
         StopCoroutines();
         playMultipleCor = PlayMultipleDialogues(lines);
         StartCoroutine(playMultipleCor);

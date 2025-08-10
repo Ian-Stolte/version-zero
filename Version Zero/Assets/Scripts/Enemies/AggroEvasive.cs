@@ -213,21 +213,23 @@ public class AggroEvasive : Enemy
     {
         atkTimer = Random.Range(2f, 6f);
 
-        foreach (Transform child in transform.GetChild(2))
+        /*foreach (Transform child in transform.GetChild(2))
         {
             child.gameObject.SetActive(false);
             yield return new WaitForSeconds(0.1f);
-        }
+        }*/
+        transform.GetChild(2).gameObject.SetActive(false);
 
         int sign = (Random.Range(0f, 1f) > 0.5f) ? 1 : -1;
         StartCoroutine(Dash(Random.Range(70, 110) * sign, 1, 0.5f));
 
         yield return new WaitForSeconds(7f);
-        foreach (Transform child in transform.GetChild(2))
+        /*foreach (Transform child in transform.GetChild(2))
         {
             child.gameObject.SetActive(true);
             yield return new WaitForSeconds(0.1f);
-        }
+        }*/
+        transform.GetChild(2).gameObject.SetActive(true);
     }
 
 
@@ -236,11 +238,8 @@ public class AggroEvasive : Enemy
     {
         SwitchMode();
         attacking = true;
-        GetComponent<Animator>().Play("Aggro_Attack");
-        foreach (Transform child in transform.GetChild(2))
-        {
-            child.gameObject.SetActive(true);
-        }
+        GetComponent<Animator>().Play("Hunter_Dash");
+        transform.GetChild(2).gameObject.SetActive(true);
 
         float offsetDir = (slash) ? -2f : 3;
         Vector3 target = player.transform.position + player.GetComponent<PlayerMovement>().moveDir*2 + (player.transform.position - transform.position).normalized * offsetDir;
@@ -263,6 +262,7 @@ public class AggroEvasive : Enemy
         atkWarning = Instantiate(atkPrefab, new Vector3(target.x, 0, target.z), transform.rotation);
         StartCoroutine(AttackIndicator(atkWarning.transform.GetChild(0), duration));
 
+        //chance to dash before attacking
         bool preDash = Random.Range(0f, 1f) > 0.5f && !slash;
         if (preDash && Vector3.Distance(target, transform.position) > 7)
         {
@@ -296,6 +296,7 @@ public class AggroEvasive : Enemy
 
         if (slash)
         {
+            anim.Play("Hunter_Circle");
             //circle slash
             atkWarning = Instantiate(slashPrefab, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
             yield return StartCoroutine(AttackIndicator(atkWarning.transform.GetChild(0), 0.4f));
@@ -418,7 +419,7 @@ public class AggroEvasive : Enemy
     {
         SwitchMode();
         attacking = true;
-        anim.Play("Evasive_Attack");
+        anim.Play("Hunter_GoHorizontal");
 
         //wait 0.5 sec to charge
         float elapsed = 0f;
@@ -432,10 +433,7 @@ public class AggroEvasive : Enemy
                 yield break;
             }
         }
-        foreach (Transform child in transform.GetChild(2))
-        {
-            child.gameObject.SetActive(true);
-        }
+        transform.GetChild(2).gameObject.SetActive(true);
 
         int sign = (Random.Range(0f, 1f) > 0.5f) ? 1 : -1;
         StartCoroutine(Dash(Random.Range(70, 110) * sign));
@@ -469,12 +467,14 @@ public class AggroEvasive : Enemy
             }
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
+        anim.Play("Hunter_GoUpright");
         attacking = false;
     }
 
     private void FireProjectiles(int numProj, int speedBoost=0)
     {
+        anim.Play("Hunter_Shoot");
         Vector3 dir = Vector3.Scale(player.transform.position - transform.position, new Vector3(1, 0, 1)).normalized;
         rb.AddForce(dir * -200, ForceMode.Impulse);
         for (int i = 0; i < numProj; i++)
