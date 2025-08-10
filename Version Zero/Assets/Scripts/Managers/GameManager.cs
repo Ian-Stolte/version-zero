@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private LayerMask terrainLayer;
 
     [Header("Enemy Spawn")]
-    [SerializeField] private List<string> enemyPrefabs; //TODO: change to struct w/ spawn pct, weight, etc
+    [SerializeField] private string[] enemyPrefabs; //TODO: change to struct w/ spawn pct, weight, etc
     [SerializeField] private string[] enemyTypes;
     private string enemyType = "Logic";
     [SerializeField] private Transform enemyParent;
@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     private float spawnTimer;
     private float totalSpawn;
     private bool spawningEnemies;
+    [SerializeField] private Vector3[] spawnDelays;
     private float minSpawn = 15;
     private float maxSpawn = 25;
 
@@ -70,16 +71,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject debugSphereRed;
 
 
-    void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
 
-    void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
+    void OnEnable() { SceneManager.sceneLoaded += OnSceneLoaded; }
+    void OnDisable() { SceneManager.sceneLoaded -= OnSceneLoaded; }
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         int sceneNum = 0;
@@ -112,58 +106,39 @@ public class GameManager : MonoBehaviour
                 icon.GetComponent<RectTransform>().anchoredPosition = new Vector2(-810, 450 - 130 * i - areaText.preferredHeight);
             }
 
-            //set spawn pct & enemies available by level
+            //set enemies available by level
             enemyType = enemyTypes[Random.Range(0, enemyTypes.Length)];
-            if (sceneNum == 3)
-            {
-                minSpawn = 15;
-                maxSpawn = 25;
-            }
             if (sceneNum == 4)
             {
-                enemyPrefabs.Add("Artillery");
-                minSpawn = 15;
-                maxSpawn = 25;
+                enemyPrefabs = new string[] { "Swarm", "Tank", "Artillery" };
             }
-            else if (sceneNum == 5)
+            else if (sceneNum == 7)
             {
-                minSpawn = 10;
-                maxSpawn = 20;
+                enemyPrefabs = new string[] { "Aggro" };
             }
-            else if (sceneNum >= 7 && sceneNum <= 9)
+            else if (sceneNum == 8)
             {
-                enemyPrefabs.Remove("Swarm");
-                enemyPrefabs.Remove("Tank");
-                enemyPrefabs.Remove("Artillery");
-                enemyPrefabs.Add("Aggro");
-                enemyPrefabs.Add("Evasive");
-                minSpawn = 10;
-                maxSpawn = 20;
+                enemyPrefabs = new string[] { "Aggro", "Evasive" };
             }
-            else if (sceneNum == 10)
+            else if (sceneNum == 13)
             {
-                enemyPrefabs.Remove("Aggro");
-                enemyPrefabs.Remove("Evasive");
-                enemyPrefabs.Add("Landmine");
-                enemyPrefabs.Add("Charge");
-                minSpawn = 8;
-                maxSpawn = 18;
+                enemyPrefabs = new string[] { "Landmine", "Charge" };
             }
-            else if (sceneNum == 11)
+            else if (sceneNum == 14)
             {
-                enemyPrefabs.Add("Scatter");
-                minSpawn = 10;
-                maxSpawn = 20;
+                enemyPrefabs = new string[] { "Landmine", "Charge", "Scatter" };
             }
-            else if (sceneNum == 12)
-            {
-                minSpawn = 3;
-                maxSpawn = 8;
-            }
-            else if (scene.name.Contains("Final"))
+
+            //set spawn delay
+            if (scene.name.Contains("Final"))
             {
                 minSpawn = 1;
                 maxSpawn = 3;
+            }
+            else
+            {
+                minSpawn = spawnDelays[sceneNum].x;
+                maxSpawn = spawnDelays[sceneNum].y;
             }
 
             //replace enemies with chosen type
@@ -195,7 +170,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        int runNum = 2;
+        int runNum = 1;
         if (SequenceManager.Instance != null)
             runNum = SequenceManager.Instance.runNum;
 
@@ -226,7 +201,7 @@ public class GameManager : MonoBehaviour
                 enemyTimer.gameObject.SetActive(true);
                 player.GetComponent<PlayerMovement>().hpBar.gameObject.SetActive(true);
                 spawningEnemies = true;
-                spawnTimer = Random.Range(minSpawn / 2f, maxSpawn / 2f);
+                spawnTimer = Random.Range(minSpawn / 2f, maxSpawn / 2f) + spawnDelays[sceneNum].z;
                 totalSpawn = spawnTimer;
             }
             else
@@ -241,6 +216,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
 
 
     private void Update()
@@ -301,7 +277,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < n; i++)
         {
-            string name = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)] + "_" + enemyType;
+            string name = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)] + "_" + enemyType;
             GameObject prefab = Resources.Load<GameObject>("Prefabs/Enemies/" + name);
             if (prefab != null)
             {
@@ -474,14 +450,11 @@ public class GameManager : MonoBehaviour
             yield return null;
 
         areaText.text = nextArea;
-        if (levelNum < 12)
-            SceneManager.LoadScene("Level " + levelNum);
-        else
-        {
-            SequenceManager.Instance.health = player.GetComponent<PlayerMovement>().health;
-            Destroy(player.gameObject);
-            SceneManager.LoadScene("End Screen");
-        }
+        SceneManager.LoadScene("Level " + levelNum);
+    
+        /*SequenceManager.Instance.health = player.GetComponent<PlayerMovement>().health;
+        Destroy(player.gameObject);
+        SceneManager.LoadScene("End Screen");*/
         loadingLevel = false;
     }
 
@@ -617,12 +590,7 @@ public class GameManager : MonoBehaviour
         DialogueManager.Instance.PlayByID("Final_Intro");
         yield return new WaitUntil(() => !DialogueManager.Instance.dialogue.activeSelf);
 
-        enemyPrefabs.Add("Swarm");
-        enemyPrefabs.Add("Tank");
-        enemyPrefabs.Add("Artillery");
-        enemyPrefabs.Add("Aggro");
-        enemyPrefabs.Add("Evasive");
-
+        enemyPrefabs = new string[] { "Swarm", "Tank", "Artillery", "Aggro", "Evasive", "Landmine", "Charge", "Scatter" };
         pauseGame = false;
     }
 
