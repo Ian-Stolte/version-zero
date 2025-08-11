@@ -72,7 +72,7 @@ public class ChargeEnemy : Enemy
     private IEnumerator Attack()
     {
         attacking = true;
-        //anim.Play("Charge_Attack");
+        anim.Play("Charge_Attack");
 
         //wait for charge time
         float elapsed = 0f;

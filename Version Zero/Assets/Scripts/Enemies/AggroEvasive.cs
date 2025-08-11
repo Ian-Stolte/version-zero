@@ -193,13 +193,22 @@ public class AggroEvasive : Enemy
 
 
 
-    private void SwitchMode()
+    private IEnumerator SwitchMode()
     {
+        yield return new WaitUntil(() => !attacking);
         if (Random.Range(0f, 1f) < modeSwitchPct)
         {
             modeSwitchPct = 0f;
             evasive = !evasive;
             atkTimer = 1.5f;
+            if (evasive)
+            {
+                anim.Play("Hunter_GoEvasive");
+            }
+            else
+            {
+                anim.Play("Hunter_GoAggro");
+            }
         }
         else
         {
@@ -236,8 +245,8 @@ public class AggroEvasive : Enemy
 
     private IEnumerator AggroAttack(bool slash)
     {
-        SwitchMode();
         attacking = true;
+        StartCoroutine(SwitchMode());
         GetComponent<Animator>().Play("Hunter_Dash");
         transform.GetChild(2).gameObject.SetActive(true);
 
@@ -281,6 +290,8 @@ public class AggroEvasive : Enemy
             canHitPlayer = true;
             hitboxOn = true;
         }
+        transform.GetChild(1).GetComponent<TrailRenderer>().emitting = true;
+
         dir = Vector3.Scale(target - transform.position, new Vector3(1, 0, 1)).normalized;
         while (Vector3.Distance(target+followThrough, transform.position) > 0.5f && attacking)
         {
@@ -310,6 +321,7 @@ public class AggroEvasive : Enemy
         }
 
         yield return new WaitForSeconds(0.2f);
+        transform.GetChild(1).GetComponent<TrailRenderer>().emitting = true;
         attacking = false;
     }
 
@@ -417,8 +429,8 @@ public class AggroEvasive : Enemy
 
     private IEnumerator EvasiveAttack()
     {
-        SwitchMode();
         attacking = true;
+        StartCoroutine(SwitchMode());
         anim.Play("Hunter_GoHorizontal");
 
         //wait 0.5 sec to charge
@@ -484,7 +496,7 @@ public class AggroEvasive : Enemy
                 angle = Mathf.Lerp(-30f, 30f, (float)i / (numProj - 1));
             Vector3 rotatedDir = Quaternion.Euler(0, angle, 0) * dir;
 
-            GameObject proj = Instantiate(projPrefab, transform.position + rotatedDir * 0.5f + new Vector3(0, 0.5f, 0), Quaternion.LookRotation(rotatedDir));
+            GameObject proj = Instantiate(projPrefab, transform.position + rotatedDir * 0.5f, Quaternion.LookRotation(rotatedDir));
             var projectile = proj.GetComponent<Projectile>();
             projectile.dmg = evasiveDmg;
             projectile.dir = rotatedDir;

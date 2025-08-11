@@ -538,7 +538,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 90ac25ab91a76f346b15c8b0a2366d2d, type: 2}
     - target: {fileID: 8901780109638216728, guid: 1671aca5b291bc04ba40fd574cdc49f1, type: 3}
       propertyPath: m_Name
-      value: Gardener_Logic
+      value: The Gardener
       objectReference: {fileID: 0}
     - target: {fileID: 9033751811346842967, guid: 1671aca5b291bc04ba40fd574cdc49f1, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -6034,6 +6034,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactKey: 102
   interactDist: 4
+  dialogueOnApproach: 0
   showOnComplete: []
   ID: M_A
 --- !u!65 &820593260
@@ -14045,6 +14046,7 @@ MonoBehaviour:
   rotSnap: 0
   offset: {x: -5, y: -4.774, z: 5.32}
   rotationSpeed: 80
+  cutscene: 0
 --- !u!114 &1844514598
 MonoBehaviour:
   m_ObjectHideFlags: 0

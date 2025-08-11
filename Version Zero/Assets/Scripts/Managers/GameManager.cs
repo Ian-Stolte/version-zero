@@ -109,25 +109,17 @@ public class GameManager : MonoBehaviour
             //set enemies available by level
             enemyType = enemyTypes[Random.Range(0, enemyTypes.Length)];
             if (sceneNum == 4)
-            {
                 enemyPrefabs = new string[] { "Swarm", "Tank", "Artillery" };
-            }
             else if (sceneNum == 7)
-            {
                 enemyPrefabs = new string[] { "Aggro" };
-            }
             else if (sceneNum == 8)
-            {
+                enemyPrefabs = new string[] { "Evasive" };
+            else if (sceneNum == 9)
                 enemyPrefabs = new string[] { "Aggro", "Evasive" };
-            }
             else if (sceneNum == 13)
-            {
                 enemyPrefabs = new string[] { "Landmine", "Charge" };
-            }
             else if (sceneNum == 14)
-            {
                 enemyPrefabs = new string[] { "Landmine", "Charge", "Scatter" };
-            }
 
             //set spawn delay
             if (scene.name.Contains("Final"))
