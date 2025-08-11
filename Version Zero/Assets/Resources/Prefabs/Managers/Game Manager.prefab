@@ -73,13 +73,13 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   - {x: 15, y: 22, z: 10}
   - {x: 10, y: 20, z: 10}
-  - {x: 10, y: 20, z: 0}
+  - {x: 8, y: 16, z: 4}
   - {x: 10, y: 20, z: 0}
   - {x: 10, y: 20, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 10, y: 20, z: 10}
   - {x: 8, y: 18, z: 0}
-  - {x: 8, y: 18, z: 8}
+  - {x: 10, y: 20, z: 8}
   - {x: 3, y: 8, z: 0}
   terminalBar: {fileID: 6707010038411078085, guid: 2d9d87afa2fc5f04285eeb045bcb9a1d, type: 3}
   bar: {fileID: 0}
