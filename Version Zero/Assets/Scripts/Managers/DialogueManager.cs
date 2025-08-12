@@ -56,7 +56,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && (GameManager.Instance.pauseGame || GameManager.Instance.loadingLevel))
         {
             skip = true;
         }
@@ -114,13 +114,13 @@ public class DialogueManager : MonoBehaviour
                 html += c;
             else if (c == '`')
             {
-                if (!skip || !GameManager.Instance.pauseGame)
+                if (!skip)
                     yield return new WaitForSeconds(0.15f * typeSpeed);
             }
             else if (c != '~')
             {
                 txt.text += c;
-                if (!skip || !GameManager.Instance.pauseGame)
+                if (!skip)
                 {
                     if (c == '.' || c == ',')
                         yield return new WaitForSeconds(0.15f * typeSpeed);
@@ -243,6 +243,18 @@ public class DialogueManager : MonoBehaviour
                     relativePath = Path.ChangeExtension(relativePath, null);
                     var res = Resources.Load<TextAsset>(relativePath).text;
                     var dict = ParseJsonToDictionary(res);
+                    foreach (var outerKey in dict.Keys)
+                    {
+                        var innerDict = dict[outerKey];
+                        var keysToUpdate = new List<string>(innerDict.Keys);
+                        foreach (var innerKey in keysToUpdate)
+                        {
+                            if (innerDict[innerKey] != null && innerDict[innerKey].Contains("--"))
+                            {
+                                innerDict[innerKey] = innerDict[innerKey].Replace("--", "—");
+                            }
+                        }
+                    }
                     dialogueBank.Add(dict);
                     var counts = new Dictionary<string, int>();
                     foreach (var key in dict.Keys)
@@ -376,7 +388,7 @@ public class DialogueManager : MonoBehaviour
             ProgramManager.Instance.programUI.gameObject.SetActive(true);
             StopCoroutines();
             yield return new WaitForSeconds(1.5f);
-            string[] firstAccessPt = PlayByID("M_Intro", false);
+            string[] firstAccessPt = PlayByID("Access_Intro", false);
             for (int i = 0; i < firstAccessPt.Length; i++)
             {
                 yield return PlayDialogue(firstAccessPt[i], 1f);
@@ -389,7 +401,7 @@ public class DialogueManager : MonoBehaviour
                 }
             }
             yield return new WaitForSeconds(3);
-            PlayByID("M_A");
+            PlayByID("Access_A");
         }
         else
         {

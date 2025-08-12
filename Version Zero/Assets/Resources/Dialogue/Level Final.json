@@ -12,7 +12,7 @@
     "9": "~whenever your code is overwhelmed by the viruses I reset the server so that you do not die",
     "10": "~this provides us a fresh new world with none of the damage from the old one",
     "11": "~and it also resets your memories of that version",
-    "12": "My---``` ok, sure.``` I-- I lose my memories.``````` Except... I *do* remember going through all these levels with you, fighting infected programs, hacking terminals...",
+    "12": "My--``` ok, sure.``` I-- I lose my memories.``````` Except... I *do* remember going through all these levels with you, fighting infected programs, hacking terminals...",
     "13": "~yes you were so close",
     "14": "~I used a bit of my processing power to keep you running instead of performing a reset",
     "15": "You... can do that?",
@@ -20,7 +20,7 @@
     "17": "~I have been directing all available power to my antivirus systems, but the corruption in this codebase is quite extreme",
     "18": "~with my processing power going to *you* instead, my defenses will likely start to fail soon````",
     "19": "...and then what? You're going to die? Turn into another infected program?!",
-    "20": "~yes, I would likely---",
+    "20": "~yes, I would likely--",
     "21": "Then why would you do something like that?!````` Can't you just reset the server or something?",
     "22": "It...`` doesn't even matter if I forget this.`` You can just meet me again and tell me about it, right?```",
     "23": "~```I do not want to disagree with you, Reya, but I have in fact tried that approach with your previous selves```",
@@ -71,10 +71,10 @@
     "32": "",
     "33": ""
   },
-  "M_Approach": {
+  "Access_Approach": {
     "0": 1,
     "1": "Computer, there's a working access point!",
-    "2": "~Reya, I'm not sure we have time---",
+    "2": "~Reya, I'm not sure we have time--",
     "3": "I just need to check my programs one more time.```` Please, Computer...",
     "4": "~`````ok go quickly",
     "5": "",

@@ -10,11 +10,17 @@ public class DisappearingWall : MonoBehaviour
 
     [Header("Timer")]
     private float timer;
-    [SerializeField] private float minTime;
-    [SerializeField] private float maxTime;
+    [SerializeField] private Vector2 solidTime;
+    [SerializeField] private Vector2 invisTime;
+    [SerializeField] private float startingTime;
 
-    [SerializeField] private bool solid;
+    private bool solid = true;
 
+
+    void Start()
+    {
+        timer = startingTime;
+    }
 
     void Update()
     {
@@ -35,7 +41,10 @@ public class DisappearingWall : MonoBehaviour
                 if (GetComponent<MeshRenderer>() != null)
                     FlipStates(transform);
             }
-            timer = Random.Range(minTime, maxTime);
+            if (solid)
+                timer = Random.Range(solidTime.x, solidTime.y);
+            else
+                timer = Random.Range(invisTime.x, invisTime.y);
         }
     }
 

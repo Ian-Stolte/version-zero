@@ -75,13 +75,13 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: f2a86b09d81bfa1418f5269401ede4cd, type: 3}
     volume: 0
     pitch: 1
-    loop: 0
+    loop: 1
     source: {fileID: 0}
   - name: Area Final
     clip: {fileID: 8300000, guid: 0e3a7f3c8f8874c48b1315ed9777d23d, type: 3}
     volume: 0
     pitch: 1
-    loop: 0
+    loop: 1
     source: {fileID: 0}
   - name: Startup UI
     clip: {fileID: 8300000, guid: 0eb01312f581b7e4687b2bafe5277058, type: 3}

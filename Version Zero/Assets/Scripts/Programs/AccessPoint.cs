@@ -8,6 +8,7 @@ public class AccessPoint : MonoBehaviour
     [Header("Interaction")]
     [SerializeField] private KeyCode interactKey;
     [SerializeField] private float interactDist;
+    [SerializeField] private bool reward;
     private bool used;
 
     [Header("On Approach")]
@@ -16,6 +17,7 @@ public class AccessPoint : MonoBehaviour
 
     [Header("On Complete")]
     public GameObject[] showOnComplete;
+    [SerializeField] private Material usedMat;
 
     [Header("Dialogue")]
     public string ID;
@@ -40,16 +42,13 @@ public class AccessPoint : MonoBehaviour
                 if (SceneManager.GetActiveScene().name == "Final 10")
                     StartCoroutine(GameManager.Instance.Ending());
                 else
-                    DialogueManager.Instance.PlayByID("M_Approach");
+                    DialogueManager.Instance.PlayByID("Access_Approach");
             }
         }
-
-
 
         bool playerClose = Vector3.Distance(player.position, transform.position) < interactDist;
         transform.GetChild(0).gameObject.SetActive(playerClose);
         transform.GetChild(0).transform.forward = cam.forward;
-
         if (playerClose && Input.GetKeyDown(interactKey))
         {
             if (!used)
@@ -59,12 +58,21 @@ public class AccessPoint : MonoBehaviour
                     StartCoroutine(DialogueManager.Instance.FirstAccessPt());
                 else if (SceneManager.GetActiveScene().name == "Final 10")
                     StartCoroutine(GameManager.Instance.LastAccessPt());
+
                 else
                 {
-                    RewardManager.Instance.Reward(3);
+                    if (reward)
+                    {
+                        RewardManager.Instance.Reward(3);
+                        GetComponent<MeshRenderer>().material = usedMat;
+                    }
+                    else
+                        ProgramManager.Instance.Reforge();
+
                     if (ID != "")
                         StartCoroutine(DelayedDialogue());
                 }
+
                 if (showOnComplete != null)
                 {
                     foreach (GameObject g in showOnComplete)

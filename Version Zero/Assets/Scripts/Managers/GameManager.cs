@@ -108,7 +108,9 @@ public class GameManager : MonoBehaviour
 
             //set enemies available by level
             enemyType = enemyTypes[Random.Range(0, enemyTypes.Length)];
-            if (sceneNum == 4)
+            if (sceneNum == 2 || sceneNum == 3)
+                enemyPrefabs = new string[] { "Swarm", "Tank" };
+            else if (sceneNum == 4)
                 enemyPrefabs = new string[] { "Swarm", "Tank", "Artillery" };
             else if (sceneNum == 7)
                 enemyPrefabs = new string[] { "Aggro" };

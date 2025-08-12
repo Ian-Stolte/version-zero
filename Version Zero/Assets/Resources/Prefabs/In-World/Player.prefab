@@ -155,15 +155,17 @@ MonoBehaviour:
   speed: 6
   rotationSpeed: 10
   moveDir: {x: 0, y: 0, z: 0}
+  cutsceneMovement: 0
   health: 2
   maxHealth: 20
   hpBar: {fileID: 0}
   maxBurstDmg: 4
   canDie: 1
   computer: {fileID: 0}
-  maxCompDist: 1.5
-  compDist: 0.6
-  dampTime: 0.15
+  maxCompDist: 2
+  compDist: 0.8
+  dampTime: 0.2
+  lastPos: []
   maxPosData: 40
   compYFreq: 0.5
   compYAmp: 0.02

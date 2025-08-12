@@ -700,7 +700,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -601, y: -143}
+  m_AnchoredPosition: {x: -598, y: -153.9}
   m_SizeDelta: {x: 115.484314, y: 108.75396}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &538198311067797526
@@ -2851,14 +2851,14 @@ RectTransform:
   m_GameObject: {fileID: 1498725585487525524}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.672349, y: 1.672349, z: 1.672349}
+  m_LocalScale: {x: 1.5071793, y: 1.5071793, z: 1.5071793}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8311788756695822978}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.0663, y: 35}
+  m_AnchoredPosition: {x: 5.0663, y: 28}
   m_SizeDelta: {x: 111.0292, y: 108.6321}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6175071387461775297
@@ -2933,7 +2933,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -589, y: -114.6}
+  m_AnchoredPosition: {x: -589, y: -117.5}
   m_SizeDelta: {x: 158.32996, y: 158.32999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1652668677764156525
@@ -8323,7 +8323,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.6, y: -81.8}
+  m_AnchoredPosition: {x: -1.6, y: -84}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1069455851994419100
@@ -9549,7 +9549,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -592.2, y: -145.5}
+  m_AnchoredPosition: {x: -593, y: -153}
   m_SizeDelta: {x: 115.484314, y: 108.75396}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5245414417858971397
@@ -11546,7 +11546,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1244321252458295409}
         m_TargetAssemblyTypeName: ProgramManager, Assembly-CSharp
         m_MethodName: ConfirmSpells
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

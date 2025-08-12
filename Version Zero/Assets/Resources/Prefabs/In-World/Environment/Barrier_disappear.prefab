@@ -329,7 +329,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8156955374489213891
 RectTransform:
   m_ObjectHideFlags: 0
@@ -601,6 +601,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transMat: {fileID: 2100000, guid: fbbf341428ec07b44953a041b8024a09, type: 2}
   solidMat: {fileID: 2100000, guid: 6cf26020712c4411aab7bd2ccc2523e1, type: 2}
-  minTime: 3
-  maxTime: 5
-  solid: 1
+  solidTime: {x: 0, y: 0}
+  invisTime: {x: 0, y: 0}
+  startingTime: 0

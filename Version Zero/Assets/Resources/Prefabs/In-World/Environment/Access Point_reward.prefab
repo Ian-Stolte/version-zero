@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3368382567398562307}
   - component: {fileID: 5664900677135948115}
   m_Layer: 0
-  m_Name: Access Point
+  m_Name: Access Point_reward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,8 +122,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactKey: 102
   interactDist: 4
+  reward: 1
   dialogueOnApproach: 0
   showOnComplete: []
+  usedMat: {fileID: 2100000, guid: f889ee110a5b91548ac8f6e9443e4497, type: 2}
   ID: 
 --- !u!1 &2463315242633788987
 GameObject:

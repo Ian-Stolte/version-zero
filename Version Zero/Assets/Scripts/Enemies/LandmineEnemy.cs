@@ -29,7 +29,7 @@ public class LandmineEnemy : Enemy
         base.Update();
 
         float dist = Vector3.Distance(player.transform.position, transform.position);
-        if (dist < aggroRange)
+        if (dist < aggroRange && transform.position.y < 3)
             aggro = true;
 
         if (!GameManager.Instance.pauseGame && aggro && stunTimer <= 0 && !inTransition && !destroying)

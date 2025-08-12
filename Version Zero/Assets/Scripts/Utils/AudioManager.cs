@@ -83,7 +83,7 @@ public class AudioManager : MonoBehaviour
             Play("Area 2");
             StartCoroutine(StartFade("Area 2", 2, 0.25f));
         }
-        else
+        else if (sceneNum > 0)
         {
             Play("Area 1");
             StartCoroutine(StartFade("Area 1", 2, 0.25f));

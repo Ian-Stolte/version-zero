@@ -187,13 +187,13 @@ public class WalkingTurret : Enemy
         yield return new WaitUntil(() => !GameManager.Instance.pauseGame);
         anim.Play("Gardener_Open");
         yield return new WaitForSeconds(0.3f);
-        AudioManager.Instance.Play("Walking Turret Fire");
 
         //randomly choose between different attack variations
         float random = Random.Range(0f, 1f);
         if (random < 0.5f)
         {
             //basic attack (70 at once)
+            AudioManager.Instance.Play("Walking Turret Fire");
             for (int i = 0; i < 70; i++)
             {
                 GameObject proj = Instantiate(projPrefab, transform.position + dir * 0.5f + new Vector3(0, 1, 0), Quaternion.LookRotation(dir));
@@ -207,6 +207,7 @@ public class WalkingTurret : Enemy
             //5 waves of 15
             for (int i = 0; i < 5; i++)
             {
+                AudioManager.Instance.Play("Walking Turret Fire");
                 for (int j = 0; j < 15; j++)
                 {
                     GameObject proj = Instantiate(projPrefab, transform.position + dir * 0.5f + new Vector3(0, 1, 0), Quaternion.LookRotation(dir));

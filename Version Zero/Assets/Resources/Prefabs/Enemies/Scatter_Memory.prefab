@@ -742,8 +742,8 @@ MonoBehaviour:
   aggro: 0
   stunTimer: 0
   slowTimer: 0
-  gridIndex: 2
-  collisionRadius: 2.5
+  gridIndex: 1
+  collisionRadius: 1.5
   terrainLayer:
     serializedVersion: 2
     m_Bits: 26624
