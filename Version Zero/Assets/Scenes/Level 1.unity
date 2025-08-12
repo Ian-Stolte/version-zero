@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465788, g: 0.49641287, b: 0.5748173, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4965,6 +4965,7 @@ MonoBehaviour:
   rotSnap: 0
   offset: {x: -5, y: -4.774, z: 5.32}
   rotationSpeed: 80
+  cutscene: 0
 --- !u!114 &1844514598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6144,7 +6145,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 622466f49ac0a20428cc97d91c13cbb1, type: 2}
     - target: {fileID: 1712194664605143150, guid: 372c20bebb6c4ee49ac758cf046f0dbc, type: 3}
       propertyPath: skipDialogue
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1712194664605143150, guid: 372c20bebb6c4ee49ac758cf046f0dbc, type: 3}
       propertyPath: areaIntroText

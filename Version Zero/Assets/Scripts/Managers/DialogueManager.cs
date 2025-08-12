@@ -49,7 +49,7 @@ public class DialogueManager : MonoBehaviour
     {
         terminalNum = 0;
         if (scene.name.Contains("Final"))
-            lvlNum = 10;
+            lvlNum = 17;
         else
             int.TryParse(scene.name.Substring(6), out lvlNum);
     }
@@ -93,6 +93,8 @@ public class DialogueManager : MonoBehaviour
         //type out dialogue
         TextMeshProUGUI txt = dialogue.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         txt.text = "";
+        txt.fontSize = (line.Length > 100) ? 32 : 35;
+        
         dialogue.SetActive(true);
         bool addingHTML = false;
         string html = "";
@@ -146,7 +148,8 @@ public class DialogueManager : MonoBehaviour
     {
         portraits[0].SetActive(line[0] != '~' && line[0] != '!'); //reya
         portraits[1].SetActive(line[0] == '~'); //computer
-        portraits[2].SetActive(line[0] == '!'); //gardener
+        portraits[2].SetActive(line[0] == '!' && lvlNum == 6); //gardener
+        portraits[3].SetActive(line[0] == '!' && lvlNum == 12); //hunter
         if (line[0] == '~' || line[0] == '!')
             line = line.Substring(1);
         return line;

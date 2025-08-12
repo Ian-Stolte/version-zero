@@ -12,7 +12,7 @@
   },
   "Boss_Intro": {
     "0": 1,
-    "1": "~wWe aReR bEIng cO-contaActT—",
+    "1": "~wWe aReR bEIng cO-contaActT???",
     "2": "!LIFEFORMS ARE NOT PERMITTED IN THE GARDEN",
     "3": "!I WOULD ASK YOU TO LEAVE BUT ACCORDING TO MY MODELS THAT ONLY HAS A 78% CHANCE OF SUCCESS",
     "4": "!WHEREAS ELIMINATING YOU IS 100% EFFECTIVE",
@@ -24,7 +24,7 @@
   "Boss_Kill": {
     "0": 1,
     "1": "Computer, what *is* this?``````",
-    "2": "It— it's like I'm flipping through a stranger's memories`.`.`.`` ",
+    "2": "It??? it's like I'm flipping through a stranger's memories`.`.`.`` ",
     "3": "~initial scans indicate`.`.`.``` 99% similarity with your neural patterns, Reya",
     "4": "~i would conclude that it is, in fact, *your* memory",
     "5": "No shit.",

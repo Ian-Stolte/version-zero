@@ -109,6 +109,5 @@ public class ChargeEnemy : Enemy
             baseAngle += 15;
         }
         attacking = false;
-        anim.Play("Idle");
     }
 }
