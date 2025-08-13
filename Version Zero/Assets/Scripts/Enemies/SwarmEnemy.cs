@@ -32,7 +32,7 @@ public class SwarmEnemy : Enemy
 
         if (!GameManager.Instance.pauseGame && aggro && stunTimer <= 0)
         {
-            float atkMin = (dist < meleeRange) ? 0.25f : 0f;
+            float atkMin = (dist < meleeRange) ? 0f : 0.2f;
             atkTimer = Mathf.Max(atkMin, atkTimer - Time.deltaTime);
 
             //move

@@ -6695,14 +6695,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: music.Array.data[2].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 7cd3f58dfb9b1e64b9901373ce390f1e, type: 3}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: music.Array.data[3].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: d60eb04e038b18a42847f9a25548a4ae, type: 3}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
       propertyPath: worldSFX.Array.data[0].clip
       value: 
       objectReference: {fileID: 8300000, guid: 04b08c309ce1048fd949c3fc94cf39c0, type: 3}

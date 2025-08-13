@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6434973220641427755}
   - component: {fileID: 6415830287656771974}
   - component: {fileID: 5183973212530560887}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Point Light (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 383201660562104234}
   - component: {fileID: 5951496927507863065}
   - component: {fileID: 6561565620204671086}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,6 +296,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8391222552659086748, guid: 4f9a2c62168c6d8449b98de016a7bdd2, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -7640558969779515294, guid: 4f9a2c62168c6d8449b98de016a7bdd2, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -7146521406498821007, guid: 4f9a2c62168c6d8449b98de016a7bdd2, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: -6093592463355912122, guid: 4f9a2c62168c6d8449b98de016a7bdd2, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -312,13 +324,21 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: e63099d8a1b75e744807a768ddb7d102, type: 2}
+    - target: {fileID: -516098083770646512, guid: 4f9a2c62168c6d8449b98de016a7bdd2, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -466329591000292508, guid: 4f9a2c62168c6d8449b98de016a7bdd2, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4f9a2c62168c6d8449b98de016a7bdd2, type: 3}
       propertyPath: m_Name
-      value: fTerminal
+      value: Terminal_final
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4f9a2c62168c6d8449b98de016a7bdd2, type: 3}
       propertyPath: m_Layer
-      value: 13
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4f9a2c62168c6d8449b98de016a7bdd2, type: 3}
       propertyPath: m_IsActive
@@ -328,6 +348,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: -7172155112123806973, guid: 4f9a2c62168c6d8449b98de016a7bdd2, type: 3}
+    - target: {fileID: 8416272007918961125, guid: 4f9a2c62168c6d8449b98de016a7bdd2, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -384,19 +408,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activateDist: 4
   activateTxt: {fileID: 0}
+  complete: 0
   screen: {fileID: 4359280939055299597}
   bars:
   - {fileID: 2400994118748174801}
   - {fileID: 2527122924136773474}
   - {fileID: 8982453388233408090}
-  complete: 0
+  toggleOnComplete: []
   barrier: {fileID: 0}
-  hiddenRoom: []
-  dialogue:
-  - "Where the hell are all these viruses coming from?\r"
-  - "~that does appear to be the question\r"
-  - "~give me a moment to scan the local network\r"
-  order: 1
+  ID: 
 --- !u!65 &3025398495138523511
 BoxCollider:
   m_ObjectHideFlags: 0

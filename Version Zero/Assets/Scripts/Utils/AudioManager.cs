@@ -26,6 +26,7 @@ public class AudioManager : MonoBehaviour
 
     public List<Sound> currentSongs;
 
+
     void Awake()
     {
         if (Instance == null)
@@ -65,7 +66,11 @@ public class AudioManager : MonoBehaviour
             s.source.loop = s.loop;
         }
         audios = gameObject.GetComponents<AudioSource>();
+    }
 
+
+    void Start()
+    {
         int sceneNum = 0;
         int.TryParse(SceneManager.GetActiveScene().name.Substring(6), out sceneNum);
         if (SceneManager.GetActiveScene().name.Contains("Final"))

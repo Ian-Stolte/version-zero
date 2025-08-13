@@ -108,20 +108,23 @@ public class GameManager : MonoBehaviour
 
             //set enemies available by level
             enemyType = enemyTypes[Random.Range(0, enemyTypes.Length)];
-            if (sceneNum == 2 || sceneNum == 3)
-                enemyPrefabs = new string[] { "Swarm", "Tank" };
-            else if (sceneNum == 4)
-                enemyPrefabs = new string[] { "Swarm", "Tank", "Artillery" };
-            else if (sceneNum == 7)
-                enemyPrefabs = new string[] { "Aggro" };
-            else if (sceneNum == 8)
-                enemyPrefabs = new string[] { "Evasive" };
-            else if (sceneNum == 9)
-                enemyPrefabs = new string[] { "Aggro", "Evasive" };
-            else if (sceneNum == 13)
-                enemyPrefabs = new string[] { "Landmine", "Charge" };
-            else if (sceneNum == 14)
-                enemyPrefabs = new string[] { "Landmine", "Charge", "Scatter" };
+            if (scene.name.Contains("Final"))
+            {
+                if (sceneNum == 2 || sceneNum == 3)
+                    enemyPrefabs = new string[] { "Swarm", "Tank" };
+                else if (sceneNum == 4)
+                    enemyPrefabs = new string[] { "Swarm", "Tank", "Artillery" };
+                else if (sceneNum == 7)
+                    enemyPrefabs = new string[] { "Aggro" };
+                else if (sceneNum == 8)
+                    enemyPrefabs = new string[] { "Evasive" };
+                else if (sceneNum == 9)
+                    enemyPrefabs = new string[] { "Aggro", "Evasive" };
+                else if (sceneNum == 13)
+                    enemyPrefabs = new string[] { "Landmine", "Charge" };
+                else if (sceneNum == 14)
+                    enemyPrefabs = new string[] { "Landmine", "Charge", "Scatter" };
+            }
 
             //set spawn delay
             if (scene.name.Contains("Final"))
@@ -417,7 +420,7 @@ public class GameManager : MonoBehaviour
                 Destroy(child.gameObject);
             if (levelNum == 7)
                 StartCoroutine(AudioManager.Instance.Area2());
-            else if (levelNum == 10)
+            else if (levelNum == 13)
                 StartCoroutine(AudioManager.Instance.Area3());
 
             yield return new WaitForSeconds(0.5f);
@@ -473,7 +476,6 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator GameOver()
     {
-        //TODO: computer saves from death during Final area
         DialogueManager.Instance.StopCoroutines();
         pauseGame = true;
 
@@ -568,6 +570,9 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
 
+        areaText.text = "????";
+        enemyTimer.gameObject.SetActive(false);
+
         yield return new WaitForSeconds(1f);
         AudioManager.Instance.Play("Area Final");
         StartCoroutine(AudioManager.Instance.StartFade("Area Final", 1, 0.25f));
@@ -585,6 +590,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitUntil(() => !DialogueManager.Instance.dialogue.activeSelf);
 
         enemyPrefabs = new string[] { "Swarm", "Tank", "Artillery", "Aggro", "Evasive", "Landmine", "Charge", "Scatter" };
+        enemyTimer.gameObject.SetActive(true);
         pauseGame = false;
     }
 

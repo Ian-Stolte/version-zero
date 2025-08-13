@@ -45,7 +45,7 @@ public class PlayerPrograms : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.Instance.pauseGame)
+        if (!GameManager.Instance.pauseGame && !GameManager.Instance.loadingLevel)
         {
             foreach (Program p in ProgramManager.Instance.programs)
             {
