@@ -425,7 +425,7 @@ public class StartupManager : MonoBehaviour
                 yield return new WaitForSeconds(0.001f);
             }
         }
-        else if (SequenceManager.Instance.lastRoom == 0)
+        else if (SequenceManager.Instance.lastLevelReached == 0)
         {
             foreach (char c in "No data found.")
             {
@@ -435,7 +435,7 @@ public class StartupManager : MonoBehaviour
         }
         else
         {
-            foreach (string s in new string[]{"Furthest level reached: "+SequenceManager.Instance.lastRoom, "Time (gameplay): "+FormatTime(gameplayTime), "Time (total): "+FormatTime(rawTime), "Reason for reset:", "Corrupted memory files, neural overload", "(Compromised data removed to preserve cognitive integrity)"})
+            foreach (string s in new string[]{"Furthest level reached: "+SequenceManager.Instance.lastLevelReached, "Time (gameplay): "+FormatTime(gameplayTime), "Time (total): "+FormatTime(rawTime), "Reason for reset:", "Corrupted memory files, neural overload", "(Compromised data removed to preserve cognitive integrity)"})
             {
                 if (s.Contains("Reason") || s.Contains("Compromised data"))
                 {

@@ -183,6 +183,7 @@ public class PlayerMovement : MonoBehaviour
                 AudioManager.Instance.Play("Take Damage");
                 damageFlash.Play("DamageFlash");
                 Camera.main.GetComponent<GlitchManager>().ShowGlitch(0.5f, 0.5f);
+                SequenceManager.Instance.levelDmg += dmg;
             }
             
             //set HP bar fill

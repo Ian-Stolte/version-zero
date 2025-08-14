@@ -168,7 +168,8 @@ public class Enemy : MonoBehaviour
         healthBar.fillAmount = health / (maxHealth * 1.0f);
         if (health <= 0 && !customDestroy)
         {
-            //play death anim
+            //TODO: play death anim?
+            SequenceManager.Instance.levelKills += 1;
             Destroy(gameObject);
         }
     }

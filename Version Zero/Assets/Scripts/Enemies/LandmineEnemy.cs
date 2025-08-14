@@ -106,24 +106,22 @@ public class LandmineEnemy : Enemy
 
     private void OnDestroy()
     {
-        if (health <= 0)
+        Collider[] enemyHits = Physics.OverlapSphere(transform.position, attackRadius, LayerMask.GetMask("Enemy"));
+        foreach (Collider hit in enemyHits)
         {
-            Collider[] enemyHits = Physics.OverlapSphere(transform.position, attackRadius, LayerMask.GetMask("Enemy"));
-            foreach (Collider hit in enemyHits)
-            {
-                Vector3 dir = (hit.transform.position - transform.position).normalized;
-                hit.GetComponent<Rigidbody>().AddForce(dir * explosionForce);
-                hit.GetComponent<Enemy>().stunTimer = 0.5f;
-                hit.GetComponent<Enemy>().TakeDamage(dmg*2);
-            }
-
-            if (Vector3.Distance(player.transform.position, transform.position) < attackRadius)
-            {
-                Vector3 dir = (player.transform.position - transform.position).normalized;
-                player.GetComponent<Rigidbody>().AddForce(dir * explosionForce);
-                player.GetComponent<PlayerMovement>().TakeDamage(dmg);
-            }
-            Instantiate(explosionVFX, transform.position + new Vector3(0, 1f, 0), Quaternion.identity);
+            Vector3 dir = (hit.transform.position - transform.position).normalized;
+            hit.GetComponent<Rigidbody>().AddForce(dir * explosionForce);
+            hit.GetComponent<Enemy>().stunTimer = 0.5f;
+            hit.GetComponent<Enemy>().TakeDamage(dmg * 2);
         }
+
+        if (Vector3.Distance(player.transform.position, transform.position) < attackRadius)
+        {
+            Vector3 dir = (player.transform.position - transform.position).normalized;
+            player.GetComponent<Rigidbody>().AddForce(dir * explosionForce);
+            player.GetComponent<PlayerMovement>().TakeDamage(dmg);
+        }
+        Instantiate(explosionVFX, transform.position + new Vector3(0, 1f, 0), Quaternion.identity);
+        SequenceManager.Instance.levelKills += 1;
     }
 }

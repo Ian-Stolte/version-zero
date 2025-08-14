@@ -18,16 +18,11 @@ public class GameManager : MonoBehaviour
     }
 
     [Header("Bools")]
-    public bool scifiNames;
     public bool skipDialogue;
     public bool noSpawn;
     [HideInInspector] public bool pauseGame;
     [HideInInspector] public bool playerPaused;
     [HideInInspector] public bool loadingLevel;
-
-    [Header("Rooms")]
-    [SerializeField] private TextMeshProUGUI areaText;
-    [SerializeField] private LayerMask terrainLayer;
 
     [Header("Enemy Spawn")]
     [SerializeField] private string[] enemyPrefabs; //TODO: change to struct w/ spawn pct, weight, etc
@@ -42,6 +37,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Vector3[] spawnDelays;
     private float minSpawn = 15;
     private float maxSpawn = 25;
+
+    [Header("Enemy Percents")]
+    [SerializeField] private int[] clearPars; //instinct
+    [SerializeField] private int[] killPars; //memory
+    private float instinctLvl;
+    private float logicLvl;
+    private float memoryLvl;
 
     [Header("Terminals")]
     [SerializeField] private GameObject terminalBar;
@@ -59,6 +61,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Material barrierUnlockGreen;
 
     [Header("Misc")]
+    [SerializeField] private TextMeshProUGUI areaText;
+    [SerializeField] private LayerMask terrainLayer;
     public GameObject bossUI;
     [SerializeField] private GameObject loadingText;
     [SerializeField] private GameObject gameOver;
@@ -67,8 +71,8 @@ public class GameManager : MonoBehaviour
     private Transform player;
 
     [Header("Debug")]
-    [SerializeField] private GameObject debugSphereGreen;
-    [SerializeField] private GameObject debugSphereRed;
+    [SerializeField] private GameObject testSphereGreen;
+    [SerializeField] private GameObject testSphereRed;
 
 
 
@@ -76,8 +80,8 @@ public class GameManager : MonoBehaviour
     void OnDisable() { SceneManager.sceneLoaded -= OnSceneLoaded; }
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        int sceneNum = 0;
-        int.TryParse(SceneManager.GetActiveScene().name.Substring(6), out sceneNum);
+        int levelNum = 0;
+        int.TryParse(SceneManager.GetActiveScene().name.Substring(6), out levelNum);
 
         if (scene.name == "Playtest Options" || scene.name == "Startup UI")
         {
@@ -106,23 +110,52 @@ public class GameManager : MonoBehaviour
                 icon.GetComponent<RectTransform>().anchoredPosition = new Vector2(-810, 450 - 130 * i - areaText.preferredHeight);
             }
 
+            //set enemy type for the level
+            if (levelNum == 6 || levelNum == 12)
+            {
+                //if boss, pick highest pct
+                float maxLvl = Mathf.Max(logicLvl, memoryLvl, instinctLvl);
+                if (maxLvl == logicLvl)
+                    enemyType = "Logic";
+                else if (maxLvl == memoryLvl)
+                    enemyType = "Memory";
+                else
+                    enemyType = "Instinct";
+            }
+            else
+            {
+                //if normal level, use enemy pcts to randomly pick
+                float total = logicLvl + instinctLvl + memoryLvl;
+                if (total == 0)
+                    enemyType = new[] { "Logic", "Instinct", "Memory" }[Random.Range(0, 3)];
+                else
+                {
+                    float r = Random.Range(0f, total);
+                    if (r < logicLvl)
+                        enemyType = "Logic";
+                    else if (r < logicLvl + instinctLvl)
+                        enemyType = "Instinct";
+                    else
+                        enemyType = "Memory";
+                }
+            }
+
             //set enemies available by level
-            enemyType = enemyTypes[Random.Range(0, enemyTypes.Length)];
             if (!scene.name.Contains("Final"))
             {
-                if (sceneNum == 2 || sceneNum == 3)
+                if (levelNum == 2 || levelNum == 3)
                     enemyPrefabs = new string[] { "Swarm", "Tank" };
-                else if (sceneNum == 4)
+                else if (levelNum == 4)
                     enemyPrefabs = new string[] { "Swarm", "Tank", "Artillery" };
-                else if (sceneNum == 7)
+                else if (levelNum == 7)
                     enemyPrefabs = new string[] { "Aggro" };
-                else if (sceneNum == 8)
+                else if (levelNum == 8)
                     enemyPrefabs = new string[] { "Evasive" };
-                else if (sceneNum == 9)
+                else if (levelNum == 9)
                     enemyPrefabs = new string[] { "Aggro", "Evasive" };
-                else if (sceneNum == 13)
+                else if (levelNum == 13)
                     enemyPrefabs = new string[] { "Landmine", "Charge" };
-                else if (sceneNum == 14)
+                else if (levelNum == 14)
                     enemyPrefabs = new string[] { "Landmine", "Charge", "Scatter" };
             }
 
@@ -134,12 +167,12 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                minSpawn = spawnDelays[sceneNum].x;
-                maxSpawn = spawnDelays[sceneNum].y;
+                minSpawn = spawnDelays[levelNum].x;
+                maxSpawn = spawnDelays[levelNum].y;
             }
 
             //replace enemies with chosen type
-            if (sceneNum != 6 && sceneNum != 12)
+            if (levelNum != 6 && levelNum != 12)
             {
                 List<GameObject> newEnemies = new List<GameObject>();
                 foreach (Transform child in enemyParent)
@@ -193,12 +226,12 @@ public class GameManager : MonoBehaviour
         //check if spawning enemies
         if (scene.name != "End Screen")
         {
-            if (minSpawn > 0 && (sceneNum > 3 || (sceneNum == 3 && runNum > 1) || scene.name.Contains("Final")) && !noSpawn)
+            if (minSpawn > 0 && (levelNum > 3 || (levelNum == 3 && runNum > 1) || scene.name.Contains("Final")) && !noSpawn)
             {
                 enemyTimer.gameObject.SetActive(true);
                 player.GetComponent<PlayerMovement>().hpBar.gameObject.SetActive(true);
                 spawningEnemies = true;
-                spawnTimer = Random.Range(minSpawn / 2f, maxSpawn / 2f) + spawnDelays[sceneNum].z;
+                spawnTimer = Random.Range(minSpawn / 2f, maxSpawn / 2f) + spawnDelays[levelNum].z;
                 totalSpawn = spawnTimer;
             }
             else
@@ -302,7 +335,7 @@ public class GameManager : MonoBehaviour
                         while (Physics.OverlapSphere(player.position + offset, checkSize).Length > 0 || Physics.OverlapSphere(player.position + offset + new Vector3(0, -1.5f, 0), 1f, LayerMask.GetMask("Ground")).Length == 0)
                         {
                             if (debug)
-                                Instantiate(debugSphereRed, player.position + offset, Quaternion.identity, transform);
+                                Instantiate(testSphereRed, player.position + offset, Quaternion.identity, transform);
                             offset = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized * Random.Range(minDist, maxDist) + new Vector3(0, 1, 0);
                             attempts++;
                             if (attempts == 10) //fail to find open spot
@@ -322,7 +355,7 @@ public class GameManager : MonoBehaviour
                         if (maxDist < 20)
                         {
                             if (debug)
-                                Instantiate(debugSphereGreen, player.position + offset, Quaternion.identity, transform);
+                                Instantiate(testSphereGreen, player.position + offset, Quaternion.identity, transform);
                             GameObject enemy = Instantiate(prefab, player.position + offset + new Vector3(0, 15, 0), Quaternion.identity, enemyParent);
                             enemy.GetComponent<Rigidbody>().velocity = new Vector3(0, -100, 0);
                         }
@@ -411,10 +444,54 @@ public class GameManager : MonoBehaviour
     public IEnumerator LoadNextLevel(string nextArea, bool skip = false)
     {
         loadingLevel = true;
-        int levelNum = int.Parse(SceneManager.GetActiveScene().name.Substring(6)) + 1;
+        int levelNum = 0;
+        int.TryParse(SceneManager.GetActiveScene().name.Substring(6), out levelNum);
+        levelNum++;
 
         if (!skip)
         {
+            //compute change to enemy pcts
+            if (levelNum-1 >= 3 && levelNum-1 != 6 && levelNum-1 != 12)
+            {
+                float time = SequenceManager.Instance.levelTime;
+                int parTime = clearPars[levelNum - 1];
+                if (time <= parTime * 0.5f)
+                    instinctLvl += 5;
+                else if (time <= parTime * 0.75)
+                    instinctLvl += 4;
+                else if (time <= parTime)
+                    instinctLvl += 3;
+                else if (time <= parTime * 1.5f)
+                    instinctLvl += 2;
+                else if (time <= parTime * 2f)
+                    instinctLvl += 1;
+                Debug.Log(instinctLvl + " (instinct)");
+
+                int kills = SequenceManager.Instance.levelKills;
+                int parKills = killPars[levelNum - 1];
+                if (kills >= parKills)
+                    logicLvl += 5;
+                else if (kills >= parKills * 0.8f)
+                    logicLvl += 4;
+                else if (kills >= parKills * 0.6f)
+                    logicLvl += 3;
+                else if (kills >= parKills * 0.4f)
+                    logicLvl += 2;
+                else if (kills >= parKills * 0.2f)
+                    logicLvl += 1;
+                Debug.Log(logicLvl + " (memory)");
+
+                int dmg = SequenceManager.Instance.levelDmg;
+                if (dmg == 0)
+                    memoryLvl += 3;
+                else if (dmg == 1)
+                    memoryLvl += 2;
+                else if (dmg <= 3)
+                    memoryLvl += 1;
+                Debug.Log(memoryLvl + " (logic)");
+            }
+
+            //transition to next level
             AudioManager.Instance.Play("Elevator Down");
             foreach (Transform child in enemyParent)
                 Destroy(child.gameObject);
@@ -448,10 +525,6 @@ public class GameManager : MonoBehaviour
 
         areaText.text = nextArea;
         SceneManager.LoadScene("Level " + levelNum);
-    
-        /*SequenceManager.Instance.health = player.GetComponent<PlayerMovement>().health;
-        Destroy(player.gameObject);
-        SceneManager.LoadScene("End Screen");*/
         loadingLevel = false;
     }
 
@@ -646,9 +719,9 @@ public class GameManager : MonoBehaviour
         loadingLevel = true;
         SequenceManager.Instance.runNum++;
         if (SceneManager.GetActiveScene().name != "End Screen")
-            SequenceManager.Instance.lastRoom = int.Parse(SceneManager.GetActiveScene().name.Substring(6));
+            SequenceManager.Instance.lastLevelReached = int.Parse(SceneManager.GetActiveScene().name.Substring(6));
         else
-            SequenceManager.Instance.lastRoom = 7;
+            SequenceManager.Instance.lastLevelReached = 7;
 
         Fader.Instance.FadeIn(1.5f);
         yield return new WaitForSeconds(2);

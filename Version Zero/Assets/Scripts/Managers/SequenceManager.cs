@@ -14,19 +14,38 @@ public class SequenceManager : MonoBehaviour
             Destroy(gameObject);
     }
 
+    [Header("Stats")]
     public int runNum;
+    public int lastLevelReached;
+
     public int health;
+    public int levelDmg;
+    public int levelKills;
+
+    [Header("Timers")]
     public float rawTimer;
     public float gameplayTimer;
-    public int lastRoom;
+    public float levelTime;
 
+
+    void OnEnable() { SceneManager.sceneLoaded += OnSceneLoaded; }
+    void OnDisable() { SceneManager.sceneLoaded -= OnSceneLoaded; }
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        levelTime = 0;
+        levelKills = 0;
+        levelDmg = 0;
+    }
 
     private void Update()
     {
         rawTimer += Time.deltaTime;
         if (GameManager.Instance != null)
-            if (!GameManager.Instance.pauseGame && !GameManager.Instance.playerPaused)
+            if (!GameManager.Instance.pauseGame)
+            {
                 gameplayTimer += Time.deltaTime;
+                levelTime += Time.deltaTime;
+            }
     }
     
     public void LoadGame(bool newGame)
