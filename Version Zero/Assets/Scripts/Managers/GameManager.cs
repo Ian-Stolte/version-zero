@@ -577,7 +577,7 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.Play("Area Final");
         StartCoroutine(AudioManager.Instance.StartFade("Area Final", 1, 0.25f));
         player.GetComponent<PlayerMovement>().TakeDamage(-20);
-        //TODO: reset player program cds
+        player.GetComponent<PlayerPrograms>().ResetCds();
 
         float elapsed = 0;
         while (elapsed < 5f)

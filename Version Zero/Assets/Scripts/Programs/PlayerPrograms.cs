@@ -12,12 +12,12 @@ public class PlayerPrograms : MonoBehaviour
     [SerializeField] GameObject auraHitbox;
     private GameObject auraObj;
     [HideInInspector] public Program auraProgram;
-    
+
     [Header("Auto")]
     public float autoTick;
     [SerializeField] private float autoTimer;
     [HideInInspector] public Program autoProgram;
-    
+
     [Header("Hitboxes")]
     [SerializeField] private GameObject[] hitboxes;
 
@@ -45,19 +45,22 @@ public class PlayerPrograms : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.Instance.pauseGame && !GameManager.Instance.loadingLevel)
+        if (!GameManager.Instance.pauseGame)
         {
             foreach (Program p in ProgramManager.Instance.programs)
             {
                 p.cdTimer = Mathf.Max(0, p.cdTimer - Time.deltaTime);
-                p.fillTimer.GetComponent<Image>().fillAmount = p.cdTimer/p.cdMax;
-                if (Input.GetKeyDown(p.keybind) && p.cdTimer <= 0)
+                p.fillTimer.GetComponent<Image>().fillAmount = p.cdTimer / p.cdMax;
+                if (!GameManager.Instance.loadingLevel)
                 {
-                    CastSpell(p);
-                }
-                else if (Input.GetKeyDown(p.keybind) && p.cdTimer <= 0.5f)
-                {
-                    StartCoroutine(DelayedCast(p));
+                    if (Input.GetKeyDown(p.keybind) && p.cdTimer <= 0)
+                    {
+                        CastSpell(p);
+                    }
+                    else if (Input.GetKeyDown(p.keybind) && p.cdTimer <= 0.5f)
+                    {
+                        StartCoroutine(DelayedCast(p));
+                    }
                 }
             }
 
@@ -69,7 +72,7 @@ public class PlayerPrograms : MonoBehaviour
                     CastSpell(autoProgram);
                     autoTimer = autoTick;
                 }
-                autoProgram.fillTimer.GetComponent<Image>().fillAmount = autoTimer/autoTick;
+                autoProgram.fillTimer.GetComponent<Image>().fillAmount = autoTimer / autoTick;
             }
         }
     }
@@ -83,7 +86,7 @@ public class PlayerPrograms : MonoBehaviour
 
     private void CastSpell(Program p)
     {
-        Block dash = p.blocks.Find(b=>b.name == "Phase");
+        Block dash = p.blocks.Find(b => b.name == "Phase");
         if (dash != null && !dashing)
         {
             StartCoroutine(Dash(p));
@@ -144,7 +147,7 @@ public class PlayerPrograms : MonoBehaviour
                             if (Vector3.Distance(hit.transform.position, MousePos()) < Vector3.Distance(closest.transform.position, MousePos()))
                                 closest = hit;
                         }
-                        SpellEffects(new Collider[]{closest}, p, MousePos());
+                        SpellEffects(new Collider[] { closest }, p, MousePos());
                     }
                     break;
                 }
@@ -153,7 +156,7 @@ public class PlayerPrograms : MonoBehaviour
     }
 
 
-    public void SpellEffects(Collider[] cols, Program p, Vector3 pos, bool aura=false)
+    public void SpellEffects(Collider[] cols, Program p, Vector3 pos, bool aura = false)
     {
         if (AudioManager.Instance.playEffects)
         {
@@ -163,7 +166,7 @@ public class PlayerPrograms : MonoBehaviour
                     AudioManager.Instance.Play(b.name);
             }
         }
-        
+
         foreach (Collider c in cols)
         {
             Enemy script = c.GetComponent<Enemy>();
@@ -231,7 +234,7 @@ public class PlayerPrograms : MonoBehaviour
         AudioManager.Instance.Play("Dash");
         Physics.IgnoreLayerCollision(6, 12, true);
         GetComponent<TrailRenderer>().emitting = true;
-        
+
         Vector3 dir = (MousePos() - transform.position);
         dir = new Vector3(dir.x, 0, dir.z).normalized;
         StartCoroutine(GoTransparent(0.3f));
@@ -239,7 +242,7 @@ public class PlayerPrograms : MonoBehaviour
         float elapsed = 0;
         while (elapsed < dashDur)
         {
-            GetComponent<Rigidbody>().velocity = dir * dashForce * (-Mathf.Pow((elapsed/dashDur), 2) + 1);
+            GetComponent<Rigidbody>().velocity = dir * dashForce * (-Mathf.Pow((elapsed / dashDur), 2) + 1);
             elapsed += Time.deltaTime;
             yield return null;
         }
@@ -247,14 +250,14 @@ public class PlayerPrograms : MonoBehaviour
         p.cdTimer = p.cdMax;
         GameObject hitbox = Instantiate(hitboxes[2], transform.position + new Vector3(0, -0.8f, 0), Quaternion.identity);
         hitbox.GetComponent<Hitbox>().spell = p;
-        
+
         dashing = false;
         GetComponent<TrailRenderer>().emitting = false;
         Physics.IgnoreLayerCollision(6, 12, false);
     }
 
 
-    private IEnumerator GoTransparent(float duration, float a=0.5f)
+    private IEnumerator GoTransparent(float duration, float a = 0.5f)
     {
         List<Material> origMats = new List<Material>();
         foreach (Transform child in transform.GetChild(1))
@@ -307,5 +310,15 @@ public class PlayerPrograms : MonoBehaviour
             return hit.point;
         }
         return Vector3.zero;
+    }
+
+
+    public void ResetCds()
+    {
+        foreach (Program p in ProgramManager.Instance.programs)
+        {
+            p.cdTimer = 0;
+            p.fillTimer.GetComponent<Image>().fillAmount = 0;
+        }
     }
 }
