@@ -5137,6 +5137,22 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
+      propertyPath: music.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: b9b3a39d69830ac40801f7f5355cdb02, type: 3}
+    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
+      propertyPath: music.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 35ebd82cfcff3994b9fbbf89d55a37a4, type: 3}
+    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
+      propertyPath: music.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4fe26187ed0a8344cb09269fca7d467d, type: 3}
+    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
+      propertyPath: music.Array.data[6].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 71576ea4b0f9d4a478e3f574c52c4e82, type: 3}
+    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
       propertyPath: music.Array.data[2].pitch
       value: 0.8
       objectReference: {fileID: 0}
