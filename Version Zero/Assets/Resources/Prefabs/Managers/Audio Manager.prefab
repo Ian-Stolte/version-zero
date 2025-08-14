@@ -47,20 +47,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playEffects: 1
   music:
+  - name: Startup UI
+    clip: {fileID: 8300000, guid: 71576ea4b0f9d4a478e3f574c52c4e82, type: 3}
+    volume: 0
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   - name: Area 1
-    clip: {fileID: 8300000, guid: 6af994b577a12de45ae15002c15d651b, type: 3}
+    clip: {fileID: 8300000, guid: b9b3a39d69830ac40801f7f5355cdb02, type: 3}
     volume: 0
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: Boss 1
-    clip: {fileID: 8300000, guid: 845b54451178ae24890edb1592858836, type: 3}
+    clip: {fileID: 8300000, guid: 35ebd82cfcff3994b9fbbf89d55a37a4, type: 3}
     volume: 0
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: Area 2
-    clip: {fileID: 8300000, guid: 7cd3f58dfb9b1e64b9901373ce390f1e, type: 3}
+    clip: {fileID: 8300000, guid: 4fe26187ed0a8344cb09269fca7d467d, type: 3}
     volume: 0
     pitch: 1
     loop: 1
@@ -82,12 +88,6 @@ MonoBehaviour:
     volume: 0
     pitch: 1
     loop: 1
-    source: {fileID: 0}
-  - name: Startup UI
-    clip: {fileID: 8300000, guid: 0eb01312f581b7e4687b2bafe5277058, type: 3}
-    volume: 0
-    pitch: 1
-    loop: 0
     source: {fileID: 0}
   uiSFX:
   - name: Alarm

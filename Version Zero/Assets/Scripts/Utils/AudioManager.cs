@@ -86,7 +86,7 @@ public class AudioManager : MonoBehaviour
         else if (sceneNum >= 7)
         {
             Play("Area 2");
-            StartCoroutine(StartFade("Area 2", 2, 0.25f));
+            StartCoroutine(StartFade("Area 2", 2, 0.4f));
         }
         else if (sceneNum > 0)
         {
@@ -214,7 +214,7 @@ public class AudioManager : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
         Play("Area 2");
-        StartCoroutine(StartFade("Area 2", 2, 0.2f));
+        StartCoroutine(StartFade("Area 2", 2, 0.4f));
         yield return new WaitForSeconds(1f);
     }
     

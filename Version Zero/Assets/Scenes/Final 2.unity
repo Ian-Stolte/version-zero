@@ -1559,6 +1559,7 @@ Transform:
   - {fileID: 163347501}
   - {fileID: 1158961967}
   - {fileID: 1692662798}
+  - {fileID: 717187178}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &597337371
@@ -1969,7 +1970,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 589422136}
     m_Modifications:
     - target: {fileID: 5786449656799492599, guid: 676fbcc1f56819844bbe51998ace71b7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2020,6 +2021,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 676fbcc1f56819844bbe51998ace71b7, type: 3}
+--- !u!4 &717187178 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5786449656799492599, guid: 676fbcc1f56819844bbe51998ace71b7, type: 3}
+  m_PrefabInstance: {fileID: 717187177}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &728589147
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3939,6 +3945,7 @@ MonoBehaviour:
   rotSnap: 0
   offset: {x: -5, y: -4.774, z: 5.32}
   rotationSpeed: 80
+  cutscene: 0
 --- !u!114 &1844514598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5815,8 +5822,7 @@ SceneRoots:
   - {fileID: 456634966}
   - {fileID: 589422136}
   - {fileID: 115009511}
-  - {fileID: 717187177}
-  - {fileID: 149436822}
-  - {fileID: 22198974}
   - {fileID: 713055905}
+  - {fileID: 22198974}
+  - {fileID: 149436822}
   - {fileID: 380405156}

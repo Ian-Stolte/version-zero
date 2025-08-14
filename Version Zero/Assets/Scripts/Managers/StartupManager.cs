@@ -89,6 +89,7 @@ public class StartupManager : MonoBehaviour
         {
             StartCoroutine(NeuralActivity());
             AudioManager.Instance.Play("Startup UI");
+            StartCoroutine(AudioManager.Instance.StartFade("Startup UI", 2, 0.25f));
         }
         StartCoroutine(SpeedText(downloadTxt, 2 * minSpeed, 2 * maxSpeed));
         direction = new Vector2(direction.x / point.parent.localScale.x, direction.y / point.parent.localScale.y).normalized;
@@ -163,9 +164,9 @@ public class StartupManager : MonoBehaviour
     private IEnumerator SkipIntro()
     {
         Fader.Instance.FadeIn(2);
-        StartCoroutine(AudioManager.Instance.StartFade("Startup UI", 2, 0f));
+        //StartCoroutine(AudioManager.Instance.StartFade("Startup UI", 2, 0f));
         yield return new WaitForSeconds(2);
-        AudioManager.Instance.Stop("Startup UI");
+        //AudioManager.Instance.Stop("Startup UI");
         SceneManager.LoadScene("Level 1");
     }
 

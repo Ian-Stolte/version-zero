@@ -3581,22 +3581,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: music.Array.data[0].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: b9b3a39d69830ac40801f7f5355cdb02, type: 3}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: music.Array.data[1].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 35ebd82cfcff3994b9fbbf89d55a37a4, type: 3}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: music.Array.data[2].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 4fe26187ed0a8344cb09269fca7d467d, type: 3}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: music.Array.data[6].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 71576ea4b0f9d4a478e3f574c52c4e82, type: 3}
     - target: {fileID: 7551959242866408720, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
       propertyPath: m_Name
       value: Audio Manager
@@ -3944,11 +3928,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4061275258129269649, guid: 1473b61c09947dd48910cc2822bbfe3b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 54.19
+      value: 54.122
       objectReference: {fileID: 0}
     - target: {fileID: 4061275258129269649, guid: 1473b61c09947dd48910cc2822bbfe3b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.49
+      value: -0.502
       objectReference: {fileID: 0}
     - target: {fileID: 4061275258129269649, guid: 1473b61c09947dd48910cc2822bbfe3b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4694,11 +4678,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 266069899690643, guid: cb0d803180c892941b65b7952796f292, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.53
+      value: -0.48
       objectReference: {fileID: 0}
     - target: {fileID: 266069899690643, guid: cb0d803180c892941b65b7952796f292, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -43.97
+      value: -43.755
       objectReference: {fileID: 0}
     - target: {fileID: 266069899690643, guid: cb0d803180c892941b65b7952796f292, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5752,13 +5736,13 @@ SceneRoots:
   - {fileID: 233099733}
   - {fileID: 986644111}
   - {fileID: 406110717}
+  - {fileID: 2052342656}
   - {fileID: 2018473074}
-  - {fileID: 1955887041}
-  - {fileID: 1670302972}
   - {fileID: 1822860702}
   - {fileID: 1962954206}
   - {fileID: 1032714032}
   - {fileID: 67283293212487596}
   - {fileID: 793562751}
   - {fileID: 1358650417}
-  - {fileID: 2052342656}
+  - {fileID: 1955887041}
+  - {fileID: 1670302972}

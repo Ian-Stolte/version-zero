@@ -50,13 +50,6 @@ public class WalkingTurret : Enemy
     public bool finalForm;
 
 
-    void Start()
-    {
-        base.Start();
-        //AudioManager.Instance.Play("Area 1");
-        //StartCoroutine(AudioManager.Instance.StartFade("Area 1", 1, 0.2f));
-    }
-
     void Update()
     {
         base.Update();
@@ -149,7 +142,7 @@ public class WalkingTurret : Enemy
         foreach (Sound s in a.currentSongs)
             StartCoroutine(a.StartFade(s.name, 1, 0));
         a.Play("Boss 1");
-        StartCoroutine(a.StartFade("Boss 1", 1, 0.2f));
+        StartCoroutine(a.StartFade("Boss 1", 1, 0.4f));
 
         //play intro dialogue
         GameManager.Instance.pauseGame = true;

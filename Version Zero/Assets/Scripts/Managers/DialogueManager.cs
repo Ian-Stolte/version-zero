@@ -295,6 +295,7 @@ public class DialogueManager : MonoBehaviour
         string[] dialogueToPlay = PlayByID("Intro", false);
         if (!GameManager.Instance.skipDialogue)
         {
+            StartCoroutine(AudioManager.Instance.StartFade("Startup UI", 4f, 0f));
             for (int i = 0; i < dialogueToPlay.Length; i++)
             {
                 skip = false;
@@ -327,7 +328,7 @@ public class DialogueManager : MonoBehaviour
                     float fadeTime = (skip) ? 6 : 10;
                     Fader.Instance.FadeOut(fadeTime);
                     AudioManager.Instance.Play("Area 1");
-                    StartCoroutine(AudioManager.Instance.StartFade("Area 1", 0.5f, 0.25f));
+                    StartCoroutine(AudioManager.Instance.StartFade("Area 1", 5f, 0.25f));
                 }
                 else if (i == dialogueToPlay.Length - 1)
                 {
@@ -347,8 +348,10 @@ public class DialogueManager : MonoBehaviour
         else
         {
             dialogue.SetActive(false);
+            StartCoroutine(AudioManager.Instance.StartFade("Startup UI", 1f, 0f));
+            yield return new WaitForSeconds(1f);
             AudioManager.Instance.Play("Area 1");
-            StartCoroutine(AudioManager.Instance.StartFade("Area 1", 0.5f, 0.2f));
+            StartCoroutine(AudioManager.Instance.StartFade("Area 1", 2f, 0.2f));
             Fader.Instance.FadeOut(0.5f);
             yield return new WaitForSeconds(0.5f);
             GameManager.Instance.pauseGame = false;

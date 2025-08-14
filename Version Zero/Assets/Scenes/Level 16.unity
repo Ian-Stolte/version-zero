@@ -8541,34 +8541,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: music.Array.data[0].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: b9b3a39d69830ac40801f7f5355cdb02, type: 3}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: music.Array.data[1].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 35ebd82cfcff3994b9fbbf89d55a37a4, type: 3}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: music.Array.data[2].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 4fe26187ed0a8344cb09269fca7d467d, type: 3}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: music.Array.data[6].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 71576ea4b0f9d4a478e3f574c52c4e82, type: 3}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: music.Array.data[2].pitch
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: music.Array.data[4].pitch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: music.Array.data[4].volume
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7551959242866408720, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
       propertyPath: m_Name
       value: Audio Manager
@@ -10205,11 +10177,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 266069899690643, guid: cb0d803180c892941b65b7952796f292, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.53
+      value: -0.491
       objectReference: {fileID: 0}
     - target: {fileID: 266069899690643, guid: cb0d803180c892941b65b7952796f292, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -35.35
+      value: -35.36
       objectReference: {fileID: 0}
     - target: {fileID: 266069899690643, guid: cb0d803180c892941b65b7952796f292, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11607,14 +11579,14 @@ SceneRoots:
   - {fileID: 233099733}
   - {fileID: 986644111}
   - {fileID: 406110717}
-  - {fileID: 2018473074}
-  - {fileID: 774486837}
-  - {fileID: 1955887041}
   - {fileID: 2052342656}
   - {fileID: 526987479}
-  - {fileID: 818918666}
   - {fileID: 764663337}
-  - {fileID: 2050908866}
+  - {fileID: 818918666}
+  - {fileID: 2018473074}
+  - {fileID: 774486837}
   - {fileID: 978680303}
   - {fileID: 237059272}
   - {fileID: 375542668}
+  - {fileID: 2050908866}
+  - {fileID: 1955887041}

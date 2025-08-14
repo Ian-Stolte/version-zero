@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
 
             //set enemies available by level
             enemyType = enemyTypes[Random.Range(0, enemyTypes.Length)];
-            if (scene.name.Contains("Final"))
+            if (!scene.name.Contains("Final"))
             {
                 if (sceneNum == 2 || sceneNum == 3)
                     enemyPrefabs = new string[] { "Swarm", "Tank" };
