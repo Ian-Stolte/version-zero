@@ -60,11 +60,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Material barrierGreen;
     [SerializeField] private Material barrierUnlockGreen;
 
+    [Header("Level Load")]
+    [SerializeField] private GameObject elevatorUI;
+    [SerializeField] private GameObject nextAreaText;
+
     [Header("Misc")]
     [SerializeField] private TextMeshProUGUI areaText;
     [SerializeField] private LayerMask terrainLayer;
     public GameObject bossUI;
-    [SerializeField] private GameObject loadingText;
     [SerializeField] private GameObject gameOver;
     [SerializeField] private GameObject finalVFX;
     private GameObject canvas;
@@ -501,24 +504,30 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(AudioManager.Instance.Area3());
 
             yield return new WaitForSeconds(0.5f);
-            Fader.Instance.FadeIn(1.2f, true);
-            yield return new WaitForSeconds(1.2f);
-            yield return new WaitForSeconds(1.5f);
-            loadingText.GetComponent<TextMeshProUGUI>().text = "Now approaching: \n" + nextArea;
-            loadingText.SetActive(true);
-            Color c = loadingText.GetComponent<TextMeshProUGUI>().color;
-            loadingText.GetComponent<TextMeshProUGUI>().color = new Color(c.r, c.g, c.b, 1);
+            Fader.Instance.FadeIn(1f, true);
             yield return new WaitForSeconds(2f);
 
-            float elapsed = 1;
+            nextAreaText.GetComponent<TextMeshProUGUI>().text = nextArea;
+            elevatorUI.SetActive(true);
+            float elapsed = 0;
+            while (elapsed < 1)
+            {
+                elapsed += Time.deltaTime;
+                yield return null;
+                elevatorUI.GetComponent<CanvasGroup>().alpha = elapsed;
+            }
+            elevatorUI.GetComponent<CanvasGroup>().alpha = 1;
+            yield return new WaitForSeconds(5f);
+
             StartCoroutine(ElevatorSounds());
+            elapsed = 1;
             while (elapsed > 0)
             {
                 elapsed -= Time.deltaTime;
                 yield return null;
-                loadingText.GetComponent<TextMeshProUGUI>().color = new Color(c.r, c.g, c.b, elapsed);
+                elevatorUI.GetComponent<CanvasGroup>().alpha = elapsed;
             }
-            loadingText.SetActive(false);
+            elevatorUI.SetActive(false);
         }
         else
             yield return null;
