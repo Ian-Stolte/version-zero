@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
     [Header("Enemy Percents")]
     [SerializeField] private int[] clearPars; //instinct
     [SerializeField] private int[] killPars; //memory
+    [SerializeField] private Transform statsPanel;
+    [SerializeField] private Transform graph;
     private float instinctLvl;
     private float logicLvl;
     private float memoryLvl;
@@ -453,48 +455,7 @@ public class GameManager : MonoBehaviour
 
         if (!skip)
         {
-            //compute change to enemy pcts
-            if (levelNum-1 >= 3 && levelNum-1 != 6 && levelNum-1 != 12)
-            {
-                float time = SequenceManager.Instance.levelTime;
-                int parTime = clearPars[levelNum - 1];
-                if (time <= parTime * 0.5f)
-                    instinctLvl += 5;
-                else if (time <= parTime * 0.75)
-                    instinctLvl += 4;
-                else if (time <= parTime)
-                    instinctLvl += 3;
-                else if (time <= parTime * 1.5f)
-                    instinctLvl += 2;
-                else if (time <= parTime * 2f)
-                    instinctLvl += 1;
-                Debug.Log(instinctLvl + " (instinct)");
-
-                int kills = SequenceManager.Instance.levelKills;
-                int parKills = killPars[levelNum - 1];
-                if (kills >= parKills)
-                    logicLvl += 5;
-                else if (kills >= parKills * 0.8f)
-                    logicLvl += 4;
-                else if (kills >= parKills * 0.6f)
-                    logicLvl += 3;
-                else if (kills >= parKills * 0.4f)
-                    logicLvl += 2;
-                else if (kills >= parKills * 0.2f)
-                    logicLvl += 1;
-                Debug.Log(logicLvl + " (memory)");
-
-                int dmg = SequenceManager.Instance.levelDmg;
-                if (dmg == 0)
-                    memoryLvl += 3;
-                else if (dmg == 1)
-                    memoryLvl += 2;
-                else if (dmg <= 3)
-                    memoryLvl += 1;
-                Debug.Log(memoryLvl + " (logic)");
-            }
-
-            //transition to next level
+            //start transition to next level
             AudioManager.Instance.Play("Elevator Down");
             foreach (Transform child in enemyParent)
                 Destroy(child.gameObject);
@@ -502,11 +463,61 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(AudioManager.Instance.Area2());
             else if (levelNum == 13)
                 StartCoroutine(AudioManager.Instance.Area3());
-
             yield return new WaitForSeconds(0.5f);
             Fader.Instance.FadeIn(1f, true);
             yield return new WaitForSeconds(2f);
 
+
+            //compute change to enemy pcts
+            int[] bonuses = new int[3];
+            bool showStats = (levelNum - 1 >= 3 && levelNum - 1 != 6 && levelNum - 1 != 12);
+            if (showStats)
+            {
+                int kills = SequenceManager.Instance.levelKills;
+                int parKills = killPars[levelNum - 1];
+                if (kills >= parKills)
+                    bonuses[0] = 5;
+                else if (kills >= parKills * 0.8f)
+                    bonuses[0] = 4;
+                else if (kills >= parKills * 0.6f)
+                    bonuses[0] = 3;
+                else if (kills >= parKills * 0.4f)
+                    bonuses[0] = 2;
+                else if (kills >= parKills * 0.2f)
+                    bonuses[0] = 1;
+                else
+                    bonuses[0] = 0;
+                statsPanel.GetChild(0).GetComponent<TextMeshProUGUI>().text = kills.ToString();
+
+                float time = SequenceManager.Instance.levelTime;
+                int parTime = clearPars[levelNum - 1];
+                if (time <= parTime * 0.5f)
+                    bonuses[1] = 5;
+                else if (time <= parTime * 0.75f)
+                    bonuses[1] = 4;
+                else if (time <= parTime)
+                    bonuses[1] = 3;
+                else if (time <= parTime * 1.5f)
+                    bonuses[1] = 2;
+                else if (time <= parTime * 2f)
+                    bonuses[1] = 1;
+                else
+                    bonuses[1] = 0;
+                statsPanel.GetChild(1).GetComponent<TextMeshProUGUI>().text = FormatTime(time);
+
+                int dmg = SequenceManager.Instance.levelDmg;
+                if (dmg == 0)
+                    bonuses[2] = 3;
+                else if (dmg == 1)
+                    bonuses[2] = 2;
+                else if (dmg <= 3)
+                    bonuses[2] = 1;
+                else
+                    bonuses[2] = 0;
+                statsPanel.GetChild(2).GetComponent<TextMeshProUGUI>().text = dmg.ToString();
+            }
+
+            //set next area text
             nextAreaText.GetComponent<TextMeshProUGUI>().text = nextArea;
             if (nextArea.Length > 18)
                 nextAreaText.GetComponent<TextMeshProUGUI>().fontSize = 48;
@@ -521,7 +532,27 @@ public class GameManager : MonoBehaviour
                 elevatorUI.GetComponent<CanvasGroup>().alpha = elapsed;
             }
             elevatorUI.GetComponent<CanvasGroup>().alpha = 1;
-            yield return new WaitForSeconds(5f);
+
+            //change stats to show bonuses
+            yield return new WaitForSeconds(0.5f);
+            elapsed = 0;
+            while (elapsed < 1)
+            {
+                elapsed += Time.deltaTime;
+                yield return null;
+                graph.GetComponent<CanvasGroup>().alpha = elapsed;
+            }
+            if (showStats)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    yield return new WaitForSeconds(0.5f);
+                    statsPanel.GetChild(i).GetComponent<TextMeshProUGUI>().text = "+" + bonuses[i].ToString();
+                }
+
+            }
+
+            yield return new WaitForSeconds(2f);
 
             StartCoroutine(ElevatorSounds());
             elapsed = 1;
@@ -807,5 +838,17 @@ public class GameManager : MonoBehaviour
         yield return new WaitUntil(() => !DialogueManager.Instance.dialogue.activeSelf);
 
         //ending sequence -> credits
+    }
+    
+
+
+    private string FormatTime(float time)
+    {
+        if (time > 3600)
+            return "> 1hr";
+        int minutes = (int)time/60;
+        int seconds = (int)Mathf.Min(59, Mathf.Round(time%60));
+        string secondsStr = (seconds < 10) ? ":0" + seconds : ":" + seconds;
+        return minutes + secondsStr;
     }
 }

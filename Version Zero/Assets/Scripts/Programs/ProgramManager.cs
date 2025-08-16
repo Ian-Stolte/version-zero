@@ -398,6 +398,11 @@ public class ProgramManager : MonoBehaviour
 
     public void ConfirmSpells(bool random=false)
     {
+        foreach (Program p in programs)
+        {
+            p.blocks.RemoveAll(b => b == null);
+        }
+
         confirmButton.SetActive(false);
         randomButton.SetActive(false);
         backButton.SetActive(false);
@@ -415,6 +420,7 @@ public class ProgramManager : MonoBehaviour
             bool addedAura = false;
             foreach (Block b in p.blocks)
             {
+
                 cd += b.cd;
                 if (b.name == "Aura")
                 {
