@@ -146,10 +146,12 @@ public class DialogueManager : MonoBehaviour
 
     private string ShowPortraits(string line)
     {
+        bool final = SceneManager.GetActiveScene().name.Contains("Final");
         portraits[0].SetActive(line[0] != '~' && line[0] != '!'); //reya
-        portraits[1].SetActive(line[0] == '~'); //computer
-        portraits[2].SetActive(line[0] == '!' && lvlNum == 6); //gardener
-        portraits[3].SetActive(line[0] == '!' && lvlNum == 12); //hunter
+        portraits[1].SetActive(line[0] == '~' && !final); //computer
+        portraits[2].SetActive(line[0] == '~' && final); //computer_final
+        portraits[3].SetActive(line[0] == '!' && lvlNum == 6); //gardener
+        portraits[4].SetActive(line[0] == '!' && lvlNum == 12); //hunter
         if (line[0] == '~' || line[0] == '!')
             line = line.Substring(1);
         return line;

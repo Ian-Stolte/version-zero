@@ -798,7 +798,7 @@ public class GameManager : MonoBehaviour
         PlayerMovement p = player.GetComponent<PlayerMovement>();
         Transform accessPt = GameObject.Find("Access Point").transform;
 
-        DialogueManager.Instance.PlayByID("M_Approach");
+        DialogueManager.Instance.PlayByID("Access_Approach");
 
         yield return new WaitUntil(() => !DialogueManager.Instance.dialogue.activeSelf);
         pauseGame = false;
