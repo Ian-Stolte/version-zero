@@ -508,6 +508,10 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(2f);
 
             nextAreaText.GetComponent<TextMeshProUGUI>().text = nextArea;
+            if (nextArea.Length > 18)
+                nextAreaText.GetComponent<TextMeshProUGUI>().fontSize = 48;
+            else
+                nextAreaText.GetComponent<TextMeshProUGUI>().fontSize = 56;
             elevatorUI.SetActive(true);
             float elapsed = 0;
             while (elapsed < 1)
