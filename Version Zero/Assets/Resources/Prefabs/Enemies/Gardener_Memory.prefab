@@ -4540,7 +4540,7 @@ MonoBehaviour:
   shieldTime: 4
   startBarrier: {fileID: 0}
   endBarrier: {fileID: 0}
-  memoryReward: {fileID: 0}
+  memoryReward: {fileID: 4808948003568065144, guid: 0a07373fe14604549af5b445f4d52641, type: 3}
   finalForm: 0
 --- !u!95 &7933725467286558267
 Animator:
