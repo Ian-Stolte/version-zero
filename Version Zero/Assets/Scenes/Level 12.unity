@@ -32231,7 +32231,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5851174463189702468, guid: 4f1c08b85cb584877808535503e26fdf, type: 3}
       propertyPath: m_Name
-      value: The Hunter
+      value: Hunter_Logic
       objectReference: {fileID: 0}
     - target: {fileID: 6519062169738415614, guid: 4f1c08b85cb584877808535503e26fdf, type: 3}
       propertyPath: m_LocalPosition.x

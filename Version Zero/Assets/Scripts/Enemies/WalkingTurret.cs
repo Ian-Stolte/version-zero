@@ -34,7 +34,7 @@ public class WalkingTurret : Enemy
     [SerializeField] private GameObject spawnIndicator;
     private List<GameObject> indicators = new List<GameObject>();
     [SerializeField] private int enemiesToSpawn;
-    [SerializeField] private GameObject enemyPrefab;
+    public GameObject enemyPrefab;
     [SerializeField] private LayerMask spawnLayer;
     
     [Header("Defense")]
@@ -42,8 +42,8 @@ public class WalkingTurret : Enemy
     [SerializeField] private float shieldTime;
 
     [Header("Barriers")]
-    [SerializeField] private GameObject startBarrier;
-    [SerializeField] private GameObject endBarrier;
+    public GameObject startBarrier;
+    public GameObject endBarrier;
 
     [Header("Misc")]
     [SerializeField] private GameObject memoryReward;
@@ -310,15 +310,20 @@ public class WalkingTurret : Enemy
     {
         base.TakeDamage(dmg);
         RectTransform rightTri = healthBar.transform.parent.GetChild(1).GetComponent<RectTransform>();
-        rightTri.anchoredPosition = new Vector2(Mathf.Lerp(-150, 140, health/(maxHealth * 1.0f)), rightTri.anchoredPosition.y);
+        rightTri.anchoredPosition = new Vector2(Mathf.Lerp(-150, 140, health / (maxHealth * 1.0f)), rightTri.anchoredPosition.y);
+
+        if (health <= 0)
+        {
+            CustomDestroy();
+        }
     }
 
 
-    private void OnDestroy()
+    private void CustomDestroy()
     {
         GameObject reward = Instantiate(memoryReward, transform.position + new Vector3(0, 0, 0), Quaternion.identity);
         //TODO: set reward program randomly
-        healthBar.transform.parent.parent.gameObject.SetActive(false);
+        GameManager.Instance.bossUI.SetActive(false);
         foreach (Transform child in transform.parent)
             Destroy(child.gameObject);
 
@@ -326,5 +331,6 @@ public class WalkingTurret : Enemy
 
         if (!GameManager.Instance.pauseGame)
             AudioManager.Instance.KillBoss1();
+        Destroy(gameObject);
     }
 }

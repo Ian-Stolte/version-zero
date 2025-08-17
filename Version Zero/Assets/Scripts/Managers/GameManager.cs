@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool loadingLevel;
 
     [Header("Enemy Spawn")]
-    [SerializeField] private string[] enemyPrefabs; //TODO: change to struct w/ spawn pct, weight, etc
+    [SerializeField] private string[] enemyPrefabs; //TODO: change to struct w/ spawn pct, weight, etc?
     [SerializeField] private string[] enemyTypes;
     private string enemyType = "Logic";
     [SerializeField] private Transform enemyParent;
@@ -37,15 +37,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Vector3[] spawnDelays;
     private float minSpawn = 15;
     private float maxSpawn = 25;
-
-    [Header("Enemy Percents")]
-    [SerializeField] private int[] clearPars; //instinct
-    [SerializeField] private int[] killPars; //memory
-    [SerializeField] private Transform statsPanel;
-    [SerializeField] private Transform graph;
-    private float instinctLvl;
-    private float logicLvl;
-    private float memoryLvl;
 
     [Header("Terminals")]
     [SerializeField] private GameObject terminalBar;
@@ -65,6 +56,12 @@ public class GameManager : MonoBehaviour
     [Header("Level Load")]
     [SerializeField] private GameObject elevatorUI;
     [SerializeField] private GameObject nextAreaText;
+    
+    [SerializeField] private int[] clearPars; //instinct
+    [SerializeField] private int[] killPars; //memory
+    [SerializeField] private Transform statsPanel;
+    [SerializeField] private Transform graph;
+    private int[] sectorLvls = new int[3]; //logic, instinct, memory
 
     [Header("Misc")]
     [SerializeField] private TextMeshProUGUI areaText;
@@ -119,26 +116,33 @@ public class GameManager : MonoBehaviour
             if (levelNum == 6 || levelNum == 12)
             {
                 //if boss, pick highest pct
-                float maxLvl = Mathf.Max(logicLvl, memoryLvl, instinctLvl);
-                if (maxLvl == logicLvl)
-                    enemyType = "Logic";
-                else if (maxLvl == memoryLvl)
-                    enemyType = "Memory";
+                if (sectorLvls[0] + sectorLvls[1] + sectorLvls[2] == 0)
+                {
+                    enemyType = new[] { "Logic", "Instinct", "Memory" }[Random.Range(0, 3)];
+                }
                 else
-                    enemyType = "Instinct";
+                {
+                    float maxLvl = Mathf.Max(sectorLvls[0], sectorLvls[1], sectorLvls[2]);
+                    if (maxLvl == sectorLvls[0])
+                        enemyType = "Logic";
+                    else if (maxLvl == sectorLvls[1])
+                        enemyType = "Memory";
+                    else
+                        enemyType = "Instinct";
+                }
             }
             else
             {
                 //if normal level, use enemy pcts to randomly pick
-                float total = logicLvl + instinctLvl + memoryLvl;
+                float total = sectorLvls[0] + sectorLvls[1] + sectorLvls[2];
                 if (total == 0)
                     enemyType = new[] { "Logic", "Instinct", "Memory" }[Random.Range(0, 3)];
                 else
                 {
                     float r = Random.Range(0f, total);
-                    if (r < logicLvl)
+                    if (r < sectorLvls[0])
                         enemyType = "Logic";
-                    else if (r < logicLvl + instinctLvl)
+                    else if (r < sectorLvls[0] + sectorLvls[1])
                         enemyType = "Instinct";
                     else
                         enemyType = "Memory";
@@ -177,32 +181,39 @@ public class GameManager : MonoBehaviour
             }
 
             //replace enemies with chosen type
-            if (levelNum != 6 && levelNum != 12)
+            List<GameObject> newEnemies = new List<GameObject>();
+            foreach (Transform child in enemyParent)
             {
-                List<GameObject> newEnemies = new List<GameObject>();
-                foreach (Transform child in enemyParent)
+                for (int i = 0; i < child.name.Length; i++)
                 {
-                    for (int i = 0; i < child.name.Length; i++)
+                    if (child.name[i] == '_')
                     {
-                        if (child.name[i] == '_')
-                        {
-                            string name = child.name.Substring(0, i) + "_" + enemyType;
-                            GameObject prefab = Resources.Load<GameObject>("Prefabs/Enemies/" + name);
+                        string name = child.name.Substring(0, i) + "_" + enemyType;
+                        GameObject prefab = Resources.Load<GameObject>("Prefabs/Enemies/" + name);
 
-                            if (prefab != null && child.gameObject.activeSelf)
+                        if (prefab != null && child.gameObject.activeSelf)
+                        {
+                            newEnemies.Add(Instantiate(prefab, child.position, child.rotation));
+                            if (levelNum == 6)
                             {
-                                newEnemies.Add(Instantiate(prefab, child.position, child.rotation));
+                                newEnemies.Last().GetComponent<WalkingTurret>().startBarrier = child.GetComponent<WalkingTurret>().startBarrier;
+                                newEnemies.Last().GetComponent<WalkingTurret>().endBarrier = child.GetComponent<WalkingTurret>().endBarrier;
+                                newEnemies.Last().GetComponent<WalkingTurret>().enemyPrefab = Resources.Load<GameObject>("Prefabs/Enemies/Swarm_" + enemyType);
                             }
-                            break;
+                            else if (levelNum == 12)
+                            {
+                                newEnemies.Last().GetComponent<AggroEvasive>().startBarrier = child.GetComponent<AggroEvasive>().startBarrier;
+                            }
                         }
+                        break;
                     }
                 }
-                foreach (Transform child in enemyParent)
-                    Destroy(child.gameObject);
-
-                foreach (GameObject g in newEnemies)
-                    g.transform.parent = enemyParent;
             }
+            foreach (Transform child in enemyParent)
+                Destroy(child.gameObject);
+
+            foreach (GameObject g in newEnemies)
+                g.transform.parent = enemyParent;
         }
 
         int runNum = 1;
@@ -517,12 +528,16 @@ public class GameManager : MonoBehaviour
                 statsPanel.GetChild(2).GetComponent<TextMeshProUGUI>().text = dmg.ToString();
             }
 
-            //set next area text
+            //show elevator UI
             nextAreaText.GetComponent<TextMeshProUGUI>().text = nextArea;
             if (nextArea.Length > 18)
                 nextAreaText.GetComponent<TextMeshProUGUI>().fontSize = 48;
             else
                 nextAreaText.GetComponent<TextMeshProUGUI>().fontSize = 56;
+            nextAreaText.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Structural integrity: " + (103 - levelNum*5f) + "%";
+
+            graph.GetComponent<CanvasGroup>().alpha = 0;
+            statsPanel.gameObject.SetActive(showStats);
             elevatorUI.SetActive(true);
             float elapsed = 0;
             while (elapsed < 1)
@@ -544,10 +559,18 @@ public class GameManager : MonoBehaviour
             }
             if (showStats)
             {
+                int[] oldLvls = sectorLvls;
+                float total = 0;
+                for (int i = 0; i < 3; i++)
+                {
+                    sectorLvls[i] += bonuses[i];
+                    total += sectorLvls[i];
+                }
                 for (int i = 0; i < 3; i++)
                 {
                     yield return new WaitForSeconds(0.5f);
                     statsPanel.GetChild(i).GetComponent<TextMeshProUGUI>().text = "+" + bonuses[i].ToString();
+                    StartCoroutine(RaiseGraph(i, sectorLvls[i]/total, sectorLvls[i]-bonuses[i], sectorLvls[i]));
                 }
 
             }
@@ -579,6 +602,25 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         AudioManager.Instance.Play("Elevator Stop");
         AudioManager.Instance.Stop("Elevator Down");
+    }
+
+    private IEnumerator RaiseGraph(int index, float target, int rawStart, int rawTarget)
+    {
+        Transform bar = graph.GetChild(index);
+        float start = bar.GetComponent<Image>().fillAmount;
+        float elapsed = 0;
+        while (elapsed < 1f)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+            bar.GetComponent<Image>().fillAmount = Mathf.Lerp(start, target, elapsed);
+            bar.GetChild(0).GetComponent<Image>().fillAmount = Mathf.Lerp(start, target, elapsed);
+            bar.GetChild(1).GetComponent<TextMeshProUGUI>().text = Mathf.Round(Mathf.Lerp(rawStart, rawTarget, elapsed)).ToString();
+            bar.GetChild(1).GetComponent<RectTransform>().anchoredPosition = new Vector2(0, Mathf.Lerp(Mathf.Lerp(-100, 150, start), Mathf.Lerp(-100, 150, target), elapsed));
+        }
+        bar.GetComponent<Image>().fillAmount = target;
+        bar.GetChild(0).GetComponent<Image>().fillAmount = target;
+        bar.GetChild(1).GetComponent<TextMeshProUGUI>().text = rawTarget.ToString();
     }
 
     public IEnumerator FinalNextLevel(string scene)

@@ -297,10 +297,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2372218506650212160, guid: 1671aca5b291bc04ba40fd574cdc49f1, type: 3}
-      propertyPath: memoryReward
-      value: 
-      objectReference: {fileID: 4808948003568065144, guid: 0a07373fe14604549af5b445f4d52641, type: 3}
-    - target: {fileID: 2372218506650212160, guid: 1671aca5b291bc04ba40fd574cdc49f1, type: 3}
       propertyPath: startBarrier
       value: 
       objectReference: {fileID: 621921260}
@@ -538,7 +534,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 90ac25ab91a76f346b15c8b0a2366d2d, type: 2}
     - target: {fileID: 8901780109638216728, guid: 1671aca5b291bc04ba40fd574cdc49f1, type: 3}
       propertyPath: m_Name
-      value: The Gardener
+      value: Gardener_Logic
       objectReference: {fileID: 0}
     - target: {fileID: 9033751811346842967, guid: 1671aca5b291bc04ba40fd574cdc49f1, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1759,11 +1755,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61365b73998524e4ca8d92910b508c16, type: 3}
---- !u!1 &200959293 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4864050908692714929, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
-  m_PrefabInstance: {fileID: 1243056213}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &201224492
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9917,14 +9908,14 @@ PrefabInstance:
     - target: {fileID: 1712194664605143150, guid: 372c20bebb6c4ee49ac758cf046f0dbc, type: 3}
       propertyPath: loadingText
       value: 
-      objectReference: {fileID: 200959293}
+      objectReference: {fileID: 0}
     - target: {fileID: 1712194664605143150, guid: 372c20bebb6c4ee49ac758cf046f0dbc, type: 3}
       propertyPath: terminalIcons
       value: 
       objectReference: {fileID: 1150316245}
     - target: {fileID: 1712194664605143150, guid: 372c20bebb6c4ee49ac758cf046f0dbc, type: 3}
       propertyPath: enemyPrefabs.Array.size
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1712194664605143150, guid: 372c20bebb6c4ee49ac758cf046f0dbc, type: 3}
       propertyPath: enemyPrefabs.Array.data[2]
