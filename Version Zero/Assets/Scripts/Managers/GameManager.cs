@@ -26,9 +26,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Enemy Spawn")]
     [SerializeField] private string[] enemyPrefabs; //TODO: change to struct w/ spawn pct, weight, etc?
-    [SerializeField] private string[] enemyTypes;
-    private string enemyType = "Logic";
     [SerializeField] private Transform enemyParent;
+    public string enemyType;
 
     public Transform enemyTimer;
     private float spawnTimer;
@@ -126,9 +125,9 @@ public class GameManager : MonoBehaviour
                     if (maxLvl == sectorLvls[0])
                         enemyType = "Logic";
                     else if (maxLvl == sectorLvls[1])
-                        enemyType = "Memory";
-                    else
                         enemyType = "Instinct";
+                    else
+                        enemyType = "Memory";
                 }
             }
             else

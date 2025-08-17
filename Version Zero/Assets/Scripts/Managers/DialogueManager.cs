@@ -148,10 +148,18 @@ public class DialogueManager : MonoBehaviour
     {
         bool final = SceneManager.GetActiveScene().name.Contains("Final");
         portraits[0].SetActive(line[0] != '~' && line[0] != '!'); //reya
+
         portraits[1].SetActive(line[0] == '~' && !final); //computer
         portraits[2].SetActive(line[0] == '~' && final); //computer_final
-        portraits[3].SetActive(line[0] == '!' && lvlNum == 6); //gardener
-        portraits[4].SetActive(line[0] == '!' && lvlNum == 12); //hunter
+
+        portraits[3].SetActive(line[0] == '!' && lvlNum == 6 && GameManager.Instance.enemyType == "Logic"); //gardener_logic
+        portraits[4].SetActive(line[0] == '!' && lvlNum == 6 && GameManager.Instance.enemyType == "Instinct"); //gardener_instinct
+        portraits[5].SetActive(line[0] == '!' && lvlNum == 6 && GameManager.Instance.enemyType == "Memory"); //gardener_memory
+
+        portraits[6].SetActive(line[0] == '!' && lvlNum == 12 && GameManager.Instance.enemyType == "Logic"); //hunter_logic
+        portraits[7].SetActive(line[0] == '!' && lvlNum == 12 && GameManager.Instance.enemyType == "Instinct"); //hunter_instinct
+        portraits[8].SetActive(line[0] == '!' && lvlNum == 12 && GameManager.Instance.enemyType == "Memory"); //hunter_memory
+
         if (line[0] == '~' || line[0] == '!')
             line = line.Substring(1);
         return line;
