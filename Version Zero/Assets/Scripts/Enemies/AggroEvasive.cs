@@ -15,7 +15,7 @@ public class AggroEvasive : Enemy
     private float modeSwitchPct;
 
     [Header("Boss")]
-    [SerializeField] private GameObject startBarrier;
+    public GameObject startBarrier;
     [SerializeField] private GameObject memoryReward;
     private int arenaNum = 1;
     [SerializeField] private Vector3[] arenaStarts;

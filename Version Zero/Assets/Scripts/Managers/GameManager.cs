@@ -25,10 +25,9 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool loadingLevel;
 
     [Header("Enemy Spawn")]
-    [SerializeField] private string[] enemyPrefabs; //TODO: change to struct w/ spawn pct, weight, etc
-    [SerializeField] private string[] enemyTypes;
-    private string enemyType = "Logic";
+    [SerializeField] private string[] enemyPrefabs; //TODO: change to struct w/ spawn pct, weight, etc?
     [SerializeField] private Transform enemyParent;
+    public string enemyType;
 
     public Transform enemyTimer;
     private float spawnTimer;
@@ -37,13 +36,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Vector3[] spawnDelays;
     private float minSpawn = 15;
     private float maxSpawn = 25;
-
-    [Header("Enemy Percents")]
-    [SerializeField] private int[] clearPars; //instinct
-    [SerializeField] private int[] killPars; //memory
-    private float instinctLvl;
-    private float logicLvl;
-    private float memoryLvl;
 
     [Header("Terminals")]
     [SerializeField] private GameObject terminalBar;
@@ -60,11 +52,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Material barrierGreen;
     [SerializeField] private Material barrierUnlockGreen;
 
+    [Header("Level Load")]
+    [SerializeField] private GameObject elevatorUI;
+    [SerializeField] private GameObject nextAreaText;
+    
+    [SerializeField] private int[] clearPars; //instinct
+    [SerializeField] private int[] killPars; //memory
+    [SerializeField] private Transform statsPanel;
+    [SerializeField] private Transform graph;
+    private int[] sectorLvls = new int[3]; //logic, instinct, memory
+
     [Header("Misc")]
     [SerializeField] private TextMeshProUGUI areaText;
     [SerializeField] private LayerMask terrainLayer;
     public GameObject bossUI;
-    [SerializeField] private GameObject loadingText;
     [SerializeField] private GameObject gameOver;
     [SerializeField] private GameObject finalVFX;
     private GameObject canvas;
@@ -114,26 +115,33 @@ public class GameManager : MonoBehaviour
             if (levelNum == 6 || levelNum == 12)
             {
                 //if boss, pick highest pct
-                float maxLvl = Mathf.Max(logicLvl, memoryLvl, instinctLvl);
-                if (maxLvl == logicLvl)
-                    enemyType = "Logic";
-                else if (maxLvl == memoryLvl)
-                    enemyType = "Memory";
+                if (sectorLvls[0] + sectorLvls[1] + sectorLvls[2] == 0)
+                {
+                    enemyType = new[] { "Logic", "Instinct", "Memory" }[Random.Range(0, 3)];
+                }
                 else
-                    enemyType = "Instinct";
+                {
+                    float maxLvl = Mathf.Max(sectorLvls[0], sectorLvls[1], sectorLvls[2]);
+                    if (maxLvl == sectorLvls[0])
+                        enemyType = "Logic";
+                    else if (maxLvl == sectorLvls[1])
+                        enemyType = "Instinct";
+                    else
+                        enemyType = "Memory";
+                }
             }
             else
             {
                 //if normal level, use enemy pcts to randomly pick
-                float total = logicLvl + instinctLvl + memoryLvl;
+                float total = sectorLvls[0] + sectorLvls[1] + sectorLvls[2];
                 if (total == 0)
                     enemyType = new[] { "Logic", "Instinct", "Memory" }[Random.Range(0, 3)];
                 else
                 {
                     float r = Random.Range(0f, total);
-                    if (r < logicLvl)
+                    if (r < sectorLvls[0])
                         enemyType = "Logic";
-                    else if (r < logicLvl + instinctLvl)
+                    else if (r < sectorLvls[0] + sectorLvls[1])
                         enemyType = "Instinct";
                     else
                         enemyType = "Memory";
@@ -172,32 +180,39 @@ public class GameManager : MonoBehaviour
             }
 
             //replace enemies with chosen type
-            if (levelNum != 6 && levelNum != 12)
+            List<GameObject> newEnemies = new List<GameObject>();
+            foreach (Transform child in enemyParent)
             {
-                List<GameObject> newEnemies = new List<GameObject>();
-                foreach (Transform child in enemyParent)
+                for (int i = 0; i < child.name.Length; i++)
                 {
-                    for (int i = 0; i < child.name.Length; i++)
+                    if (child.name[i] == '_')
                     {
-                        if (child.name[i] == '_')
-                        {
-                            string name = child.name.Substring(0, i) + "_" + enemyType;
-                            GameObject prefab = Resources.Load<GameObject>("Prefabs/Enemies/" + name);
+                        string name = child.name.Substring(0, i) + "_" + enemyType;
+                        GameObject prefab = Resources.Load<GameObject>("Prefabs/Enemies/" + name);
 
-                            if (prefab != null && child.gameObject.activeSelf)
+                        if (prefab != null && child.gameObject.activeSelf)
+                        {
+                            newEnemies.Add(Instantiate(prefab, child.position, child.rotation));
+                            if (levelNum == 6)
                             {
-                                newEnemies.Add(Instantiate(prefab, child.position, child.rotation));
+                                newEnemies.Last().GetComponent<WalkingTurret>().startBarrier = child.GetComponent<WalkingTurret>().startBarrier;
+                                newEnemies.Last().GetComponent<WalkingTurret>().endBarrier = child.GetComponent<WalkingTurret>().endBarrier;
+                                newEnemies.Last().GetComponent<WalkingTurret>().enemyPrefab = Resources.Load<GameObject>("Prefabs/Enemies/Swarm_" + enemyType);
                             }
-                            break;
+                            else if (levelNum == 12)
+                            {
+                                newEnemies.Last().GetComponent<AggroEvasive>().startBarrier = child.GetComponent<AggroEvasive>().startBarrier;
+                            }
                         }
+                        break;
                     }
                 }
-                foreach (Transform child in enemyParent)
-                    Destroy(child.gameObject);
-
-                foreach (GameObject g in newEnemies)
-                    g.transform.parent = enemyParent;
             }
+            foreach (Transform child in enemyParent)
+                Destroy(child.gameObject);
+
+            foreach (GameObject g in newEnemies)
+                g.transform.parent = enemyParent;
         }
 
         int runNum = 1;
@@ -450,48 +465,7 @@ public class GameManager : MonoBehaviour
 
         if (!skip)
         {
-            //compute change to enemy pcts
-            if (levelNum-1 >= 3 && levelNum-1 != 6 && levelNum-1 != 12)
-            {
-                float time = SequenceManager.Instance.levelTime;
-                int parTime = clearPars[levelNum - 1];
-                if (time <= parTime * 0.5f)
-                    instinctLvl += 5;
-                else if (time <= parTime * 0.75)
-                    instinctLvl += 4;
-                else if (time <= parTime)
-                    instinctLvl += 3;
-                else if (time <= parTime * 1.5f)
-                    instinctLvl += 2;
-                else if (time <= parTime * 2f)
-                    instinctLvl += 1;
-                Debug.Log(instinctLvl + " (instinct)");
-
-                int kills = SequenceManager.Instance.levelKills;
-                int parKills = killPars[levelNum - 1];
-                if (kills >= parKills)
-                    logicLvl += 5;
-                else if (kills >= parKills * 0.8f)
-                    logicLvl += 4;
-                else if (kills >= parKills * 0.6f)
-                    logicLvl += 3;
-                else if (kills >= parKills * 0.4f)
-                    logicLvl += 2;
-                else if (kills >= parKills * 0.2f)
-                    logicLvl += 1;
-                Debug.Log(logicLvl + " (memory)");
-
-                int dmg = SequenceManager.Instance.levelDmg;
-                if (dmg == 0)
-                    memoryLvl += 3;
-                else if (dmg == 1)
-                    memoryLvl += 2;
-                else if (dmg <= 3)
-                    memoryLvl += 1;
-                Debug.Log(memoryLvl + " (logic)");
-            }
-
-            //transition to next level
+            //start transition to next level
             AudioManager.Instance.Play("Elevator Down");
             foreach (Transform child in enemyParent)
                 Destroy(child.gameObject);
@@ -499,26 +473,118 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(AudioManager.Instance.Area2());
             else if (levelNum == 13)
                 StartCoroutine(AudioManager.Instance.Area3());
-
             yield return new WaitForSeconds(0.5f);
-            Fader.Instance.FadeIn(1.2f, true);
-            yield return new WaitForSeconds(1.2f);
-            yield return new WaitForSeconds(1.5f);
-            loadingText.GetComponent<TextMeshProUGUI>().text = "Now approaching: \n" + nextArea;
-            loadingText.SetActive(true);
-            Color c = loadingText.GetComponent<TextMeshProUGUI>().color;
-            loadingText.GetComponent<TextMeshProUGUI>().color = new Color(c.r, c.g, c.b, 1);
+            Fader.Instance.FadeIn(1f, true);
             yield return new WaitForSeconds(2f);
 
-            float elapsed = 1;
+
+            //compute change to enemy pcts
+            int[] bonuses = new int[3];
+            bool showStats = (levelNum - 1 >= 3 && levelNum - 1 != 6 && levelNum - 1 != 12);
+            if (showStats)
+            {
+                int kills = SequenceManager.Instance.levelKills;
+                int parKills = killPars[levelNum - 1];
+                if (kills >= parKills)
+                    bonuses[0] = 5;
+                else if (kills >= parKills * 0.8f)
+                    bonuses[0] = 4;
+                else if (kills >= parKills * 0.6f)
+                    bonuses[0] = 3;
+                else if (kills >= parKills * 0.4f)
+                    bonuses[0] = 2;
+                else if (kills >= parKills * 0.2f)
+                    bonuses[0] = 1;
+                else
+                    bonuses[0] = 0;
+                statsPanel.GetChild(0).GetComponent<TextMeshProUGUI>().text = kills.ToString();
+
+                float time = SequenceManager.Instance.levelTime;
+                int parTime = clearPars[levelNum - 1];
+                if (time <= parTime * 0.5f)
+                    bonuses[1] = 5;
+                else if (time <= parTime * 0.75f)
+                    bonuses[1] = 4;
+                else if (time <= parTime)
+                    bonuses[1] = 3;
+                else if (time <= parTime * 1.5f)
+                    bonuses[1] = 2;
+                else if (time <= parTime * 2f)
+                    bonuses[1] = 1;
+                else
+                    bonuses[1] = 0;
+                statsPanel.GetChild(1).GetComponent<TextMeshProUGUI>().text = FormatTime(time);
+
+                int dmg = SequenceManager.Instance.levelDmg;
+                if (dmg == 0)
+                    bonuses[2] = 3;
+                else if (dmg == 1)
+                    bonuses[2] = 2;
+                else if (dmg <= 3)
+                    bonuses[2] = 1;
+                else
+                    bonuses[2] = 0;
+                statsPanel.GetChild(2).GetComponent<TextMeshProUGUI>().text = dmg.ToString();
+            }
+
+            //show elevator UI
+            nextAreaText.GetComponent<TextMeshProUGUI>().text = nextArea;
+            if (nextArea.Length > 18)
+                nextAreaText.GetComponent<TextMeshProUGUI>().fontSize = 48;
+            else
+                nextAreaText.GetComponent<TextMeshProUGUI>().fontSize = 56;
+            nextAreaText.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Structural integrity: " + (103 - levelNum*5f) + "%";
+
+            graph.GetComponent<CanvasGroup>().alpha = 0;
+            statsPanel.gameObject.SetActive(showStats);
+            elevatorUI.SetActive(true);
+            float elapsed = 0;
+            while (elapsed < 1)
+            {
+                elapsed += Time.deltaTime;
+                yield return null;
+                elevatorUI.GetComponent<CanvasGroup>().alpha = elapsed;
+            }
+            elevatorUI.GetComponent<CanvasGroup>().alpha = 1;
+
+            //change stats to show bonuses
+            yield return new WaitForSeconds(0.5f);
+            elapsed = 0;
+            while (elapsed < 1)
+            {
+                elapsed += Time.deltaTime;
+                yield return null;
+                graph.GetComponent<CanvasGroup>().alpha = elapsed;
+            }
+            if (showStats)
+            {
+                int[] oldLvls = sectorLvls;
+                float total = 0;
+                for (int i = 0; i < 3; i++)
+                {
+                    sectorLvls[i] += bonuses[i];
+                    total += sectorLvls[i];
+                }
+                for (int i = 0; i < 3; i++)
+                {
+                    yield return new WaitForSeconds(0.5f);
+                    statsPanel.GetChild(i).GetComponent<TextMeshProUGUI>().text = "+" + bonuses[i].ToString();
+                    StartCoroutine(RaiseGraph(i, sectorLvls[i]/total, sectorLvls[i]-bonuses[i], sectorLvls[i]));
+                }
+
+            }
+
+            yield return new WaitForSeconds(2f);
+
             StartCoroutine(ElevatorSounds());
+            elapsed = 1;
             while (elapsed > 0)
             {
                 elapsed -= Time.deltaTime;
                 yield return null;
-                loadingText.GetComponent<TextMeshProUGUI>().color = new Color(c.r, c.g, c.b, elapsed);
+                elevatorUI.GetComponent<CanvasGroup>().alpha = elapsed;
             }
-            loadingText.SetActive(false);
+            elevatorUI.SetActive(false);
         }
         else
             yield return null;
@@ -535,6 +601,25 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         AudioManager.Instance.Play("Elevator Stop");
         AudioManager.Instance.Stop("Elevator Down");
+    }
+
+    private IEnumerator RaiseGraph(int index, float target, int rawStart, int rawTarget)
+    {
+        Transform bar = graph.GetChild(index);
+        float start = bar.GetComponent<Image>().fillAmount;
+        float elapsed = 0;
+        while (elapsed < 1f)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+            bar.GetComponent<Image>().fillAmount = Mathf.Lerp(start, target, elapsed);
+            bar.GetChild(0).GetComponent<Image>().fillAmount = Mathf.Lerp(start, target, elapsed);
+            bar.GetChild(1).GetComponent<TextMeshProUGUI>().text = Mathf.Round(Mathf.Lerp(rawStart, rawTarget, elapsed)).ToString();
+            bar.GetChild(1).GetComponent<RectTransform>().anchoredPosition = new Vector2(0, Mathf.Lerp(Mathf.Lerp(-100, 150, start), Mathf.Lerp(-100, 150, target), elapsed));
+        }
+        bar.GetComponent<Image>().fillAmount = target;
+        bar.GetChild(0).GetComponent<Image>().fillAmount = target;
+        bar.GetChild(1).GetComponent<TextMeshProUGUI>().text = rawTarget.ToString();
     }
 
     public IEnumerator FinalNextLevel(string scene)
@@ -754,7 +839,7 @@ public class GameManager : MonoBehaviour
         PlayerMovement p = player.GetComponent<PlayerMovement>();
         Transform accessPt = GameObject.Find("Access Point").transform;
 
-        DialogueManager.Instance.PlayByID("M_Approach");
+        DialogueManager.Instance.PlayByID("Access_Approach");
 
         yield return new WaitUntil(() => !DialogueManager.Instance.dialogue.activeSelf);
         pauseGame = false;
@@ -794,5 +879,17 @@ public class GameManager : MonoBehaviour
         yield return new WaitUntil(() => !DialogueManager.Instance.dialogue.activeSelf);
 
         //ending sequence -> credits
+    }
+    
+
+
+    private string FormatTime(float time)
+    {
+        if (time > 3600)
+            return "> 1hr";
+        int minutes = (int)time/60;
+        int seconds = (int)Mathf.Min(59, Mathf.Round(time%60));
+        string secondsStr = (seconds < 10) ? ":0" + seconds : ":" + seconds;
+        return minutes + secondsStr;
     }
 }

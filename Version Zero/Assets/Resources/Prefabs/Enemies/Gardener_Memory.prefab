@@ -4497,11 +4497,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   health: 0
+  customDestroy: 1
   aggroRange: 14
   aggro: 0
   stunTimer: 0
   slowTimer: 0
-  gridIndex: 2
+  gridIndex: 1
   collisionRadius: 3
   terrainLayer:
     serializedVersion: 2
@@ -4512,20 +4513,16 @@ MonoBehaviour:
   statusTxt: {fileID: 6942373197561517911}
   damageNumber: {fileID: 2345899596540281866, guid: 753d7799ea08308459e89e0baabf8ac3, type: 3}
   mark: {fileID: 4337788065751008411}
+  damageMat: {fileID: 2100000, guid: a1e9fa7d2ec9eb340a650ce47e58854b, type: 2}
+  shielded: 0
   anim: {fileID: 7933725467286558267}
   rb: {fileID: 0}
   player: {fileID: 0}
-  damageMat: {fileID: 2100000, guid: a1e9fa7d2ec9eb340a650ce47e58854b, type: 2}
-  shielded: 0
   defSpeed: 1.5
   targetMin: 5
   targetMax: 10
-  lineOfSight: 0
-  stuckTimer: 0
   atkDelay: 5
   dmg: 2
-  numProj: 50
-  spread: 10
   projPrefab: {fileID: 3512434751255828300, guid: 3964fdbb2368ece4ab9b0ca91fedabcc, type: 3}
   meleeRange: 7
   stompDmg: 3
@@ -4543,6 +4540,7 @@ MonoBehaviour:
   shieldTime: 4
   startBarrier: {fileID: 0}
   endBarrier: {fileID: 0}
+  memoryReward: {fileID: 4808948003568065144, guid: 0a07373fe14604549af5b445f4d52641, type: 3}
   finalForm: 0
 --- !u!95 &7933725467286558267
 Animator:
@@ -4554,7 +4552,7 @@ Animator:
   m_GameObject: {fileID: 8901780109638216728}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8a2bb0487c30dc247b14cc29c5af5507, type: 2}
+  m_Controller: {fileID: 9100000, guid: 388bd3191b32d4106b24bf597ededc0f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

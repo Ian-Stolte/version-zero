@@ -398,6 +398,11 @@ public class ProgramManager : MonoBehaviour
 
     public void ConfirmSpells(bool random=false)
     {
+        foreach (Program p in programs)
+        {
+            p.blocks.RemoveAll(b => b == null);
+        }
+
         confirmButton.SetActive(false);
         randomButton.SetActive(false);
         backButton.SetActive(false);
@@ -415,6 +420,7 @@ public class ProgramManager : MonoBehaviour
             bool addedAura = false;
             foreach (Block b in p.blocks)
             {
+
                 cd += b.cd;
                 if (b.name == "Aura")
                 {
@@ -608,7 +614,7 @@ public class ProgramManager : MonoBehaviour
 
     private IEnumerator ChangeKeybindCor(KeybindSlot k)
     {
-        TextMeshProUGUI txt = k.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI txt = k.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
         txt.text = "[press a key]";
         txt.fontSize = 18;
 
@@ -629,7 +635,7 @@ public class ProgramManager : MonoBehaviour
                             if (script != k && script.keybind == code)
                             {
                                 script.keybind = KeyCode.None;
-                                script.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "__";
+                                script.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "__";
                             }
                         }
                         yield break;

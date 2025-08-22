@@ -4206,11 +4206,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 817874625}
   m_Mesh: {fileID: -5741174448488666723, guid: ada79b98858c6ac4a90f4a5b90a33a7d, type: 3}
---- !u!1 &877156080 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4864050908692714929, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
-  m_PrefabInstance: {fileID: 6154748227236401477}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &881572682 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4512587099578155676, guid: cdf17cf3838a3464697126b1a9aedd3e, type: 3}
@@ -5290,7 +5285,7 @@ PrefabInstance:
     - target: {fileID: 1712194664605143150, guid: 372c20bebb6c4ee49ac758cf046f0dbc, type: 3}
       propertyPath: bossTxt
       value: 
-      objectReference: {fileID: 877156080}
+      objectReference: {fileID: 0}
     - target: {fileID: 1712194664605143150, guid: 372c20bebb6c4ee49ac758cf046f0dbc, type: 3}
       propertyPath: noSpawn
       value: 0
@@ -5314,7 +5309,7 @@ PrefabInstance:
     - target: {fileID: 1712194664605143150, guid: 372c20bebb6c4ee49ac758cf046f0dbc, type: 3}
       propertyPath: loadingText
       value: 
-      objectReference: {fileID: 877156080}
+      objectReference: {fileID: 0}
     - target: {fileID: 1712194664605143150, guid: 372c20bebb6c4ee49ac758cf046f0dbc, type: 3}
       propertyPath: terminalIcons
       value: 
@@ -9585,6 +9580,26 @@ PrefabInstance:
     - target: {fileID: 8189439667682560751, guid: 375138c428cb3554e8f8193c322897bb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8635442803177707566, guid: 375138c428cb3554e8f8193c322897bb, type: 3}
+      propertyPath: invisTime.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8635442803177707566, guid: 375138c428cb3554e8f8193c322897bb, type: 3}
+      propertyPath: invisTime.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8635442803177707566, guid: 375138c428cb3554e8f8193c322897bb, type: 3}
+      propertyPath: solidTime.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8635442803177707566, guid: 375138c428cb3554e8f8193c322897bb, type: 3}
+      propertyPath: solidTime.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8635442803177707566, guid: 375138c428cb3554e8f8193c322897bb, type: 3}
+      propertyPath: startingTime
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
