@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &6149108542573026881
+--- !u!1001 &4072150905561615311
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3408865461471032401, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_Color.b
+      value: 0.63529414
+      objectReference: {fileID: 0}
+    - target: {fileID: 3408865461471032401, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_Color.g
+      value: 0.30588236
+      objectReference: {fileID: 0}
+    - target: {fileID: 3408865461471032401, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8627451
+      objectReference: {fileID: 0}
     - target: {fileID: 3754997502824412307, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -89,24 +101,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4145732063751185695, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: tag
+      value: base
+      objectReference: {fileID: 0}
+    - target: {fileID: 4145732063751185695, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: sector
-      value: logic
+      value: instinct
       objectReference: {fileID: 0}
     - target: {fileID: 4145732063751185695, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: description
-      value: A projectile that stops on the first enemy hit
+      value: A short-range circle around yourself
       objectReference: {fileID: 0}
     - target: {fileID: 6695455977087007718, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: b8a5d9f36bc70194081c940b96876c50, type: 3}
+      objectReference: {fileID: 21300000, guid: d3692a5f928c88149ba4410283c84df8, type: 3}
     - target: {fileID: 6695455977087007718, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7452607151405539719, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_text
-      value: Line
+      value: Pulse
       objectReference: {fileID: 0}
     - target: {fileID: 7452607151405539719, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_fontSize
@@ -118,31 +134,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7816516429751747857, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_Name
-      value: Line
-      objectReference: {fileID: 0}
-    - target: {fileID: 8598513078755799870, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      value: Pulse
       objectReference: {fileID: 0}
     - target: {fileID: 9111906722765110435, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 116.4129
+      value: 107.7688
       objectReference: {fileID: 0}
     - target: {fileID: 9111906722765110435, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 74.713
+      value: 108.3242
       objectReference: {fileID: 0}
     - target: {fileID: 9111906722765110435, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.4269608
+      value: 0.48670167
       objectReference: {fileID: 0}
     - target: {fileID: 9111906722765110435, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.70354617
+      value: 0.8019872
       objectReference: {fileID: 0}
     - target: {fileID: 9111906722765110435, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.93857336
+      value: 1.0698996
       objectReference: {fileID: 0}
     - target: {fileID: 9111906722765110435, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -150,7 +162,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9111906722765110435, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -3.9
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

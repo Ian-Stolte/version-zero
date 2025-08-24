@@ -16,6 +16,7 @@ public class AggroEvasive : Enemy
 
     [Header("Boss")]
     public GameObject startBarrier;
+    [SerializeField] private GameObject[] rewardPrograms;
     [SerializeField] private GameObject memoryReward;
     private int arenaNum = 1;
     [SerializeField] private Vector3[] arenaStarts;
@@ -557,8 +558,32 @@ public class AggroEvasive : Enemy
         yield return null;
         GameManager.Instance.pauseGame = false;
 
-        GameObject reward = Instantiate(memoryReward, transform.position + new Vector3(0, 0, 0), Quaternion.identity);
-        //TODO: set reward program randomly
+        //drop program reward
+        int index;
+        if (GameManager.Instance.enemyType == "Instinct")
+        {
+            index = SequenceManager.Instance.boss1Kills[0];
+            SequenceManager.Instance.boss1Kills[0] += 1;
+        }
+        else if (GameManager.Instance.enemyType == "Logic")
+        {
+            index = SequenceManager.Instance.boss1Kills[1];
+            SequenceManager.Instance.boss1Kills[1] += 1;
+        }
+        else // "Memory"
+        {
+            index = SequenceManager.Instance.boss1Kills[2];
+            SequenceManager.Instance.boss1Kills[2] += 1;
+        }
+        if (index < rewardPrograms.Length)
+        {
+            GameObject reward = Instantiate(memoryReward, transform.position + new Vector3(0, 0, 0), Quaternion.identity);
+            reward.GetComponent<Memory>().program = rewardPrograms[index];
+        }
+        else
+        {
+            Debug.Log("Unlocked all " + GameManager.Instance.enemyType + " programs.");
+        }
         
         Destroy(gameObject);
     }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2549974317808777981
+--- !u!1001 &6486626747418694736
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3408865461471032401, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8117647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3408865461471032401, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_Color.g
+      value: 0.49019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 3408865461471032401, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_Color.r
+      value: 0.22352941
+      objectReference: {fileID: 0}
     - target: {fileID: 3754997502824412307, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -89,16 +101,84 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4145732063751185695, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: cd
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4145732063751185695, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: tag
+      value: base
+      objectReference: {fileID: 0}
+    - target: {fileID: 4145732063751185695, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: minCd
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4145732063751185695, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: sector
-      value: logic
+      value: memory
+      objectReference: {fileID: 0}
+    - target: {fileID: 4145732063751185695, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: description
+      value: A circle around any point you choose
+      objectReference: {fileID: 0}
+    - target: {fileID: 4483293897679609410, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6695455977087007718, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d0428c8bbe7c1534e94eb39f0eafca58, type: 3}
+    - target: {fileID: 6695455977087007718, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7452607151405539719, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_text
-      value: Target
+      value: Circle
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452607151405539719, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452607151405539719, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7816516429751747857, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_Name
-      value: Target
+      value: Circle
+      objectReference: {fileID: 0}
+    - target: {fileID: 8598513078755799870, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111906722765110435, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 135.4456
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111906722765110435, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 125.3437
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111906722765110435, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.4745536
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111906722765110435, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8019872
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111906722765110435, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.0698996
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111906722765110435, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111906722765110435, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -3.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

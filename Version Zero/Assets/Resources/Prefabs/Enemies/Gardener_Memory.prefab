@@ -4522,13 +4522,14 @@ MonoBehaviour:
   targetMin: 5
   targetMax: 10
   atkDelay: 5
-  dmg: 2
+  dmg: 1
   projPrefab: {fileID: 3512434751255828300, guid: 3964fdbb2368ece4ab9b0ca91fedabcc, type: 3}
   meleeRange: 7
   stompDmg: 3
   stompForce: 100
   stompDelay: 3
   stompIndicator: {fileID: 1370183966778295720}
+  stompProj: {fileID: 3512434751255828300, guid: 770fd79ab065a420e9640d64f5ea1c7f, type: 3}
   spawnInterval: 0.2
   spawnIndicator: {fileID: 7385684649305300431, guid: 2605329a885b82447aed8453a60487e2, type: 3}
   enemiesToSpawn: 6
@@ -4540,6 +4541,8 @@ MonoBehaviour:
   shieldTime: 4
   startBarrier: {fileID: 0}
   endBarrier: {fileID: 0}
+  rewardPrograms:
+  - {fileID: 9191262866201418245, guid: 0f37290e6bbae8f48a0bd3cdf9758eac, type: 3}
   memoryReward: {fileID: 4808948003568065144, guid: 0a07373fe14604549af5b445f4d52641, type: 3}
   finalForm: 0
 --- !u!95 &7933725467286558267

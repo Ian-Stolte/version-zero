@@ -5,7 +5,7 @@ using UnityEngine;
 public class Memory : MonoBehaviour
 {
     [SerializeField] private GameObject newProgramUI;
-    [SerializeField] private GameObject program;
+    public GameObject program;
     [SerializeField] private string dialogueName;
     private bool active;
 
@@ -34,6 +34,13 @@ public class Memory : MonoBehaviour
         GameObject programVisual = Instantiate(program, Vector3.zero, Quaternion.identity, newProgram.transform);
         programVisual.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 20);
         ProgramManager.Instance.CreateBlock(program);
+        if (program.GetComponent<Block>().tag == "effect")
+            ProgramManager.Instance.effectBlocks.Add(program);
+        else if (program.GetComponent<Block>().tag == "base")
+            ProgramManager.Instance.baseBlocks.Add(program);
+        else if (program.GetComponent<Block>().tag == "mod")
+            ProgramManager.Instance.modBlocks.Add(program);
+        ProgramManager.Instance.allBlocks.Add(program);
 
         float elapsed = 0f;
         while (elapsed < 1f)

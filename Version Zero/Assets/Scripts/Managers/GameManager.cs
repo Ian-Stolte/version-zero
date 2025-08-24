@@ -282,7 +282,10 @@ public class GameManager : MonoBehaviour
         {
             int killed = enemyParent.childCount;
             foreach (Transform child in enemyParent)
-                Destroy(child.gameObject);
+            {
+                if (child.GetComponent<Enemy>() != null)
+                    child.GetComponent<Enemy>().TakeDamage(9999);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.M))

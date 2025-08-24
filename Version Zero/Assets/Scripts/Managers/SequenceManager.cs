@@ -27,6 +27,10 @@ public class SequenceManager : MonoBehaviour
     public float gameplayTimer;
     public float levelTime;
 
+    [Header("Boss Progression")]
+    public int[] boss1Kills = new int[3];
+    public int[] boss2Kills = new int[3];
+
 
     void OnEnable() { SceneManager.sceneLoaded += OnSceneLoaded; }
     void OnDisable() { SceneManager.sceneLoaded -= OnSceneLoaded; }

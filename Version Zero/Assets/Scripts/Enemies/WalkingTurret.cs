@@ -27,6 +27,7 @@ public class WalkingTurret : Enemy
     [SerializeField] private float stompDelay;
     private float stompTimer;
     [SerializeField] private GameObject stompIndicator;
+    [SerializeField] private GameObject stompProj;
     private bool stomping;
 
     [Header("Enemy Spawn")]
@@ -46,6 +47,7 @@ public class WalkingTurret : Enemy
     public GameObject endBarrier;
 
     [Header("Misc")]
+    [SerializeField] private GameObject[] rewardPrograms;
     [SerializeField] private GameObject memoryReward;
     public bool finalForm;
 
@@ -110,25 +112,6 @@ public class WalkingTurret : Enemy
                 StartCoroutine(Stomp());
             }
         }
-
-        //spawn enemies @ HP thresholds
-        if (health / (maxHealth * 1.0f) < spawnInterval * indicators.Count)
-        {
-            health = (int)Mathf.Round(spawnInterval * indicators.Count * maxHealth);
-            Destroy(indicators[indicators.Count - 1]);
-            indicators.RemoveAt(indicators.Count - 1);
-            if (indicators.Count == 0) //if last tick
-            {
-                atkDelay = 2.5f;
-                stompDelay = 1.5f;
-                finalForm = true;
-                StopAllCoroutines();
-                StartCoroutine(Stomp());
-                StartCoroutine(TakeDamageFlash(true));
-            }
-            StartCoroutine(SpawnEnemies(enemiesToSpawn - indicators.Count));
-            StartCoroutine(Shield());
-        }
     }
 
 
@@ -186,13 +169,18 @@ public class WalkingTurret : Enemy
         if (random < 0.5f)
         {
             //basic attack (70 at once)
-            AudioManager.Instance.Play("Walking Turret Fire");
-            for (int i = 0; i < 70; i++)
+            for (int i = 0; i < ((GameManager.Instance.enemyType == "Memory") ? 2 : 1); i++)
             {
-                GameObject proj = Instantiate(projPrefab, transform.position + dir * 0.5f + new Vector3(0, 1, 0), Quaternion.LookRotation(dir));
-                proj.GetComponent<Missile>().dmg = dmg;
-                proj.GetComponent<Missile>().dir = dir * 0.5f + new Vector3(0, 2.5f + (0.1f * i), 0);
-                proj.GetComponent<Missile>().target = new Vector3(player.transform.position.x, 0, player.transform.position.z) + player.GetComponent<PlayerMovement>().moveDir * 3 + Quaternion.Euler(0, Random.Range(0, 360), 0) * new Vector3(Random.Range(0f, 10), 0, 0);
+                AudioManager.Instance.Play("Walking Turret Fire");
+                for (int j = 0; j < 70; j++)
+                {
+                    GameObject proj = Instantiate(projPrefab, transform.position + dir * 0.5f + new Vector3(0, 1, 0), Quaternion.LookRotation(dir));
+                    proj.GetComponent<Missile>().dmg = dmg;
+                    proj.GetComponent<Missile>().dir = dir * 0.5f + new Vector3(0, 2.5f + (0.1f * i), 0);
+                    proj.GetComponent<Missile>().target = new Vector3(player.transform.position.x, 0, player.transform.position.z) + player.GetComponent<PlayerMovement>().moveDir * 3 + Quaternion.Euler(0, Random.Range(0, 360), 0) * new Vector3(Random.Range(0f, 10), 0, 0);
+                }
+                if (GameManager.Instance.enemyType == "Memory")
+                    yield return new WaitForSeconds(1f);
             }
         }
         else
@@ -246,6 +234,23 @@ public class WalkingTurret : Enemy
             Vector3 dir = (player.transform.position - transform.position).normalized + new Vector3(0, 0.5f, 0);
             player.GetComponent<Rigidbody>().AddForce(dir * stompForce, ForceMode.Impulse);
         }
+        if (GameManager.Instance.enemyType == "Memory")
+        {
+            float baseAngle = Random.Range(0, 360);
+            for (int j = 0; j < 8; j++)
+            {
+                float angle = 0f;
+                angle = Mathf.Lerp(0, 360, (float)j / (8)) + baseAngle;
+                Vector3 rotatedDir = Quaternion.Euler(0, angle, 0) * Vector3.forward;
+
+                GameObject proj = Instantiate(stompProj, transform.position + rotatedDir * 0.5f + new Vector3(0, 0.5f, 0), Quaternion.LookRotation(rotatedDir));
+                var projectile = proj.GetComponent<Projectile>();
+                projectile.dmg = 1;
+                projectile.dir = rotatedDir;
+                projectile.speed = 8;
+                projectile.despawnDist = 12;
+            }
+        }
         stompIndicator.SetActive(false);
         if (finalForm)
         {
@@ -296,11 +301,11 @@ public class WalkingTurret : Enemy
     }
 
 
-    private IEnumerator Shield()
+    private IEnumerator Shield(float waitTime)
     {
         shield.SetActive(true);
         shielded = true;
-        yield return new WaitForSeconds(shieldTime);
+        yield return new WaitForSeconds(waitTime);
         shield.SetActive(false);
         shielded = false;
     }
@@ -316,13 +321,59 @@ public class WalkingTurret : Enemy
         {
             CustomDestroy();
         }
+        else if (health / (maxHealth * 1.0f) < spawnInterval * indicators.Count)
+        {
+            health = (int)Mathf.Round(spawnInterval * indicators.Count * maxHealth);
+            Destroy(indicators[indicators.Count - 1]);
+            indicators.RemoveAt(indicators.Count - 1);
+            if (indicators.Count == 0) //if last tick
+            {
+                atkDelay = 2.5f;
+                stompDelay = 1.5f;
+                finalForm = true;
+                StopAllCoroutines();
+                StartCoroutine(Stomp());
+                StartCoroutine(TakeDamageFlash(true));
+            }
+            StartCoroutine(SpawnEnemies(enemiesToSpawn - indicators.Count));
+            StartCoroutine(Shield(shieldTime));
+        }
+        else if (GameManager.Instance.enemyType == "Logic")
+        {
+            StartCoroutine(Shield(1));
+        }
     }
 
 
     private void CustomDestroy()
     {
-        GameObject reward = Instantiate(memoryReward, transform.position + new Vector3(0, 0, 0), Quaternion.identity);
-        //TODO: set reward program randomly
+        //drop program reward
+        int index;
+        if (GameManager.Instance.enemyType == "Instinct")
+        {
+            index = SequenceManager.Instance.boss1Kills[0];
+            SequenceManager.Instance.boss1Kills[0] += 1;
+        }
+        else if (GameManager.Instance.enemyType == "Logic")
+        {
+            index = SequenceManager.Instance.boss1Kills[1];
+            SequenceManager.Instance.boss1Kills[1] += 1;
+        }
+        else // "Memory"
+        {
+            index = SequenceManager.Instance.boss1Kills[2];
+            SequenceManager.Instance.boss1Kills[2] += 1;
+        }
+        if (index < rewardPrograms.Length)
+        {
+            GameObject reward = Instantiate(memoryReward, transform.position + new Vector3(0, 0, 0), Quaternion.identity);
+            reward.transform.GetChild(0).GetComponent<Memory>().program = rewardPrograms[index];
+        }
+        else
+        {
+            Debug.Log("Unlocked all " + GameManager.Instance.enemyType + " programs.");
+        }
+
         GameManager.Instance.bossUI.SetActive(false);
         foreach (Transform child in transform.parent)
             Destroy(child.gameObject);

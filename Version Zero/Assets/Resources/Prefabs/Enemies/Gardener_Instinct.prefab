@@ -4495,7 +4495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7baa6c2a9dbd2bb428d2838e3ba2d6ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 60
   health: 0
   customDestroy: 1
   aggroRange: 14
@@ -4518,16 +4518,16 @@ MonoBehaviour:
   anim: {fileID: 7933725467286558267}
   rb: {fileID: 0}
   player: {fileID: 0}
-  defSpeed: 1.5
+  defSpeed: 2.5
   targetMin: 5
   targetMax: 10
-  atkDelay: 5
-  dmg: 2
+  atkDelay: 3.5
+  dmg: 1
   projPrefab: {fileID: 3512434751255828300, guid: 3964fdbb2368ece4ab9b0ca91fedabcc, type: 3}
   meleeRange: 7
   stompDmg: 3
   stompForce: 100
-  stompDelay: 3
+  stompDelay: 2
   stompIndicator: {fileID: 1370183966778295720}
   spawnInterval: 0.2
   spawnIndicator: {fileID: 7385684649305300431, guid: 2605329a885b82447aed8453a60487e2, type: 3}
@@ -4537,9 +4537,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 6208
   shield: {fileID: 3392435852286353778}
-  shieldTime: 4
+  shieldTime: 3
   startBarrier: {fileID: 0}
   endBarrier: {fileID: 0}
+  rewardPrograms:
+  - {fileID: 5673812413240789059, guid: bd5d4538876567b408f48dbc666c608c, type: 3}
+  - {fileID: 2162953443318098351, guid: 57fda1961fcaf024b88668528805a98e, type: 3}
   memoryReward: {fileID: 4808948003568065144, guid: 0a07373fe14604549af5b445f4d52641, type: 3}
   finalForm: 0
 --- !u!95 &7933725467286558267

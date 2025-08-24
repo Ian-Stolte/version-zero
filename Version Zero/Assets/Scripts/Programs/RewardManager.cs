@@ -209,7 +209,7 @@ public class RewardManager : MonoBehaviour
             Transform reward;
             if (row[i].name == "Auto" || row[i].name == "Aura")
                 reward = Instantiate(modPrefab, Vector2.zero, Quaternion.identity, rewardParent).transform;
-            else if (row[i].tag == "shape")
+            else if (row[i].tag == "base")
                 reward = Instantiate(shapePrefab, Vector2.zero, Quaternion.identity, rewardParent).transform;
             else
                 reward = Instantiate(effectPrefab, Vector2.zero, Quaternion.identity, rewardParent).transform;

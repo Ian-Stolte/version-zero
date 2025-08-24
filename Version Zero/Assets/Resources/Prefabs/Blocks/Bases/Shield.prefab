@@ -93,6 +93,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4145732063751185695, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: tag
+      value: base
+      objectReference: {fileID: 0}
+    - target: {fileID: 4145732063751185695, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: minCd
       value: 1.5
       objectReference: {fileID: 0}

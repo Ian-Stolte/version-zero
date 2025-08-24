@@ -4540,6 +4540,9 @@ MonoBehaviour:
   shieldTime: 4
   startBarrier: {fileID: 0}
   endBarrier: {fileID: 0}
+  rewardPrograms:
+  - {fileID: 1124568725954591707, guid: 298f91e622a0dfc4aaa954dd7067dbe8, type: 3}
+  - {fileID: 5002837315012015344, guid: 844feb172f080e943a2d3f7cc9fac088, type: 3}
   memoryReward: {fileID: 4808948003568065144, guid: 0a07373fe14604549af5b445f4d52641, type: 3}
   finalForm: 0
 --- !u!95 &7933725467286558267

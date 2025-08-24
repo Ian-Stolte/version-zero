@@ -64,10 +64,10 @@ public class ProgramManager : MonoBehaviour
     [Header("Program Data")]
     public string buildpath;
     //TODO: read directly from prefab folders?
-    public List<GameObject> shapeBlocks;
+    public List<GameObject> baseBlocks;
     public List<GameObject> effectBlocks;
     public List<GameObject> modBlocks;
-    private List<GameObject> allBlocks = new List<GameObject>();
+    [HideInInspector] public List<GameObject> allBlocks = new List<GameObject>();
     public List<Block> blocks = new List<Block>();
     public List<Program> programs = new List<Program>();
 
@@ -84,7 +84,7 @@ public class ProgramManager : MonoBehaviour
     public void StartingHand()
     {
         buildpath = "logic";
-        foreach (GameObject g in shapeBlocks)
+        foreach (GameObject g in baseBlocks)
             allBlocks.Add(g);
         foreach (GameObject g in effectBlocks)
             allBlocks.Add(g);
@@ -460,7 +460,7 @@ public class ProgramManager : MonoBehaviour
         int index = 0;
         foreach (Program p in programs)
         {
-            Block shape = p.blocks.Find(b => b.tag == "shape");
+            Block shape = p.blocks.Find(b => b.tag == "base");
             CreateProgramIcon(p, new Vector2(-800 + (170 * index), -450), p.keybindStr, shape.name);
             index++;
         }
@@ -473,7 +473,7 @@ public class ProgramManager : MonoBehaviour
         }
         if (player.autoProgram.name != "")
         {
-            Block shape = player.autoProgram.blocks.Find(b => b.tag == "shape");
+            Block shape = player.autoProgram.blocks.Find(b => b.tag == "base");
             if (shape != null)
                 CreateProgramIcon(player.autoProgram, new Vector2(800 - (170 * index), -450), "AUTO", shape.name);
         }
