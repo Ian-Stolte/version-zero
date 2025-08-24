@@ -96,6 +96,10 @@ PrefabInstance:
       propertyPath: sector
       value: logic
       objectReference: {fileID: 0}
+    - target: {fileID: 4145732063751185695, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: description
+      value: Target the nearest enemy to your cursor
+      objectReference: {fileID: 0}
     - target: {fileID: 7452607151405539719, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_text
       value: Target

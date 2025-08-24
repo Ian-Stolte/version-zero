@@ -44,7 +44,7 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
 
-        string[] modTags = new string[] { "passive" };
+        string[] modTags = new string[] { "mod" };
         if (!Array.Exists(modTags, t => t == tag))
         {
             string formattedCD = ((cd + "").Length == 1) ? cd + ".0s" : cd + "s";
@@ -106,7 +106,7 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
                 if (c.name == name && c.gameObject != gameObject)
                 {
                     Block bl = c.GetComponent<Block>();
-                    if (bl.cd > bl.minCd && bl.tag != "passive")
+                    if (bl.cd > bl.minCd && bl.tag != "mod")
                     {
                         if (upgrade == null)
                             AudioManager.Instance.Play("Upgrade Hover");

@@ -792,6 +792,8 @@ MonoBehaviour:
   player: {fileID: 0}
   defSpeed: 4
   startBarrier: {fileID: 0}
+  rewardPrograms:
+  - {fileID: 5673812413240789059, guid: 89539fa97040be34facfe60ea0efacc4, type: 3}
   memoryReward: {fileID: 4808948003568065144, guid: 0a07373fe14604549af5b445f4d52641, type: 3}
   arenaStarts:
   - {x: 11.4, y: 1.5, z: 28.6}

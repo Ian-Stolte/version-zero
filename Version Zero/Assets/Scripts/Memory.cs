@@ -32,7 +32,7 @@ public class Memory : MonoBehaviour
         GameObject newProgram = Instantiate(newProgramUI, Vector3.zero, Quaternion.identity, GameObject.Find("Canvas").transform);
         newProgram.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 300);
         GameObject programVisual = Instantiate(program, Vector3.zero, Quaternion.identity, newProgram.transform);
-        programVisual.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 20);
+        programVisual.GetComponent<RectTransform>().anchoredPosition = new Vector2(270, 80);
         ProgramManager.Instance.CreateBlock(program);
         if (program.GetComponent<Block>().tag == "effect")
             ProgramManager.Instance.effectBlocks.Add(program);
@@ -41,6 +41,8 @@ public class Memory : MonoBehaviour
         else if (program.GetComponent<Block>().tag == "mod")
             ProgramManager.Instance.modBlocks.Add(program);
         ProgramManager.Instance.allBlocks.Add(program);
+
+        newProgram.transform.GetChild(5).GetComponent<TMPro.TextMeshProUGUI>().text = program.GetComponent<Block>().description + ".";
 
         float elapsed = 0f;
         while (elapsed < 1f)

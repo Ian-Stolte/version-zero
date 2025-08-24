@@ -4543,6 +4543,7 @@ MonoBehaviour:
   endBarrier: {fileID: 0}
   rewardPrograms:
   - {fileID: 9191262866201418245, guid: 0f37290e6bbae8f48a0bd3cdf9758eac, type: 3}
+  - {fileID: 5292561434995542351, guid: 94b27f82e8dd89648a807a5abd66c43a, type: 3}
   memoryReward: {fileID: 4808948003568065144, guid: 0a07373fe14604549af5b445f4d52641, type: 3}
   finalForm: 0
 --- !u!95 &7933725467286558267

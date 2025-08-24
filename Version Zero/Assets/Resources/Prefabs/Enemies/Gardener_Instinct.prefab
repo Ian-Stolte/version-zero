@@ -4529,6 +4529,7 @@ MonoBehaviour:
   stompForce: 100
   stompDelay: 2
   stompIndicator: {fileID: 1370183966778295720}
+  stompProj: {fileID: 0}
   spawnInterval: 0.2
   spawnIndicator: {fileID: 7385684649305300431, guid: 2605329a885b82447aed8453a60487e2, type: 3}
   enemiesToSpawn: 6
@@ -4541,8 +4542,8 @@ MonoBehaviour:
   startBarrier: {fileID: 0}
   endBarrier: {fileID: 0}
   rewardPrograms:
-  - {fileID: 5673812413240789059, guid: bd5d4538876567b408f48dbc666c608c, type: 3}
-  - {fileID: 2162953443318098351, guid: 57fda1961fcaf024b88668528805a98e, type: 3}
+  - {fileID: 5673812413240789059, guid: b75c2c96c6a216d41a9ddd77d824a623, type: 3}
+  - {fileID: 6123479232549129950, guid: 40e5fcf67d3a95b489599d027947befb, type: 3}
   memoryReward: {fileID: 4808948003568065144, guid: 0a07373fe14604549af5b445f4d52641, type: 3}
   finalForm: 0
 --- !u!95 &7933725467286558267
