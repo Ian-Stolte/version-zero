@@ -168,13 +168,13 @@ public class PlayerPrograms : MonoBehaviour
                 {
                     GameObject hitbox = Instantiate(hitboxes[6], MousePos() + new Vector3(0, 0.5f, 0), rot);
                     hitbox.GetComponent<Hitbox>().program = p;
-                    hitbox.GetComponent<SentryHitbox>().shootInterval = p.cdMax / 4f;
+                    hitbox.GetComponent<SentryHitbox>().shootInterval = p.cdMax/8f;
+                    hitbox.GetComponent<SentryHitbox>().lifetime = 4f + p.cdMax/2f;
                     break;
                 }
             }
         }
     }
-
 
     public void ProgramEffects(Collider[] cols, Program p, Vector3 pos, bool aura = false)
     {
@@ -241,7 +241,7 @@ public class PlayerPrograms : MonoBehaviour
                     script.MarkDamage(markDmg);
                 }
                 if (stun > 0)
-                        script.stunTimer = stun;
+                    script.stunTimer = stun;
                 if (bait > 0)
                     script.baitTimer = bait;
                 if (slow > 0)

@@ -30,12 +30,12 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
     public GameObject levelUp;
 
     [Header("Spell Effects")]
-    public int lvls;
     public string sector;
     new public string tag;
     [SerializeField] private LayerMask targetLayer;
     public float minCd;
     public float cd;
+    [HideInInspector] public int lvls;
     [TextArea(4, 8)] public string description;
 
 

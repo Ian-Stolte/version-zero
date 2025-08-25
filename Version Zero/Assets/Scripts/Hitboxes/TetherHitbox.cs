@@ -59,7 +59,7 @@ public class TetherHitbox : Hitbox
 
     public override void CheckCollisions()
     {
-        GameObject.Find("Player").GetComponent<PlayerPrograms>().ProgramEffects(new Collider[] { enemy.GetComponent<BoxCollider>() }, program, transform.position);
+        GameObject.Find("Player").GetComponent<PlayerPrograms>().ProgramEffects(new Collider[] { enemy.GetComponent<Collider>() }, program, transform.position);
         Instantiate(hitVFX, enemy.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
         Destroy(gameObject);
     }
