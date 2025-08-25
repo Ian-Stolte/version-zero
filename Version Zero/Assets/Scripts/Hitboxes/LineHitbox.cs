@@ -36,7 +36,7 @@ public class LineHitbox : Hitbox
         if (hits.Length > 0 && !hitEnemy)
         {
             hitEnemy = true;
-            GameObject.Find("Player").GetComponent<PlayerPrograms>().SpellEffects(new Collider[] { hits[0] }, spell, transform.position);
+            GameObject.Find("Player").GetComponent<PlayerPrograms>().ProgramEffects(new Collider[] { hits[0] }, program, transform.position);
             transform.GetChild(3).gameObject.SetActive(true);
             AudioManager.Instance.Play("Projectile Hit");
             StartCoroutine(DelayedDestroy());

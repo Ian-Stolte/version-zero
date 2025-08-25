@@ -110,7 +110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4145732063751185695, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: description
-      value: A circle that activates after a second and doubles attached effects
+      value: A circle that charges for a moment, then strikes twice.
       objectReference: {fileID: 0}
     - target: {fileID: 6695455977087007718, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_Sprite
@@ -122,7 +122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7452607151405539719, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_text
-      value: Delay
+      value: Double
       objectReference: {fileID: 0}
     - target: {fileID: 7452607151405539719, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_fontSize
@@ -131,6 +131,10 @@ PrefabInstance:
     - target: {fileID: 7452607151405539719, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_fontSizeBase
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452607151405539719, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
+      propertyPath: m_characterSpacing
+      value: -7
       objectReference: {fileID: 0}
     - target: {fileID: 7816516429751747857, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_Name

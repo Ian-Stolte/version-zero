@@ -51,7 +51,7 @@ public class ScatterEnemy : Enemy
             movementTarget = ChooseTarget(targetMin, targetMax, new Vector3(transform.position.x, 0.7f, transform.position.z));
         }
 
-        if (!GameManager.Instance.pauseGame && aggro && stunTimer <= 0)
+        if (!GameManager.Instance.pauseGame && aggro && stunTimer <= 0 && baitTimer <= 0)
         {
             atkTimer = Mathf.Max(0, atkTimer - Time.deltaTime);
 

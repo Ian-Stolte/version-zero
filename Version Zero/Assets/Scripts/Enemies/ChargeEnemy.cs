@@ -43,7 +43,7 @@ public class ChargeEnemy : Enemy
         if (dist < aggroRange)
             aggro = true;
 
-        if (!GameManager.Instance.pauseGame && aggro && stunTimer <= 0)
+        if (!GameManager.Instance.pauseGame && aggro && stunTimer <= 0 && baitTimer <= 0)
         {
             //move
             float speed = (slowTimer > 0) ? defSpeed * 0.3f : defSpeed;

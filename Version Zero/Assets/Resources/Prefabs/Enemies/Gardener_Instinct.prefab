@@ -4502,6 +4502,7 @@ MonoBehaviour:
   aggro: 0
   stunTimer: 0
   slowTimer: 0
+  baitTimer: 0
   gridIndex: 1
   collisionRadius: 3
   terrainLayer:
@@ -4542,8 +4543,8 @@ MonoBehaviour:
   startBarrier: {fileID: 0}
   endBarrier: {fileID: 0}
   rewardPrograms:
-  - {fileID: 5673812413240789059, guid: b75c2c96c6a216d41a9ddd77d824a623, type: 3}
   - {fileID: 6123479232549129950, guid: 40e5fcf67d3a95b489599d027947befb, type: 3}
+  - {fileID: 5673812413240789059, guid: b75c2c96c6a216d41a9ddd77d824a623, type: 3}
   memoryReward: {fileID: 4808948003568065144, guid: 0a07373fe14604549af5b445f4d52641, type: 3}
   finalForm: 0
 --- !u!95 &7933725467286558267

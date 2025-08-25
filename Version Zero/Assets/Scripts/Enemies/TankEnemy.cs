@@ -34,7 +34,7 @@ public class TankEnemy : Enemy
         if (dist < aggroRange)
             aggro = true;
 
-        if (!GameManager.Instance.pauseGame && aggro && stunTimer <= 0)
+        if (!GameManager.Instance.pauseGame && aggro && stunTimer <= 0 && baitTimer <= 0)
         {
             atkTimer = Mathf.Max(0, atkTimer - Time.deltaTime);
             if (atkDelay == 0 && dist > atkRange)

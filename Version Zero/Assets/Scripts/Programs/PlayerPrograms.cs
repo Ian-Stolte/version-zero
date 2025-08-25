@@ -38,7 +38,7 @@ public class PlayerPrograms : MonoBehaviour
         if (auraProgram.name != "")
         {
             auraObj = Instantiate(auraHitbox, transform.position + new Vector3(0, -1, 0), Quaternion.identity, transform);
-            auraObj.GetComponent<Hitbox>().spell = auraProgram;
+            auraObj.GetComponent<Hitbox>().program = auraProgram;
             auraObj.GetComponent<AuraHitbox>().tickRate = auraTick;
         }
     }
@@ -55,7 +55,7 @@ public class PlayerPrograms : MonoBehaviour
                 {
                     if (Input.GetKeyDown(p.keybind) && p.cdTimer <= 0)
                     {
-                        CastSpell(p);
+                        UseProgram(p);
                     }
                     else if (Input.GetKeyDown(p.keybind) && p.cdTimer <= 0.5f)
                     {
@@ -69,7 +69,7 @@ public class PlayerPrograms : MonoBehaviour
                 autoTimer = Mathf.Max(0, autoTimer - Time.deltaTime);
                 if (autoTimer <= 0)
                 {
-                    CastSpell(autoProgram);
+                    UseProgram(autoProgram);
                     autoTimer = autoTick;
                 }
                 autoProgram.fillTimer.GetComponent<Image>().fillAmount = autoTimer / autoTick;
@@ -81,10 +81,10 @@ public class PlayerPrograms : MonoBehaviour
     private IEnumerator DelayedCast(Program p)
     {
         yield return new WaitUntil(() => p.cdTimer <= 0);
-        CastSpell(p);
+        UseProgram(p);
     }
 
-    private void CastSpell(Program p)
+    private void UseProgram(Program p)
     {
         Block dash = p.blocks.Find(b => b.name == "Phase");
         if (dash != null && !dashing)
@@ -100,7 +100,7 @@ public class PlayerPrograms : MonoBehaviour
                 if (b.name == "Circle")
                 {
                     GameObject hitbox = Instantiate(hitboxes[0], MousePos(), rot);
-                    hitbox.GetComponent<Hitbox>().spell = p;
+                    hitbox.GetComponent<Hitbox>().program = p;
                     break;
                 }
                 else if (b.name == "Line")
@@ -110,13 +110,13 @@ public class PlayerPrograms : MonoBehaviour
                     dir = new Vector3(dir.x, 0, dir.z).normalized;
                     GameObject hitbox = Instantiate(hitboxes[1], transform.position, rot);
                     hitbox.GetComponent<LineHitbox>().dir = dir;
-                    hitbox.GetComponent<Hitbox>().spell = p;
+                    hitbox.GetComponent<Hitbox>().program = p;
                     break;
                 }
                 else if (b.name == "Pulse" || b.name == "Shield")
                 {
                     GameObject hitbox = Instantiate(hitboxes[2], transform.position + new Vector3(0, -0.8f, 0), Quaternion.identity);
-                    hitbox.GetComponent<Hitbox>().spell = p;
+                    hitbox.GetComponent<Hitbox>().program = p;
                     if (b.name == "Shield")
                         GetComponent<PlayerMovement>().shieldTimer += 1f;
                     break;
@@ -125,30 +125,50 @@ public class PlayerPrograms : MonoBehaviour
                 {
                     AudioManager.Instance.Play("Place Trap");
                     GameObject hitbox = Instantiate(hitboxes[3], MousePos(), rot);
-                    hitbox.GetComponent<Hitbox>().spell = p;
+                    hitbox.GetComponent<Hitbox>().program = p;
                     break;
                 }
-                else if (b.name == "Target")
+                else if (b.name == "Double")
                 {
-                    Collider[] hits = Physics.OverlapSphere(MousePos(), 2, LayerMask.GetMask("Enemy"));
-                    if (hits.Length == 0)
+                    GameObject hitbox = Instantiate(hitboxes[4], MousePos(), rot);
+                    hitbox.GetComponent<Hitbox>().program = p;
+                    break;
+                }
+                else if (b.name == "Tether")
+                {
+                    Collider target = GetTargetFromCursor();
+                    if (target != null)
                     {
-                        //fail SFX & visual
-                        AudioManager.Instance.Play("Error");
-                        StopCoroutine("NoTarget");
-                        StartCoroutine("NoTarget");
-                        p.cdTimer = 0;
+                        if (Vector3.Distance(target.transform.position, transform.position) > 8f)
+                        {
+                            //fail SFX & visual
+                            AudioManager.Instance.Play("Error");
+                            StopCoroutine("NoTarget");
+                            StartCoroutine("NoTarget");
+                            p.cdTimer = 0;
+                        }
+                        else
+                        {
+                            //calculate rotation
+                            Vector3 direction = target.transform.position - transform.position;
+                            float yAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+
+                            TetherHitbox tether = Instantiate(hitboxes[5], (target.transform.position + transform.position) / 2f, Quaternion.Euler(0, yAngle + 90, 90)).GetComponent<TetherHitbox>();
+                            tether.program = p;
+                            tether.enemy = target.transform;
+                            tether.player = transform;
+                        }
                     }
                     else
                     {
-                        Collider closest = hits[0];
-                        foreach (Collider hit in hits)
-                        {
-                            if (Vector3.Distance(hit.transform.position, MousePos()) < Vector3.Distance(closest.transform.position, MousePos()))
-                                closest = hit;
-                        }
-                        SpellEffects(new Collider[] { closest }, p, MousePos());
+                        p.cdTimer = 0;
                     }
+                }
+                else if (b.name == "Sentry")
+                {
+                    GameObject hitbox = Instantiate(hitboxes[6], MousePos() + new Vector3(0, 0.5f, 0), rot);
+                    hitbox.GetComponent<Hitbox>().program = p;
+                    hitbox.GetComponent<SentryHitbox>().shootInterval = p.cdMax / 4f;
                     break;
                 }
             }
@@ -156,13 +176,13 @@ public class PlayerPrograms : MonoBehaviour
     }
 
 
-    public void SpellEffects(Collider[] cols, Program p, Vector3 pos, bool aura = false)
+    public void ProgramEffects(Collider[] cols, Program p, Vector3 pos, bool aura = false)
     {
         if (AudioManager.Instance.playEffects)
         {
             foreach (Block b in p.blocks)
             {
-                if (b.tag != "shape")
+                if (b.tag == "effect")
                     AudioManager.Instance.Play(b.name);
             }
         }
@@ -177,11 +197,14 @@ public class PlayerPrograms : MonoBehaviour
                 int burn = 0;
                 int markDmg = 0;
                 float stun = 0;
+                float bait = 0;
                 float slow = 0;
                 foreach (Block b in p.blocks)
                 {
                     if (b.name == "Pause")
                         stun += (aura) ? 0.3f : 1.5f;
+                    else if (b.name == "Bait")
+                        bait += (aura) ? 0.3f : 1.5f;
                     else if (b.name == "Slow")
                         slow += (aura) ? 0.5f : 2f;
                     else if (b.name == "Damage")
@@ -190,8 +213,6 @@ public class PlayerPrograms : MonoBehaviour
                         burn += (aura) ? 1 : 1;
                     else if (b.name == "Mark")
                         markDmg += (aura) ? 1 : 8;
-                    //else if (b.name == "Crit")
-                    //    dmg += (aura) ? Random.Range(0, 3) : Random.Range(1, 8);
                     else if (b.name == "Displace")
                     {
                         Vector3 dir = (c.transform.position - pos);
@@ -220,7 +241,9 @@ public class PlayerPrograms : MonoBehaviour
                     script.MarkDamage(markDmg);
                 }
                 if (stun > 0)
-                    script.stunTimer = stun;
+                        script.stunTimer = stun;
+                if (bait > 0)
+                    script.baitTimer = bait;
                 if (slow > 0)
                     script.slowTimer = slow;
             }
@@ -246,10 +269,10 @@ public class PlayerPrograms : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
-        //cast spell
+        //use program
         p.cdTimer = p.cdMax;
         GameObject hitbox = Instantiate(hitboxes[2], transform.position + new Vector3(0, -0.8f, 0), Quaternion.identity);
-        hitbox.GetComponent<Hitbox>().spell = p;
+        hitbox.GetComponent<Hitbox>().program = p;
 
         dashing = false;
         GetComponent<TrailRenderer>().emitting = false;
@@ -286,6 +309,30 @@ public class PlayerPrograms : MonoBehaviour
         }
     }
 
+
+    private Collider GetTargetFromCursor()
+    {
+        Collider[] hits = Physics.OverlapSphere(MousePos(), 2, LayerMask.GetMask("Enemy"));
+
+        if (hits.Length == 0)
+        {
+            //fail SFX & visual
+            AudioManager.Instance.Play("Error");
+            StopCoroutine("NoTarget");
+            StartCoroutine("NoTarget");
+            return null;
+        }
+        else
+        {
+            Collider closest = hits[0];
+            foreach (Collider hit in hits)
+            {
+                if (Vector3.Distance(hit.transform.position, MousePos()) < Vector3.Distance(closest.transform.position, MousePos()))
+                    closest = hit;
+            }
+            return closest;
+        }
+    }
 
     private IEnumerator NoTarget()
     {

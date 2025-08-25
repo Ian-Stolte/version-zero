@@ -25,6 +25,6 @@ public class AuraHitbox : Hitbox
     {
         Collider[] cols = Physics.OverlapSphere(transform.position, transform.localScale.x/2, LayerMask.GetMask("Enemy"));
         if (cols.Length > 0)
-            GameObject.Find("Player").GetComponent<PlayerPrograms>().SpellEffects(cols, spell, transform.position, true);
+            GameObject.Find("Player").GetComponent<PlayerPrograms>().ProgramEffects(cols, program, transform.position, true);
     }
 }

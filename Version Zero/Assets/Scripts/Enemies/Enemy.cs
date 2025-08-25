@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public bool aggro;
     [HideInInspector] public float stunTimer;
     [HideInInspector] public float slowTimer;
+    [HideInInspector] public float baitTimer;
 
     [Header("Pathfinding")]
     public int gridIndex;
@@ -77,16 +78,25 @@ public class Enemy : MonoBehaviour
         if (!GameManager.Instance.pauseGame)
         {
             stunTimer -= Time.deltaTime;
+            baitTimer -= Time.deltaTime;
             slowTimer -= Time.deltaTime;
-            anim.SetBool("Stunned", stunTimer > 0);
+            anim.SetBool("Stunned", stunTimer > 0 || baitTimer > 0);
             if (stunTimer > 0)
                 statusTxt.text = "stunned_";
+            else if (baitTimer > 0)
+                statusTxt.text = "baited_";
             else if (slowTimer > 0)
                 statusTxt.text = "slowed_";
             else
                 statusTxt.text = "";
 
             transform.GetChild(0).transform.forward = Camera.main.transform.forward;
+
+
+            if (baitTimer > 0 && stunTimer <= 0)
+            {
+                MoveTo(player.transform.position, 2.5f);
+            }
         }
 
         markTimer -= Time.deltaTime;

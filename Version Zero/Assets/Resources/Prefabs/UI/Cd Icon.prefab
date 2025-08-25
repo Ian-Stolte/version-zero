@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 4155263200709132406}
   - component: {fileID: 5214614350622722136}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: Base Txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 35.882446, y: 0, z: 36.89795, w: 0}
+  m_margin: {x: 19.413666, y: 0, z: 18.890396, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

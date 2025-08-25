@@ -32,7 +32,7 @@ public class LandmineEnemy : Enemy
         if (dist < aggroRange && transform.position.y < 3)
             aggro = true;
 
-        if (!GameManager.Instance.pauseGame && aggro && stunTimer <= 0 && !inTransition && !destroying)
+        if (!GameManager.Instance.pauseGame && aggro && stunTimer <= 0 && baitTimer <= 0 && !inTransition && !destroying)
         {
             if (!sitting && dist < sitMin)
                 StartCoroutine(Sit());

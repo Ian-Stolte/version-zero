@@ -45,7 +45,7 @@ public class AggroEnemy : Enemy
         if (dist < aggroRange)
             aggro = true;
 
-        if (!GameManager.Instance.pauseGame && aggro && stunTimer <= 0)
+        if (!GameManager.Instance.pauseGame && aggro && stunTimer <= 0 && baitTimer <= 0)
         {
             if (!attacking)
                 atkTimer = Mathf.Max(0, atkTimer - Time.deltaTime);

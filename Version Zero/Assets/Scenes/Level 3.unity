@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465788, g: 0.49641287, b: 0.5748173, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9079,6 +9079,22 @@ PrefabInstance:
       propertyPath: SKIP_CRAFTING
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1244321252458295409, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+      propertyPath: baseBlocks.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244321252458295409, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+      propertyPath: effectBlocks.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244321252458295409, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+      propertyPath: baseBlocks.Array.data[6]
+      value: 
+      objectReference: {fileID: 5292561434995542351, guid: 94b27f82e8dd89648a807a5abd66c43a, type: 3}
+    - target: {fileID: 1244321252458295409, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+      propertyPath: effectBlocks.Array.data[4]
+      value: 
+      objectReference: {fileID: 5673812413240789059, guid: b75c2c96c6a216d41a9ddd77d824a623, type: 3}
     - target: {fileID: 1473837613516287684, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

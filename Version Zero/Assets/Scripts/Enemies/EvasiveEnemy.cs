@@ -43,7 +43,7 @@ public class EvasiveEnemy : Enemy
         if (dist < aggroRange && transform.position.y < 3)
             aggro = true;
 
-        if (!GameManager.Instance.pauseGame && aggro && stunTimer <= 0)
+        if (!GameManager.Instance.pauseGame && aggro && stunTimer <= 0 && baitTimer <= 0)
         {
             lineOfSight = !Physics.Raycast(transform.position, (player.transform.position - transform.position).normalized, Vector3.Distance(transform.position, player.transform.position), terrainLayer);
             if (Physics.OverlapSphere(transform.position, collisionRadius, terrainLayer).Length > 0 && Vector3.Distance(transform.position, player.transform.position) > 3)
@@ -105,7 +105,7 @@ public class EvasiveEnemy : Enemy
         {
             elapsed += Time.deltaTime;
             yield return null;
-            if (stunTimer > 0)
+            if (stunTimer > 0 || baitTimer > 0)
             {
                 attacking = false;
                 yield break;

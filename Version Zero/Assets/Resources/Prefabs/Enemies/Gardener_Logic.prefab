@@ -4502,6 +4502,7 @@ MonoBehaviour:
   aggro: 0
   stunTimer: 0
   slowTimer: 0
+  baitTimer: 0
   gridIndex: 1
   collisionRadius: 3
   terrainLayer:
@@ -4529,6 +4530,7 @@ MonoBehaviour:
   stompForce: 100
   stompDelay: 3
   stompIndicator: {fileID: 1370183966778295720}
+  stompProj: {fileID: 0}
   spawnInterval: 0.2
   spawnIndicator: {fileID: 7385684649305300431, guid: 2605329a885b82447aed8453a60487e2, type: 3}
   enemiesToSpawn: 6
@@ -4541,7 +4543,7 @@ MonoBehaviour:
   startBarrier: {fileID: 0}
   endBarrier: {fileID: 0}
   rewardPrograms:
-  - {fileID: 1124568725954591707, guid: 298f91e622a0dfc4aaa954dd7067dbe8, type: 3}
+  - {fileID: 1124568725954591707, guid: b9c62a9116f72304cafab05d754e3fdc, type: 3}
   - {fileID: 5002837315012015344, guid: 844feb172f080e943a2d3f7cc9fac088, type: 3}
   memoryReward: {fileID: 4808948003568065144, guid: 0a07373fe14604549af5b445f4d52641, type: 3}
   finalForm: 0
