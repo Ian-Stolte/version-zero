@@ -529,9 +529,16 @@ public class GameManager : MonoBehaviour
                     bonuses[2] = 0;
                 statsPanel.GetChild(2).GetComponent<TextMeshProUGUI>().text = dmg.ToString();
             }
+            else
+            {
+                foreach (Transform child in statsPanel)
+                {
+                    child.GetComponent<TextMeshProUGUI>().text = "";
+                }
+            }
 
             //show elevator UI
-            nextAreaText.GetComponent<TextMeshProUGUI>().text = nextArea;
+                nextAreaText.GetComponent<TextMeshProUGUI>().text = nextArea;
             if (nextArea.Length > 18)
                 nextAreaText.GetComponent<TextMeshProUGUI>().fontSize = 48;
             else
@@ -539,7 +546,6 @@ public class GameManager : MonoBehaviour
             nextAreaText.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Structural integrity: " + (103 - levelNum*5f) + "%";
 
             graph.GetComponent<CanvasGroup>().alpha = 0;
-            statsPanel.gameObject.SetActive(showStats);
             elevatorUI.SetActive(true);
             float elapsed = 0;
             while (elapsed < 1)
@@ -574,8 +580,9 @@ public class GameManager : MonoBehaviour
                     statsPanel.GetChild(i).GetComponent<TextMeshProUGUI>().text = "+" + bonuses[i].ToString();
                     StartCoroutine(RaiseGraph(i, sectorLvls[i]/total, sectorLvls[i]-bonuses[i], sectorLvls[i]));
                 }
-
             }
+            else
+                StartCoroutine(NoDataTxt());
 
             yield return new WaitForSeconds(2f);
 
@@ -604,6 +611,16 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         AudioManager.Instance.Play("Elevator Stop");
         AudioManager.Instance.Stop("Elevator Down");
+    }
+
+    private IEnumerator NoDataTxt()
+    {
+        statsPanel.GetChild(3).GetComponent<TextMeshProUGUI>().text = "";
+        foreach (char c in "No Information")
+        {
+            statsPanel.GetChild(3).GetComponent<TextMeshProUGUI>().text += c;
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     private IEnumerator RaiseGraph(int index, float target, int rawStart, int rawTarget)
