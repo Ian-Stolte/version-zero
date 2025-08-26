@@ -644,7 +644,7 @@ GameObject:
   - component: {fileID: 3727001861529251611}
   - component: {fileID: 8782126305716090710}
   m_Layer: 9
-  m_Name: Reward_Shape
+  m_Name: Reward_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

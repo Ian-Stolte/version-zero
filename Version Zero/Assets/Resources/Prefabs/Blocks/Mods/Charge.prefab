@@ -139,6 +139,81 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 90, y: 90}
   m_EdgeRadius: 0
+--- !u!1 &8751935434203554298
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4580264696761352242}
+  - component: {fileID: 2516055283591652325}
+  - component: {fileID: 1794493950982387971}
+  m_Layer: 9
+  m_Name: Orange Line
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4580264696761352242
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8751935434203554298}
+  m_LocalRotation: {x: -0, y: -0, z: 0.8664582, w: -0.49924976}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.8447104, y: 0.053554, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2091939734498854258}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 239.901}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 36.1, y: -54.9}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2516055283591652325
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8751935434203554298}
+  m_CullTransparentMesh: 1
+--- !u!114 &1794493950982387971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8751935434203554298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.9960785, g: 0.8313726, b: 0.3803922, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1001 &2960129734434337249
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -154,6 +229,10 @@ PrefabInstance:
     - target: {fileID: 2678751332599598339, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 105
+      objectReference: {fileID: 0}
+    - target: {fileID: 3411540374391501063, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3493648456919453502, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}
       propertyPath: m_Color.b
@@ -281,7 +360,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4145732063751185695, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}
       propertyPath: description
-      value: Hold to charge a program, increasing its effects the longer you charge.
+      value: Hold to charge, increasing the program's effects the longer you wait
       objectReference: {fileID: 0}
     - target: {fileID: 4840829026381511493, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}
       propertyPath: m_IsActive
@@ -344,6 +423,18 @@ PrefabInstance:
       value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 7452607151405539719, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.380503
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452607151405539719, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.832888
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452607151405539719, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452607151405539719, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}
       propertyPath: m_fontSizeBase
       value: 32
       objectReference: {fileID: 0}
@@ -351,9 +442,13 @@ PrefabInstance:
       propertyPath: m_characterSpacing
       value: -7
       objectReference: {fileID: 0}
+    - target: {fileID: 7452607151405539719, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4284601599
+      objectReference: {fileID: 0}
     - target: {fileID: 7816516429751747857, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}
       propertyPath: m_Name
-      value: Mark
+      value: Charge
       objectReference: {fileID: 0}
     - target: {fileID: 8195665245298062371, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}
       propertyPath: m_text
@@ -412,7 +507,10 @@ PrefabInstance:
     - {fileID: 8598513078755799870, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3754997502824412307, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}
-      insertIndex: 8
+      insertIndex: 4
+      addedObject: {fileID: 4580264696761352242}
+    - targetCorrespondingSourceObject: {fileID: 3754997502824412307, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}
+      insertIndex: 9
       addedObject: {fileID: 5398258967800003517}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}

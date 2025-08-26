@@ -15,9 +15,12 @@ public class DelayHitbox : Hitbox
         float elapsed = 0;
         while (elapsed < 1.5f)
         {
-            transform.GetChild(0).localScale = new Vector3(Mathf.Lerp(0, 1, elapsed/1.5f), transform.GetChild(0).localScale.y, Mathf.Lerp(0, 1, elapsed/1.5f));
-            elapsed += Time.deltaTime;
-            yield return null;
+            if (!GameManager.Instance.pauseGame)
+            {
+                transform.GetChild(0).localScale = new Vector3(Mathf.Lerp(0, 1, elapsed / 1.5f), transform.GetChild(0).localScale.y, Mathf.Lerp(0, 1, elapsed / 1.5f));
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
         }
 
         //trigger program

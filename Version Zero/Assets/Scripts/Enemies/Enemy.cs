@@ -95,31 +95,31 @@ public class Enemy : MonoBehaviour
 
             transform.GetChild(0).transform.forward = Camera.main.transform.forward;
 
-
             if (baitTimer > 0 && stunTimer <= 0)
             {
                 MoveTo(player.transform.position, 2.5f);
             }
-        }
 
-        markTimer -= Time.deltaTime;
-        if (markTimer <= 0)
-        {
-            mark.SetActive(false);
-            markDmg = 0;
-        }
+            //mark damage
+            markTimer -= Time.deltaTime;
+            if (markTimer <= 0)
+            {
+                mark.SetActive(false);
+                markDmg = 0;
+            }
 
-        //inject damage
-        if (injectDmg > 0)
-        {
-            injectTimer -= Time.deltaTime;
-            if (injectFill != null)
-                injectFill.fillAmount = 1 - (injectTimer/2f);
-            if (injectTimer <= 0)
-                Inject();
+            //inject damage
+            if (injectDmg > 0)
+            {
+                injectTimer -= Time.deltaTime;
+                if (injectFill != null)
+                    injectFill.fillAmount = 1 - (injectTimer/2f);
+                if (injectTimer <= 0)
+                    Inject();
+            }
+            else if (injectFill != null)
+                injectFill.fillAmount = 0;
         }
-        else if (injectFill != null)
-            injectFill.fillAmount = 0;
     }
 
 

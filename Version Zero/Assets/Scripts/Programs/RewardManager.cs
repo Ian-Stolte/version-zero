@@ -19,9 +19,10 @@ public class RewardManager : MonoBehaviour
     public int width;
 
     [Header("Block UI")]
-    [SerializeField] private GameObject shapePrefab;
+    [SerializeField] private GameObject basePrefab;
     [SerializeField] private GameObject effectPrefab;
     [SerializeField] private GameObject modPrefab;
+    [SerializeField] private GameObject keybindPrefab;
     [SerializeField] private Color[] sectorColors;
 
     [Header("Objects")]
@@ -208,9 +209,11 @@ public class RewardManager : MonoBehaviour
 
             Transform reward;
             if (row[i].name == "Auto" || row[i].name == "Aura")
+                reward = Instantiate(keybindPrefab, Vector2.zero, Quaternion.identity, rewardParent).transform;
+            else if (row[i].tag == "mod")
                 reward = Instantiate(modPrefab, Vector2.zero, Quaternion.identity, rewardParent).transform;
             else if (row[i].tag == "base")
-                reward = Instantiate(shapePrefab, Vector2.zero, Quaternion.identity, rewardParent).transform;
+                reward = Instantiate(basePrefab, Vector2.zero, Quaternion.identity, rewardParent).transform;
             else
                 reward = Instantiate(effectPrefab, Vector2.zero, Quaternion.identity, rewardParent).transform;
 

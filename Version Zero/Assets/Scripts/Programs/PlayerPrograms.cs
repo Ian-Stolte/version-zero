@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 using TMPro;
 
 public class PlayerPrograms : MonoBehaviour
@@ -17,6 +18,11 @@ public class PlayerPrograms : MonoBehaviour
     public float autoTick;
     [SerializeField] private float autoTimer;
     [HideInInspector] public Program autoProgram;
+
+    [Header("Charge")]
+    [SerializeField] private GameObject chargeVFX;
+    private Program chargeProgram;
+    private float chargeTimer;
 
     [Header("Hitboxes")]
     [SerializeField] private GameObject[] hitboxes;
@@ -55,7 +61,16 @@ public class PlayerPrograms : MonoBehaviour
                 {
                     if (Input.GetKeyDown(p.keybind) && p.cdTimer <= 0)
                     {
-                        UseProgram(p);
+                        if (p.blocks.Exists(b => b.name == "Charge"))
+                        {
+                            chargeProgram = p;
+                            chargeTimer = 0f;
+                            GameManager.Instance.playerPaused = true;
+                            chargeVFX.GetComponent<VisualEffect>().SetFloat("Strength", 0);
+                            chargeVFX.SetActive(true);
+                        }
+                        else
+                            UseProgram(p);
                     }
                     else if (Input.GetKeyDown(p.keybind) && p.cdTimer <= 0.5f)
                     {
@@ -74,6 +89,25 @@ public class PlayerPrograms : MonoBehaviour
                 }
                 autoProgram.fillTimer.GetComponent<Image>().fillAmount = autoTimer / autoTick;
             }
+
+            //charge timer
+            if (chargeProgram != null)
+            {
+                chargeTimer += Time.deltaTime;
+                chargeVFX.GetComponent<VisualEffect>().SetFloat("Strength", Mathf.Min(1, chargeTimer / 2f));
+                if (!Input.GetKey(chargeProgram.keybind))
+                {
+                    UseProgram(chargeProgram, true);
+                    chargeProgram = null;
+                    GameManager.Instance.playerPaused = false;
+                    chargeVFX.SetActive(false);
+                }
+            }
+        }
+        else
+        {
+            chargeProgram = null;
+            GameManager.Instance.playerPaused = false;
         }
     }
 
@@ -81,11 +115,28 @@ public class PlayerPrograms : MonoBehaviour
     private IEnumerator DelayedCast(Program p)
     {
         yield return new WaitUntil(() => p.cdTimer <= 0);
-        UseProgram(p);
+        if (p.blocks.Exists(b => b.name == "Charge"))
+        {
+            if (Input.GetKey(p.keybind))
+            {
+                chargeProgram = p;
+                chargeTimer = 0f;
+                GameManager.Instance.playerPaused = true;
+                chargeVFX.GetComponent<VisualEffect>().SetFloat("Strength", 0);
+                chargeVFX.SetActive(true);
+            }
+        }
+        else
+            UseProgram(p);
     }
 
-    private void UseProgram(Program p)
+    private void UseProgram(Program p, bool charge=false)
     {
+        if (charge)
+        {
+            Debug.Log("Charged for " + chargeTimer);
+        }
+
         Block dash = p.blocks.Find(b => b.name == "Phase");
         if (dash != null && !dashing)
         {
