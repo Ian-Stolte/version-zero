@@ -195,6 +195,7 @@ public class PlayerPrograms : MonoBehaviour
                 //TODO: better way to do this??
                 int dmg = 0;
                 int burn = 0;
+                int injectDmg = 0;
                 int markDmg = 0;
                 float stun = 0;
                 float bait = 0;
@@ -205,6 +206,8 @@ public class PlayerPrograms : MonoBehaviour
                         stun += (aura) ? 0.3f : 1.5f;
                     else if (b.name == "Bait")
                         bait += (aura) ? 0.3f : 1.5f;
+                    else if (b.name == "Inject")
+                        injectDmg += (aura) ? 1 : 4;
                     else if (b.name == "Slow")
                         slow += (aura) ? 0.5f : 2f;
                     else if (b.name == "Damage")
@@ -236,10 +239,10 @@ public class PlayerPrograms : MonoBehaviour
                     else
                         StartCoroutine(script.ApplyBurn(burn, 4));
                 }
+                if (injectDmg > 0)
+                    script.InjectDamage(injectDmg);
                 if (markDmg > 0)
-                {
                     script.MarkDamage(markDmg);
-                }
                 if (stun > 0)
                     script.stunTimer = stun;
                 if (bait > 0)

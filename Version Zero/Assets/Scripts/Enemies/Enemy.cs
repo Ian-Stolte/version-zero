@@ -17,6 +17,9 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public float stunTimer;
     [HideInInspector] public float slowTimer;
     [HideInInspector] public float baitTimer;
+    private int injectDmg;
+    [HideInInspector] public float injectTimer;
+    [SerializeField] private Image injectFill;
 
     [Header("Pathfinding")]
     public int gridIndex;
@@ -105,6 +108,18 @@ public class Enemy : MonoBehaviour
             mark.SetActive(false);
             markDmg = 0;
         }
+
+        //inject damage
+        if (injectDmg > 0)
+        {
+            injectTimer -= Time.deltaTime;
+            if (injectFill != null)
+                injectFill.fillAmount = 1 - (injectTimer/2f);
+            if (injectTimer <= 0)
+                Inject();
+        }
+        else if (injectFill != null)
+            injectFill.fillAmount = 0;
     }
 
 
@@ -120,6 +135,29 @@ public class Enemy : MonoBehaviour
             TakeDamage(burn);
             yield return new WaitForSeconds(0.33f);
         }
+    }
+
+    public void InjectDamage(int dmg)
+    {
+        if (injectDmg > 0)
+        {
+            Inject();
+        }
+        injectDmg = dmg;
+        injectTimer = 2f;
+    }
+
+    private void Inject()
+    {
+        Instantiate(Resources.Load("Prefabs/In-World/Attacks/Explosion"), transform.position, Quaternion.identity);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 3f, LayerMask.GetMask("Enemy"));
+        foreach (var hitCollider in hitColliders)
+        {
+            Enemy enemy = hitCollider.GetComponent<Enemy>();
+            if (enemy != null)
+                enemy.TakeDamage(injectDmg);
+        }
+        injectDmg = 0;
     }
 
     public void MarkDamage(int dmg)
