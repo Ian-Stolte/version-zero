@@ -242,6 +242,7 @@ MonoBehaviour:
     keybind: 0
     keybindStr: 
     symbolIndicator: {fileID: 0}
+  chargeVFX: {fileID: 4854675165273339287}
   hitboxes:
   - {fileID: 1135881467792444086, guid: 3f16dce6459334681b4c760907d47519, type: 3}
   - {fileID: 8968518077185907026, guid: 460a8c4d0314a44d29d2c1613d65de4d, type: 3}

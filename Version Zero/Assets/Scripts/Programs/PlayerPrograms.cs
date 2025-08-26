@@ -134,7 +134,7 @@ public class PlayerPrograms : MonoBehaviour
     {
         if (charge)
         {
-            Debug.Log("Charged for " + chargeTimer);
+            p.chargeTime = Mathf.Min(2f, chargeTimer);
         }
 
         Block dash = p.blocks.Find(b => b.name == "Phase");
@@ -161,6 +161,8 @@ public class PlayerPrograms : MonoBehaviour
                     dir = new Vector3(dir.x, 0, dir.z).normalized;
                     GameObject hitbox = Instantiate(hitboxes[1], transform.position, rot);
                     hitbox.GetComponent<LineHitbox>().dir = dir;
+                    hitbox.GetComponent<LineHitbox>().speed = 12 + 5 * p.chargeTime;
+                    hitbox.GetComponent<LineHitbox>().despawnDist = 10 + 3 * p.chargeTime;
                     hitbox.GetComponent<Hitbox>().program = p;
                     break;
                 }
@@ -177,6 +179,11 @@ public class PlayerPrograms : MonoBehaviour
                     AudioManager.Instance.Play("Place Trap");
                     GameObject hitbox = Instantiate(hitboxes[3], MousePos(), rot);
                     hitbox.GetComponent<Hitbox>().program = p;
+                    if (p.chargeTime > 0)
+                    {
+                        GameObject sparks = Instantiate(chargeVFX, hitbox.transform.position, Quaternion.identity, hitbox.transform);
+                        sparks.GetComponent<VisualEffect>().SetFloat("Strength", chargeVFX.GetComponent<VisualEffect>().GetFloat("Strength") / 2f);
+                    }
                     break;
                 }
                 else if (b.name == "Double")
@@ -208,6 +215,8 @@ public class PlayerPrograms : MonoBehaviour
                             tether.program = p;
                             tether.enemy = target.transform;
                             tether.player = transform;
+
+                            //TODO: vfx/size increase if charge > 0
                         }
                     }
                     else
@@ -221,6 +230,11 @@ public class PlayerPrograms : MonoBehaviour
                     hitbox.GetComponent<Hitbox>().program = p;
                     hitbox.GetComponent<SentryHitbox>().shootInterval = p.cdMax/8f;
                     hitbox.GetComponent<SentryHitbox>().lifetime = 4f + p.cdMax/2f;
+                    if (p.chargeTime > 0)
+                    {
+                        GameObject sparks = Instantiate(chargeVFX, hitbox.transform.position, Quaternion.identity, hitbox.transform);
+                        sparks.GetComponent<VisualEffect>().SetFloat("Strength", chargeVFX.GetComponent<VisualEffect>().GetFloat("Strength")/2f);
+                    }
                     break;
                 }
             }
@@ -238,6 +252,7 @@ public class PlayerPrograms : MonoBehaviour
             }
         }
 
+        float chargeMult = 1 + 0.5f * p.chargeTime;
         foreach (Collider c in cols)
         {
             Enemy script = c.GetComponent<Enemy>();
@@ -272,12 +287,12 @@ public class PlayerPrograms : MonoBehaviour
                         Vector3 dir = (c.transform.position - pos);
                         dir = (new Vector3(dir.x, 0.2f, dir.z)).normalized;
                         int kbStrength = (aura) ? 600 : 1000;
-                        c.GetComponent<Rigidbody>().AddForce(dir * kbStrength, ForceMode.Impulse);
+                        c.GetComponent<Rigidbody>().AddForce(dir * kbStrength * chargeMult, ForceMode.Impulse);
                         script.stunTimer = 0.5f;
                     }
                 }
                 if (dmg > 0)
-                    script.TakeDamage(dmg);
+                    script.TakeDamage((int)Mathf.Round(dmg*chargeMult));
                 if (burn > 0)
                 {
                     if (aura)
@@ -288,18 +303,25 @@ public class PlayerPrograms : MonoBehaviour
                         StartCoroutine(script.auraBurn);
                     }
                     else
-                        StartCoroutine(script.ApplyBurn(burn, 4));
+                    {
+                        if (chargeMult > 1.5f)
+                            StartCoroutine(script.ApplyBurn(burn * 2, 4));
+                        else if (chargeMult > 1)
+                            StartCoroutine(script.ApplyBurn(burn, (int)Mathf.Round(4 * chargeMult)));
+                        else
+                            StartCoroutine(script.ApplyBurn(burn, 4));
+                    }
                 }
                 if (injectDmg > 0)
-                    script.InjectDamage(injectDmg);
+                    script.InjectDamage((int)Mathf.Round(injectDmg*chargeMult));
                 if (markDmg > 0)
-                    script.MarkDamage(markDmg);
+                    script.MarkDamage((int)Mathf.Round(markDmg*chargeMult));
                 if (stun > 0)
-                    script.stunTimer = stun;
+                    script.stunTimer = stun * chargeMult;
                 if (bait > 0)
-                    script.baitTimer = bait;
+                    script.baitTimer = bait * chargeMult;
                 if (slow > 0)
-                    script.slowTimer = slow;
+                    script.slowTimer = slow * chargeMult;
             }
         }
     }

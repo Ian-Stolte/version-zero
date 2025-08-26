@@ -668,6 +668,7 @@ public class Program
     public List<Block> blocks;
     public float cdMax;
     public float cdTimer;
+    public float chargeTime;
     [HideInInspector] public GameObject fillTimer;
     public KeyCode keybind;
     public string keybindStr;
