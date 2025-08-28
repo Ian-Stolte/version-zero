@@ -270,7 +270,7 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(LoadNextLevel(GameObject.Find("Elevator_End").GetComponent<Elevator>().nextArea, true));
         }
-        for (int i = 1; i <= 6; i++)
+        for (int i = 1; i <= 9; i++)
         {
             if (Input.GetKeyDown(i.ToString()) && Input.GetKey(KeyCode.LeftShift))
             {
@@ -528,6 +528,8 @@ public class GameManager : MonoBehaviour
                 else
                     bonuses[2] = 0;
                 statsPanel.GetChild(2).GetComponent<TextMeshProUGUI>().text = dmg.ToString();
+
+                statsPanel.GetChild(3).GetComponent<TextMeshProUGUI>().text = "";
             }
             else
             {

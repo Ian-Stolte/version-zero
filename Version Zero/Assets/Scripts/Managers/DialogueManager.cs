@@ -147,10 +147,10 @@ public class DialogueManager : MonoBehaviour
     private string ShowPortraits(string line)
     {
         bool final = SceneManager.GetActiveScene().name.Contains("Final");
-        portraits[0].SetActive(line[0] != '~' && line[0] != '!'); //reya
+        portraits[0].SetActive(line[0] != '~' && line[0] != '!' && line[0] != '@'); //reya
 
         portraits[1].SetActive(line[0] == '~' && !final); //computer
-        portraits[2].SetActive(line[0] == '~' && final); //computer_final
+        portraits[2].SetActive((line[0] == '~' && final) || line[0] == '@'); //computer_final
 
         portraits[3].SetActive(line[0] == '!' && lvlNum == 6 && GameManager.Instance.enemyType == "Logic"); //gardener_logic
         portraits[4].SetActive(line[0] == '!' && lvlNum == 6 && GameManager.Instance.enemyType == "Instinct"); //gardener_instinct
@@ -160,7 +160,7 @@ public class DialogueManager : MonoBehaviour
         portraits[7].SetActive(line[0] == '!' && lvlNum == 12 && GameManager.Instance.enemyType == "Instinct"); //hunter_instinct
         portraits[8].SetActive(line[0] == '!' && lvlNum == 12 && GameManager.Instance.enemyType == "Memory"); //hunter_memory
 
-        if (line[0] == '~' || line[0] == '!')
+        if (line[0] == '~' || line[0] == '!' || line[0] == '@')
             line = line.Substring(1);
         return line;
     }
@@ -333,7 +333,7 @@ public class DialogueManager : MonoBehaviour
                         }
                     }
                 }
-                if (i == dialogueToPlay.Length - 2)
+                if (i == 13)
                 {
                     float fadeTime = (skip) ? 6 : 10;
                     Fader.Instance.FadeOut(fadeTime);
@@ -369,7 +369,7 @@ public class DialogueManager : MonoBehaviour
 
         //show area intro text
         float waitTime = 0.1f;
-        foreach (char ch in "Abandoned Rooftop, Hightower District\n(Virtual Reality)")
+        foreach (char ch in "Abandoned Rooftop, Hightower District\n(Digital Space)")
         {
             if (ch == '(')
                 yield return new WaitForSeconds(1);

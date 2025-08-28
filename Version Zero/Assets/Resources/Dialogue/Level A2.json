@@ -1,8 +1,8 @@
 {
   "A": {
     "0": 1,
-    "1": "~there should be an access point behind the barrier you just opened",
-    "2": "~I can use it to transfer your saved files back to you!",
+    "1": "~Reya, there should be an access point behind the barrier you just opened",
+    "2": "~let's try connecting to it together!",
     "3": "",
     "4": "",
     "5": "",
@@ -11,19 +11,19 @@
   },
   "Access_Intro": {
     "0": 1,
-    "1": "So uhhh`.`.`.`` I don't think these buttons even do anything...``````",
+    "1": "So uhhh`.`.`.`` do these buttons even do anything.``.``.``?```",
     "2": "~yes please give me a second to restart the system```",
     "3": "~i do not wish to alarm you but I am detecting numerous attempts to breach my antivirus software```",
     "4": "~you may want to prepare yourself```",
     "5": "~it is likely that any systems we encounter may already be compromised```",
     "6": "``Prepare myself how--``````````",
-    "7": "``huh,`` there we go"
+    "7": "``oh,`` guess the restart worked"
   },
-  "Access Pt": {
+  "Access_A": {
     "0": 1,
-    "1": "~it appears you get to choose which type of skills to download```",
+    "1": "~it appears you can choose a type of 'cool hacking powers' to download```",
     "2": "~```and if you are worried about missing out you can simply choose something else next time!",
-    "3": "Next... --wait what? ```What do you mean by next time??",
+    "3": "Next... --wait what? ```What do you mean by next time?",
     "4": "",
     "5": "",
     "6": "",
@@ -31,7 +31,7 @@
   },
   "First_Enemy": {
     "0": 1,
-    "1": "~watch out-- infected systems are approaching!",
+    "1": "~Reya use your skills to destroy the infected programs!",
     "2": "",
     "3": "",
     "4": "",

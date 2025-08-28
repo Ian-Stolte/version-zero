@@ -4734,7 +4734,7 @@ MonoBehaviour:
   defSpeed: 1.5
   targetMin: 5
   targetMax: 10
-  atkDelay: 5
+  atkDelay: 6
   dmg: 1
   projPrefab: {fileID: 3512434751255828300, guid: 3964fdbb2368ece4ab9b0ca91fedabcc, type: 3}
   meleeRange: 7
