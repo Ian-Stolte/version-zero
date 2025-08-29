@@ -27,7 +27,6 @@ public class DialogueManager : MonoBehaviour
     private int terminalNum;
     private int lvlNum;
     private List<Dictionary<string, Dictionary<string, string>>> dialogueBank = new List<Dictionary<string, Dictionary<string, string>>>();
-    private List<Dictionary<string, int>> timesPlayed = new List<Dictionary<string, int>>();
 
     [Header("First Access Pt")]
     [SerializeField] private Transform buildSelect;
@@ -192,12 +191,12 @@ public class DialogueManager : MonoBehaviour
             terminalNum++;
             ID = "Pt " + terminalNum;
             if (ID == "Pt 1")
-                timesPlayed[lvlNum][ID]++;
-            runNum = "" + timesPlayed[lvlNum]["Pt 1"];
+                SequenceManager.Instance.timesPlayed[lvlNum][ID]++;
+            runNum = "" + SequenceManager.Instance.timesPlayed[lvlNum]["Pt 1"];
         }
         else
         {
-            runNum = "" + (++timesPlayed[lvlNum][ID]);
+            runNum = "" + (++SequenceManager.Instance.timesPlayed[lvlNum][ID]);
         }
 
         if (dialogueBank.Count > lvlNum && dialogueBank[lvlNum].ContainsKey(ID))
@@ -271,7 +270,7 @@ public class DialogueManager : MonoBehaviour
                     {
                         counts[key] = 0;
                     }
-                    timesPlayed.Add(counts);
+                    SequenceManager.Instance.timesPlayed.Add(counts);
                 }
             }
         }
@@ -303,8 +302,9 @@ public class DialogueManager : MonoBehaviour
         dialogue.SetActive(true);
         TextMeshProUGUI txt = dialogue.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         string[] dialogueToPlay = PlayByID("Intro", false);
-        if (!GameManager.Instance.skipDialogue)
+        if (!GameManager.Instance.skipDialogue && dialogueToPlay.Length > 0)
         {
+            int fadeInIndex = (SequenceManager.Instance.timesPlayed[lvlNum]["Intro"] == 1) ? 13 : 6;
             StartCoroutine(AudioManager.Instance.StartFade("Startup UI", 4f, 0f));
             for (int i = 0; i < dialogueToPlay.Length; i++)
             {
@@ -333,7 +333,7 @@ public class DialogueManager : MonoBehaviour
                         }
                     }
                 }
-                if (i == 13)
+                if (i == fadeInIndex)
                 {
                     float fadeTime = (skip) ? 6 : 10;
                     Fader.Instance.FadeOut(fadeTime);

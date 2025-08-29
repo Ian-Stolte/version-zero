@@ -8,6 +8,7 @@ public class Memory : MonoBehaviour
     public GameObject program;
     [SerializeField] private string dialogueName;
     private bool active;
+    [HideInInspector] public GameObject barrier;
 
 
     private void OnTriggerEnter(Collider other)
@@ -70,6 +71,7 @@ public class Memory : MonoBehaviour
                 rb.AddForce(direction * forceMagnitude, ForceMode.Impulse);
             }
         }
+        barrier.SetActive(false);
 
         //add program to blocks list
         Destroy(newProgram);

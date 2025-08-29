@@ -16,6 +16,7 @@ public class AggroEvasive : Enemy
 
     [Header("Boss")]
     public GameObject startBarrier;
+    public GameObject endBarrier;
     [SerializeField] private GameObject[] rewardPrograms;
     [SerializeField] private GameObject memoryReward;
     private int arenaNum = 1;
@@ -578,7 +579,8 @@ public class AggroEvasive : Enemy
         if (index < rewardPrograms.Length)
         {
             GameObject reward = Instantiate(memoryReward, transform.position + new Vector3(0, 0, 0), Quaternion.identity);
-            reward.GetComponent<Memory>().program = rewardPrograms[index];
+            reward.transform.GetChild(0).GetComponent<Memory>().program = rewardPrograms[index];
+            reward.transform.GetChild(0).GetComponent<Memory>().barrier = endBarrier;
         }
         else
         {

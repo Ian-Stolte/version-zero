@@ -5,10 +5,7 @@
     "2": "~prepare yourself for battle!",
     "3": "",
     "4": "",
-    "5": "",
-    "6": "",
-    "7": "",
-    "8": ""
+    "5": ""
   },
   "Boss_Intro": {
     "0": 1,
@@ -16,20 +13,14 @@
     "2": "!...```",
     "3": "!`.`.`.```SCAN COMPLETE",
     "4": "!PREY DETECTED",
-    "5": "!COMMENCING ERADICATION PROTOCOL",
-    "6": "",
-    "7": "",
-    "8": ""
+    "5": "!COMMENCING ERADICATION PROTOCOL"
   },
   "Boss_Kill": {
     "0": 1,
-    "1": "Computer, what *is* this?``````",
-    "2": "It-- it's like I'm flipping through a stranger's memories`.`.`.`` ",
-    "3": "~initial scans indicate`.`.`.``` 99% similarity with your neural patterns, Reya",
-    "4": "~i would conclude that it is, in fact, *your* memory",
-    "5": "No shit.",
-    "6": "This is simultaneously cool ```and also extremely creepy.```",
-    "7": "~i suspect it would even be compatible with a memory bank",
-    "8": "~perhaps not everything in this world is trying to kill us"
+    "1": "Oh, another memory!",
+    "2": "What do you think this one does?",
+    "3": "~i do not know but i bet if we plug it into the next access point we'll find out!",
+    "4": "",
+    "5": ""
   }
 }

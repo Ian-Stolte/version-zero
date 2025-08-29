@@ -27,25 +27,4 @@ public class DoNotDestroy : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
     }
-
-    void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (scene.name == "Playtest Options")
-        {
-            if (name != "Options Manager" && name != "Game Manager" && name != "Sequence Manager")
-            {
-                Destroy(gameObject);
-            }
-        }
-    }
 }

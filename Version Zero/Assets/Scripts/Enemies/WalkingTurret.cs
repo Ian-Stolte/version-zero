@@ -368,6 +368,7 @@ public class WalkingTurret : Enemy
         {
             GameObject reward = Instantiate(memoryReward, transform.position + new Vector3(0, 0, 0), Quaternion.identity);
             reward.transform.GetChild(0).GetComponent<Memory>().program = rewardPrograms[index];
+            reward.transform.GetChild(0).GetComponent<Memory>().barrier = endBarrier;
         }
         else
         {
@@ -377,8 +378,6 @@ public class WalkingTurret : Enemy
         GameManager.Instance.bossUI.SetActive(false);
         foreach (Transform child in transform.parent)
             Destroy(child.gameObject);
-
-        endBarrier.SetActive(false);
 
         if (!GameManager.Instance.pauseGame)
             AudioManager.Instance.KillBoss1();

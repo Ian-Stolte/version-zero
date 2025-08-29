@@ -10,9 +10,9 @@
     "7": "~there unfortunately appears to have been a minor issue with the login process, so I am currently unable to access my full functionality",
     "8": "~however I am running a program right now to recover as much data as possible!``",
     "9": "``Do you happen to have... data on how *I* got here?```` Last thing I remember, I was...",
-    "10": "````.`.`.``um, I was...",
+    "10": "``.`.`.``um, I was...",
     "11": "~I do not want to worry you but your neural scans do indicate some level of memory loss",
-    "12": "But I—`` I remember everything else...```` I mean, I remember my family, what our apartment looks like...",
+    "12": "But I—`` I remember everything else!``` I mean, I remember my family, what our apartment looks like...",
     "13": "~perhaps we should try 'retracing your steps'?```` Re-experiencing familiar locations may help trigger your memory.",
     "14": "~fortunately, my records indicate you've passed through this world many times!```",
     "15": "Wait a second``, we're.`.`.`````` in my old DigiCity??```` How are we-- I thought this was deleted years ago!",
@@ -25,16 +25,20 @@
     "22": "What-`` who are you?```` How... do you know my name?",
     "23": "~oh good you are awake!``",
     "24": "~I am your BioSoft-issued computer assistant, here to make sure your digital reality experience is as smooth and safe as possible!",
-    "25": "~if you need assistance at any time, just say 'Hey Computer' and I will reply with whatever you need!````",
-    "26": "~or say literally anything else because I will be listening at all times",
-    "27": "",
-    "28": ""
+    "25": "~according to my initial scans, your memory might be feeling a little foggy right now but please do not worry",
+    "26": "~simply follow the elevators I have called for us and they will take you to where you are going!",
+    "27": "Wait a second``, are we.`.`.`````` in my old DigiCity?```` How--`` what--`` I thought this was deleted years ago!",
+    "28": "~yes I know you have more questions but we need to start moving",
+    "29": "~if you need assistance, just say 'Hey Computer' and I will reply with whatever you need````",
+    "30": "~or say literally anything else because I will be listening at all times!",
+    "31": "",
+    "32": 3
   },
   "A": {
     "0": 1,
     "1": "````Hey, uh--",
     "2": "How did I know how to do that?``` Override that terminal, I mean.``",
-    "3": "~oh um that is a very good question I don't know!",
+    "3": "~oh that is a very good question I don't know!",
     "4": "``.`.`.``well, I guess I'm not complaining about cool hacking powers...",
     "5": "",
     "6": "",
@@ -58,7 +62,11 @@
     "24": "",
     "25": "",
     "26": "",
-    "27": "~if you need assistance at any time, just say 'Hey Computer' and I will reply with whatever you need!````",
-    "28": "~or say literally anything else because I will be listening at all times"
+    "27": "",
+    "28": "",
+    "29": "",
+    "30": "",
+    "31": "",
+    "32": ""
   }
 }

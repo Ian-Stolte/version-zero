@@ -14,6 +14,9 @@ public class SequenceManager : MonoBehaviour
             Destroy(gameObject);
     }
 
+    [Header("Dialogue")]
+    public List<Dictionary<string, int>> timesPlayed = new List<Dictionary<string, int>>();
+
     [Header("Stats")]
     public int runNum;
     public int lastLevelReached;

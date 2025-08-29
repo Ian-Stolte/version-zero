@@ -202,6 +202,7 @@ public class GameManager : MonoBehaviour
                             else if (levelNum == 12)
                             {
                                 newEnemies.Last().GetComponent<AggroEvasive>().startBarrier = child.GetComponent<AggroEvasive>().startBarrier;
+                                newEnemies.Last().GetComponent<AggroEvasive>().endBarrier = child.GetComponent<AggroEvasive>().endBarrier;
                             }
                         }
                         break;
