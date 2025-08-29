@@ -29,7 +29,7 @@ RectTransform:
   m_GameObject: {fileID: 3051587838492318400}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.107458, y: 1.1074579, z: 1.1074579}
+  m_LocalScale: {x: 1.1273903, y: 1.1273901, z: 1.1273901}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5314545167108012143}
@@ -39,7 +39,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 164.18045, y: -0.5402527}
+  m_AnchoredPosition: {x: 152.6997, y: -0.000030517578}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2363667368830896817
@@ -63,7 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09019608, g: 0.1254902, b: 0.121568635, a: 1}
+  m_Color: {r: 0.09019608, g: 0.1254902, b: 0.12156863, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -128,8 +128,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  shape: 0
+  rootSlot: 0
   slotPrefab: {fileID: 3051587838492318400}
+  cdTxt: {fileID: 0}
 --- !u!1 &5522427943795924266
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,8 +165,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -69.301216, y: 0}
-  m_SizeDelta: {x: 55.2956, y: 100}
+  m_AnchoredPosition: {x: -69.11995, y: 0}
+  m_SizeDelta: {x: 54.9329, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5571728106527218044
 CanvasRenderer:
@@ -239,8 +240,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -69.301254, y: 0}
-  m_SizeDelta: {x: 55.2956, y: 100}
+  m_AnchoredPosition: {x: -69.11999, y: 0}
+  m_SizeDelta: {x: 54.9329, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8632162681070677514
 CanvasRenderer:
@@ -263,7 +264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09019608, g: 0.1254902, b: 0.11764707, a: 1}
+  m_Color: {r: 0.09019608, g: 0.1254902, b: 0.12156863, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -92,8 +92,11 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
                 {
                     if (hit.GetComponent<FunctionSlot>().target == null)
                     {
-                        targetSpace = hit.transform.GetChild(0).gameObject;
-                        targetSpace.SetActive(true);
+                        if (!(hit.GetComponent<FunctionSlot>().onlyEffects && tag == "mod"))
+                        {
+                            targetSpace = hit.transform.GetChild(0).gameObject;
+                            targetSpace.SetActive(true);
+                        }
                     }
                 }
             }

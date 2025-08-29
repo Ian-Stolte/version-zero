@@ -110,7 +110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4145732063751185695, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: description
-      value: A circle that charges for a moment, then strikes twice.
+      value: A circle that charges for a moment, then strikes twice
       objectReference: {fileID: 0}
     - target: {fileID: 6695455977087007718, guid: 538ef646a55c23b4587b0c14c0517ce9, type: 3}
       propertyPath: m_Sprite

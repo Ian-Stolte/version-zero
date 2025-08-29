@@ -6,7 +6,8 @@ public class FunctionSlot : MonoBehaviour
 {
     public Block target;
 
-    public bool shape;
+    public bool rootSlot;
+    public bool onlyEffects;
     [SerializeField] private GameObject slotPrefab;
     [SerializeField] private TMPro.TextMeshProUGUI cdTxt;
 
@@ -18,7 +19,7 @@ public class FunctionSlot : MonoBehaviour
     public void Attach(Block block)
     {
         target = block;
-        Transform parent = (shape) ? transform : transform.parent;
+        Transform parent = (rootSlot) ? transform : transform.parent;
         int missing = (parent.GetComponent<FunctionSlot>().target == null) ? 1 : 0;
         foreach (Transform child in parent)
         {
@@ -28,8 +29,16 @@ public class FunctionSlot : MonoBehaviour
         if (missing == 0)
         {
             GameObject newSlot = Instantiate(slotPrefab, Vector2.zero, Quaternion.identity, parent);
-            float yPos = (shape) ? 0 : GetComponent<RectTransform>().anchoredPosition.y;
-            newSlot.GetComponent<RectTransform>().anchoredPosition = new Vector2((parent.childCount - 1) * 150, yPos);
+            float yPos = (rootSlot) ? 0 : GetComponent<RectTransform>().anchoredPosition.y;
+            if (!parent.GetComponent<FunctionSlot>().onlyEffects)
+            {
+                newSlot.GetComponent<RectTransform>().anchoredPosition = new Vector2((parent.childCount - 1) * 150, yPos);
+            }
+            else
+            {
+                newSlot.GetComponent<RectTransform>().anchoredPosition = new Vector2((parent.childCount - 1) * 134, yPos);
+                newSlot.transform.localScale = new Vector3(1, 1, 1);
+            }
             newSlot.GetComponent<FunctionSlot>().target = null;
             newSlot.GetComponent<FunctionSlot>().cdTxt = cdTxt;
         }
@@ -39,59 +48,32 @@ public class FunctionSlot : MonoBehaviour
     public void Detach()
     {
         target = null;
-        if (!shape)
+        if (!rootSlot)
         {
             Transform parent = transform.parent;
-            int myIndex = transform.GetSiblingIndex();
-
-            //if all slots to the right are empty, destroy them
-            List<GameObject> toDestroy = new List<GameObject>();
-            bool destroy = true;
-            for (int i = parent.childCount - 1; i > myIndex; i--)
+            int lastIndex = parent.childCount - 1;
+            // Count empty slots
+            for (int i = parent.childCount - 1; i >= 0; i--)
             {
-                Transform child = parent.GetChild(i);
-                if (child.GetComponent<FunctionSlot>() != null)
-                {
-                    if (child.GetComponent<FunctionSlot>().target == null)
-                    {
-                        toDestroy.Add(child.gameObject);
-                    }
-                    else
-                    {
-                        destroy = false;
-                        break;
-                    }
-                }
-            }
-            if (destroy)
-            {
-                foreach (GameObject g in toDestroy)
-                    Destroy(g);
+                FunctionSlot slot = parent.GetChild(i).GetComponent<FunctionSlot>();
+                if (slot != null && slot.target == null)
+                    lastIndex = i;
+                else
+                    break;
             }
 
-            // if we are the last child, destroy empty slots to our left but leave 1 free
-            myIndex = transform.GetSiblingIndex();
-            if (myIndex == parent.childCount - 1)
+            // Destroy all but one empty slot at the end
+            if (lastIndex == 1 && parent.GetComponent<FunctionSlot>().target == null && parent.GetComponent<FunctionSlot>().onlyEffects)
+                lastIndex = -1;
+            for (int i = parent.childCount - 1; i > lastIndex; i--)
             {
-                int lastFilled = 0;
-                for (int i = 0; i < myIndex; i++)
-                {
-                    var slot = parent.GetChild(i).GetComponent<FunctionSlot>();
-                    if (slot != null && slot.target != null)
-                        lastFilled = i;
-                }
-                if (lastFilled != myIndex - 1)
-                {
-                    for (int i = lastFilled + 2; i <= myIndex; i++)
-                    {
-                        var slot = parent.GetChild(i).GetComponent<FunctionSlot>();
-                        if (slot != null && slot.target == null)
-                        {
-                            Destroy(parent.GetChild(i).gameObject);
-                        }
-                    }
-                }
+                Destroy(parent.GetChild(i).gameObject);
             }
+        }
+        else if (onlyEffects && transform.childCount <= 2) //if only effects, go from 2 -> 1 on root detach
+        {
+            if (transform.GetChild(1).GetComponent<FunctionSlot>().target == null)
+                Destroy(transform.GetChild(1).gameObject);
         }
         ShowElectricity();
     }
@@ -100,8 +82,8 @@ public class FunctionSlot : MonoBehaviour
     public void ShowElectricity()
     {
         float cooldown = 0f;
-        Transform parent = (shape) ? transform : transform.parent;
-        if (parent.GetComponent<FunctionSlot>().target == null) //if no parent, hide electricity
+        Transform parent = (rootSlot) ? transform : transform.parent;
+        if (parent.GetComponent<FunctionSlot>().target == null || parent.name == "Aura Slot") //if no parent, hide electricity
         {
             foreach (Transform child in parent)
             {
@@ -129,7 +111,10 @@ public class FunctionSlot : MonoBehaviour
             }
             cdTxt.gameObject.SetActive(cooldown > 0);
             cooldown += parent.GetComponent<FunctionSlot>().target.cd;
-            cdTxt.text = cooldown + "s";
+            if (parent.name == "Auto Slot")
+                cdTxt.text = cooldown/2f + "s";
+            else
+                cdTxt.text = cooldown + "s";
         }
     }
 }

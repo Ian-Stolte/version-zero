@@ -7,4 +7,5 @@ public class KeybindSlot : MonoBehaviour
     public FunctionSlot shapeBase;
 
     public KeyCode keybind;
+    public bool atuomatic;
 }
