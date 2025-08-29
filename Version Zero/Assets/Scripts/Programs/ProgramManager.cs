@@ -107,18 +107,18 @@ public class ProgramManager : MonoBehaviour
             List<Block> lineStun = new List<Block>();
             lineStun.Add(GameObject.Find("Line").GetComponent<Block>());
             lineStun.Add(GameObject.Find("Damage").GetComponent<Block>());
-            Program lineStunSpell = new Program(lineStun, KeyCode.Mouse0);
+            Program lineStunSpell = new Program("LineStun", lineStun, KeyCode.Mouse0);
             programs.Add(lineStunSpell);
             List<Block> circleDisplace = new List<Block>();
             circleDisplace.Add(GameObject.Find("Circle").GetComponent<Block>());
             circleDisplace.Add(GameObject.Find("Displace").GetComponent<Block>());
-            Program circleDisplaceSpell = new Program(circleDisplace, KeyCode.Mouse1);
+            Program circleDisplaceSpell = new Program("CircleDisplace", circleDisplace, KeyCode.Mouse1);
             programs.Add(circleDisplaceSpell);
             List<Block> meleeUlt = new List<Block>();
             meleeUlt.Add(GameObject.Find("Pulse").GetComponent<Block>());
             meleeUlt.Add(GameObject.Find("Pause").GetComponent<Block>());
             meleeUlt.Add(GameObject.Find("Damage").GetComponent<Block>());
-            Program meleeUltSpell = new Program(meleeUlt, KeyCode.Mouse2);
+            Program meleeUltSpell = new Program("MeleeUlt", meleeUlt, KeyCode.Mouse2);
             programs.Add(meleeUltSpell);
             ConfirmSpells(true);
             EnterGame();
@@ -189,7 +189,6 @@ public class ProgramManager : MonoBehaviour
             {
                 b.nameTxt.GetComponent<CanvasGroup>().alpha = 1;
                 b.cdTxt.GetComponent<CanvasGroup>().alpha = 1;
-                b.cdTxt.gameObject.SetActive(true);
                 b.GetComponent<CanvasGroup>().alpha = 1;
                 b.upgradeCircles.SetActive(true);
 
@@ -281,7 +280,7 @@ public class ProgramManager : MonoBehaviour
                     blockList.Add(slot.target);
             }
         }
-        programs.Add(new Program(blockList, keybind, k.transform.GetChild(4).gameObject));
+        programs.Add(new Program(k.gameObject.name, blockList, keybind, k.transform.GetChild(4).gameObject));
     }
 
 
@@ -293,7 +292,6 @@ public class ProgramManager : MonoBehaviour
             {
                 b.nameTxt.GetComponent<CanvasGroup>().alpha = 1;
                 b.cdTxt.GetComponent<CanvasGroup>().alpha = 1;
-                b.cdTxt.SetActive(true);
                 b.GetComponent<CanvasGroup>().alpha = 1;
                 b.upgradeCircles.SetActive(true);
 
@@ -324,14 +322,8 @@ public class ProgramManager : MonoBehaviour
             foreach (Transform child in keybindSlots)
             {
                 KeybindSlot script = child.GetComponent<KeybindSlot>();
-                valid = CheckValidBlocks(valid, script.shapeBase, child.GetComponent<Image>(), (script.keybind == KeyCode.None));
+                valid = CheckValidBlocks(valid, script.shapeBase, child.GetComponent<Image>());
             }
-            /*GameObject aura = GameObject.Find("Aura");
-            if (aura != null)
-                valid = CheckValidBlocks(valid, aura.GetComponent<Block>().right, aura.GetComponent<Image>(), false, true);
-            GameObject auto = GameObject.Find("Auto");
-            if (auto != null)
-                valid = CheckValidBlocks(valid, auto.GetComponent<Block>().right, auto.GetComponent<Image>(), false);*/
             compileButton.GetComponent<Button>().interactable = (valid > 0);
         }
 
@@ -368,13 +360,13 @@ public class ProgramManager : MonoBehaviour
             upgradeTutorial.SetActive(false);
     }
 
-    private int CheckValidBlocks(int valid, FunctionSlot slot, Image img, bool noKeybind, bool noShape = false)
+    private int CheckValidBlocks(int valid, FunctionSlot slot, Image img)
     {
         if (slot.target == null) //unused slot
             return valid;
 
         FunctionSlot firstChild = slot.transform.GetChild(1).GetComponent<FunctionSlot>();
-        if (firstChild != null && firstChild.target != null) //at least 1 effect
+        if ((firstChild != null && firstChild.target != null) || slot.onlyEffects) //at least 1 effect
         {
             return valid + 1;
         }
@@ -415,26 +407,20 @@ public class ProgramManager : MonoBehaviour
         player.autoProgram.name = "";
         foreach (Program p in programs)
         {
-            float cd = 0;
-            bool addedAuto = false;
-            bool addedAura = false;
-            foreach (Block b in p.blocks)
+            if (p.name == "Aura Slot")
             {
-
-                cd += b.cd;
-                if (b.name == "Aura")
-                {
-                    player.auraProgram = p;
-                    addedAura = true;
-                }
-                else if (b.name == "Auto")
-                {
-                    player.autoProgram = p;
-                    addedAuto = true;
-                }
+                player.auraProgram = p;
             }
-            if (addedAuto)
+            else if (p.name == "Auto Slot")
+            {
+                player.autoProgram = p;
+                float cd = 0;
+                foreach (Block b in p.blocks)
+                {
+                    cd += b.cd;
+                }
                 player.autoTick = cd / 2f;
+            }
         }
 
         if (player.auraProgram.name != "")
@@ -460,8 +446,8 @@ public class ProgramManager : MonoBehaviour
         int index = 0;
         foreach (Program p in programs)
         {
-            Block shape = p.blocks.Find(b => b.tag == "base");
-            CreateProgramIcon(p, new Vector2(-800 + (170 * index), -450), p.keybindStr, shape.name);
+            Block baseBlock = p.blocks.Find(b => b.tag == "base");
+            CreateProgramIcon(p, new Vector2(-800 + (170 * index), -450), p.keybindStr, baseBlock.name);
             index++;
         }
 
@@ -473,9 +459,9 @@ public class ProgramManager : MonoBehaviour
         }
         if (player.autoProgram.name != "")
         {
-            Block shape = player.autoProgram.blocks.Find(b => b.tag == "base");
-            if (shape != null)
-                CreateProgramIcon(player.autoProgram, new Vector2(800 - (170 * index), -450), "AUTO", shape.name);
+            Block baseBlock = player.autoProgram.blocks.Find(b => b.tag == "base");
+            if (baseBlock != null)
+                CreateProgramIcon(player.autoProgram, new Vector2(800 - (170 * index), -450), "AUTO", baseBlock.name);
         }
 
         programUI.gameObject.SetActive(false);
@@ -652,10 +638,10 @@ public class ProgramManager : MonoBehaviour
 [System.Serializable]
 public class Program
 {
-    public Program(List<Block> blocks_, KeyCode bind_, GameObject symbolIndicator_=null)
+    public Program(string name_, List<Block> blocks_, KeyCode bind_, GameObject symbolIndicator_=null)
     {
+        name = name_;
         blocks = blocks_;
-        name = blocks_[0].name;
         keybind = bind_;
         symbolIndicator = symbolIndicator_;
         if (ProgramManager.Instance.keybindStrMap.ContainsKey(bind_))
