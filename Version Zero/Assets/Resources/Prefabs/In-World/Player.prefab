@@ -227,6 +227,7 @@ MonoBehaviour:
     blocks: []
     cdMax: 0
     cdTimer: 0
+    chargeTime: 0
     fillTimer: {fileID: 0}
     keybind: 0
     keybindStr: 
@@ -238,6 +239,7 @@ MonoBehaviour:
     blocks: []
     cdMax: 0
     cdTimer: 0
+    chargeTime: 0
     fillTimer: {fileID: 0}
     keybind: 0
     keybindStr: 
@@ -253,7 +255,7 @@ MonoBehaviour:
   - {fileID: 1135881467792444086, guid: 0e44cc902e08097489ce6c5edfb1464a, type: 3}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 10248
   noTargetText: {fileID: 0}
   dashForce: 50
   dashDur: 0.25

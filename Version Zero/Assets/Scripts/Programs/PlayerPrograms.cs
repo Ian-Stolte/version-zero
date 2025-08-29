@@ -428,9 +428,13 @@ public class PlayerPrograms : MonoBehaviour
     private Vector3 MousePos()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayer))
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Ground")))
         {
             return hit.point;
+        }
+        else if (Physics.Raycast(ray, out RaycastHit hit2, Mathf.Infinity, groundLayer))
+        {
+            return hit2.point;
         }
         return Vector3.zero;
     }

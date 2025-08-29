@@ -164,9 +164,7 @@ public class StartupManager : MonoBehaviour
     private IEnumerator SkipIntro()
     {
         Fader.Instance.FadeIn(2);
-        //StartCoroutine(AudioManager.Instance.StartFade("Startup UI", 2, 0f));
         yield return new WaitForSeconds(2);
-        //AudioManager.Instance.Stop("Startup UI");
         SceneManager.LoadScene("Level 1");
     }
 
@@ -206,18 +204,24 @@ public class StartupManager : MonoBehaviour
 
     private IEnumerator NeuralActivity()
     {
-        manualControl = true;
-        sign = 0;
-        yield return new WaitForSeconds(4);
-        StartCoroutine(Peak(0.1f));
-        yield return new WaitForSeconds(2);
-        StartCoroutine(Peak(0.15f));
-        yield return new WaitForSeconds(0.8f);
-        StartCoroutine(Peak(0.1f));
         if (fail)
+        {
+            manualControl = true;
+            sign = 0;
+            yield return new WaitForSeconds(4);
+            StartCoroutine(Peak(0.1f));
+            yield return new WaitForSeconds(2);
+            StartCoroutine(Peak(0.15f));
+            yield return new WaitForSeconds(0.8f);
+            StartCoroutine(Peak(0.1f));
             StartCoroutine(FailSeq());
+        }
         else
+        {
+            yield return new WaitForSeconds(1.5f);
             StartCoroutine(SuccessSeq());
+        }
+
         yield return new WaitForSeconds(3);
         sign = 1;
         manualControl = false;
@@ -272,9 +276,9 @@ public class StartupManager : MonoBehaviour
             yield return StartCoroutine(TypeText(i));
         }
 
-        Fader.Instance.FadeIn(2);
+        Fader.Instance.FadeIn(1);
         StartCoroutine(AudioManager.Instance.StartFade("Startup UI", 2, 0));
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         SceneManager.LoadScene("Level 1");
     }
 

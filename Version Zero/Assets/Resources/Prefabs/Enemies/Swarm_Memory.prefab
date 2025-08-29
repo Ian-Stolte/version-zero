@@ -745,7 +745,7 @@ MonoBehaviour:
   slowTimer: 0
   baitTimer: 0
   injectTimer: 0
-  injectFill: {fileID: 0}
+  injectFill: {fileID: 2536067773149480621}
   gridIndex: 0
   collisionRadius: 1
   terrainLayer:

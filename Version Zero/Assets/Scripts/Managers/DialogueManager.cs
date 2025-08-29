@@ -400,7 +400,7 @@ public class DialogueManager : MonoBehaviour
             buildSelect.GetChild(2).gameObject.SetActive(true);
             ProgramManager.Instance.programUI.gameObject.SetActive(true);
             StopCoroutines();
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(4f);
             string[] firstAccessPt = PlayByID("Access_Intro", false);
             for (int i = 0; i < firstAccessPt.Length; i++)
             {
