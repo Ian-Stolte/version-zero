@@ -208,7 +208,8 @@ public class RewardManager : MonoBehaviour
                 rowX = 400 * (i - 1.5f);
 
             Transform reward;
-            if (row[i].name == "Auto" || row[i].name == "Aura")
+            bool keybind = (row[i].name == "Auto" || row[i].name == "Aura");
+            if (keybind)
                 reward = Instantiate(keybindPrefab, Vector2.zero, Quaternion.identity, rewardParent).transform;
             else if (row[i].tag == "mod")
                 reward = Instantiate(modPrefab, Vector2.zero, Quaternion.identity, rewardParent).transform;
@@ -218,21 +219,34 @@ public class RewardManager : MonoBehaviour
                 reward = Instantiate(effectPrefab, Vector2.zero, Quaternion.identity, rewardParent).transform;
 
             //name
-            reward.GetChild(3).GetComponent<TextMeshProUGUI>().text = row[i].nameTxt.text;
-            while (reward.GetChild(3).GetComponent<TextMeshProUGUI>().preferredWidth > reward.GetChild(1).GetComponent<RectTransform>().sizeDelta.x + 80 && reward.GetChild(3).GetComponent<TextMeshProUGUI>().fontSize > 24)
+            if (!keybind)
             {
-                reward.GetChild(3).GetComponent<TextMeshProUGUI>().fontSize -= 1;
+                reward.GetChild(3).GetComponent<TextMeshProUGUI>().text = row[i].nameTxt.text;
+                while (reward.GetChild(3).GetComponent<TextMeshProUGUI>().preferredWidth > reward.GetChild(1).GetComponent<RectTransform>().sizeDelta.x + 80 && reward.GetChild(3).GetComponent<TextMeshProUGUI>().fontSize > 24)
+                {
+                    reward.GetChild(3).GetComponent<TextMeshProUGUI>().fontSize -= 1;
+                }
+
+                //upgrades
+                int maxLvls = Mathf.CeilToInt(row[i].cd - row[i].minCd);
+                for (int j = reward.GetChild(0).childCount - 1; j >= 0; j--)
+                {
+                    if (j >= maxLvls)
+                        Destroy(reward.GetChild(0).GetChild(j).gameObject);
+                }
+
+                //other properties
+                string cdText = ((row[i].cd + "").Length > 1) ? row[i].cd + "s" : row[i].cd + ".0s";
+                reward.GetChild(4).GetComponent<TextMeshProUGUI>().text = cdText;
+                reward.GetChild(5).GetComponent<TextMeshProUGUI>().text = row[i].description;
+            }
+            else
+            {
+                reward.GetChild(1).GetComponent<TextMeshProUGUI>().text = row[i].nameTxt.text;
+                reward.GetChild(3).GetComponent<TextMeshProUGUI>().text = row[i].description;
             }
 
-            //upgrades
-            int maxLvls = Mathf.CeilToInt(row[i].cd - row[i].minCd);
-            for (int j = reward.GetChild(0).childCount - 1; j >= 0; j--)
-            {
-                if (j >= maxLvls)
-                    Destroy(reward.GetChild(0).GetChild(j).gameObject);
-            }
-
-            //other properties
+            //set type color
             if (row[i].sector == "instinct")
                 reward.GetChild(2).GetComponent<Image>().color = sectorColors[0];
             else if (row[i].sector == "logic")
@@ -241,10 +255,6 @@ public class RewardManager : MonoBehaviour
                 reward.GetChild(2).GetComponent<Image>().color = sectorColors[2];
             else if (row[i].name == "Damage")
                 reward.GetChild(2).GetComponent<Image>().color = new Color(0, 0, 0, 1);
-
-            string cdText = ((row[i].cd + "").Length > 1) ? row[i].cd + "s" : row[i].cd + ".0s";
-            reward.GetChild(4).GetComponent<TextMeshProUGUI>().text = cdText;
-            reward.GetChild(5).GetComponent<TextMeshProUGUI>().text = row[i].description;
 
             //Set position & references
             reward.GetComponent<RectTransform>().anchoredPosition = new Vector2(rowX, rowY);

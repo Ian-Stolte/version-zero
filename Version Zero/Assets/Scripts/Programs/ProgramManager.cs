@@ -523,18 +523,11 @@ public class ProgramManager : MonoBehaviour
 
         bool skipAura = false;
         bool skipAuto = false;
-        foreach (Block b in blocks)
-        {
-            if (b.name == "Aura")
-                skipAura = true;
-            else if (b.name == "Auto")
-                skipAuto = true;
-        }
         List<Block> starting = new List<Block>();
         List<Block> chosen = new List<Block>();
         foreach (GameObject g in allBlocks)
         {
-            if (!((skipAura && g.name == "Aura") || (skipAuto && g.name == "Auto")) && (sector == "none" || sector == g.GetComponent<Block>().sector) && (category == null || category.Contains(g.GetComponent<Block>().tag)) && !forbidden.Contains(g.name))
+            if (((sector == "none" && g.GetComponent<Block>().tag != "mod") || sector == g.GetComponent<Block>().sector) && (category == null || category.Contains(g.GetComponent<Block>().tag)) && !forbidden.Contains(g.name))
                 starting.Add(g.GetComponent<Block>());
         }
 

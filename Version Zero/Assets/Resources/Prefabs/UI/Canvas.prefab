@@ -6022,7 +6022,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8535038079260455892
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6637,7 +6637,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &31906844843740428
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9283,7 +9283,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7046858777419301535
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19247,6 +19247,8 @@ MonoBehaviour:
   - {fileID: 5002837315012015344, guid: 875b64e76a7675146b31a510d196830e, type: 3}
   - {fileID: 9191262866201418245, guid: 0f37290e6bbae8f48a0bd3cdf9758eac, type: 3}
   modBlocks:
+  - {fileID: 1056575017890556035, guid: 8a94b295ff28ebf4fbcb713728abfccd, type: 3}
+  - {fileID: 751068182812198834, guid: 77863b9482fb50b439adbde113d51e76, type: 3}
   - {fileID: 5002837315012015344, guid: 37e607e2c191fa64fa820f5f18897c71, type: 3}
   allBlocks: []
   blocks: []
@@ -23828,6 +23830,10 @@ PrefabInstance:
     - target: {fileID: 3051587838492318400, guid: 3e6d7799914ca014a8d8437c959784cf, type: 3}
       propertyPath: m_Name
       value: Aura Slot
+      objectReference: {fileID: 0}
+    - target: {fileID: 3051587838492318400, guid: 3e6d7799914ca014a8d8437c959784cf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3746526209358427866, guid: 3e6d7799914ca014a8d8437c959784cf, type: 3}
       propertyPath: cdTxt
