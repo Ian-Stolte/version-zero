@@ -8539,6 +8539,14 @@ PrefabInstance:
       propertyPath: SKIP_CRAFTING
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1244321252458295409, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+      propertyPath: baseBlocks.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244321252458295409, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+      propertyPath: baseBlocks.Array.data[6]
+      value: 
+      objectReference: {fileID: 5292561434995542351, guid: 94b27f82e8dd89648a807a5abd66c43a, type: 3}
     - target: {fileID: 1606203488914803925, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
       propertyPath: m_Name
       value: Scroll Rect

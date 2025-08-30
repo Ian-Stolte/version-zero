@@ -28,14 +28,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4036787664093112098}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -2.4490397, y: 2.005, z: 22.77}
-  m_LocalScale: {x: 0.70624495, y: 0.70624495, z: 0.70624495}
+  m_LocalScale: {x: 0.6396602, y: 0.6396602, z: 0.6396602}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6410236311698663191}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &6497977326262703203
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 98c151a43143d3f439d7930db349fc42, type: 2}
+  - {fileID: 2100000, guid: 03aeaa510597a4241863fe64fcc3192f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -188,6 +188,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 98c151a43143d3f439d7930db349fc42, type: 2}
+    - target: {fileID: -6374234432173915237, guid: f6ffdb76cdc85481e8d83a75b9baa169, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: b17367a68a7eaef4c82ec556f70e9803, type: 2}
     - target: {fileID: 919132149155446097, guid: f6ffdb76cdc85481e8d83a75b9baa169, type: 3}
       propertyPath: m_Name
       value: Helper_Robot

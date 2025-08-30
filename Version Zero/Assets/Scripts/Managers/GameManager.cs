@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
     }
 
     [Header("Bools")]
-    public bool skipDialogue;
     public bool noSpawn;
     [HideInInspector] public bool pauseGame;
     [HideInInspector] public bool playerPaused;

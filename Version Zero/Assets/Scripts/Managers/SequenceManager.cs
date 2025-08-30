@@ -19,6 +19,7 @@ public class SequenceManager : MonoBehaviour
 
     [Header("Stats")]
     public int runNum;
+    [HideInInspector] public bool skipIntro;
     public int lastLevelReached;
 
     public int health;
@@ -58,6 +59,7 @@ public class SequenceManager : MonoBehaviour
     public void LoadGame(bool newGame)
     {
         runNum = (newGame) ? 1 : 2;
+        skipIntro = !newGame;
         StartCoroutine(LoadGameCor());
     }
 

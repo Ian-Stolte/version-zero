@@ -40,7 +40,8 @@ public class WalkingTurret : Enemy
     
     [Header("Defense")]
     [SerializeField] private GameObject shield;
-    [SerializeField] private float shieldTime;
+    private float shieldTimer;
+    [SerializeField] private float shieldDuration;
 
     [Header("Barriers")]
     public GameObject startBarrier;
@@ -61,7 +62,7 @@ public class WalkingTurret : Enemy
         {
             aggro = true;
             StartCoroutine(StartAggro());
-        } 
+        }
 
         if (!GameManager.Instance.pauseGame)
             stunTimer -= Time.deltaTime; //un-stuns twice as fast
@@ -79,7 +80,7 @@ public class WalkingTurret : Enemy
                     stompTimer = Mathf.Max(0.5f, atkTimer);
             }
             else
-            {   
+            {
                 stompTimer = Mathf.Max(0, stompTimer - Time.deltaTime);
                 if (finalForm)
                     atkTimer = Mathf.Max(0, atkTimer - Time.deltaTime);
@@ -111,6 +112,11 @@ public class WalkingTurret : Enemy
                 stompTimer = stompDelay;
                 StartCoroutine(Stomp());
             }
+
+            //shield
+            shieldTimer = Mathf.Max(0, shieldTimer - Time.deltaTime);
+            shielded = (shieldTimer > 0);
+            shield.SetActive(shielded);
         }
     }
 
@@ -301,16 +307,6 @@ public class WalkingTurret : Enemy
     }
 
 
-    private IEnumerator Shield(float waitTime)
-    {
-        shield.SetActive(true);
-        shielded = true;
-        yield return new WaitForSeconds(waitTime);
-        shield.SetActive(false);
-        shielded = false;
-    }
-
-
     public override void TakeDamage(int dmg)
     {
         base.TakeDamage(dmg);
@@ -336,11 +332,11 @@ public class WalkingTurret : Enemy
                 StartCoroutine(TakeDamageFlash(true));
             }
             StartCoroutine(SpawnEnemies(enemiesToSpawn - indicators.Count));
-            StartCoroutine(Shield(shieldTime));
+            shieldTimer = shieldDuration;
         }
-        else if (GameManager.Instance.enemyType == "Logic")
+        else if (GameManager.Instance.enemyType == "Logic" && !shielded)
         {
-            StartCoroutine(Shield(1));
+            shieldTimer = Mathf.Max(1, shieldTimer);
         }
     }
 

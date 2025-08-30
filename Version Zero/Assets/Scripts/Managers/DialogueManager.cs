@@ -16,7 +16,6 @@ public class DialogueManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
-        LoadFromJson();
     }
 
     [Header("Dialogue")]
@@ -46,6 +45,7 @@ public class DialogueManager : MonoBehaviour
     void OnDisable() { SceneManager.sceneLoaded -= OnSceneLoaded; }
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        LoadFromJson();
         terminalNum = 0;
         if (scene.name.Contains("Final"))
             lvlNum = 17;
@@ -240,39 +240,30 @@ public class DialogueManager : MonoBehaviour
 
     private void LoadFromJson()
     {
-        string path = "Assets/Resources/Dialogue";
-        if (Directory.Exists(path))
+        TextAsset[] files = Resources.LoadAll<TextAsset>("Dialogue");
+        foreach (TextAsset file in files)
         {
-            string[] files = Directory.GetFiles(path);
-            foreach (string file in files)
+            var dict = ParseJsonToDictionary(file.text);
+            foreach (var outerKey in dict.Keys)
             {
-                if (!file.Contains(".meta"))
+                var innerDict = dict[outerKey];
+                var keysToUpdate = new List<string>(innerDict.Keys);
+                foreach (var innerKey in keysToUpdate)
                 {
-                    string relativePath = Path.GetRelativePath(Application.dataPath, file).Substring("Resources".Length + 1);
-                    relativePath = Path.ChangeExtension(relativePath, null);
-                    var res = Resources.Load<TextAsset>(relativePath).text;
-                    var dict = ParseJsonToDictionary(res);
-                    foreach (var outerKey in dict.Keys)
+                    if (innerDict[innerKey] != null && innerDict[innerKey].Contains("--"))
                     {
-                        var innerDict = dict[outerKey];
-                        var keysToUpdate = new List<string>(innerDict.Keys);
-                        foreach (var innerKey in keysToUpdate)
-                        {
-                            if (innerDict[innerKey] != null && innerDict[innerKey].Contains("--"))
-                            {
-                                innerDict[innerKey] = innerDict[innerKey].Replace("--", "—");
-                            }
-                        }
+                        innerDict[innerKey] = innerDict[innerKey].Replace("--", "—");
                     }
-                    dialogueBank.Add(dict);
-                    var counts = new Dictionary<string, int>();
-                    foreach (var key in dict.Keys)
-                    {
-                        counts[key] = 0;
-                    }
-                    SequenceManager.Instance.timesPlayed.Add(counts);
                 }
             }
+            dialogueBank.Add(dict);
+
+            var counts = new Dictionary<string, int>();
+            foreach (var key in dict.Keys)
+            {
+                counts[key] = 0;
+            }
+            SequenceManager.Instance.timesPlayed.Add(counts);
         }
     }
 
@@ -302,7 +293,7 @@ public class DialogueManager : MonoBehaviour
         dialogue.SetActive(true);
         TextMeshProUGUI txt = dialogue.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         string[] dialogueToPlay = PlayByID("Intro", false);
-        if (!GameManager.Instance.skipDialogue && dialogueToPlay.Length > 0)
+        if (!SequenceManager.Instance.skipIntro && dialogueToPlay.Length > 0)
         {
             int fadeInIndex = (SequenceManager.Instance.timesPlayed[lvlNum]["Intro"] == 1) ? 13 : 6;
             StartCoroutine(AudioManager.Instance.StartFade("Startup UI", 4f, 0f));

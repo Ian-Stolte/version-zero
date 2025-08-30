@@ -1372,6 +1372,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Computer
       objectReference: {fileID: 0}
+    - target: {fileID: 8396755030617395256, guid: e4afdaad880f02a4380d9507c708d5a9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 03aeaa510597a4241863fe64fcc3192f, type: 2}
+    - target: {fileID: 8715917756514648935, guid: e4afdaad880f02a4380d9507c708d5a9, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: b17367a68a7eaef4c82ec556f70e9803, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5519,6 +5527,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1244321252458295409, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+      propertyPath: buildpath
+      value: logic
+      objectReference: {fileID: 0}
     - target: {fileID: 1244321252458295409, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
       propertyPath: SKIP_CRAFTING
       value: 0

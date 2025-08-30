@@ -4617,7 +4617,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 6208
   shield: {fileID: 3392435852286353778}
-  shieldTime: 3
+  shieldDuration: 3
   startBarrier: {fileID: 0}
   endBarrier: {fileID: 0}
   rewardPrograms:

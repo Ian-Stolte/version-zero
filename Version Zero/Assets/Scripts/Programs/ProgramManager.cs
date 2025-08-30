@@ -83,7 +83,6 @@ public class ProgramManager : MonoBehaviour
 
     public void StartingHand()
     {
-        buildpath = "logic";
         foreach (GameObject g in baseBlocks)
             allBlocks.Add(g);
         foreach (GameObject g in effectBlocks)
