@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 8132017672813185294}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 670.93005, y: 329.72253, z: -1.0130894}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -59,3 +59,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runNum: 0
+  skipIntro: 0
+  lastLevelReached: 0
+  health: 0
+  levelDmg: 0
+  levelKills: 0
+  rawTimer: 0
+  gameplayTimer: 0
+  levelTime: 0
+  boss1Kills: 000000000000000000000000
+  boss2Kills: 000000000000000000000000

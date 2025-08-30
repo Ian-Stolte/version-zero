@@ -234,7 +234,7 @@ public class WalkingTurret : Enemy
             }
         }
         AudioManager.Instance.Play("Stomp Impact");
-        if (Vector3.Distance(player.transform.position, transform.position) < meleeRange - 1.5f)
+        if (Vector3.Distance(player.transform.position, transform.position) < meleeRange - 0.5f)
         {
             player.GetComponent<PlayerMovement>().TakeDamage(stompDmg);
             Vector3 dir = (player.transform.position - transform.position).normalized + new Vector3(0, 0.5f, 0);

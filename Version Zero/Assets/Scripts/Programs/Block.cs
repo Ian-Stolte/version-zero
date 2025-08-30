@@ -44,8 +44,8 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
 
-        string[] modTags = new string[] { "mod" };
-        if (!Array.Exists(modTags, t => t == tag))
+        string[] noCD = new string[] { "mod", "keybind" };
+        if (!Array.Exists(noCD, t => t == tag))
         {
             string formattedCD = ((cd + "").Length == 1) ? cd + ".0s" : cd + "s";
             cdTxt.GetComponent<TextMeshProUGUI>().text = formattedCD;
@@ -92,7 +92,7 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
                 {
                     if (hit.GetComponent<FunctionSlot>().target == null)
                     {
-                        if (!(hit.GetComponent<FunctionSlot>().onlyEffects && tag == "mod"))
+                        if (!(hit.GetComponent<FunctionSlot>().onlyEffects && tag == "mod")) //can't attach charge to aura
                         {
                             targetSpace = hit.transform.GetChild(0).gameObject;
                             targetSpace.SetActive(true);
@@ -109,7 +109,7 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
                 if (c.name == name && c.gameObject != gameObject)
                 {
                     Block bl = c.GetComponent<Block>();
-                    if (bl.cd > bl.minCd && bl.tag != "mod")
+                    if (bl.cd > bl.minCd && (bl.tag == "base" || bl.tag == "effect"))
                     {
                         if (upgrade == null)
                             AudioManager.Instance.Play("Upgrade Hover");
