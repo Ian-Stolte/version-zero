@@ -77,11 +77,13 @@ public class AudioManager : MonoBehaviour
         {
             Play("Area Final");
             StartCoroutine(StartFade("Area Final", 1, 0.25f));
+            Play("Evil Static");
         }
         else if (sceneNum >= 13)
         {
             Play("Area 3");
             StartCoroutine(StartFade("Area 3", 2, 0.25f));
+            Play("Evil Static");
         }
         else if (sceneNum >= 7)
         {

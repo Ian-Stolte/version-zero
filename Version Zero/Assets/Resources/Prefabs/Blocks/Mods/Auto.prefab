@@ -308,7 +308,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4145732063751185695, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}
       propertyPath: tag
-      value: mod
+      value: keybind
       objectReference: {fileID: 0}
     - target: {fileID: 4145732063751185695, guid: 94366c877b8524564ae1d4259b9c416c, type: 3}
       propertyPath: type

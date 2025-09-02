@@ -98,6 +98,7 @@ public class EvasiveEnemy : Enemy
     {
         attacking = true;
         anim.Play("Evasive_Attack");
+        //play charge sound?
 
         //wait 1 sec to charge
         float elapsed = 0f;
@@ -114,6 +115,7 @@ public class EvasiveEnemy : Enemy
 
         int sign = (Random.Range(0f, 1f) > 0.5f) ? 1 : -1;
         StartCoroutine(Dash(Random.Range(70, 110) * sign));
+        AudioManager.Instance.Play("Enemy Projectile");
         yield return new WaitForSeconds(0.2f);
 
         Vector3 dir = Vector3.Scale(player.transform.position - transform.position, new Vector3(1, 0, 1)).normalized;

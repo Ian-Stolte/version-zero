@@ -1184,7 +1184,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9202749298986741985, guid: 06ed8b54c334650419b06590ee1a19ea, type: 3}
       propertyPath: runNum
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9202749298986741985, guid: 06ed8b54c334650419b06590ee1a19ea, type: 3}
       propertyPath: lastRoom
@@ -3333,10 +3333,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.size
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
       propertyPath: music.Array.data[0].clip
       value: 
       objectReference: {fileID: 8300000, guid: 71576ea4b0f9d4a478e3f574c52c4e82, type: 3}
@@ -3344,106 +3340,6 @@ PrefabInstance:
       propertyPath: music.Array.data[6].clip
       value: 
       objectReference: {fileID: 8300000, guid: 71576ea4b0f9d4a478e3f574c52c4e82, type: 3}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[0].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: a9b22799372754acfa237faa5effcab8, type: 3}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[0].name
-      value: Alarm
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[1].name
-      value: Build Select
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[2].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 063fe8287df07634a9e63aad88eaff22, type: 3}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[2].name
-      value: Button Click
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[3].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: ef98ce750d93e40129589f397be6efc5, type: 3}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[3].name
-      value: Button Hover
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[4].name
-      value: Enter Game
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[5].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 063fe8287df07634a9e63aad88eaff22, type: 3}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[5].name
-      value: Error
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[6].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: ef98ce750d93e40129589f397be6efc5, type: 3}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[6].name
-      value: Grab Block
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[7].name
-      value: Reward Click
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[8].name
-      value: Snap Block
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[9].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 063fe8287df07634a9e63aad88eaff22, type: 3}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[9].name
-      value: Upgrade
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[10].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: ef98ce750d93e40129589f397be6efc5, type: 3}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[10].name
-      value: Upgrade Hover
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[10].pitch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[2].volume
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[3].volume
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[5].volume
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[6].volume
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[9].volume
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: uiSFX.Array.data[10].volume
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 7551959242866408720, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
       propertyPath: m_Name
       value: Audio Manager

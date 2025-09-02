@@ -9279,6 +9279,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3774116713212510039, guid: 2ebdb16107966cd4a8b0b04bf1aefd2f, type: 3}
+      propertyPath: m_Size.x
+      value: 12.335988
+      objectReference: {fileID: 0}
+    - target: {fileID: 3774116713212510039, guid: 2ebdb16107966cd4a8b0b04bf1aefd2f, type: 3}
+      propertyPath: m_Size.y
+      value: 12.973644
+      objectReference: {fileID: 0}
+    - target: {fileID: 3774116713212510039, guid: 2ebdb16107966cd4a8b0b04bf1aefd2f, type: 3}
+      propertyPath: m_Size.z
+      value: 12.417033
+      objectReference: {fileID: 0}
+    - target: {fileID: 3774116713212510039, guid: 2ebdb16107966cd4a8b0b04bf1aefd2f, type: 3}
+      propertyPath: m_Center.x
+      value: 0.4558764
+      objectReference: {fileID: 0}
+    - target: {fileID: 3774116713212510039, guid: 2ebdb16107966cd4a8b0b04bf1aefd2f, type: 3}
+      propertyPath: m_Center.y
+      value: 0.09899588
+      objectReference: {fileID: 0}
+    - target: {fileID: 3774116713212510039, guid: 2ebdb16107966cd4a8b0b04bf1aefd2f, type: 3}
+      propertyPath: m_Center.z
+      value: -1.2831982
+      objectReference: {fileID: 0}
     - target: {fileID: 4135173017904487757, guid: 2ebdb16107966cd4a8b0b04bf1aefd2f, type: 3}
       propertyPath: m_Name
       value: Building 3_3
@@ -10409,7 +10433,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 813780792188278825, guid: cb0d803180c892941b65b7952796f292, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 813780792188278825, guid: cb0d803180c892941b65b7952796f292, type: 3}
       propertyPath: m_IsActive
@@ -11623,8 +11647,8 @@ Transform:
   m_GameObject: {fileID: 2134153895}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.0914, y: 8.5, z: 26.2541}
-  m_LocalScale: {x: 6.8494267, y: 5.02, z: 6.5788527}
+  m_LocalPosition: {x: 10.8421, y: 8.5, z: 26.2541}
+  m_LocalScale: {x: 24.351082, y: 5.02, z: 6.5788527}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 233099733}

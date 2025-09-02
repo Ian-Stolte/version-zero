@@ -6577,10 +6577,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ButtonClick
       objectReference: {fileID: 0}
-    - target: {fileID: 4575482619692261214, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
-      propertyPath: m_text
-      value: Select Your Sector
-      objectReference: {fileID: 0}
     - target: {fileID: 5244792023146739200, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
       propertyPath: dialogue
       value: 

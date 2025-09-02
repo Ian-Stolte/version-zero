@@ -114,6 +114,12 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: Computer Talking
+    clip: {fileID: 8300000, guid: 991424a305b7bc54aaf094b2e0a32351, type: 3}
+    volume: 0.1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
   - name: Enter Game
     clip: {fileID: 8300000, guid: 063fe8287df07634a9e63aad88eaff22, type: 3}
     volume: 0.05
@@ -144,6 +150,12 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: Startup Typing
+    clip: {fileID: 8300000, guid: cf152f73a53dea34c94b3efc7a15b12a, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
   - name: Upgrade
     clip: {fileID: 8300000, guid: 063fe8287df07634a9e63aad88eaff22, type: 3}
     volume: 0.05
@@ -168,6 +180,12 @@ MonoBehaviour:
     volume: 0.4
     pitch: 0.8
     loop: 0
+    source: {fileID: 0}
+  - name: Evil Static
+    clip: {fileID: 8300000, guid: 4b4c5ee255a7abf48b28db573830e799, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 1
     source: {fileID: 0}
   - name: Terminal Charge
     clip: {fileID: 8300000, guid: bd9cf13d946d08a4ab35f7d711eb22c9, type: 3}
@@ -252,6 +270,18 @@ MonoBehaviour:
   - name: Artillerist Fire
     clip: {fileID: 8300000, guid: ce79f6d0b094547d995616716a08a41a, type: 3}
     volume: 0.1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Enemy Charge
+    clip: {fileID: 8300000, guid: 372e7cd7656fc854ca0706b48a9c8baa, type: 3}
+    volume: 0.05
+    pitch: 0.5
+    loop: 0
+    source: {fileID: 0}
+  - name: Enemy Projectile
+    clip: {fileID: 8300000, guid: 7e1fda9da55a44142ae341fa0faf792e, type: 3}
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}

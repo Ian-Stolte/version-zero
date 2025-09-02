@@ -73,6 +73,7 @@ public class ChargeEnemy : Enemy
     {
         attacking = true;
         anim.Play("Charge_Attack");
+        AudioManager.Instance.Play("Enemy Charge");
 
         //wait for charge time
         float elapsed = 0f;
@@ -83,6 +84,7 @@ public class ChargeEnemy : Enemy
             if (stunTimer > 0)
             {
                 attacking = false;
+                AudioManager.Instance.Stop("Enemy Charge");
                 yield break;
             }
         }
@@ -90,6 +92,7 @@ public class ChargeEnemy : Enemy
         int baseAngle = 0;
         for (int i = 0; i < numWaves; i++)
         {
+            AudioManager.Instance.Play("Enemy Projectile");
             Vector3 dir = Vector3.Scale(player.transform.position - transform.position, new Vector3(1, 0, 1)).normalized;
             for (int j = 0; j < numProjectiles; j++)
             {

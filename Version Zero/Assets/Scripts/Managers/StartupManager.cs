@@ -302,6 +302,7 @@ public class StartupManager : MonoBehaviour
         //type out error warnings
         AudioManager.Instance.Stop("Startup UI");
         AudioManager.Instance.Play("Alarm");
+        AudioManager.Instance.Stop("Startup Typing");
         yield return new WaitForSeconds(1);
         for (int i = 0; i < failtext.Length; i++)
         {
@@ -318,7 +319,7 @@ public class StartupManager : MonoBehaviour
                 yield return new WaitForSeconds(typeSpeed);
             }
             if (failtext[i] != "Restarting syst—")
-               yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(1f);
         }
     }
 
@@ -355,15 +356,16 @@ public class StartupManager : MonoBehaviour
         yield return SpawnText(plaintext[i]);
         untranslated = "";
         translated = "";
+        AudioManager.Instance.Play("Startup Typing");
     
         for (int j = 0; j < plaintext[i].Length + transDelay; j++)
         {
             int convFactor = Random.Range(1, 3);
             for (int k = 0; k < convFactor; k++)
             {
-                if (j*convFactor + k < encoded[i].Length)
+                if (j * convFactor + k < encoded[i].Length)
                 {
-                    untranslated += encoded[i][j*convFactor + k];
+                    untranslated += encoded[i][j * convFactor + k];
                     txt.text = translated + "<color=#95EAE1> " + untranslated;
                     yield return new WaitForSeconds(typeSpeed);
                 }
@@ -372,7 +374,7 @@ public class StartupManager : MonoBehaviour
             {
                 //string end = (j-transDelay+convFactor < currTxt.Length) ? currTxt.Substring(j-transDelay+convFactor) : "";
                 untranslated = (convFactor < untranslated.Length) ? untranslated.Substring(convFactor) : "";
-                translated += plaintext[i][j-transDelay];
+                translated += plaintext[i][j - transDelay];
                 txt.text = translated + "<color=#95EAE1> " + untranslated;
                 yield return new WaitForSeconds(typeSpeed);
             }
@@ -381,6 +383,7 @@ public class StartupManager : MonoBehaviour
                 yield break;
         }
         txt.text = translated;
+        AudioManager.Instance.Stop("Startup Typing");
         yield return new WaitForSeconds(messageDelay);
     }
 

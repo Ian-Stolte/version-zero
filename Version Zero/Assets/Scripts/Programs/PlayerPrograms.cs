@@ -59,8 +59,9 @@ public class PlayerPrograms : MonoBehaviour
                 p.fillTimer.GetComponent<Image>().fillAmount = p.cdTimer / p.cdMax;
                 if (!GameManager.Instance.loadingLevel)
                 {
-                    if (Input.GetKeyDown(p.keybind) && p.cdTimer <= 0)
+                    if ((Input.GetKeyDown(p.keybind) || p.queued) && p.cdTimer <= 0)
                     {
+                        p.queued = false;
                         if (p.blocks.Exists(b => b.name == "Charge"))
                         {
                             chargeProgram = p;
@@ -74,7 +75,7 @@ public class PlayerPrograms : MonoBehaviour
                     }
                     else if (Input.GetKeyDown(p.keybind) && p.cdTimer <= 0.5f)
                     {
-                        StartCoroutine(DelayedCast(p));
+                        p.queued = true;
                     }
                 }
             }
@@ -111,24 +112,6 @@ public class PlayerPrograms : MonoBehaviour
         }
     }
 
-
-    private IEnumerator DelayedCast(Program p)
-    {
-        yield return new WaitUntil(() => p.cdTimer <= 0);
-        if (p.blocks.Exists(b => b.name == "Charge"))
-        {
-            if (Input.GetKey(p.keybind))
-            {
-                chargeProgram = p;
-                chargeTimer = 0f;
-                GameManager.Instance.playerPaused = true;
-                chargeVFX.GetComponent<VisualEffect>().SetFloat("Strength", 0);
-                chargeVFX.SetActive(true);
-            }
-        }
-        else
-            UseProgram(p);
-    }
 
     private void UseProgram(Program p, bool charge=false)
     {

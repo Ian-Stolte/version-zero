@@ -112,9 +112,19 @@ public class FunctionSlot : MonoBehaviour
             cdTxt.gameObject.SetActive(cooldown > 0);
             cooldown += parent.GetComponent<FunctionSlot>().target.cd;
             if (parent.name == "Auto Slot")
-                cdTxt.text = cooldown/2f + "s";
+                cdTxt.text = cooldown / 2f + "s";
             else
                 cdTxt.text = cooldown + "s";
+        }
+    }
+
+    public void HideElectricity()
+    {
+        Transform parent = (rootSlot) ? transform : transform.parent;
+        foreach (Transform child in parent)
+        {
+            if (child.childCount > 2)
+                child.GetChild(2).gameObject.SetActive(false);
         }
     }
 }

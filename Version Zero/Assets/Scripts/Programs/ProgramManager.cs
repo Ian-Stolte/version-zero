@@ -26,6 +26,7 @@ public class ProgramManager : MonoBehaviour
     public Transform programUI;
     [SerializeField] private Transform blockParent;
     [SerializeField] private Transform keybindSlots;
+    [SerializeField] private Transform functionSlots;
     [SerializeField] private Transform cdParent;
 
     [Header("Buttons")]
@@ -200,6 +201,10 @@ public class ProgramManager : MonoBehaviour
         {
             child.GetChild(4).gameObject.SetActive(false);
         }
+        foreach (Transform child in functionSlots)
+        {
+            child.GetComponent<FunctionSlot>().ShowElectricity();
+        }
     }
 
 
@@ -219,24 +224,27 @@ public class ProgramManager : MonoBehaviour
                 child.GetChild(4).gameObject.SetActive(true);
             }
         }
-        //TODO: check auto and aura
+        foreach (Transform child in functionSlots)
+        {
+            child.GetComponent<FunctionSlot>().HideElectricity();
+        }
 
         //hide all other blocks
-        foreach (Block b in blocks)
-        {
-            if (b.slot == null)
+            foreach (Block b in blocks)
             {
-                b.symbol.canMove = false;
-                b.GetComponent<CanvasGroup>().alpha = 0.3f;
+                if (b.slot == null)
+                {
+                    b.symbol.canMove = false;
+                    b.GetComponent<CanvasGroup>().alpha = 0.3f;
+                }
+                else
+                {
+                    b.symbol.transform.SetParent(blockParent);
+                }
+                b.nameTxt.GetComponent<CanvasGroup>().alpha = 0.5f;
+                b.cdTxt.GetComponent<CanvasGroup>().alpha = 0.5f;
+                b.upgradeCircles.SetActive(false);
             }
-            else
-            {
-                b.symbol.transform.SetParent(blockParent);
-            }
-            b.nameTxt.GetComponent<CanvasGroup>().alpha = 0.5f;
-            b.cdTxt.GetComponent<CanvasGroup>().alpha = 0.5f;
-            b.upgradeCircles.SetActive(false);
-        }
 
         infoButton.transform.parent.gameObject.SetActive(false);
         compileButton.SetActive(false);
@@ -302,6 +310,10 @@ public class ProgramManager : MonoBehaviour
         foreach (Transform child in keybindSlots)
         {
             child.GetChild(4).gameObject.SetActive(false);
+        }
+        foreach (Transform child in functionSlots)
+        {
+            child.GetComponent<FunctionSlot>().ShowElectricity();
         }
 
         compileButton.SetActive(true);
@@ -644,10 +656,13 @@ public class Program
 
     public string name;
     public List<Block> blocks;
+    
     public float cdMax;
     public float cdTimer;
+    public bool queued;
     public float chargeTime;
     [HideInInspector] public GameObject fillTimer;
+
     public KeyCode keybind;
     public string keybindStr;
     public GameObject symbolIndicator;

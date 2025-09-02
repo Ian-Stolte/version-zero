@@ -196,6 +196,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Helper_Robot
       objectReference: {fileID: 0}
+    - target: {fileID: 4418473098069316928, guid: f6ffdb76cdc85481e8d83a75b9baa169, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 28.720993
+      objectReference: {fileID: 0}
+    - target: {fileID: 4418473098069316928, guid: f6ffdb76cdc85481e8d83a75b9baa169, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 12.461869
+      objectReference: {fileID: 0}
+    - target: {fileID: 4418473098069316928, guid: f6ffdb76cdc85481e8d83a75b9baa169, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 29.894043
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

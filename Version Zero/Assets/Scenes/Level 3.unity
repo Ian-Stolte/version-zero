@@ -8088,7 +8088,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 813780792188278825, guid: cb0d803180c892941b65b7952796f292, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8147,9 +8147,25 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1209684313225226068, guid: 9688975614987f041ad459411712d32b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.86
+      objectReference: {fileID: 0}
     - target: {fileID: 2750299311338251158, guid: 9688975614987f041ad459411712d32b, type: 3}
       propertyPath: m_Name
       value: Barrier
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122467467887339723, guid: 9688975614987f041ad459411712d32b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5968511708697056070, guid: 9688975614987f041ad459411712d32b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 8.621096
+      objectReference: {fileID: 0}
+    - target: {fileID: 5968511708697056070, guid: 9688975614987f041ad459411712d32b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

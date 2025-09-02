@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465788, g: 0.49641287, b: 0.5748173, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1753,11 +1753,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3833016697977904699, guid: a1170490adac7934785deca97fdd5d8a, type: 3}
   m_PrefabInstance: {fileID: 622642957}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &667346381 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4864050908692714929, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
-  m_PrefabInstance: {fileID: 6154748227236401477}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &671679580
 GameObject:
@@ -4931,7 +4926,7 @@ PrefabInstance:
     - target: {fileID: 1712194664605143150, guid: 372c20bebb6c4ee49ac758cf046f0dbc, type: 3}
       propertyPath: loadingText
       value: 
-      objectReference: {fileID: 667346381}
+      objectReference: {fileID: 0}
     - target: {fileID: 1712194664605143150, guid: 372c20bebb6c4ee49ac758cf046f0dbc, type: 3}
       propertyPath: progressBar
       value: 
@@ -5596,42 +5591,6 @@ PrefabInstance:
       propertyPath: music.Array.data[3].clip
       value: 
       objectReference: {fileID: 8300000, guid: d60eb04e038b18a42847f9a25548a4ae, type: 3}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: worldSFX.Array.data[0].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 04b08c309ce1048fd949c3fc94cf39c0, type: 3}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: worldSFX.Array.data[2].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: bd9cf13d946d08a4ab35f7d711eb22c9, type: 3}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: worldSFX.Array.data[3].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 1709f6f17eb9aa541b2e16fd5f55f37d, type: 3}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: worldSFX.Array.data[0].pitch
-      value: 1.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: worldSFX.Array.data[1].pitch
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: worldSFX.Array.data[0].volume
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: worldSFX.Array.data[1].volume
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: worldSFX.Array.data[2].volume
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3063782043873389300, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
-      propertyPath: programSFX.Array.data[1].volume
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 7551959242866408720, guid: fdc3258bf04e7f94780ec51aaaa0ab75, type: 3}
       propertyPath: m_Name
       value: Audio Manager
