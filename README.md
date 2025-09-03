@@ -1,2 +1,2 @@
 # version: zero
-A sci-fi roguelike set in a virtual world overrun by viruses and rogue AIs. Create and rearrange custom abilities before every fight, then test them against intelligent enemies who slowly learn how you play.
+In this tactical sci-fi roguelike, construct your own powers from scratch—then adapt, upgrade, and outsmart a digital world that resets with every death.
