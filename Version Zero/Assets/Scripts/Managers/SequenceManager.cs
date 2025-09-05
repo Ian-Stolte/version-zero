@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class SequenceManager : MonoBehaviour
@@ -25,6 +26,7 @@ public class SequenceManager : MonoBehaviour
     public int health;
     public int levelDmg;
     public int levelKills;
+    public ProgramData programData;
 
     [Header("Timers")]
     public float rawTimer;
@@ -55,7 +57,7 @@ public class SequenceManager : MonoBehaviour
                 levelTime += Time.deltaTime;
             }
     }
-    
+
     public void LoadGame(bool newGame)
     {
         runNum = (newGame) ? 1 : 2;
@@ -72,9 +74,60 @@ public class SequenceManager : MonoBehaviour
 
     public void Quit()
     {
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
-        #endif
+#endif
         Application.Quit();
+    }
+
+
+    public void ViewFunctions()
+    {
+        GameObject bg = GameObject.Find("View Functions");
+        foreach (Transform child in bg.transform)
+            if (child.name != "Back Button")
+                Destroy(child.gameObject);
+        bg.GetComponent<CanvasGroup>().alpha = 1;
+        bg.GetComponent<CanvasGroup>().blocksRaycasts = true;
+
+
+        int numSpawned = 0;
+        foreach (GameObject g in programData.baseBlocks)
+        {
+            SpawnFunction(g, ref numSpawned, bg);
+        }
+        foreach (GameObject g in programData.effectBlocks)
+        {
+            SpawnFunction(g, ref numSpawned, bg);
+        }
+        foreach (GameObject g in programData.modBlocks)
+        {
+            if (g.name != "Aura" && g.name != "Auto")
+            {
+                SpawnFunction(g, ref numSpawned, bg);
+            }
+        }
+    }
+
+    private void SpawnFunction(GameObject g, ref int numSpawned, GameObject parent)
+    {
+        GameObject obj = Instantiate(g, Vector3.zero, Quaternion.identity, parent.transform);
+        Symbol s = obj.GetComponent<Block>().symbol;
+        s.GetComponent<Image>().enabled = true;
+        s.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 120);
+        s.enabled = false;
+        obj.GetComponent<Block>().enabled = false;
+        obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(-780 + (numSpawned % 7) * 260, 390 - (numSpawned / 7) * 280);
+        numSpawned++;
+    }
+
+    public void CloseFunctions()
+    {
+        GameObject bg = GameObject.Find("View Functions");
+        foreach (Transform child in bg.transform)
+            if (child.name != "Back Button")
+                Destroy(child.gameObject);
+        bg.GetComponent<CanvasGroup>().alpha = 0;
+        bg.GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 }

@@ -8,6 +8,7 @@ public class RewardClick : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public bool keybind;
     public GameObject blockToAdd;
     public Transform blockParent;
+    public ProgramData programData;
 
     public void AddSpell()
     {
@@ -37,14 +38,14 @@ public class RewardClick : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             GameObject.Find("Keybinds").transform.GetChild(0).gameObject.SetActive(true);
             GameObject.Find("Function Slots").transform.GetChild(0).gameObject.SetActive(true);
-            ProgramManager.Instance.modBlocks.Remove(ProgramManager.Instance.modBlocks.Find(b => b.name == "Auto"));
+            programData.modBlocks.Remove(programData.modBlocks.Find(b => b.name == "Auto"));
             ProgramManager.Instance.allBlocks.Remove(ProgramManager.Instance.allBlocks.Find(b => b.name == "Auto"));
         }
         else if (transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text == "Aura")
         {
             GameObject.Find("Keybinds").transform.GetChild(4).gameObject.SetActive(true);
             GameObject.Find("Function Slots").transform.GetChild(4).gameObject.SetActive(true);
-            ProgramManager.Instance.modBlocks.Remove(ProgramManager.Instance.modBlocks.Find(b => b.name == "Aura"));
+            programData.modBlocks.Remove(programData.modBlocks.Find(b => b.name == "Aura"));
             ProgramManager.Instance.allBlocks.Remove(ProgramManager.Instance.allBlocks.Find(b => b.name == "Aura"));
         }
     }

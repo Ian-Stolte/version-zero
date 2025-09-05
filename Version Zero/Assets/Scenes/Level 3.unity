@@ -5332,6 +5332,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 81894d376c5a14e43a45251ac69b9947, type: 3}
   m_PrefabInstance: {fileID: 1924533845}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1492020878 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9202749298986741985, guid: 06ed8b54c334650419b06590ee1a19ea, type: 3}
+  m_PrefabInstance: {fileID: 957912310}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5037b3df0bce8d4184dc8c7aab62660, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1501141535
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9143,6 +9154,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2490321378659188186, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1492020878}
+    - target: {fileID: 2490321378659188186, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseFunctions
+      objectReference: {fileID: 0}
     - target: {fileID: 3205907087107428264, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -9298,6 +9317,14 @@ PrefabInstance:
     - target: {fileID: 7667553042492826973, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ButtonClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 7899024310584751522, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1492020878}
+    - target: {fileID: 7899024310584751522, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ViewFunctions
       objectReference: {fileID: 0}
     - target: {fileID: 8264560629013114697, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

@@ -358,6 +358,7 @@ MonoBehaviour:
   keybind: 1
   blockToAdd: {fileID: 0}
   blockParent: {fileID: 0}
+  programData: {fileID: 11400000, guid: 2c6c786cf4b9ebd4295ad136e32d6283, type: 2}
 --- !u!1 &1346344612064815641
 GameObject:
   m_ObjectHideFlags: 0

@@ -64,10 +64,7 @@ public class ProgramManager : MonoBehaviour
 
     [Header("Program Data")]
     public string buildpath;
-    //TODO: read directly from prefab folders?
-    public List<GameObject> baseBlocks;
-    public List<GameObject> effectBlocks;
-    public List<GameObject> modBlocks;
+    public ProgramData programData;
     [HideInInspector] public List<GameObject> allBlocks = new List<GameObject>();
     public List<Block> blocks = new List<Block>();
     public List<Program> programs = new List<Program>();
@@ -84,11 +81,11 @@ public class ProgramManager : MonoBehaviour
 
     public void StartingHand()
     {
-        foreach (GameObject g in baseBlocks)
+        foreach (GameObject g in programData.baseBlocks)
             allBlocks.Add(g);
-        foreach (GameObject g in effectBlocks)
+        foreach (GameObject g in programData.effectBlocks)
             allBlocks.Add(g);
-        foreach (GameObject g in modBlocks)
+        foreach (GameObject g in programData.modBlocks)
             allBlocks.Add(g);
         player = GameObject.Find("Player").GetComponent<PlayerPrograms>();
         if (SKIP_CRAFTING)

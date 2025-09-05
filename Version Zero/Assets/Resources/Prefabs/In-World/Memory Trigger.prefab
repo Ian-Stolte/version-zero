@@ -618,6 +618,8 @@ MonoBehaviour:
   newProgramUI: {fileID: 3993056851293988704, guid: c1b3a64b6ae0eee498612158ac0f0675, type: 3}
   program: {fileID: 9191262866201418245, guid: 0f37290e6bbae8f48a0bd3cdf9758eac, type: 3}
   dialogueName: Boss_Kill
+  barrier: {fileID: 0}
+  programData: {fileID: 11400000, guid: 2c6c786cf4b9ebd4295ad136e32d6283, type: 2}
 --- !u!95 &2567956940817681386
 Animator:
   serializedVersion: 5

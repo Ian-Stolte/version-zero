@@ -818,8 +818,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22d40a8f35e5d244d990ba98028ceda9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keybind: 0
   blockToAdd: {fileID: 0}
   blockParent: {fileID: 0}
+  programData: {fileID: 11400000, guid: 2c6c786cf4b9ebd4295ad136e32d6283, type: 2}
 --- !u!114 &7889348542061764662
 MonoBehaviour:
   m_ObjectHideFlags: 0

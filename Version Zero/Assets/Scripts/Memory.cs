@@ -10,6 +10,8 @@ public class Memory : MonoBehaviour
     private bool active;
     [HideInInspector] public GameObject barrier;
 
+    public ProgramData programData;
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -36,11 +38,11 @@ public class Memory : MonoBehaviour
         programVisual.GetComponent<RectTransform>().anchoredPosition = new Vector2(270, 80);
         ProgramManager.Instance.CreateBlock(program);
         if (program.GetComponent<Block>().tag == "effect")
-            ProgramManager.Instance.effectBlocks.Add(program);
+            programData.effectBlocks.Add(program);
         else if (program.GetComponent<Block>().tag == "base")
-            ProgramManager.Instance.baseBlocks.Add(program);
+            programData.baseBlocks.Add(program);
         else if (program.GetComponent<Block>().tag == "mod")
-            ProgramManager.Instance.modBlocks.Add(program);
+            programData.modBlocks.Add(program);
         ProgramManager.Instance.allBlocks.Add(program);
 
         newProgram.transform.GetChild(5).GetComponent<TMPro.TextMeshProUGUI>().text = program.GetComponent<Block>().description + ".";
