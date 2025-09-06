@@ -89,6 +89,12 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
+  - name: Title
+    clip: {fileID: 8300000, guid: 736977ff6da012f4d94e27decea98a48, type: 3}
+    volume: 0
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
   uiSFX:
   - name: Alarm
     clip: {fileID: 8300000, guid: a9b22799372754acfa237faa5effcab8, type: 3}

@@ -73,7 +73,12 @@ public class AudioManager : MonoBehaviour
     {
         int sceneNum = 0;
         int.TryParse(SceneManager.GetActiveScene().name.Substring(6), out sceneNum);
-        if (SceneManager.GetActiveScene().name.Contains("Final"))
+        if (SceneManager.GetActiveScene().name == "Title Screen")
+        {
+            Play("Title");
+            StartCoroutine(StartFade("Title", 1, 0.25f));
+        }
+        else if (SceneManager.GetActiveScene().name.Contains("Final"))
         {
             Play("Area Final");
             StartCoroutine(StartFade("Area Final", 1, 0.25f));
