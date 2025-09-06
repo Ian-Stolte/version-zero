@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 using TMPro;
 
 public class TankEnemy : Enemy
@@ -18,6 +19,8 @@ public class TankEnemy : Enemy
     [SerializeField] private GameObject stompIndicator;
     private bool stomping;
     [SerializeField] private float stompTime;
+
+    [SerializeField] private VisualEffect vfx; //for memory tank aura
 
 
     void Start()
@@ -56,9 +59,16 @@ public class TankEnemy : Enemy
                 player.GetComponent<PlayerMovement>().TakeDamage(dmg);
                 atkTimer = 1f;
             }
-        
-            if (atkDelay == 0)
+
+            if (atkDelay == 0) //aura visuals for memory tank
+            {
+                if (atkDelay > 0.8f)
+                    vfx.SetFloat("Strength", 5 * (atkDelay - 0.8f));  //1 -> 0
+                else
+                    vfx.SetFloat("Strength", 1 - (atkDelay / 0.8f));  //0 -> 1
                 stompIndicator.SetActive(dist < atkRange);
+                //TODO: change stompIndicator to part of VFX
+            }
         }
     }
 
