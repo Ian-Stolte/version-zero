@@ -2223,6 +2223,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06ed8b54c334650419b06590ee1a19ea, type: 3}
+--- !u!114 &772022048 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9202749298986741985, guid: 06ed8b54c334650419b06590ee1a19ea, type: 3}
+  m_PrefabInstance: {fileID: 772022047}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5037b3df0bce8d4184dc8c7aab62660, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &780776989
 GameObject:
   m_ObjectHideFlags: 0
@@ -5149,6 +5160,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2480219384086530912, guid: 7284a00ae19a64a6ca49cb824166deec, type: 3}
   m_PrefabInstance: {fileID: 547369467}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1924073311 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9197705649029308278, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+  m_PrefabInstance: {fileID: 6154748227236401477}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1927390878 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4826997108274947052, guid: 6f8318f00462a9842b7ccf496c791a8b, type: 3}
@@ -6115,6 +6131,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1963479081}
     - target: {fileID: 1712194664605143150, guid: 372c20bebb6c4ee49ac758cf046f0dbc, type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 1924073311}
+    - target: {fileID: 1712194664605143150, guid: 372c20bebb6c4ee49ac758cf046f0dbc, type: 3}
       propertyPath: elevatorUI
       value: 
       objectReference: {fileID: 6154748227236401486}
@@ -6620,6 +6640,14 @@ PrefabInstance:
     - target: {fileID: 7667553042492826973, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ButtonClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 7899024310584751522, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 772022048}
+    - target: {fileID: 7899024310584751522, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ViewFunctions
       objectReference: {fileID: 0}
     - target: {fileID: 8264560629013114697, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

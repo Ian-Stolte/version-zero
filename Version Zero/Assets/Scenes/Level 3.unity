@@ -3393,6 +3393,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4512587099578155676, guid: cdf17cf3838a3464697126b1a9aedd3e, type: 3}
   m_PrefabInstance: {fileID: 2522156270858896407}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &894322102 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9197705649029308278, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+  m_PrefabInstance: {fileID: 6154748227236401477}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &895988062 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 71b6bbd3c4cc0ef4e8adead863f04892, type: 3}
@@ -4870,6 +4875,10 @@ PrefabInstance:
       propertyPath: gameOver
       value: 
       objectReference: {fileID: 1963479081}
+    - target: {fileID: 1712194664605143150, guid: 372c20bebb6c4ee49ac758cf046f0dbc, type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 894322102}
     - target: {fileID: 1712194664605143150, guid: 372c20bebb6c4ee49ac758cf046f0dbc, type: 3}
       propertyPath: elevatorUI
       value: 

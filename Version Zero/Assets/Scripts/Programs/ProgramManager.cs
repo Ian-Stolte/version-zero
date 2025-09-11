@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class ProgramManager : MonoBehaviour
@@ -227,21 +228,21 @@ public class ProgramManager : MonoBehaviour
         }
 
         //hide all other blocks
-            foreach (Block b in blocks)
+        foreach (Block b in blocks)
+        {
+            if (b.slot == null)
             {
-                if (b.slot == null)
-                {
-                    b.symbol.canMove = false;
-                    b.GetComponent<CanvasGroup>().alpha = 0.3f;
-                }
-                else
-                {
-                    b.symbol.transform.SetParent(blockParent);
-                }
-                b.nameTxt.GetComponent<CanvasGroup>().alpha = 0.5f;
-                b.cdTxt.GetComponent<CanvasGroup>().alpha = 0.5f;
-                b.upgradeCircles.SetActive(false);
+                b.symbol.canMove = false;
+                b.GetComponent<CanvasGroup>().alpha = 0.3f;
             }
+            else
+            {
+                b.symbol.transform.SetParent(blockParent);
+            }
+            b.nameTxt.GetComponent<CanvasGroup>().alpha = 0.5f;
+            b.cdTxt.GetComponent<CanvasGroup>().alpha = 0.5f;
+            b.upgradeCircles.SetActive(false);
+        }
 
         infoButton.transform.parent.gameObject.SetActive(false);
         compileButton.SetActive(false);
@@ -391,12 +392,12 @@ public class ProgramManager : MonoBehaviour
         foreach (Block b in blocks)
         {
             Vector2 offset = new Vector2(Random.Range(-20f, 20f), Random.Range(-10f, 10f));
-            b.symbol.GetComponent<RectTransform>().anchoredPosition = new Vector2(-450, b.GetComponent<RectTransform>().anchoredPosition.y+10) + offset;
+            b.symbol.GetComponent<RectTransform>().anchoredPosition = new Vector2(-450, b.GetComponent<RectTransform>().anchoredPosition.y + 10) + offset;
         }
         ConfirmSpells(true);
     }
 
-    public void ConfirmSpells(bool random=false)
+    public void ConfirmSpells(bool random = false)
     {
         foreach (Program p in programs)
         {
@@ -631,6 +632,35 @@ public class ProgramManager : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    //Functions from pause menu
+    public void ViewFunctions()
+    {
+        SequenceManager.Instance.ViewFunctions();
+    }
+
+    public void ExitToMenu()
+    {
+        GameManager.Instance.PauseUnpause();
+        StartCoroutine(ExitToMenuCor());
+    }
+
+    private IEnumerator ExitToMenuCor()
+    {
+        Fader.Instance.FadeInOut(0.5f, 0.5f);
+        yield return new WaitForSeconds(0.5f);
+        if (player == null)
+            Destroy(GameObject.Find("Computer"));
+        else
+        {
+            Destroy(player.GetComponent<PlayerMovement>().computer.gameObject);
+            Destroy(player.gameObject);
+        }
+        Destroy(SequenceManager.Instance.gameObject);
+        SceneManager.LoadScene("Title Screen");
+        //TODO: only destroy once scene has been loaded, but w/o overwriting fader/canvas in Title Screen
+        Destroy(transform.parent.gameObject);
     }
 }
 
