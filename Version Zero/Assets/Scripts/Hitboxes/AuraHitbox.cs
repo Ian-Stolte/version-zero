@@ -1,24 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class AuraHitbox : Hitbox
 {
     public float tickRate;
+    private float timer;
+    public VisualEffect vfx;
 
 
-    private void Start()
+    private void Update()
     {
-        StartCoroutine(Aura());
-    }
-
-    private IEnumerator Aura()
-    {
-        while(true)
+        timer += Time.deltaTime;
+        if (timer >= tickRate)
         {
-            yield return new WaitForSeconds(tickRate);
+            timer = 0;
             CheckCollisions();
         }
+        if (timer <= 0.1f)
+            vfx.SetFloat("Strength", 1 - timer*8);  //1 -> 0.2f
+        else
+            vfx.SetFloat("Strength", timer*2);  //0.2f -> 1
     }
 
     public override void CheckCollisions()

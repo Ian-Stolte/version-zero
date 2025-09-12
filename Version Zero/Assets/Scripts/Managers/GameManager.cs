@@ -61,6 +61,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform graph;
     private int[] sectorLvls = new int[3]; //logic, instinct, memory
 
+    [Header("Pause Game")]
+    [SerializeField] private GameObject pauseMenu;
+    private bool pauseOnResume;
+
     [Header("Misc")]
     [SerializeField] private TextMeshProUGUI areaText;
     [SerializeField] private LayerMask terrainLayer;
@@ -83,7 +87,7 @@ public class GameManager : MonoBehaviour
         int levelNum = 0;
         int.TryParse(SceneManager.GetActiveScene().name.Substring(6), out levelNum);
 
-        if (scene.name == "Playtest Options" || scene.name == "Startup UI")
+        if (scene.name == "Playtest Options" || scene.name == "Startup UI" || scene.name == "Title Screen")
         {
             Destroy(canvas);
             Destroy(gameObject);
@@ -266,11 +270,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.N))
+        //debug keys
+        if (Input.GetKeyDown(KeyCode.N)) //next level
         {
             StartCoroutine(LoadNextLevel(GameObject.Find("Elevator_End").GetComponent<Elevator>().nextArea, true));
         }
-        for (int i = 1; i <= 9; i++)
+        for (int i = 1; i <= 9; i++) //load level by number
         {
             if (Input.GetKeyDown(i.ToString()) && Input.GetKey(KeyCode.LeftShift))
             {
@@ -278,7 +283,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.K)) //kill all enemies
         {
             int killed = enemyParent.childCount;
             foreach (Transform child in enemyParent)
@@ -288,12 +293,20 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.M)) //more enemies
         {
             StartCoroutine(SpawnEnemies(1, Vector3.zero, true));
         }
 
 
+        //Pause game
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseUnpause();
+        }
+
+
+        //Spawn enemies timer
         if (spawningEnemies && !pauseGame && !loadingLevel)
         {
             spawnTimer -= Time.deltaTime;
@@ -305,6 +318,23 @@ public class GameManager : MonoBehaviour
                 spawnTimer = Random.Range(minSpawn, maxSpawn);
                 totalSpawn = spawnTimer;
             }
+        }
+    }
+
+    public void PauseUnpause()
+    {
+        if (Time.timeScale == 0f) //resume
+        {
+            Time.timeScale = 1f;
+            pauseMenu.SetActive(false);
+            pauseGame = pauseOnResume;
+        }
+        else //pause
+        {
+            pauseOnResume = pauseGame;
+            pauseGame = true;
+            Time.timeScale = 0f;
+            pauseMenu.SetActive(true);
         }
     }
 

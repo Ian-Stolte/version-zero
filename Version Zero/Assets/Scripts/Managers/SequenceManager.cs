@@ -69,7 +69,8 @@ public class SequenceManager : MonoBehaviour
     {
         Fader.Instance.FadeIn(2);
         yield return new WaitForSeconds(2);
-        SceneManager.LoadScene("Startup UI");
+        //SceneManager.LoadScene("Startup UI");
+        SceneManager.LoadScene("Level 1");
     }
 
     public void Quit()

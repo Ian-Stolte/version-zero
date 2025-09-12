@@ -1762,7 +1762,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6cf3d3f8e6602114a9f6156fa4c0470f, type: 2}
+  - {fileID: 2100000, guid: db3de3865af704942917a8a1a94daffd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1942,6 +1942,7 @@ MonoBehaviour:
   stompForce: 100
   stompIndicator: {fileID: 6377387012906372630}
   stompTime: 1
+  vfx: {fileID: 0}
 --- !u!54 &3582729303023012263
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2164,7 +2165,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a1e9fa7d2ec9eb340a650ce47e58854b, type: 2}
+  - {fileID: 2100000, guid: 6cf3d3f8e6602114a9f6156fa4c0470f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

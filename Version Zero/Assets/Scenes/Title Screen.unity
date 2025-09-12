@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -201,7 +201,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 74178650}
   m_OnClick:
     m_PersistentCalls:
@@ -715,7 +715,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 571083964}
   m_OnClick:
     m_PersistentCalls:
@@ -1406,7 +1406,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1382367318}
   m_OnClick:
     m_PersistentCalls:
@@ -1486,13 +1486,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1409975102}
-  m_LocalRotation: {x: -0, y: -0, z: -0.2653392, w: 0.9641552}
+  m_LocalRotation: {x: -0, y: -0, z: -0.178856, w: 0.9838753}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 14.40733, y: 26.727037, z: 14.40733}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 262932536}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -30.774}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -20.606}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 1163.6, y: -207}
@@ -1511,7 +1511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4135318, g: 0.61312455, b: 0.64779866, a: 1}
+  m_Color: {r: 0.47642487, g: 0.654168, b: 0.6855345, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
