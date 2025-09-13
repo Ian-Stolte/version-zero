@@ -6364,6 +6364,10 @@ PrefabInstance:
       value: -1.515
       objectReference: {fileID: 0}
     - target: {fileID: 7801337596839946309, guid: ed366113f1ef7954bba91e37b4256f57, type: 3}
+      propertyPath: cdScale
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801337596839946309, guid: ed366113f1ef7954bba91e37b4256f57, type: 3}
       propertyPath: noTargetText
       value: 
       objectReference: {fileID: 168217110}

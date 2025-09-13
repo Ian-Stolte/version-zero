@@ -266,6 +266,8 @@ public class ProgramManager : MonoBehaviour
 
         if (SequenceManager.Instance.runNum == 1 && showTutorial)
             symbolsTutorial.SetActive(true);
+
+        RandomSymbols();
     }
 
     //find all blocks attached to a keybind slot

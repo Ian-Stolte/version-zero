@@ -30,6 +30,7 @@ public class PlayerPrograms : MonoBehaviour
     [Header("Misc")]
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private TextMeshProUGUI noTargetText;
+    [SerializeField] private float cdScale;
 
     [Header("Dash")]
     [SerializeField] private float dashForce;
@@ -55,7 +56,7 @@ public class PlayerPrograms : MonoBehaviour
         {
             foreach (Program p in ProgramManager.Instance.programs)
             {
-                p.cdTimer = Mathf.Max(0, p.cdTimer - Time.deltaTime);
+                p.cdTimer = Mathf.Max(0, p.cdTimer - (Time.deltaTime*cdScale));
                 p.fillTimer.GetComponent<Image>().fillAmount = p.cdTimer / p.cdMax;
                 if (!GameManager.Instance.loadingLevel)
                 {

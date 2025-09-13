@@ -67,6 +67,8 @@ public class SequenceManager : MonoBehaviour
 
     private IEnumerator LoadGameCor()
     {
+        Time.timeScale = 1.1f;
+        StartCoroutine(AudioManager.Instance.StartFade("Title", 1.5f, 0f));
         Fader.Instance.FadeIn(2);
         yield return new WaitForSeconds(2);
         //SceneManager.LoadScene("Startup UI");
