@@ -956,7 +956,7 @@ MonoBehaviour:
   player: {fileID: 0}
   defSpeed: 1.5
   atkRange: 10
-  atkDelay: 2
+  atkDelay: 1.5
   dmg: 1
   numProj: 6
   spread: 4

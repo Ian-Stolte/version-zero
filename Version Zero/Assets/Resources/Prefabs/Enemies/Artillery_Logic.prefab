@@ -1046,8 +1046,8 @@ MonoBehaviour:
   player: {fileID: 0}
   defSpeed: 1.5
   atkRange: 15
-  atkDelay: 5
-  dmg: 3
+  atkDelay: 2.5
+  dmg: 1
   numProj: 6
   spread: 4
   projPrefab: {fileID: 3512434751255828300, guid: 3964fdbb2368ece4ab9b0ca91fedabcc, type: 3}

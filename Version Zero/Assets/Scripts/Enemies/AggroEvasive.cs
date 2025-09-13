@@ -179,7 +179,7 @@ public class AggroEvasive : Enemy
         foreach (Sound s in a.currentSongs)
             StartCoroutine(a.StartFade(s.name, 1, 0));
         a.Play("Boss 2");
-        StartCoroutine(a.StartFade("Boss 2", 1, 0.2f));
+        StartCoroutine(a.StartFade("Boss 2", 1, 0.3f));
 
         //play intro dialogue
         GameManager.Instance.pauseGame = true;

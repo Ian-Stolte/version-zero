@@ -257,11 +257,11 @@ public class GameManager : MonoBehaviour
             {
                 spawningEnemies = false;
                 enemyTimer.gameObject.SetActive(false);
-                if (noSpawn)
+                /*if (noSpawn)
                 {
                     foreach (Transform child in enemyParent)
                         Destroy(child.gameObject);
-                }
+                }*/
             }
         }
     }
@@ -423,11 +423,11 @@ public class GameManager : MonoBehaviour
         bar = Instantiate(terminalBar, player.position + new Vector3(0, 1.3f, 0), Quaternion.identity).transform.GetChild(1).GetComponent<Image>();
         AudioManager.Instance.Play("Terminal Charge");
         float elapsed = 0;
-        while (elapsed < 4)
+        while (elapsed < 3)
         {
             if (bar == null)
                 yield break;
-            bar.fillAmount = elapsed / 4f;
+            bar.fillAmount = elapsed / 3f;
             yield return null;
             elapsed += Time.deltaTime;
         }

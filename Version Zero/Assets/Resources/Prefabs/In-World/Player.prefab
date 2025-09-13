@@ -227,6 +227,7 @@ MonoBehaviour:
     blocks: []
     cdMax: 0
     cdTimer: 0
+    queued: 0
     chargeTime: 0
     fillTimer: {fileID: 0}
     keybind: 0
@@ -239,6 +240,7 @@ MonoBehaviour:
     blocks: []
     cdMax: 0
     cdTimer: 0
+    queued: 0
     chargeTime: 0
     fillTimer: {fileID: 0}
     keybind: 0
@@ -273,7 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd7953439652954890b2dbfaed5a27d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
+  speed: 6.2
   rotationSpeed: 10
   moveDir: {x: 0, y: 0, z: 0}
   cutsceneMovement: 0

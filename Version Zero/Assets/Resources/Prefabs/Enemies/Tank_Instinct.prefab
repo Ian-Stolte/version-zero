@@ -1937,7 +1937,7 @@ MonoBehaviour:
   player: {fileID: 0}
   defSpeed: 3.5
   atkRange: 3.5
-  atkDelay: 3
+  atkDelay: 2.5
   dmg: 2
   stompForce: 100
   stompIndicator: {fileID: 6377387012906372630}

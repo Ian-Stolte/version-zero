@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public Vector3 moveDir;
     private Rigidbody rb;
     [HideInInspector] public bool cutsceneMovement;
+    private bool running;
 
     [Header("Health")]
     public int health;
@@ -79,7 +80,12 @@ public class PlayerMovement : MonoBehaviour
             shield.SetActive(shieldTimer > 0);
         }
 
-        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - 10*Time.deltaTime, rb.velocity.z); //apply gravity
+        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - 10 * Time.deltaTime, rb.velocity.z); //apply gravity
+
+        running = Input.GetKey(KeyCode.LeftShift);
+
+        // Set animator speed
+        anim.speed = (running) ? 1.5f : 1f;
     }
 
 
@@ -106,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
         //move or not move based on game state
         if ((moveDir != Vector3.zero && !GameManager.Instance.pauseGame && !GameManager.Instance.playerPaused && !GetComponent<PlayerPrograms>().dashing) || (cutsceneMovement))
         {
-            float spd = speed;
+            float spd = (running) ? speed*1.5f : speed;
             float rotSpd = rotationSpeed;
             rb.MovePosition(rb.position + moveDir * spd * Time.deltaTime);
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDir), rotSpd * Time.deltaTime);

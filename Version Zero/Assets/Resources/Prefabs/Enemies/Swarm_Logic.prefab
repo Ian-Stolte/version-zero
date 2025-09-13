@@ -866,7 +866,7 @@ MonoBehaviour:
   anim: {fileID: 2919210264134469898}
   rb: {fileID: 0}
   player: {fileID: 0}
-  defSpeed: 4
+  defSpeed: 4.5
   atkDelay: 2
   meleeRange: 2.2
   dmg: 1

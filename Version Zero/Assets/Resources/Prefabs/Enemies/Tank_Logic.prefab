@@ -358,13 +358,13 @@ MonoBehaviour:
   anim: {fileID: 514248223378982988}
   rb: {fileID: 0}
   player: {fileID: 0}
-  defSpeed: 2.5
+  defSpeed: 3
   atkRange: 4.5
-  atkDelay: 4
+  atkDelay: 3
   dmg: 3
   stompForce: 100
   stompIndicator: {fileID: 6377387012906372630}
-  stompTime: 1.5
+  stompTime: 1.25
   vfx: {fileID: 0}
 --- !u!54 &3582729303023012263
 Rigidbody:

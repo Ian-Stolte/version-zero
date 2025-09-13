@@ -65,6 +65,7 @@ public class ProgramManager : MonoBehaviour
 
     [Header("Program Data")]
     public string buildpath;
+    public ProgramData programBackup;
     public ProgramData programData;
     [HideInInspector] public List<GameObject> allBlocks = new List<GameObject>();
     public List<Block> blocks = new List<Block>();
@@ -82,6 +83,9 @@ public class ProgramManager : MonoBehaviour
 
     public void StartingHand()
     {
+        programData.baseBlocks = programBackup.baseBlocks;
+        programData.effectBlocks = programBackup.effectBlocks;
+        programData.modBlocks = programBackup.modBlocks;
         foreach (GameObject g in programData.baseBlocks)
             allBlocks.Add(g);
         foreach (GameObject g in programData.effectBlocks)
