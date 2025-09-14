@@ -10,6 +10,7 @@ public class Terminal : MonoBehaviour
 
     [Header("On Complete")]
     public MeshRenderer screen;
+    public TMPro.TextMeshProUGUI directionsText;
     public MeshRenderer[] bars;
     public GameObject[] toggleOnComplete;
     public Transform barrier;

@@ -8691,6 +8691,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5924697330221905879, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6007445763094581937, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -8714,14 +8718,6 @@ PrefabInstance:
     - target: {fileID: 8096738902630243745, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -152
-      objectReference: {fileID: 0}
-    - target: {fileID: 8778151426287815475, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1372443055}
-    - target: {fileID: 8778151426287815475, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Quit
       objectReference: {fileID: 0}
     - target: {fileID: 9149627474376572225, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
       propertyPath: m_Enabled
@@ -9941,6 +9937,10 @@ PrefabInstance:
       propertyPath: gameOver
       value: 
       objectReference: {fileID: 795401050}
+    - target: {fileID: 1712194664605143150, guid: 372c20bebb6c4ee49ac758cf046f0dbc, type: 3}
+      propertyPath: elevatorUI
+      value: 
+      objectReference: {fileID: 1730252550}
     - target: {fileID: 1712194664605143150, guid: 372c20bebb6c4ee49ac758cf046f0dbc, type: 3}
       propertyPath: enemyTimer
       value: 
@@ -12730,6 +12730,11 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 71e3ea98a442141ffa824fc3b1b207e0, type: 3}
   m_PrefabInstance: {fileID: 1947221433}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1730252550 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 642755484755907394, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+  m_PrefabInstance: {fileID: 1243056213}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1733942038
 PrefabInstance:

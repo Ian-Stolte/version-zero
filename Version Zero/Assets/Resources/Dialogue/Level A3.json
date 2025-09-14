@@ -1,18 +1,32 @@
 {
   "Pt 1": {
     "0": 1,
-    "1": "So...`` where are all these viruses coming from?",
-    "2": "~that does appear to be the question",
-    "3": "~give me a moment to scan the local network",
-    "4": "",
-    "5": ""
+    "1": "~hey Reya, want a fun fact?```` you can use your abilities while hacking terminals!",
+    "2": "`.`.`.so you're saying I can be shooting out electricity or dashing around `*while`* running complex code?",
+    "3": "~yes you should try it next time!",
+    "4": "```(`.`.`.``and how do *you* know this?)",
+    "5": "",
+    "6": "",
+    "7": 2,
+    "8": "So...`` where are all these viruses coming from?",
+    "9": "~that does appear to be the question",
+    "10": "~give me a moment to scan the local network",
+    "11": "",
+    "12": ""
   },
   "Pt 2": {
     "0": 1,
-    "1": "~so the good news is that I have identified a strong source of interference directly below us",
-    "2": "...that's the good news?",
-    "3": "~ohhh you may not like the bad news then",
-    "4": "~I also identified more infected systems moving toward our location",
-    "5": "~you may want to consider moving quickly"
+    "1": "~ohhh I am detecting a strong energy source below us",
+    "2": "~that must be what the viruses are trying to stop us from reaching!",
+    "3": "And we're sure we want to go`.`.`.`` toward it?",
+    "4": "~well it appears all of the elevators in this city only go down so we don't actually have a choice!",
+    "5": "",
+    "6": "",
+    "7": 2,
+    "8": "~so the good news is that I have identified a strong source of interference directly below us",
+    "9": "...that's the good news?",
+    "10": "~ohhh you may not like the bad news then",
+    "11": "~I also identified more infected systems moving toward our location",
+    "12": "~you may want to consider moving quickly"
   }
 }

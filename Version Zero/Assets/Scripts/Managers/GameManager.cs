@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
     }
 
     [Header("Bools")]
-    public bool noSpawn;
     [HideInInspector] public bool pauseGame;
     [HideInInspector] public bool playerPaused;
     [HideInInspector] public bool loadingLevel;
@@ -74,9 +73,9 @@ public class GameManager : MonoBehaviour
     private GameObject canvas;
     private Transform player;
 
-    [Header("Debug")]
+    /*[Header("Debug")]
     [SerializeField] private GameObject testSphereGreen;
-    [SerializeField] private GameObject testSphereRed;
+    [SerializeField] private GameObject testSphereRed;*/
 
 
     void Start()
@@ -255,10 +254,13 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        if (levelNum >= 3 || scene.name.Contains("Final"))
+            player.GetComponent<PlayerMovement>().hpBar.gameObject.SetActive(true);
+
         //check if spawning enemies
         if (scene.name != "End Screen")
         {
-            if (minSpawn > 0 && (levelNum > 3 || (levelNum == 3 && runNum > 1) || scene.name.Contains("Final")) && !noSpawn)
+            /*if (minSpawn > 0 && (levelNum > 3 || (levelNum == 3 && runNum > 1) || scene.name.Contains("Final")) && !noSpawn)
             {
                 enemyTimer.gameObject.SetActive(true);
                 player.GetComponent<PlayerMovement>().hpBar.gameObject.SetActive(true);
@@ -267,15 +269,14 @@ public class GameManager : MonoBehaviour
                 totalSpawn = spawnTimer;
             }
             else
+            {*/
+            spawningEnemies = false;
+            enemyTimer.gameObject.SetActive(false);
+            /*if (noSpawn)
             {
-                spawningEnemies = false;
-                enemyTimer.gameObject.SetActive(false);
-                /*if (noSpawn)
-                {
-                    foreach (Transform child in enemyParent)
-                        Destroy(child.gameObject);
-                }*/
-            }
+                foreach (Transform child in enemyParent)
+                    Destroy(child.gameObject);
+            }*/
         }
     }
 
@@ -395,8 +396,8 @@ public class GameManager : MonoBehaviour
                         //TODO: don't spawn if on other side of barrier? (check walkable)
                         while (Physics.OverlapSphere(player.position + offset, checkSize).Length > 0 || Physics.OverlapSphere(player.position + offset + new Vector3(0, -1.5f, 0), 1f, LayerMask.GetMask("Ground")).Length == 0)
                         {
-                            if (debug)
-                                Instantiate(testSphereRed, player.position + offset, Quaternion.identity, transform);
+                            //if (debug)
+                            //    Instantiate(testSphereRed, player.position + offset, Quaternion.identity, transform);
                             offset = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f)).normalized * Random.Range(minDist, maxDist) + new Vector3(0, 1, 0);
                             attempts++;
                             if (attempts == 10) //fail to find open spot
@@ -415,8 +416,8 @@ public class GameManager : MonoBehaviour
                         }
                         if (maxDist < 20)
                         {
-                            if (debug)
-                                Instantiate(testSphereGreen, player.position + offset, Quaternion.identity, transform);
+                            //if (debug)
+                            //    Instantiate(testSphereGreen, player.position + offset, Quaternion.identity, transform);
                             GameObject enemy = Instantiate(prefab, player.position + offset + new Vector3(0, 15, 0), Quaternion.identity, enemyParent);
                             enemy.GetComponent<Rigidbody>().velocity = new Vector3(0, -100, 0);
                         }
@@ -433,6 +434,8 @@ public class GameManager : MonoBehaviour
     public IEnumerator UseTerminal()
     {
         playerPaused = true;
+
+        //start hacking terminal
         bar = Instantiate(terminalBar, player.position + new Vector3(0, 1.3f, 0), Quaternion.identity).transform.GetChild(1).GetComponent<Image>();
         AudioManager.Instance.Play("Terminal Charge");
         float elapsed = 0;
@@ -444,6 +447,8 @@ public class GameManager : MonoBehaviour
             yield return null;
             elapsed += Time.deltaTime;
         }
+
+        //complete terminal
         currentTerminal.complete = true;
         Destroy(bar.transform.parent.gameObject);
         playerPaused = false;
@@ -457,8 +462,10 @@ public class GameManager : MonoBehaviour
             foreach (MeshRenderer m in currentTerminal.bars)
                 m.material = terminalGreen;
         }
+        if (currentTerminal.directionsText != null)
+            currentTerminal.directionsText.fontStyle = FontStyles.Bold | FontStyles.Strikethrough;
         if (currentTerminal.ID != "")
-            DialogueManager.Instance.PlayByID(currentTerminal.ID);
+                DialogueManager.Instance.PlayByID(currentTerminal.ID);
         foreach (GameObject g in currentTerminal.toggleOnComplete)
             g.SetActive(!g.activeSelf);
         FinishTerminalIcon();
@@ -705,18 +712,6 @@ public class GameManager : MonoBehaviour
             int intTime = (int)Mathf.Round(SequenceManager.Instance.rawTimer);
             int mins = 44 + intTime/60;
             Vector3 time = new Vector3(17 + mins/60, mins%60, intTime%60);
-            /*if (time.z >= 60)
-                {
-                    time.z = 0;
-                    time.y += 1;
-                    if (time.y >= 60)
-                    {
-                        time.y = 0;
-                        time.x += 1;
-                        if (time.x >= 24)
-                            time.x = 0;
-                    }
-                }*/
             string seconds = (time.z > 9) ? "" + time.z : "0" + time.z;
             string minutes = (time.y > 9) ? "" + time.y : "0" + time.y;
             string hours = (time.x > 9) ? "" + time.x : "0" + time.x;
@@ -776,6 +771,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
         StartCoroutine(AudioManager.Instance.StartFade("Game Over", 2, 0));
+        //fade in buttons
         for (float i = 0; i < 1; i += 0.01f)
         {
             gameOver.transform.GetChild(1).GetComponent<CanvasGroup>().alpha = i;

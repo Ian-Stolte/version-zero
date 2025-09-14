@@ -4604,7 +4604,7 @@ MonoBehaviour:
   dmg: 1
   projPrefab: {fileID: 3512434751255828300, guid: 3964fdbb2368ece4ab9b0ca91fedabcc, type: 3}
   meleeRange: 6.5
-  stompDmg: 3
+  stompDmg: 2
   stompForce: 100
   stompDelay: 2
   stompIndicator: {fileID: 1370183966778295720}
