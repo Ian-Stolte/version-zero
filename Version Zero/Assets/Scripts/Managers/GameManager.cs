@@ -251,6 +251,7 @@ public class GameManager : MonoBehaviour
                 numTerminals--;
                 foreach (MeshRenderer m in terminal.bars)
                     m.material = terminalGreen;
+                Destroy(terminal.directionsText);
             }
         }
 
@@ -463,7 +464,11 @@ public class GameManager : MonoBehaviour
                 m.material = terminalGreen;
         }
         if (currentTerminal.directionsText != null)
+        {
             currentTerminal.directionsText.fontStyle = FontStyles.Bold | FontStyles.Strikethrough;
+            Color c = currentTerminal.directionsText.color;
+            currentTerminal.directionsText.color = new Color(c.r, c.g, c.b, 0.3f);
+        }
         if (currentTerminal.ID != "")
                 DialogueManager.Instance.PlayByID(currentTerminal.ID);
         foreach (GameObject g in currentTerminal.toggleOnComplete)

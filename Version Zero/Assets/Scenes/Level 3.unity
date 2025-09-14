@@ -578,8 +578,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 54
+  m_fontSizeBase: 54
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1850,7 +1850,7 @@ GameObject:
   - component: {fileID: 371253513}
   - component: {fileID: 371253512}
   m_Layer: 6
-  m_Name: Floor Canvas (1)
+  m_Name: Terminal2 Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4852,6 +4852,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Access Point_reward
       objectReference: {fileID: 0}
+    - target: {fileID: 5664900677135948115, guid: 54aac7292c4af432a81609f368709f5b, type: 3}
+      propertyPath: directionsText
+      value: 
+      objectReference: {fileID: 1381650675}
     - target: {fileID: 6872814326153789952, guid: 54aac7292c4af432a81609f368709f5b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 18.13
@@ -5854,7 +5858,7 @@ GameObject:
   - component: {fileID: 1381650677}
   - component: {fileID: 1381650676}
   m_Layer: 6
-  m_Name: Floor Canvas (3)
+  m_Name: AccessPt Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5957,7 +5961,7 @@ GameObject:
   - component: {fileID: 1414487730}
   - component: {fileID: 1414487729}
   m_Layer: 6
-  m_Name: Floor Canvas (2)
+  m_Name: Elevator Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6915,8 +6919,8 @@ Transform:
   m_Children:
   - {fileID: 1752585128}
   - {fileID: 371253511}
-  - {fileID: 1414487728}
   - {fileID: 1381650675}
+  - {fileID: 1414487728}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1625406126
@@ -7484,7 +7488,7 @@ GameObject:
   - component: {fileID: 1752585130}
   - component: {fileID: 1752585129}
   m_Layer: 6
-  m_Name: Floor Canvas
+  m_Name: Terminal1 Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11062,9 +11066,9 @@ SceneRoots:
   - {fileID: 597337372}
   - {fileID: 233099733}
   - {fileID: 592464841}
+  - {fileID: 1623420431}
   - {fileID: 406110717}
   - {fileID: 1114797598}
-  - {fileID: 1623420431}
   - {fileID: 1920858477}
   - {fileID: 3211503238547288238}
   - {fileID: 2429901184451508980}

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class AccessPoint : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class AccessPoint : MonoBehaviour
     private bool approached;
 
     [Header("On Complete")]
+    public Transform directionsText;
     public GameObject[] showOnComplete;
     [SerializeField] private Material usedMat;
 
@@ -54,6 +56,16 @@ public class AccessPoint : MonoBehaviour
             if (!used)
             {
                 used = true;
+                if (directionsText != null)
+                {
+                    foreach (Transform child in directionsText)
+                    {
+                        TextMeshProUGUI txt = child.GetComponent<TextMeshProUGUI>();
+                        txt.fontStyle = FontStyles.Bold | FontStyles.Strikethrough;
+                        Color c = txt.color;
+                        txt.color = new Color(c.r, c.g, c.b, 0.3f);
+                    }
+                }
                 if (SceneManager.GetActiveScene().name == "Level 2")
                     StartCoroutine(DialogueManager.Instance.FirstAccessPt());
                 else if (SceneManager.GetActiveScene().name == "Final 10")

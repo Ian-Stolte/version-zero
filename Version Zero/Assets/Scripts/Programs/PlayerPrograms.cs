@@ -94,7 +94,7 @@ public class PlayerPrograms : MonoBehaviour
             //charge timer
             if (chargeProgram != null)
             {
-                chargeTimer += Time.deltaTime;
+                chargeTimer += Time.deltaTime * (4f/3f);  //scaling tick instead of max so we have nice numbers
                 chargeVFX.GetComponent<VisualEffect>().SetFloat("Strength", Mathf.Min(1, chargeTimer / 2f));
                 if (!Input.GetKey(chargeProgram.keybind))
                 {

@@ -388,6 +388,7 @@ public class DialogueManager : MonoBehaviour
         GameManager.Instance.playerPaused = true;
         if (SequenceManager.Instance.runNum == 1)
         {
+            GameObject.Find("Terminal A").GetComponent<Terminal>().directionsText.gameObject.SetActive(false);
             buildSelect.GetChild(2).gameObject.SetActive(true);
             ProgramManager.Instance.programUI.gameObject.SetActive(true);
             StopCoroutines();
