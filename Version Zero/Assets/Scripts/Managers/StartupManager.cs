@@ -165,6 +165,7 @@ public class StartupManager : MonoBehaviour
     {
         Fader.Instance.FadeIn(2);
         yield return new WaitForSeconds(2);
+        AudioManager.Instance.Stop("Startup Typing");
         SceneManager.LoadScene("Level 1");
     }
 

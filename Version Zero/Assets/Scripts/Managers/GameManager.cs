@@ -53,12 +53,12 @@ public class GameManager : MonoBehaviour
 
     [Header("Level Load")]
     [SerializeField] private GameObject elevatorUI;
-    [SerializeField] private GameObject nextAreaText;
+    private GameObject nextAreaText;
     
     [SerializeField] private int[] clearPars; //instinct
     [SerializeField] private int[] killPars; //memory
-    [SerializeField] private Transform statsPanel;
-    [SerializeField] private Transform graph;
+    private Transform statsPanel;
+    private Transform graph;
     private int[] sectorLvls = new int[3]; //logic, instinct, memory
 
     [Header("Pause Game")]
@@ -78,6 +78,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject testSphereGreen;
     [SerializeField] private GameObject testSphereRed;
 
+
+    void Start()
+    {
+        //define elevatorUI components
+        if (elevatorUI != null)
+        {
+            statsPanel = elevatorUI.transform.GetChild(1);
+            graph = elevatorUI.transform.GetChild(3);
+            nextAreaText = elevatorUI.transform.GetChild(4).gameObject;
+        }
+        else
+            Debug.LogError("Elevator UI not set to a reference.");
+    }
 
 
     void OnEnable() { SceneManager.sceneLoaded += OnSceneLoaded; }
@@ -570,7 +583,7 @@ public class GameManager : MonoBehaviour
             }
 
             //show elevator UI
-                nextAreaText.GetComponent<TextMeshProUGUI>().text = nextArea;
+            nextAreaText.GetComponent<TextMeshProUGUI>().text = nextArea;
             if (nextArea.Length > 18)
                 nextAreaText.GetComponent<TextMeshProUGUI>().fontSize = 48;
             else
@@ -579,6 +592,7 @@ public class GameManager : MonoBehaviour
 
             graph.GetComponent<CanvasGroup>().alpha = 0;
             elevatorUI.SetActive(true);
+            StartCoroutine("TickTime");
             float elapsed = 0;
             while (elapsed < 1)
             {
@@ -632,6 +646,7 @@ public class GameManager : MonoBehaviour
             yield return null;
 
         areaText.text = nextArea;
+        StopCoroutine("TickTime");
         SceneManager.LoadScene("Level " + levelNum);
         loadingLevel = false;
     }
@@ -680,6 +695,34 @@ public class GameManager : MonoBehaviour
         Fader.Instance.FadeInOut(0.3f, 0.3f);
         yield return new WaitForSeconds(0.3f);
         SceneManager.LoadScene(scene);
+    }
+
+    private IEnumerator TickTime()
+    {
+        TextMeshProUGUI timeTxt = elevatorUI.transform.GetChild(5).GetComponent<TextMeshProUGUI>();
+        while (true)
+        {
+            int intTime = (int)Mathf.Round(SequenceManager.Instance.rawTimer);
+            int mins = 44 + intTime/60;
+            Vector3 time = new Vector3(17 + mins/60, mins%60, intTime%60);
+            /*if (time.z >= 60)
+                {
+                    time.z = 0;
+                    time.y += 1;
+                    if (time.y >= 60)
+                    {
+                        time.y = 0;
+                        time.x += 1;
+                        if (time.x >= 24)
+                            time.x = 0;
+                    }
+                }*/
+            string seconds = (time.z > 9) ? "" + time.z : "0" + time.z;
+            string minutes = (time.y > 9) ? "" + time.y : "0" + time.y;
+            string hours = (time.x > 9) ? "" + time.x : "0" + time.x;
+            timeTxt.text = hours + ":" + minutes + ":" + seconds;
+            yield return new WaitForSeconds(1f);
+        }
     }
 
 

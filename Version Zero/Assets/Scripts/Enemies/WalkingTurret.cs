@@ -369,6 +369,7 @@ public class WalkingTurret : Enemy
         else
         {
             Debug.Log("Unlocked all " + GameManager.Instance.enemyType + " programs.");
+            endBarrier.SetActive(false);
         }
 
         GameManager.Instance.bossUI.SetActive(false);
