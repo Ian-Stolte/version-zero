@@ -41,6 +41,10 @@ public class PlayerMovement : MonoBehaviour
     public GameObject shield;
     [HideInInspector] public float shieldTimer;
 
+    [Header("Tutorial")]
+    public GameObject tutorialWASD;
+    public GameObject tutorialDialogue;
+
     [Header("Misc")]
     public Animator anim;
     [SerializeField] private Animator damageFlash;
@@ -112,11 +116,15 @@ public class PlayerMovement : MonoBehaviour
         //move or not move based on game state
         if ((moveDir != Vector3.zero && !GameManager.Instance.pauseGame && !GameManager.Instance.playerPaused && !GetComponent<PlayerPrograms>().dashing) || (cutsceneMovement))
         {
-            float spd = (running) ? speed*1.5f : speed;
+            float spd = (running) ? speed * 1.5f : speed;
             float rotSpd = rotationSpeed;
             rb.MovePosition(rb.position + moveDir * spd * Time.deltaTime);
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDir), rotSpd * Time.deltaTime);
             anim.SetBool("Moving", true);
+            if (tutorialWASD != null)
+                tutorialWASD.SetActive(false);
+            if (tutorialDialogue != null)
+                tutorialDialogue.SetActive(false);
         }
         else
         {

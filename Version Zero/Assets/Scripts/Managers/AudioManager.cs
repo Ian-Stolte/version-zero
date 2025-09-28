@@ -76,7 +76,7 @@ public class AudioManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Title Screen")
         {
             Play("Title");
-            StartCoroutine(StartFade("Title", 1, 0.25f));
+            StartCoroutine(StartFade("Title", 0.5f, 0.25f));
         }
         else if (SceneManager.GetActiveScene().name.Contains("Final"))
         {
@@ -196,20 +196,24 @@ public class AudioManager : MonoBehaviour
 
 
     //CONTENT
-    public void KillBoss1()
+    public void KillBoss1() {StartCoroutine(KillBoss1Cor()); }
+    public IEnumerator KillBoss1Cor()
     {
         Stop("Boss 1");
         Play("Walking Turret Die");
+        yield return new WaitForSeconds(2f);
         Play("Area 1");
-        StartCoroutine(StartFade("Area 1", 2, 0.2f));
+        StartCoroutine(StartFade("Area 1", 10, 0.2f));
     }
 
-    public void KillBoss2()
+    public void KillBoss2() { StartCoroutine(KillBoss2Cor()); }
+    public IEnumerator KillBoss2Cor()
     {
         Stop("Boss 2");
         Play("Walking Turret Die");
+        yield return new WaitForSeconds(2f);
         Play("Area 2");
-        StartCoroutine(StartFade("Area 2", 2, 0.2f));
+        StartCoroutine(StartFade("Area 2", 10, 0.2f));
     }
 
 

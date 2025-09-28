@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler/*, IPointerEnterHandler, IPointerExitHandler*/
+public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Dragging")]
     private Vector2 lastPos;
@@ -15,7 +15,6 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
     [HideInInspector] public FunctionSlot slot;
 
     [Header("Movement")]
-    private List<Block> blocks = new List<Block>();
     private GameObject targetSpace;
     private Block upgrade;
 
@@ -253,11 +252,12 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
         }
     }
 
-    /*public void OnPointerEnter(PointerEventData eventData)
+    public void OnPointerEnter(PointerEventData eventData)
     {
         if (!ProgramManager.Instance.spellsLocked)
         {
-            upgradeCircles.SetActive(true);
+            infoTxt.gameObject.SetActive(true);
+            //upgradeCircles.SetActive(true);
         }
     }
 
@@ -265,7 +265,9 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
     {
         if (!ProgramManager.Instance.spellsLocked)
         {
-            upgradeCircles.SetActive(false);
+            if (!ProgramManager.Instance.moreInfo)
+                infoTxt.gameObject.SetActive(false);
+            //upgradeCircles.SetActive(false);
         }
-    }*/
+    }
 }

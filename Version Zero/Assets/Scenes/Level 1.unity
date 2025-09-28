@@ -2268,6 +2268,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69916ec0a7ddb054aaf61ca9572c1624, type: 3}
+--- !u!1 &730958451 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 775533151886164842, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+  m_PrefabInstance: {fileID: 6154748227236401477}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &733622890 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 184277073080576096, guid: c3838aede2cea2142bf1ae57eaa577e8, type: 3}
@@ -4000,6 +4005,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12c048fe411f2b44c878434c8a507a5f, type: 3}
+--- !u!1 &1402530926 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6730063707054139185, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+  m_PrefabInstance: {fileID: 6154748227236401477}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1419047385
 GameObject:
   m_ObjectHideFlags: 0
@@ -6864,6 +6874,14 @@ PrefabInstance:
       propertyPath: maxCompDist
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3045372034943755482, guid: ed366113f1ef7954bba91e37b4256f57, type: 3}
+      propertyPath: tutorialWASD
+      value: 
+      objectReference: {fileID: 1402530926}
+    - target: {fileID: 3045372034943755482, guid: ed366113f1ef7954bba91e37b4256f57, type: 3}
+      propertyPath: tutorialDialogue
+      value: 
+      objectReference: {fileID: 730958451}
     - target: {fileID: 5805461975746180555, guid: ed366113f1ef7954bba91e37b4256f57, type: 3}
       propertyPath: m_Name
       value: Player

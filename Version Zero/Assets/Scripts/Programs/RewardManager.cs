@@ -93,6 +93,7 @@ public class RewardManager : MonoBehaviour
         rewardParent.GetComponent<Image>().enabled = false;
         showPrograms.SetActive(false);
         hidePrograms.SetActive(true);
+        rewardParent.transform.GetChild(0).gameObject.SetActive(false);
         ProgramManager.Instance.compileButton.SetActive(false);
         blockBG.SetActive(true);
         foreach (Transform child in rewardParent)
@@ -111,6 +112,7 @@ public class RewardManager : MonoBehaviour
         rewardParent.GetComponent<Image>().enabled = true;
         hidePrograms.SetActive(false);
         showPrograms.SetActive(true);
+        rewardParent.transform.GetChild(0).gameObject.SetActive(true);
         blockBG.SetActive(false);
         foreach (Transform child in rewardParent)
         {

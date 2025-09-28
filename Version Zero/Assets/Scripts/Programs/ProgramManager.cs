@@ -21,7 +21,7 @@ public class ProgramManager : MonoBehaviour
     public bool SKIP_CRAFTING;
     [HideInInspector] public bool spellsLocked;
     private bool musicOn;
-    private bool moreInfo;
+    [HideInInspector] public bool moreInfo;
 
     [Header("Parents")]
     public Transform programUI;
@@ -176,7 +176,6 @@ public class ProgramManager : MonoBehaviour
     public void Reforge()
     {
         GameManager.Instance.pauseGame = true;
-        player.enabled = false;
         cdParent.gameObject.SetActive(false);
         programUI.gameObject.SetActive(true);
         compileButton.SetActive(true);
@@ -373,6 +372,17 @@ public class ProgramManager : MonoBehaviour
         //click to disable upgrade tutorial
         if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) && upgradeTutorial.activeSelf)
             upgradeTutorial.SetActive(false);
+
+        //close program creation with esc
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (programUI.gameObject.activeSelf)
+            {
+                cdParent.gameObject.SetActive(true);
+                programUI.gameObject.SetActive(false);
+                GameManager.Instance.pauseGame = false;
+            }
+        }
     }
 
     private int CheckValidBlocks(int valid, FunctionSlot slot, Image img)
@@ -597,6 +607,12 @@ public class ProgramManager : MonoBehaviour
         {
             b.infoTxt.gameObject.SetActive(moreInfo);
         }
+        foreach (Transform child in keybindSlots)
+        {
+            KeybindSlot ks = child.GetComponent<KeybindSlot>();
+            if (ks.infoTxt != null)
+                ks.infoTxt.SetActive(moreInfo);
+        }
         string buttonTxt = (moreInfo) ? "Less Info" : "Explain";
         infoButton.text = buttonTxt;
     }
@@ -655,6 +671,7 @@ public class ProgramManager : MonoBehaviour
     private IEnumerator ExitToMenuCor()
     {
         Fader.Instance.FadeInOut(0.5f, 0.5f);
+        StartCoroutine(AudioManager.Instance.FadeOutAll(0.5f));
         yield return new WaitForSeconds(0.5f);
         if (player == null)
             Destroy(GameObject.Find("Computer"));
@@ -665,6 +682,8 @@ public class ProgramManager : MonoBehaviour
         }
         Destroy(SequenceManager.Instance.gameObject);
         SceneManager.LoadScene("Title Screen");
+        AudioManager.Instance.Play("Title");
+        AudioManager.Instance.StartCoroutine(AudioManager.Instance.StartFade("Title", 0.5f, 0.25f));
         //TODO: only destroy once scene has been loaded, but w/o overwriting fader/canvas in Title Screen
         Destroy(transform.parent.gameObject);
     }

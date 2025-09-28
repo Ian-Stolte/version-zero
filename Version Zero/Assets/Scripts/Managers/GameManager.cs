@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
     private GameObject nextAreaText;
     
     [SerializeField] private int[] clearPars; //instinct
-    [SerializeField] private int[] killPars; //memory
+    [SerializeField] private int[] killPars; //logic
     private Transform statsPanel;
     private Transform graph;
     private int[] sectorLvls = new int[3]; //logic, instinct, memory
@@ -259,7 +259,7 @@ public class GameManager : MonoBehaviour
             player.GetComponent<PlayerMovement>().hpBar.gameObject.SetActive(true);
 
         //check if spawning enemies
-        if (scene.name != "End Screen")
+        if (scene.name != "End Screen" && scene.name != "Title Screen")
         {
             /*if (minSpawn > 0 && (levelNum > 3 || (levelNum == 3 && runNum > 1) || scene.name.Contains("Final")) && !noSpawn)
             {
@@ -272,13 +272,17 @@ public class GameManager : MonoBehaviour
             else
             {*/
             spawningEnemies = false;
-            enemyTimer.gameObject.SetActive(false);
+            if (enemyTimer != null)
+                enemyTimer.gameObject.SetActive(false);
             /*if (noSpawn)
             {
                 foreach (Transform child in enemyParent)
                     Destroy(child.gameObject);
             }*/
         }
+
+        //save game
+        
     }
 
 
@@ -317,7 +321,8 @@ public class GameManager : MonoBehaviour
         //Pause game
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PauseUnpause();
+            if (!ProgramManager.Instance.programUI.gameObject.activeSelf)
+                PauseUnpause();
         }
 
 
@@ -463,21 +468,27 @@ public class GameManager : MonoBehaviour
             foreach (MeshRenderer m in currentTerminal.bars)
                 m.material = terminalGreen;
         }
+        //strikethrough directions text
         if (currentTerminal.directionsText != null)
         {
             currentTerminal.directionsText.fontStyle = FontStyles.Bold | FontStyles.Strikethrough;
             Color c = currentTerminal.directionsText.color;
             currentTerminal.directionsText.color = new Color(c.r, c.g, c.b, 0.3f);
         }
+        //play dialogue
         if (currentTerminal.ID != "")
-                DialogueManager.Instance.PlayByID(currentTerminal.ID);
+            DialogueManager.Instance.PlayByID(currentTerminal.ID);
+        //finish terminal
         foreach (GameObject g in currentTerminal.toggleOnComplete)
             g.SetActive(!g.activeSelf);
         FinishTerminalIcon();
         numTerminals--;
-
+        //unlock barrier
         if (currentTerminal.barrier != null)
             UnlockBarrier(currentTerminal.barrier);
+
+        if (SceneManager.GetActiveScene().name == "Level 1")
+            GameObject.Find("Player").GetComponent<PlayerMovement>().tutorialDialogue.SetActive(true);
     }
 
     public void FinishTerminalIcon()
@@ -538,20 +549,16 @@ public class GameManager : MonoBehaviour
 
             //compute change to enemy pcts
             int[] bonuses = new int[3];
-            bool showStats = (levelNum - 1 >= 3 && levelNum - 1 != 6 && levelNum - 1 != 12);
+            bool showStats = (levelNum-1 >= 3 && levelNum-1 != 6 && levelNum-1 != 12);
             if (showStats)
             {
                 int kills = SequenceManager.Instance.levelKills;
                 int parKills = killPars[levelNum - 1];
                 if (kills >= parKills)
-                    bonuses[0] = 5;
-                else if (kills >= parKills * 0.8f)
-                    bonuses[0] = 4;
-                else if (kills >= parKills * 0.6f)
                     bonuses[0] = 3;
-                else if (kills >= parKills * 0.4f)
+                else if (kills >= parKills * 0.8f)
                     bonuses[0] = 2;
-                else if (kills >= parKills * 0.2f)
+                else if (kills >= parKills * 0.6f)
                     bonuses[0] = 1;
                 else
                     bonuses[0] = 0;
