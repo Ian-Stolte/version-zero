@@ -30,6 +30,13 @@ public class CircleHitbox : Hitbox
     public override void CheckCollisions()
     {
         Collider[] cols = Physics.OverlapSphere(transform.position, transform.localScale.x/2, LayerMask.GetMask("Enemy"));
+
+        //remove colliders that are in ignoreCols
+        List<Collider> filteredCols = new List<Collider>(cols);
+        foreach (Collider ignoreCol in ignoreCols)
+            filteredCols.Remove(ignoreCol);
+        cols = filteredCols.ToArray();
+
         if (cols.Length > 0)
             GameObject.Find("Player").GetComponent<PlayerPrograms>().ProgramEffects(cols, program, transform.position);
     }

@@ -117,6 +117,8 @@ public class PlayerMovement : MonoBehaviour
         if ((moveDir != Vector3.zero && !GameManager.Instance.pauseGame && !GameManager.Instance.playerPaused && !GetComponent<PlayerPrograms>().dashing) || (cutsceneMovement))
         {
             float spd = (running) ? speed * 1.5f : speed;
+            if (cutsceneMovement)
+                spd = speed * 0.7f;
             float rotSpd = rotationSpeed;
             rb.MovePosition(rb.position + moveDir * spd * Time.deltaTime);
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDir), rotSpd * Time.deltaTime);
@@ -215,5 +217,13 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         currentBurst -= dmg;
+    }
+
+    public IEnumerator CutsceneMove(Vector3 target, float dist)
+    {
+        cutsceneMovement = true;
+        moveDir = (target - transform.position).normalized;
+        yield return new WaitUntil(() => Vector3.Distance(transform.position, target) < dist);
+        cutsceneMovement = false;
     }
 }

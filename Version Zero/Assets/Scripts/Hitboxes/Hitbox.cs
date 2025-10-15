@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class Hitbox : MonoBehaviour
 {
     public Program program;
+    public Collider[] ignoreCols;
 
     public abstract void CheckCollisions();
 }

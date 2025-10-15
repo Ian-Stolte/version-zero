@@ -4574,7 +4574,7 @@ MonoBehaviour:
   maxHealth: 60
   health: 0
   customDestroy: 1
-  aggroRange: 14
+  aggroRange: 18
   aggro: 0
   stunTimer: 0
   slowTimer: 0

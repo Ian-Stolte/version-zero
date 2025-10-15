@@ -126,6 +126,13 @@ public class WalkingTurret : Enemy
         atkTimer = atkDelay * 0.5f;
         base.Start();
 
+        StartCoroutine(player.GetComponent<PlayerMovement>().CutsceneMove(transform.position, 12f));
+        Vector3 playerToBoss = (transform.position - player.transform.position).normalized;
+        StartCoroutine(Camera.main.GetComponent<CameraFollow>().SetOffset(playerToBoss * 5, 3f));
+        GameObject.Find("Cutscene Bars").GetComponent<Animator>().Play("CutsceneStart");
+
+        yield return new WaitUntil(() => Vector3.Distance(player.transform.position, transform.position) < 13f);
+
         startBarrier.SetActive(true);
         AudioManager a = AudioManager.Instance;
         foreach (Sound s in a.currentSongs)
@@ -138,6 +145,8 @@ public class WalkingTurret : Enemy
         DialogueManager.Instance.PlayByID("Boss_Intro");
         yield return new WaitUntil(() => !DialogueManager.Instance.dialogue.activeSelf);
         GameManager.Instance.pauseGame = false;
+        StartCoroutine(Camera.main.GetComponent<CameraFollow>().SetOffset(Vector3.zero, 0.25f));
+        GameObject.Find("Cutscene Bars").GetComponent<Animator>().Play("CutsceneEnd");
         
         //set up health bar
         GameManager.Instance.bossUI.SetActive(true);

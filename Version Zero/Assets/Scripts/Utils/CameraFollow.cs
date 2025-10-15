@@ -9,7 +9,8 @@ public class CameraFollow : MonoBehaviour
     public bool rotSnap;
 
     private Transform target;
-    public Vector3 offset;
+    public Vector3 baseOffset;
+    private Vector3 offset;
     public float rotationSpeed;
 
     public bool cutscene;
@@ -63,5 +64,31 @@ public class CameraFollow : MonoBehaviour
                 transform.RotateAround(target.transform.position, Vector3.up, yRot - currY);
             }*/
         }
+    }
+
+    //move to target offset and back
+    public IEnumerator SetOffset(Vector3 diff, float duration)
+    {
+        cutscene = true;
+        Vector3 startOffset = offset;
+        Vector3 targetOffset = baseOffset - diff;
+        float timer = 0;
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            offset = Vector3.Lerp(startOffset, targetOffset, timer / duration);
+            yield return null;
+        }
+        offset = targetOffset;
+        /*yield return new WaitForSeconds(0.5f);
+        timer = 0;
+        while (timer < duration/2f)
+        {
+            timer += Time.deltaTime;
+            offset = Vector3.Lerp(targetOffset, startOffset, timer / (duration/2f));
+            yield return null;
+        }
+        offset = startOffset;*/
+        cutscene = false;
     }
 }

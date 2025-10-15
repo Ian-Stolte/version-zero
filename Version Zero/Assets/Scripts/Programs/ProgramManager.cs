@@ -83,9 +83,9 @@ public class ProgramManager : MonoBehaviour
 
     public void StartingHand()
     {
-        programData.baseBlocks = programBackup.baseBlocks;
-        programData.effectBlocks = programBackup.effectBlocks;
-        programData.modBlocks = programBackup.modBlocks;
+        programData.baseBlocks = new List<GameObject>(programBackup.baseBlocks);
+        programData.effectBlocks = new List<GameObject>(programBackup.effectBlocks);
+        programData.modBlocks = new List<GameObject>(programBackup.modBlocks);
         foreach (GameObject g in programData.baseBlocks)
             allBlocks.Add(g);
         foreach (GameObject g in programData.effectBlocks)

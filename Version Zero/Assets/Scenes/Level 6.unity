@@ -313,6 +313,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: e9dac876181986844a3311838178e884, type: 2}
     - target: {fileID: 2372218506650212160, guid: 1671aca5b291bc04ba40fd574cdc49f1, type: 3}
+      propertyPath: aggroRange
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2372218506650212160, guid: 1671aca5b291bc04ba40fd574cdc49f1, type: 3}
       propertyPath: endBarrier
       value: 
       objectReference: {fileID: 1588410854}
@@ -422,15 +426,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4863033859272096859, guid: 1671aca5b291bc04ba40fd574cdc49f1, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4863033859272096859, guid: 1671aca5b291bc04ba40fd574cdc49f1, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4863033859272096859, guid: 1671aca5b291bc04ba40fd574cdc49f1, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4863033859272096859, guid: 1671aca5b291bc04ba40fd574cdc49f1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4828,6 +4832,11 @@ Transform:
   - {fileID: 2079091657}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &600426066 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6730063707054139185, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+  m_PrefabInstance: {fileID: 1243056213}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &601759720
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5536,6 +5545,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71e3ea98a442141ffa824fc3b1b207e0, type: 3}
+--- !u!1 &720792127 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 775533151886164842, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+  m_PrefabInstance: {fileID: 1243056213}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &730946364
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9054,6 +9068,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5090191650999877330, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 3.055542
+      objectReference: {fileID: 0}
     - target: {fileID: 5301116126936471182, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -411
@@ -9069,6 +9087,10 @@ PrefabInstance:
     - target: {fileID: 6007445763094581937, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6064537153199953325, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 3.055542
       objectReference: {fileID: 0}
     - target: {fileID: 6435293043460307729, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
       propertyPath: m_IsActive
@@ -14393,7 +14415,7 @@ MonoBehaviour:
   panLeft: 113
   panRight: 101
   rotSnap: 0
-  offset: {x: -5, y: -4.774, z: 5.32}
+  baseOffset: {x: 0, y: 0, z: 0}
   rotationSpeed: 80
   cutscene: 0
 --- !u!114 &1844514598
@@ -17119,6 +17141,14 @@ PrefabInstance:
       propertyPath: maxBurstDmg
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 3045372034943755482, guid: ed366113f1ef7954bba91e37b4256f57, type: 3}
+      propertyPath: tutorialWASD
+      value: 
+      objectReference: {fileID: 600426066}
+    - target: {fileID: 3045372034943755482, guid: ed366113f1ef7954bba91e37b4256f57, type: 3}
+      propertyPath: tutorialDialogue
+      value: 
+      objectReference: {fileID: 720792127}
     - target: {fileID: 3693960778970486735, guid: ed366113f1ef7954bba91e37b4256f57, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

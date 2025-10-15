@@ -317,8 +317,10 @@ public class PlayerPrograms : MonoBehaviour
         Physics.IgnoreLayerCollision(6, 12, true);
         GetComponent<TrailRenderer>().emitting = true;
 
-        Vector3 dir = (MousePos() - transform.position);
+        Vector3 dir = (MousePos() - transform.position);  //Option 1: dash toward mouse
         dir = new Vector3(dir.x, 0, dir.z).normalized;
+        //Vector3 dir = transform.forward;  //Option 2: dash in facing direction
+        Vector3 startPos = transform.position;
         StartCoroutine(GoTransparent(0.3f));
 
         float elapsed = 0;
@@ -328,10 +330,21 @@ public class PlayerPrograms : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
-        //use program
         p.cdTimer = p.cdMax;
+
+        //dash-through hitbox
+        Vector3 dashCenter = (transform.position + startPos)/2f;
+        Vector3 dashDir = (transform.position - startPos).normalized;
+        float dashLength = Vector3.Distance(transform.position, startPos);
+
+        Collider[] cols = Physics.OverlapBox(dashCenter, new Vector3(1f, 1f, dashLength/2f), Quaternion.LookRotation(dashDir), LayerMask.GetMask("Enemy"));
+        if (cols.Length > 0)
+            ProgramEffects(cols, p, dashCenter);
+
+        //circle hitbox
         GameObject hitbox = Instantiate(hitboxes[2], transform.position + new Vector3(0, -0.8f, 0), Quaternion.identity);
         hitbox.GetComponent<Hitbox>().program = p;
+        hitbox.GetComponent<Hitbox>().ignoreCols = cols;
 
         dashing = false;
         GetComponent<TrailRenderer>().emitting = false;
@@ -341,6 +354,7 @@ public class PlayerPrograms : MonoBehaviour
 
     private IEnumerator GoTransparent(float duration, float a = 0.5f)
     {
+        //TODO: fix to include all meshes
         List<Material> origMats = new List<Material>();
         foreach (Transform child in transform.GetChild(1))
         {
@@ -349,7 +363,6 @@ public class PlayerPrograms : MonoBehaviour
             {
                 origMats.Add(renderer.material);
                 renderer.material = transparentMat;
-                //apply custom a
             }
             else
             {
@@ -363,7 +376,6 @@ public class PlayerPrograms : MonoBehaviour
             if (renderer != null)
             {
                 renderer.material = origMats[i];
-                //apply custom a
             }
         }
     }
