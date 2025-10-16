@@ -90,6 +90,11 @@ public class PlayerMovement : MonoBehaviour
 
         // Set animator speed
         anim.speed = (running) ? 1.5f : 1f;
+    
+        if (transform.position.y < -10)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 
 
@@ -222,6 +227,7 @@ public class PlayerMovement : MonoBehaviour
     public IEnumerator CutsceneMove(Vector3 target, float dist)
     {
         cutsceneMovement = true;
+        yield return new WaitUntil(() => !GetComponent<PlayerPrograms>().dashing);
         Vector3 flatTarget = new Vector3(target.x, 0, target.z);
         Vector3 flatPos = new Vector3(transform.position.x, 0, transform.position.z);
         moveDir = (flatTarget-flatPos).normalized;
