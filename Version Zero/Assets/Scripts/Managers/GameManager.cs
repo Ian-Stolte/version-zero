@@ -246,6 +246,9 @@ public class GameManager : MonoBehaviour
             if (runNum > 1)
             {
                 terminal.complete = true;
+                GameObject wall = GameObject.Find("Terminal A Wall");
+                wall.GetComponent<BoxCollider>().enabled = true;
+                wall.GetComponent<MeshRenderer>().enabled = true;
                 UnlockBarrier(terminal.barrier);
                 FinishTerminalIcon();
                 numTerminals--;

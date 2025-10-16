@@ -55,7 +55,7 @@ Material:
     - _QueueOffset: 0
     - _Strength: 0.7
     m_Colors:
-    - _BaseColor: {r: 0.52691734, g: 0.9685534, b: 0.6760413, a: 1}
+    - _BaseColor: {r: 0.5591184, g: 0.96862745, b: 0.5254902, a: 1}
     - _Dir: {r: 0.02, g: 0, b: 0, a: 0}
     - _ScaleOffset: {r: 20, g: 200, b: 0, a: 0}
     - _SecondaryColor: {r: 0.4968552, g: 0.9937106, b: 0.8261499, a: 0}

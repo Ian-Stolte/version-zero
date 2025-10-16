@@ -55,7 +55,9 @@ Material:
     - _QueueOffset: 0
     - _Strength: 0.7
     m_Colors:
-    - _BaseColor: {r: 0.4448201, g: 0.7484276, b: 0.5460226, a: 1}
+    - _BaseColor: {r: 0.4926139, g: 0.7490196, b: 0.44313726, a: 1}
     - _Dir: {r: 0.05, g: 0, b: 0, a: 0}
     - _ScaleOffset: {r: 0.8, g: 0.8, b: 0, a: 0}
+    - _SecondaryColor: {r: 0.4968552, g: 0.9937106, b: 0.8261499, a: 0}
+    - _TertiaryColor: {r: 0.9182389, g: 0.3147421, b: 0.3147421, a: 1}
   m_BuildTextureStacks: []

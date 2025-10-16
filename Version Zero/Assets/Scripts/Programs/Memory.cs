@@ -74,8 +74,6 @@ public class Memory : MonoBehaviour
             }
         }
         barrier.SetActive(false);
-
-        //add program to blocks list
         Destroy(newProgram);
     }
 }
