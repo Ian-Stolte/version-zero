@@ -7,10 +7,6 @@ public class Elevator : MonoBehaviour
     public string nextArea;
     public bool final;
 
-    /*void Start()
-    {
-        transform.GetChild(0).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "Elevator to: \n" + nextArea;
-    }*/
 
     void OnTriggerEnter(Collider hit)
     {
@@ -19,7 +15,7 @@ public class Elevator : MonoBehaviour
             if (!final)
             {
                 StartCoroutine(LowerElevator(hit.transform));
-                //TODO: set playerPaused to true but have Reya walk to middle of elevator
+                StartCoroutine(hit.GetComponent<PlayerMovement>().CutsceneMove(transform.position, 0.5f));
             }
             else
             {
@@ -30,7 +26,10 @@ public class Elevator : MonoBehaviour
 
     private IEnumerator LowerElevator(Transform player)
     {
-        yield return new WaitForSeconds(0.5f);
+        // Create positions without y component for distance calculation
+        Vector3 flatPos = new Vector3(transform.position.x, 0, transform.position.z);
+        
+        yield return new WaitUntil(() => Vector3.Distance(flatPos, new Vector3(player.transform.position.x, 0, player.transform.position.z)) < 0.5f);
         StartCoroutine(GameManager.Instance.LoadNextLevel(nextArea));
         for (float i = 0; i < 2.5f; i += 0.01f)
         {

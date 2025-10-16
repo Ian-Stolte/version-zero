@@ -125,6 +125,7 @@ public class WalkingTurret : Enemy
     {
         atkTimer = atkDelay * 0.5f;
         base.Start();
+        GameManager.Instance.pauseGame = true;
 
         StartCoroutine(player.GetComponent<PlayerMovement>().CutsceneMove(transform.position, 12f));
         Vector3 playerToBoss = (transform.position - player.transform.position).normalized;
@@ -141,9 +142,10 @@ public class WalkingTurret : Enemy
         StartCoroutine(a.StartFade("Boss 1", 1, 0.4f));
 
         //play intro dialogue
-        GameManager.Instance.pauseGame = true;
         DialogueManager.Instance.PlayByID("Boss_Intro");
         yield return new WaitUntil(() => !DialogueManager.Instance.dialogue.activeSelf);
+
+        //end cutscene
         GameManager.Instance.pauseGame = false;
         StartCoroutine(Camera.main.GetComponent<CameraFollow>().SetOffset(Vector3.zero, 0.25f));
         GameObject.Find("Cutscene Bars").GetComponent<Animator>().Play("CutsceneEnd");

@@ -10492,6 +10492,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 61365b73998524e4ca8d92910b508c16, type: 3}
   m_PrefabInstance: {fileID: 714376488}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &717306561 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6730063707054139185, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+  m_PrefabInstance: {fileID: 1243056213}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &729318355 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 61365b73998524e4ca8d92910b508c16, type: 3}
@@ -24956,6 +24961,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1739975862}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1742688485 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 775533151886164842, guid: 14cf84e7839daf544b7bbcdb8461c08b, type: 3}
+  m_PrefabInstance: {fileID: 1243056213}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1747780233
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26967,7 +26977,7 @@ MonoBehaviour:
   panLeft: 113
   panRight: 101
   rotSnap: 0
-  offset: {x: -5, y: -4.774, z: 5.32}
+  baseOffset: {x: 0, y: 0, z: 0}
   rotationSpeed: 80
   cutscene: 0
 --- !u!114 &1844514598
@@ -32193,6 +32203,14 @@ PrefabInstance:
       propertyPath: maxBurstDmg
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 3045372034943755482, guid: ed366113f1ef7954bba91e37b4256f57, type: 3}
+      propertyPath: tutorialWASD
+      value: 
+      objectReference: {fileID: 717306561}
+    - target: {fileID: 3045372034943755482, guid: ed366113f1ef7954bba91e37b4256f57, type: 3}
+      propertyPath: tutorialDialogue
+      value: 
+      objectReference: {fileID: 1742688485}
     - target: {fileID: 3693960778970486735, guid: ed366113f1ef7954bba91e37b4256f57, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

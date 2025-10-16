@@ -846,7 +846,7 @@ MonoBehaviour:
   maxHealth: 120
   health: 0
   customDestroy: 1
-  aggroRange: 12
+  aggroRange: 15
   aggro: 0
   stunTimer: 0
   slowTimer: 0
@@ -871,6 +871,7 @@ MonoBehaviour:
   player: {fileID: 0}
   defSpeed: 4
   startBarrier: {fileID: 0}
+  endBarrier: {fileID: 0}
   rewardPrograms:
   - {fileID: 9191262866201418245, guid: 8b3697d6d0d7f554e98ef1208f89bde5, type: 3}
   memoryReward: {fileID: 4808948003568065144, guid: 0a07373fe14604549af5b445f4d52641, type: 3}

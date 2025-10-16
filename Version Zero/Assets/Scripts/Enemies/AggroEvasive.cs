@@ -173,6 +173,14 @@ public class AggroEvasive : Enemy
     private IEnumerator StartAggro()
     {
         atkTimer = aggroAtkDelay;
+        GameManager.Instance.pauseGame = true;
+
+        StartCoroutine(player.GetComponent<PlayerMovement>().CutsceneMove(transform.position, 10f));
+        Vector3 playerToBoss = (transform.position - player.transform.position).normalized;
+        StartCoroutine(Camera.main.GetComponent<CameraFollow>().SetOffset(playerToBoss * 5, 2f));
+        GameObject.Find("Cutscene Bars").GetComponent<Animator>().Play("CutsceneStart");
+
+        yield return new WaitUntil(() => Vector3.Distance(player.transform.position, transform.position) < 11f);
 
         startBarrier.SetActive(true);
         AudioManager a = AudioManager.Instance;
@@ -182,10 +190,14 @@ public class AggroEvasive : Enemy
         StartCoroutine(a.StartFade("Boss 2", 1, 0.3f));
 
         //play intro dialogue
-        GameManager.Instance.pauseGame = true;
         DialogueManager.Instance.PlayByID("Boss_Intro");
         yield return new WaitUntil(() => !DialogueManager.Instance.dialogue.activeSelf);
+
+        //end cutscene
         GameManager.Instance.pauseGame = false;
+        StartCoroutine(Camera.main.GetComponent<CameraFollow>().SetOffset(Vector3.zero, 0.25f));
+        GameObject.Find("Cutscene Bars").GetComponent<Animator>().Play("CutsceneEnd");
+
 
         //set up health bar
         GameManager.Instance.bossUI.SetActive(true);

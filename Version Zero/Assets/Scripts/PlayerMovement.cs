@@ -222,8 +222,10 @@ public class PlayerMovement : MonoBehaviour
     public IEnumerator CutsceneMove(Vector3 target, float dist)
     {
         cutsceneMovement = true;
-        moveDir = (target - transform.position).normalized;
-        yield return new WaitUntil(() => Vector3.Distance(transform.position, target) < dist);
+        Vector3 flatTarget = new Vector3(target.x, 0, target.z);
+        Vector3 flatPos = new Vector3(transform.position.x, 0, transform.position.z);
+        moveDir = (flatTarget-flatPos).normalized;
+        yield return new WaitUntil(() => Vector3.Distance(flatTarget, new Vector3(transform.position.x, 0, transform.position.z)) < dist);
         cutsceneMovement = false;
     }
 }
