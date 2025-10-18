@@ -5,11 +5,13 @@ using UnityEngine;
 public class FunctionSlot : MonoBehaviour
 {
     public Block target;
+    public GameObject warningMsg;
 
     public bool rootSlot;
     public bool onlyEffects;
     [SerializeField] private GameObject slotPrefab;
     [SerializeField] private TMPro.TextMeshProUGUI cdTxt;
+
 
     private void Start()
     {

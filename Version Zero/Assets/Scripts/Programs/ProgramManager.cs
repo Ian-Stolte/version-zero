@@ -391,6 +391,7 @@ public class ProgramManager : MonoBehaviour
             return valid;
 
         FunctionSlot firstChild = slot.transform.GetChild(1).GetComponent<FunctionSlot>();
+        slot.warningMsg.SetActive(firstChild.target == null);
         if ((firstChild != null && firstChild.target != null) || slot.onlyEffects) //at least 1 effect
         {
             return valid + 1;

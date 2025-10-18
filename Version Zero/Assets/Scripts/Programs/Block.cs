@@ -13,6 +13,8 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
     private Canvas canvas;
     private bool dragging;
     [HideInInspector] public FunctionSlot slot;
+    private float hoverTimer;
+    private bool hovering;
 
     [Header("Movement")]
     private GameObject targetSpace;
@@ -119,6 +121,7 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
                     }
                 }
             }
+
             /*if (!upgradeFound)
             {
                 upgrade = null;
@@ -129,6 +132,13 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
                         bl.upgradeCircles.SetActive(false);
                 }
             }*/
+        }
+
+        if (hovering && !dragging)
+            hoverTimer += Time.deltaTime;
+        if (!ProgramManager.Instance.moreInfo)
+        {
+            infoTxt.gameObject.SetActive(hoverTimer > 0.5f && hovering);
         }
     }
 
@@ -189,6 +199,7 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
             targetSpace = null;
 
             symbol.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+            hoverTimer = 0f;
             /*if (rectTransform.anchoredPosition.x > 850 - rectTransform.sizeDelta.x && -200 < rectTransform.anchoredPosition.y && 200 > rectTransform.anchoredPosition.y)
                 levelUp.SetActive(true);
             else
@@ -256,7 +267,8 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
     {
         if (!ProgramManager.Instance.spellsLocked)
         {
-            infoTxt.gameObject.SetActive(true);
+            hoverTimer = 0f;
+            hovering = true;
             //upgradeCircles.SetActive(true);
         }
     }
@@ -265,6 +277,7 @@ public class Block : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerU
     {
         if (!ProgramManager.Instance.spellsLocked)
         {
+            hovering = false;
             if (!ProgramManager.Instance.moreInfo)
                 infoTxt.gameObject.SetActive(false);
             //upgradeCircles.SetActive(false);
